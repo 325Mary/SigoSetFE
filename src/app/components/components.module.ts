@@ -18,7 +18,6 @@ import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.co
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent,
     LoginComponent,
     RestablecerPasswordComponent,
     CambiarPasswordComponent
@@ -26,7 +25,6 @@ import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.co
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
   ]
 })
 export class ComponentsModule { }

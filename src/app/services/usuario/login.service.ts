@@ -30,11 +30,11 @@ export class LoginService {
   }
   
   // Método para cambiar la contraseña
-changePassword(userId: string, nuevaContrasena: string): Observable<any> {
-  console.log('UserId:', userId);
+changePassword(idUsuario: string, nuevaContrasena: string): Observable<any> {
+  console.log('UserId:', idUsuario);
   console.log('NewPassword:', nuevaContrasena);
   
-  const url = `${this.baseUrl}changePassword/${userId}`;
+  const url = `${this.baseUrl}cambiarPassword/${idUsuario}`;
   const body = { nuevaContrasena: nuevaContrasena };
   return this.httpClient.put<any>(url, body);
 

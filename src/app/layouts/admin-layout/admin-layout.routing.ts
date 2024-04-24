@@ -65,5 +65,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
-    { path: 'cambiarPassword', component:CambiarPasswordComponent}
+    { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent}
 ];
