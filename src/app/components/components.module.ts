@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ComponenteComponent } from './componente/componente.component';
+import { RegionalComponent } from './regional/regional.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ComponenteComponent } from './componente/componente.component';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    ComponenteComponent
+    ComponenteComponent,
+    RegionalComponent
   ],
   exports: [
     FooterComponent,

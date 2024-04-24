@@ -1,0 +1,35 @@
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 40rem;">
+        <div class="card-header">
+            <h1 class="text-center">Crear Egreso</h1>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="guardarRegional()" class="row g-3 p-4">
+
+                <div class="col-md-6">
+                    <label class="form-label" for="nombreRegional">Nombre Regional</label>
+                    <input [(ngModel)]="nomreRegional" name="nombreRegional" class="form-control" type="string" id="valor" required #valorModel="ngModel" />
+                    <div *ngIf="nombreRegional.touched && nombreRegional.invalid" class="text-danger">
+                        Debe ingresar el nombre de la regional.
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <label class="form-label" for="direccion">Ingresa la direccion de la regional</label>
+                    <textarea [(ngModel)]="direccion" name="direccion" class="form-control" id="direccion" rows="2" style="resize: none;" required #direccion="ngModel"></textarea>
+                    <div *ngIf="direccion.touched && direccion.invalid" class="text-danger">
+                        Ingresa la direccion de la regional.
+                    </div>
+                </div>
+
+
+                <div class="col-sm-4 d-flex end">
+                    <button type="button" class="btn btn-secondary mr-2" style="text-decoration: none; color: white;" routerLink="/home">Volver</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
