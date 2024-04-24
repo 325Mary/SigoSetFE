@@ -6,7 +6,7 @@
 }
 
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width:1500px) {
   .images_dasboard{
 flex-direction: column;
 position: absolute;
@@ -16,16 +16,29 @@ align-content: center;
 }  
 }
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width:800px) {
+  .images_dasboard{
+    margin-top: 30vh;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+align-content: center;
+}  
+}
+
+@media screen and (max-width:1000px) {
     .img_1{
   width: 50%;
   margin: auto;
   }  
   }
 
-  @media screen and (max-width:1200px) {
+  @media screen and (max-widt:1000px) {
     .img_2{
   width: 100%;
   margin: auto;
 align-items: center;}  
   }
+li:active{
+  background-color: aqua;
+}
