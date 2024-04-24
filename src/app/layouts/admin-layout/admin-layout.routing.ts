@@ -8,6 +8,9 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import {LoginComponent} from '../../components/login/login.component'
+import {RestablecerPasswordComponent} from '../../components/restablecer-password/restablecer-password.component'
+import {  CambiarPasswordComponent } from "../../components/cambiar-password/cambiar-password.component";
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -60,4 +63,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
+    { path: 'login', component: LoginComponent},
+    { path: 'restablecerPassword', component: RestablecerPasswordComponent},
+    { path: 'cambiarPassword', component:CambiarPasswordComponent}
 ];
