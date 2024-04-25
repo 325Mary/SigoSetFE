@@ -1,0 +1,122 @@
+*{
+    box-sizing: border-box;
+  }
+  
+  body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0; /* Color de fondo gris claro */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      
+    }
+    .header {
+      background-color: #0a176d; /* Color de fondo azul */
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+    }
+    footer  {
+        background-color: #fff; /* Color de fondo blanco */
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      
+      }
+    
+    a{
+      text-decoration: none;
+      color: rgb(245, 244, 244);
+  }
+  .nav {
+      display: flex;
+      gap: 20px;
+  }
+  
+  nav a{
+    font-weight: 600;
+    padding-right: 30px;
+    padding: 12px;
+  }
+  
+  nav a:hover{
+    color: rgb(211, 211, 211);
+    background: rgb(5, 162, 235);
+    border-radius: 1000px;
+    transition: 0.2s;
+  }
+  
+  
+    
+    /*.main-content {
+      text-align: center;
+      margin: auto;
+      flex: 1;
+      max-width: 800px;
+      align-items: center;
+      gap: 20px;
+      display: flex;
+      justify-content: center;
+    }*/
+  
+  
+  
+  .face-icon {
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+      
+      
+    }
+    
+    
+    .wasa-icon {
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+      
+    }
+    
+    
+    .instagran-icon {
+      width: 50px;
+      height: 50px; 
+      margin: 10px;
+      
+    } 
+    .logo-img {
+      width: 80px; /* Nuevo tamaño del logo */
+      height: 80px;
+    }
+    .frasesigoset {
+      margin-right: auto; /* Ajusta el valor según necesites */
+      padding-left:10px; 
+    }
+  
+    h1{
+      text-align: center;
+      margin: auto;
+      flex: 1;
+      max-width: 800px;
+      align-items: center;
+      gap: 20px;
+      display: flex;
+      justify-content: center;
+  
+    }
+    p{
+  
+      text-align: center;
+      margin: auto;
+      flex: 1;
+      max-width: 800px;
+      align-items: center;
+      gap: 20px;
+      display: flex;
+      justify-content: center;
+    }
