@@ -10,7 +10,9 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {LoginComponent} from '../../components/login/login.component'
 import {RestablecerPasswordComponent} from '../../components/restablecer-password/restablecer-password.component'
-import {  CambiarPasswordComponent } from "../../components/cambiar-password/cambiar-password.component";
+import {  CambiarPasswordComponent } from "../../components/Usuario/cambiar-password/cambiar-password.component";
+import {PersonalizacionComponent} from '../../components/Usuario/personalizacion/personalizacion.component';
+import {NotFoundComponent} from '../../components/not-found/not-found.component'
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -65,5 +67,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
-    { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent}
+    { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent},
+    { path: 'perfil', component: PersonalizacionComponent},
+    { path: '**', component: NotFoundComponent}
 ];

@@ -10,6 +10,7 @@ import { Router } from '@angular/router'; // Importar Router desde '@angular/rou
 })
 export class LoginComponent {
   showPassword: boolean = false; // Propiedad para controlar si se muestra la contraseña o no
+  passwordFocused: boolean = false;
   user = {
     email_usuario: '',
     password: ''
@@ -22,7 +23,7 @@ export class LoginComponent {
     this.showPassword = !this.showPassword; // Cambia el estado de la propiedad para mostrar/ocultar la contraseña
   }
   onSubmit() {
-    this.loginService.login(this.user).subscribe(response => {
+    this.loginService.iniciarSesion(this.user).subscribe(response => {
         console.log('Inicio de sesión exitoso', response);  
         this.router.navigate(['/dashboard']);  
     }, error => {
@@ -31,6 +32,7 @@ export class LoginComponent {
         console.log('Mensaje de error:', this.errorMessage);
     });
 }
+
 
 
 
