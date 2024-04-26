@@ -8,12 +8,14 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import {LoginComponent} from '../../components/login/login.component'
-import {RestablecerPasswordComponent} from '../../components/restablecer-password/restablecer-password.component'
+import {LoginComponent} from '../../components/Usuario/login/login.component'
+import {RestablecerPasswordComponent} from '../../components/Usuario/restablecer-password/restablecer-password.component'
 import {  CambiarPasswordComponent } from "../../components/Usuario/cambiar-password/cambiar-password.component";
 import {PersonalizacionComponent} from '../../components/Usuario/personalizacion/personalizacion.component';
 import {NotFoundComponent} from '../../components/not-found/not-found.component'
-
+import { CrearUsersComponent} from "../../components/Usuario/crear-users/crear-users.component";
+import { ListUsersComponent } from "../../components/Usuario/list-users/list-users.component";
+import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component"
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -69,5 +71,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
     { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent},
     { path: 'perfil', component: PersonalizacionComponent},
+    { path: 'crearUsuario', component: CrearUsersComponent},
+    { path: 'listarUsuarios', component: ListUsersComponent},
+    { path: 'editarUsuario/:userId', component: EditUserComponent},
     { path: '**', component: NotFoundComponent}
 ];

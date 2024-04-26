@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from "../../services/usuario/login.service";
+import {LoginService} from "../../../services/usuario/login.service"
 import { Router } from '@angular/router'; // Importar Router desde '@angular/router'
 
 
@@ -28,7 +28,7 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);  
     }, error => {
         console.error('Error al iniciar sesión', error);
-        this.errorMessage = 'Contraseña incorrecta';
+        this.errorMessage = 'Usurio y Contraseña incorrectos';
         console.log('Mensaje de error:', this.errorMessage);
     });
 }

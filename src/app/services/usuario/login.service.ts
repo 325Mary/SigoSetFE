@@ -63,4 +63,19 @@ changePassword(idUsuario: string, newPassword: string): Observable<any> {
   return null;
 }
 
+registrarUsuario(formData: FormData, ): Observable<any> {
+  return this.httpClient.post(`${this.baseUrl}crearUsuario`, formData);
+}
+
+// Función para editar datos de usuario
+editUser(userId: string, newData: any): Observable<any> {
+  const url = `${this.baseUrl}editUser/${userId}`; // Endpoint para editar datos de usuario
+  return this.httpClient.put<any>(url, newData);
+}
+
+getUserById(userId: string): Observable<any> {
+  console.log(userId)
+  return this.httpClient.get<any>(`${this.baseUrl}getId/${userId}`);
+}
+
 }
