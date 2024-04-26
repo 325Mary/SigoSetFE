@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoginComponent } from './login/login.component';
 import { RestablecerPasswordComponent } from './restablecer-password/restablecer-password.component';
 import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.component';
@@ -22,7 +21,6 @@ import { PuestosVigilanciaComponent } from '../components/puestos-vig/puestosVig
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent,
     LoginComponent,
     RestablecerPasswordComponent,
     CambiarPasswordComponent,
@@ -32,11 +30,8 @@ import { PuestosVigilanciaComponent } from '../components/puestos-vig/puestosVig
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent,
     ComponenteComponent,
-    RegionalComponent,
-    PuestosVigilanciaComponent
-
+    LoginComponent
   ]
 })
 export class ComponentsModule { }

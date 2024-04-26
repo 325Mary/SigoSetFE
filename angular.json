@@ -167,14 +167,12 @@
       }
     }
   },
+
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app"
-<<<<<<< HEAD
-     
-=======
->>>>>>> origin/12-crear-el-login
     },
+
     "@schematics/angular:directive": {
       "prefix": "app"
     }

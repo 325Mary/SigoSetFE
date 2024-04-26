@@ -8,6 +8,8 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import {  LoginService} from "./services/usuario/login.service";
+import {SidebarComponent} from './components/sidebar/sidebar.component';
+
 import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
@@ -24,6 +26,7 @@ import { BrowserModule } from '@angular/platform-browser';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    SidebarComponent
 
   ],
   providers: [LoginService],

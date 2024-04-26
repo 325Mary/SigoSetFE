@@ -11,7 +11,8 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {LoginComponent} from '../../components/login/login.component'
 import {RestablecerPasswordComponent} from '../../components/restablecer-password/restablecer-password.component'
 import {  CambiarPasswordComponent } from "../../components/cambiar-password/cambiar-password.component";
-
+import { RegionalComponent } from 'app/components/regional/regional.component';
+import { PuestosVigilanciaComponent } from 'app/components/puestos-vig/puestosVig.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -65,5 +66,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
-    { path: 'cambiarPassword', component:CambiarPasswordComponent}
+    { path: 'cambiarPassword', component:CambiarPasswordComponent},
+    {path:'regionales',component:RegionalComponent},
+    {path:'PuestosVigilancia',component:PuestosVigilanciaComponent}
+
 ];
