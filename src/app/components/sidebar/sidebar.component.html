@@ -7,6 +7,28 @@
 </div>
 <div class="sidebar-wrapper">
     <ul class="acordeon">
+        <!-- Item principal Usuario -->
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#collapseUsuario" aria-expanded="false">
+                <i class="material-icons">person</i>
+                <p>Usuarios</p>
+            </a>
+            <!-- Ítems secundarios desplegables -->
+            <div class="collapse" id="collapseUsuario">
+                <ul class="nav flex-column ml-3">
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/crearUsuario']">
+                            <p>Crear Usuario </p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/listarUsuarios']">
+                            <p>Administrar Usuarios</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
             <a class="nav-link" [routerLink]="[menuItem.path]">
                 <i class="material-icons">{{menuItem.icon}}</i>

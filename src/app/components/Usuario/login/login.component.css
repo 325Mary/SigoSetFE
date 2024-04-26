@@ -1,44 +1,49 @@
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
-
 /* Estilo para los inputs con borde azul y esquinas redondas */
 .card .input-group input[type="text"],
 .card .input-group input[type="password"] {
   border: 1px solid rgb(17, 17, 71) !important;
-  border-radius: 10px; /* Ajusta el valor según quieras que sean las esquinas */
-  padding-left: 35px; /* Ajusta el valor para dejar espacio al icono */
+  padding-left: 35px; /* Ajusta el valor para dejar espacio al icono del candado */
+  padding-right: 35px; /* Ajusta el valor para dejar espacio al icono del ojo */
 }
 
 /* Estilo para el span dentro de los input-group para que los íconos estén dentro del borde */
 .card .input-group .input-group-text {
   background-color: transparent; /* Hace que el fondo del span sea transparente */
+  
   border: none; /* Elimina el borde del span */
 }
 
 /* Estilo específico para el contenedor del ícono */
-.card .input-group .input-group-prepend {
+.card .input-group .input-group-prepend,
+.card .input-group .input-group-append {
     background-color: transparent; /* Hace que el fondo del contenedor sea transparente */
     position: absolute; /* Posiciona el contenedor */
-    left: 0; /* Alinea el contenedor a la izquierda del input */
     height: 100%; /* Ajusta la altura del contenedor */
     width: 35px; /* Ajusta el ancho del contenedor para cubrir todo el espacio del ícono */
     display: flex; /* Utiliza flexbox para alinear verticalmente el ícono */
     align-items: center; /* Alinea el ícono verticalmente */
-  }
-  
-  /* Estilo específico para el ícono */
-  .card .input-group .input-group-prepend .input-group-text .bi {
-    margin: auto; /* Centra el ícono horizontalmente dentro del contenedor */
-  }
-  
-
-/* Estilo específico para el ícono */
-.card .input-group .input-group-prepend .input-group-text .bi {
-  position: absolute; /* Posiciona el ícono dentro del contenedor */
-  top: 50%; /* Alinea verticalmente el ícono */
-  left: 10px; /* Ajusta la posición horizontal del ícono */
-  transform: translateY(-50%); /* Centra verticalmente el ícono */
 }
+
+/* Estilo específico para el ícono del candado */
+.card .input-group .input-group-prepend .input-group-text .bi {
+    margin: auto; /* Centra el ícono horizontalmente dentro del contenedor */
+}
+
+/* Estilo específico para el ícono del ojo */
+.card .input-group .input-group-append .input-group-text .bi {
+  position: relative; /* Cambiamos la posición a relativa para que se ajuste correctamente */
+  top: auto; /* Quitamos la alineación vertical */
+  left: 260px; /* Quitamos el ajuste horizontal */
+  transform: none; /* Quitamos cualquier transformación aplicada */
+  padding: 3px; /* Mantenemos el relleno para separar el borde del ícono */
+  z-index: 10000;
+  border-left: 1px solid rgb(17, 17, 71); /* Agregamos una línea de borde al lado izquierdo */
+}
+
+
+
 
 /* Estilo para el botón con fondo azul */
 .card .btn-primary {
@@ -61,15 +66,7 @@
   font-size: 16px; /* ajusta el tamaño según lo necesites */
 }
 
-/* Estilo específico para el ícono del ojo */
-.card .input-group .input-group-prepend .input-group-text .bi-eye,
-.card .input-group .input-group-prepend .input-group-text .bi-eye-slash {
-  position: absolute; /* Posiciona el ícono dentro del contenedor */
-  top: 50%; /* Alinea verticalmente el ícono */
-  left: 10px; /* Ajusta la posición horizontal del ícono */
-  transform: translateY(-50%); /* Centra verticalmente el ícono */
-  border: 1px solid blue; /* Agrega un borde al icono */
-  padding: 5px; /* Ajusta el relleno del icono */
-  background-color: white; /* Cambia el color de fondo del icono */
-  z-index: 1; /* Asegura que el icono esté por encima del borde del input */
+.error-message {
+  color: red;
 }
+

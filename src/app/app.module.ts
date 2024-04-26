@@ -7,9 +7,10 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import {  LoginService} from "./services/usuario/login.service";
 import {SidebarComponent} from './components/sidebar/sidebar.component';
-
+import {LoginService} from './services/usuario/login.service'
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   imports: [
@@ -19,6 +20,13 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        }
+      }
+    }),
     
   ],
   declarations: [
@@ -27,7 +35,7 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
     SidebarComponent
 
   ],
-  providers: [LoginService],
+  providers: [LoginService, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
