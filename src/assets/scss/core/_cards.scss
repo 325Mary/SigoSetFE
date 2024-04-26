@@ -200,6 +200,19 @@
     &.card-rotate.bg-danger .front,
     &.card-rotate.bg-danger .back{
       background: linear-gradient(60deg, $red-400, $red-600);
+      // background: rgb(0,50,77);
+      // background: linear-gradient(90deg, rgba(0,50,77,1) 6%, rgba(2,0,36,1) 94%);
+    }
+
+    .card-header-sena-azul .card-icon,
+    .card-header-sena-azul .card-text,
+    .card-header-sena-azul:not(.card-header-icon):not(.card-header-text),
+    &.bg-sena-azul,
+    &.card-rotate.bg-sena-azul .front,
+    &.card-rotate.bg-sena-azul .back{
+      // background: linear-gradient(60deg, $red-400, $red-600);
+      background: rgb(0,50,77);
+      background: linear-gradient(90deg, rgba(0,50,77,1) 6%, rgba(2,0,36,1) 94%);
     }
 
     .card-header-rose .card-icon,
@@ -223,6 +236,12 @@
     .card-header-danger:not(.card-header-icon):not(.card-header-text),
     .card-header-danger .card-text{
         @include shadow-big-color($brand-danger);
+    }
+
+    .card-header-sena-azul .card-icon,
+    .card-header-sena-azul:not(.card-header-icon):not(.card-header-text),
+    .card-header-sena-azul .card-text{
+        @include shadow-big-color($color-sena);
     }
 
     .card-header-rose .card-icon,
