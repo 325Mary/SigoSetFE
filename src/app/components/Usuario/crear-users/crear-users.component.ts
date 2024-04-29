@@ -23,7 +23,7 @@ export class CrearUsersComponent {
     apellido_usuario: '',
     telefono_usuario: '',
     email_usuario: '',
-    password: '',
+    // password: '',
     estado: ''
   };
   perfiles: Perfil[] = [];
@@ -93,7 +93,7 @@ export class CrearUsersComponent {
       this.registroData.apellido_usuario &&
       this.registroData.telefono_usuario &&
       this.registroData.email_usuario &&
-      this.registroData.password &&
+      // this.registroData.password &&
       this.registroData.estado
     );
   }

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'; // Importa el operador map
 import { JwtHelperService } from '@auth0/angular-jwt';
-
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class LoginService {
   
   private baseUrl = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService) { }
+  constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService,   private router: Router) { }
 
  
 
@@ -23,9 +23,11 @@ export class LoginService {
     return this.httpClient.post<any>(url, formValue)
       .pipe(
         map(response => {
-          // Guardar el userId en el localStorage después del inicio de sesión exitoso
           localStorage.setItem('userId', response.userId);
-          return response; // Devolver la respuesta original del servidor
+          if (response.firstLogin) {
+            this.router.navigate(['/cambiarPassword', { userId: response.userId }]);
+          }
+          return response;
         })
       );
   }
@@ -76,6 +78,29 @@ editUser(userId: string, newData: any): Observable<any> {
 getUserById(userId: string): Observable<any> {
   console.log(userId)
   return this.httpClient.get<any>(`${this.baseUrl}getId/${userId}`);
+}
+
+listarUsuarios(): Observable<any> {
+  const url = `${this.baseUrl}listUsuarios`; 
+  return this.httpClient.get<any>(url);
+}
+
+
+enviarCorreo(idUsuario: string): Observable<any> {
+  const url = `${this.baseUrl}enviarCorreo/${idUsuario}`;
+  return this.httpClient.post<any>(url, null);
+}
+
+
+cambiarEstadoUsuario(idUsuario: string, nuevoEstado: string): Observable<any> {
+  const url = `${this.baseUrl}estadoUsuario/${idUsuario}`;
+  return this.httpClient.put<any>(url, { nuevoEstado });
+}
+
+
+eliminarUsuario(idUsuario: string): Observable<any> {
+  const url = `${this.baseUrl}EliminarUser/${idUsuario}`;
+  return this.httpClient.delete<any>(url);
 }
 
 }

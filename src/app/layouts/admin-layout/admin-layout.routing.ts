@@ -15,7 +15,8 @@ import {PersonalizacionComponent} from '../../components/Usuario/personalizacion
 import {NotFoundComponent} from '../../components/not-found/not-found.component'
 import { CrearUsersComponent} from "../../components/Usuario/crear-users/crear-users.component";
 import { ListUsersComponent } from "../../components/Usuario/list-users/list-users.component";
-import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component"
+import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component";
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',

@@ -31,17 +31,25 @@
     margin: auto; /* Centra el ícono horizontalmente dentro del contenedor */
 }
 
-/* Estilo específico para el ícono del ojo */
-.card .input-group .input-group-append .input-group-text .bi {
-  position: relative; /* Cambiamos la posición a relativa para que se ajuste correctamente */
-  top: auto; /* Quitamos la alineación vertical */
-  left: 260px; /* Quitamos el ajuste horizontal */
-  transform: none; /* Quitamos cualquier transformación aplicada */
-  padding: 3px; /* Mantenemos el relleno para separar el borde del ícono */
-  z-index: 10000;
-  border-left: 1px solid rgb(17, 17, 71); /* Agregamos una línea de borde al lado izquierdo */
+/* Estilo específico para el contenedor del ícono del ojo */
+.card .input-group .input-group-append {
+  background-color: transparent; /* Hace que el fondo del contenedor sea transparente */
+  position: absolute; /* Posiciona el contenedor */
+  height: 100%; /* Ajusta la altura del contenedor */
+  width: auto; /* Deja que el ancho del contenedor se ajuste automáticamente */
+  display: flex; /* Utiliza flexbox para alinear los elementos */
+  align-items: center; /* Alinea verticalmente los elementos */
+  right: 0; /* Posiciona el contenedor al final del input */
+  padding-right: 5px; /* Ajusta el espacio entre el input y el contenedor */
 }
 
+/* Estilo específico para el ícono del ojo */
+.card .input-group .input-group-append .input-group-text .bi {
+  margin: auto; /* Centra el ícono horizontalmente dentro del contenedor */
+  border-left: 1px solid rgb(17, 17, 71); /* Agregamos una línea de borde al lado izquierdo */
+  padding-left: 10px;
+z-index: 1000;
+}
 
 
 
@@ -70,3 +78,13 @@
   color: red;
 }
 
+/* Estilos específicos para hacer el formulario responsive */
+@media (max-width: 768px) {
+  .card {
+    margin-top: 50px; /* Ajusta el margen superior para que no se pegue al borde superior en pantallas pequeñas */
+  }
+
+  .card .col-md-4 {
+    max-width: 80%; /* Limita el ancho del formulario en pantallas pequeñas */
+  }
+}

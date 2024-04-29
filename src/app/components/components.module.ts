@@ -13,13 +13,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ListUsersComponent } from './Usuario/list-users/list-users.component';
 import {CrearUsersComponent} from './Usuario/crear-users/crear-users.component';
 import { EditUserComponent } from './Usuario/edit-user/edit-user.component'
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   declarations: [
     FooterComponent,

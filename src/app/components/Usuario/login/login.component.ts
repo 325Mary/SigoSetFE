@@ -22,17 +22,24 @@ export class LoginComponent {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword; // Cambia el estado de la propiedad para mostrar/ocultar la contraseña
   }
+
   onSubmit() {
     this.loginService.iniciarSesion(this.user).subscribe(response => {
-        console.log('Inicio de sesión exitoso', response);  
-        this.router.navigate(['/dashboard']);  
+        console.log('Inicio de sesión exitoso', response);
+        // Verificar si es el primer inicio de sesión
+        if (response.firstLogin) {
+          // Si es el primer inicio de sesión, navegar a la ruta para cambiar la contraseña
+          this.router.navigate(['/cambiarPassword', response.userId]);
+        } else {
+          // Si no es el primer inicio de sesión, navegar al dashboard
+          this.router.navigate(['/dashboard']);
+        }
     }, error => {
         console.error('Error al iniciar sesión', error);
-        this.errorMessage = 'Usurio y Contraseña incorrectos';
+        this.errorMessage = 'Usuario y Contraseña incorrectos';
         console.log('Mensaje de error:', this.errorMessage);
     });
-}
-
+  }
 
 
 
