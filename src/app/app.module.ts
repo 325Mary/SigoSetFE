@@ -11,6 +11,8 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {LoginService} from './services/usuario/login.service'
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { JwtModule } from '@auth0/angular-jwt';
+import { HomeComponent } from './views/home/home.component';
+import { NavbarComponent } from "../app/components/navbar/navbar.component";
 
 @NgModule({
   imports: [
@@ -32,7 +34,9 @@ import { JwtModule } from '@auth0/angular-jwt';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    SidebarComponent
+    SidebarComponent,
+    HomeComponent,
+    NavbarComponent
 
   ],
   providers: [LoginService, JwtHelperService],

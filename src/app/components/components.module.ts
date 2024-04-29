@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './Usuario/login/login.component';
 import { RestablecerPasswordComponent } from './Usuario/restablecer-password/restablecer-password.component';
 import { CambiarPasswordComponent } from './Usuario/cambiar-password/cambiar-password.component';
@@ -13,7 +12,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ListUsersComponent } from './Usuario/list-users/list-users.component';
 import {CrearUsersComponent} from './Usuario/crear-users/crear-users.component';
 import { EditUserComponent } from './Usuario/edit-user/edit-user.component'
-import { HomeComponent } from './home/home.component';
+
 
 @NgModule({
   imports: [
@@ -24,7 +23,6 @@ import { HomeComponent } from './home/home.component';
   ],
   declarations: [
     FooterComponent,
-    NavbarComponent,
     LoginComponent,
     RestablecerPasswordComponent,
     CambiarPasswordComponent,
@@ -37,7 +35,6 @@ import { HomeComponent } from './home/home.component';
   ],
   exports: [
     FooterComponent,
-    NavbarComponent,
     ComponenteComponent,
     LoginComponent
   ]
