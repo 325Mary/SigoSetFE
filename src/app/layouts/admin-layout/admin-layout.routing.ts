@@ -16,6 +16,7 @@ import {NotFoundComponent} from '../../components/not-found/not-found.component'
 import { CrearUsersComponent} from "../../components/Usuario/crear-users/crear-users.component";
 import { ListUsersComponent } from "../../components/Usuario/list-users/list-users.component";
 import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component"
+import { HomeComponent } from 'app/views/login/ladding/home.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -60,6 +61,7 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
+    {path:'home',component :HomeComponent},
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
