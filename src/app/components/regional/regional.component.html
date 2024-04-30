@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <h2>Crear Regional</h2>
 
     <form [formGroup]="regionalForm" (ngSubmit)="createRegional()">
@@ -15,4 +15,45 @@
     </form>
 
     <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+</div> -->
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 40rem;">
+        <div class="card-header">
+            <h2>Crear Nueva Regional</h2>
+        </div>
+        <div class="card-body">
+
+            <form [formGroup]="regionalForm" (ngSubmit)="createRegional()">
+                <div class="form-group">
+                    <label for="nombreRegional">Nombre:</label>
+                    <input type="text" id="nombreRegional" formControlName="nombreRegional" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" formControlName="direccion" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Regional</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<hr>
+<div class="card-body cont-table">
+    <div class="title">
+        <div class="row">
+            <div class="col">
+
+                <h2>Listado de Regionales</h2>
+                <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+                <ul class="list-group">
+                    <li *ngFor="let regional of regionales" class="list-group-item">
+                        <h4>{{ regional.nombreRegional }}</h4>
+                        <p>{{ regional.direccion }}</p>
+                    </li>
+                    <li *ngIf="regionales.length === 0" class="list-group-item">No hay regionales para mostrar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

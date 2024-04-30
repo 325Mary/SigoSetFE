@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PuestosVigilanciaService } from '../../services/puestosvigilancia/puestosVig.service';
+import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 
 @Component({
   selector: 'app-puestos-vigilancia',
-  templateUrl: './puestosVig.component.html',
-  styleUrls: ['./puestosVig.component.css']
+  templateUrl: '../crear-puestos-vig/puestosVig.component.html',
+  styleUrls: ['./../crear-puestos-vig/puestosVig.component.css']
 })
 export class PuestosVigilanciaComponent implements OnInit {
   puestos: any[] = [];

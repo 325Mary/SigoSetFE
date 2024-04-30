@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoginService} from "../../services/usuario/login.service";
+import {LoginService} from "../../../services/usuario/login.service"
 import { Router } from '@angular/router'; // Importar Router desde '@angular/router'
 
 
@@ -10,6 +10,7 @@ import { Router } from '@angular/router'; // Importar Router desde '@angular/rou
 })
 export class LoginComponent {
   showPassword: boolean = false; // Propiedad para controlar si se muestra la contraseña o no
+  passwordFocused: boolean = false;
   user = {
     email_usuario: '',
     password: ''
@@ -22,15 +23,16 @@ export class LoginComponent {
     this.showPassword = !this.showPassword; // Cambia el estado de la propiedad para mostrar/ocultar la contraseña
   }
   onSubmit() {
-    this.loginService.login(this.user).subscribe(response => {
+    this.loginService.iniciarSesion(this.user).subscribe(response => {
         console.log('Inicio de sesión exitoso', response);  
         this.router.navigate(['/dashboard']);  
     }, error => {
         console.error('Error al iniciar sesión', error);
-        this.errorMessage = 'Contraseña incorrecta';
+        this.errorMessage = 'Usurio y Contraseña incorrectos';
         console.log('Mensaje de error:', this.errorMessage);
     });
 }
+
 
 
 
