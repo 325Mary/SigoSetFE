@@ -1,49 +1,70 @@
-<div class="container-fluid bg-light">
-  <div class="row justify-content-center align-items-center vh-100">
-    <div class="col-md-4">
-      <div class="card shadow">
-        <div class="card-header bg-white">
-          <h5 class="text-center">
-            <span class="main-title">Ingrese sus credenciales</span><br>
-            <span class="main-title">de ingreso</span>
-          </h5>
-        </div>
-        <div class="card-body">
-          <form (ngSubmit)="onSubmit()">
-            <div class="mb-2">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="bi bi-person"></i>
-                  </span>
-                </div>
-                <input type="text" class="form-control" id="email" [(ngModel)]="user.email_usuario" name="email" placeholder="Correo electrónico">
-              </div>
-            </div>
-            <div class="mb-3 position-relative">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="bi bi-lock"></i>
-                  </span>
-                </div>
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control pr-9" id="password" [(ngModel)]="user.password" name="password" placeholder="Contraseña">
-                <div class="input-group-append">
-                  <span class="input-group-text eye-icon" style="cursor: pointer;" (click)="togglePasswordVisibility()">
-                    <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
-                  </span>
-                </div>
-              </div>
-              <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-            </div>
-            
-            <button type="submit" class="btn btn-primary btn-sm d-block mx-auto">Ingresar</button>
-            <div class="text-center mt-2">
-              <a routerLink="/restablecerPassword/">¿Olvidaste tu contraseña?</a>
-            </div>
-          </form>
-        </div>
+<div class="content_main">
+  <nav class="header_content">
+    <div class="header_">
+      <img src="./assets/img/image (12).png" width="30" height="30" class="image_logo" alt="">
+      <p class="title_sigoset">SIGOSET</p>
+    </div>
+    <nav class="nav">
+      <a routerLink="/home" (click)="backToHome()" class="a_back">Home</a>
+    </nav>
+
+  </nav>
+  <div class="content_content">
+     <div class="container_login">
+    <div class="card shadow">
+      <div class="card-header bg-white">
+        <h5 class="text-center">
+          <span class="main-title">Ingrese sus credenciales</span><br>
+          <span class="main-title">de ingreso</span>
+        </h5>
       </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()">
+          <div class="mb-2">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="bi bi-person"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="email" [(ngModel)]="user.email_usuario" name="email"
+                placeholder="Correo electrónico">
+            </div>
+          </div>
+          <div class="mb-3 position-relative">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="bi bi-lock"></i>
+                </span>
+              </div>
+              <input [type]="showPassword ? 'text' : 'password'" class="form-control pr-9" id="password"
+                [(ngModel)]="user.password" name="password" placeholder="Contraseña">
+              <div class="input-group-append">
+                <span class="input-group-text eye-icon" style="cursor: pointer;" (click)="togglePasswordVisibility()">
+                  <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+                </span>
+              </div>
+            </div>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-sm d-block mx-auto">Ingresar</button>
+          <div class="text-center mt-2">
+            <a routerLink="/restablecerPassword/">¿Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+ 
+
+  <div class="footer_content">
+    <div class="footer_div">
+      <p class="class_footer">Copyright © 2021 <a href="https://develdfp.cloudsenactpi.net/#/home" class="link_sena">
+          Fábrica de software</a>- Centro de Teleinformática y Producción
+        Industrial - Regional Cauca </p>
     </div>
   </div>
 </div>

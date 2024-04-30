@@ -1,120 +1,118 @@
-* {
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Color de fondo gris claro */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .header {
-    background-color: #002340; /* Color de fondo azul */
-    color: #fff;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  footer {
-    background-color:#002340; /* Color de fondo blanco */
-    color: #fff;
-    position: absolute;
-    bottom: 0;
+.image_logo {
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+}
+.titulo_sigoset {
+  color: white;
+  font-weight: 800;
+  font-size: xx-large;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.logo {
+  display: flex;
+}
+.header {
+  background-color: #002340; /* Color de fondo azul */
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  height: 13vh;
+  justify-content: space-between;
+  align-items: center;
+}
+
+a:hover {
+  text-align: center;
+  color: rgb(0, 35, 64, 1);
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  transition: 0.2s;
+}
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.a_iniciar {
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  height: 4vh;
+  border-radius: 10px;
+  border: 1px solid white;
+  color: rgb(255, 255, 255);
+}
+.a_iniciar:hover {
+  background-color: white;
+  color: rgb(0, 35, 64, 1);
+}
+.imagen_sigoset {
+  width: 55%;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+}
+.main-content {
+  margin: auto;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0; /* Color de fondo gris claro */
+  height: 70vh;
+}
+.content_main {
+  display: flex;
+  margin: auto;
+  width: 70%;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
+  justify-content: center;
+}
+.text_welcome {
+  color: #002340;
+  font-style: normal;
+}
+.footer_content {
+  background-color: rgb(0, 35, 64, 1);
+  color: #fff;
+  height: 17vh;
+  display: flex;
+}
+.class_footer {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+}
+.link_sena {
+  text-decoration: none;
+  color: white;
+}
+
+@media screen and (max-width: 1200px) {
+  .imagen_sigoset {
     width: 100%;
-    min-height: 10vh;
-  
-    display: flex;
-    justify-content: center;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .logo {
+    flex-direction: row;
     align-items: center;
-  
-  }
-  
-  a {
-    text-decoration: none;
-    color: rgb(245, 244, 244);
-  }
-  
-  .nav {
-    display: flex;
-    gap: 20px;
-  }
-  
-  nav a {
-    font-weight: 600;
-    padding-right: 30px;
-    padding: 12px;
-  }
-  
-  nav a:hover {
-    color: rgb(211, 211, 211);
-    background: rgb(5, 162, 235);
-    border-radius: 1000px;
-    transition: 0.2s;
-  }
-  
-  /*.face-icon,
-  .wasa-icon,
-  .instagran-icon {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-  }*/
-  
-  .logo-img {
-    width: 80px; /* Nuevo tamaño del logo */
-    height: 80px;
-  }
-  .sesion-img {
-    width: 80px; /* Nuevo tamaño del logo */
-    height: 80px;
-  }
-  
-  
-  
-  .frasesigoset {
-    margin-right: auto; /* Ajusta el valor según necesites */
-    padding-left: 10px;
-  }
-  
-  h1,
-  p {
     text-align: center;
-    margin: auto;
-    flex: 1;
-    max-width: 800px;
-    align-items: center;
-    gap: 20px;
-    display: flex;
-    justify-content: center;
   }
-  
-  .sigoset {
-    display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
+  .text_welcome{
+    color: #002340;
+    font-style: normal;
+    font-size: 30px;
   }
-  
-  /* Media queries para hacer el diseño más responsivo */
-  
-  @media screen and (max-width: 768px) {
-    .nav {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    nav a {
-        padding-right: 0;
-        padding-bottom: 10px;
-    }
-  
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
+  .image_logo{
+    padding: 10;
+    margin-top:20px;
   }
+}

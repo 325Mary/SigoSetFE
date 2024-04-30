@@ -8,7 +8,8 @@ import { Router } from '@angular/router'; // Importar Router desde '@angular/rou
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
   showPassword: boolean = false; // Propiedad para controlar si se muestra la contraseña o no
   passwordFocused: boolean = false;
   user = {
@@ -19,6 +20,14 @@ export class LoginComponent {
 
  
   constructor(private loginService: LoginService, private router: Router) { }
+
+  //Volver al home 
+  ngOnInit(){}
+  backToHome(){
+    this.router.navigate([''])
+  }
+  //Cerrando el ciclo
+
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword; // Cambia el estado de la propiedad para mostrar/ocultar la contraseña
   }
