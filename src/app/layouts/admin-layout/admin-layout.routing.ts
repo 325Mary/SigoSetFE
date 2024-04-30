@@ -15,7 +15,10 @@ import {PersonalizacionComponent} from '../../components/Usuario/personalizacion
 import {NotFoundComponent} from '../../components/not-found/not-found.component'
 import { CrearUsersComponent} from "../../components/Usuario/crear-users/crear-users.component";
 import { ListUsersComponent } from "../../components/Usuario/list-users/list-users.component";
-import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component"
+import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component";
+import { RegionalComponent } from 'app/components/regional/regional.component';
+import { PuestosVigilanciaComponent } from 'app/components/puestos-vig/crear-puestos-vig/puestosVig.component';
+import { ListPuestosVigComponent } from 'app/components/puestos-vig/list-puestos-vig/list-puestos-vig.component';
 import { HomeComponent } from 'app/views/login/ladding/home.component';
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -76,5 +79,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'crearUsuario', component: CrearUsersComponent},
     { path: 'listarUsuarios', component: ListUsersComponent},
     { path: 'editarUsuario/:userId', component: EditUserComponent},
-    { path: '**', component: NotFoundComponent}
+    { path: 'cambiarPassword', component:CambiarPasswordComponent},
+    {path:'regionales',component:RegionalComponent},
+    {path:'PuestosVigilancia',component:PuestosVigilanciaComponent},
+    { path: '**', component: NotFoundComponent},
+    {path:'listarPuestosVig',component:ListPuestosVigComponent}
+
 ];

@@ -1,3 +1,4 @@
+// import { ListPuestosVigComponent } from './../list-puestos-vig/list-puestos-vig.component';
 import { Component, OnInit } from '@angular/core';
 
 declare const $: any;
@@ -14,6 +15,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/table-list', title: 'Administar Empresas',  icon:'content_paste', class: '' },
     { path: '/typography', title: 'Administar Usuarios',  icon:'library_books', class: '' },
     { path: '/icons', title: 'Cerrar Seción',  icon:'dashboard', class: '' },
+    { path:'/regionales',title:'crear regionales',icon:'',class:''},
+    { path:'/PuestosVigilancia',title:'puestos vigilancia',icon:'',class:''},
+    {path:'/ListPuestosVig',title:'list Puestos Vigilancia',icon:'',class:''},
 ];
 
 @Component({

@@ -1,204 +1,102 @@
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
 /* Estilo para los inputs con borde azul y esquinas redondas */
+
 .card .input-group input[type="text"],
 .card .input-group input[type="password"] {
-  border: 1px solid rgb(17, 17, 71) !important;
-  padding-left: 35px; /* Ajusta el valor para dejar espacio al icono del candado */
-  padding-right: 35px; /* Ajusta el valor para dejar espacio al icono del ojo */
+    border: 1px solid rgb(17, 17, 71) !important;
+    padding-left: 35px;
+    /* Ajusta el valor para dejar espacio al icono del candado */
+    padding-right: 35px;
+    /* Ajusta el valor para dejar espacio al icono del ojo */
 }
+
 
 /* Estilo para el span dentro de los input-group para que los íconos estén dentro del borde */
+
 .card .input-group .input-group-text {
-  background-color: transparent; /* Hace que el fondo del span sea transparente */
-  
-  border: none; /* Elimina el borde del span */
+    background-color: transparent;
+    /* Hace que el fondo del span sea transparente */
+    border: none;
+    /* Elimina el borde del span */
 }
+
 
 /* Estilo específico para el contenedor del ícono */
+
 .card .input-group .input-group-prepend,
 .card .input-group .input-group-append {
-    background-color: transparent; /* Hace que el fondo del contenedor sea transparente */
-    position: absolute; /* Posiciona el contenedor */
-    height: 100%; /* Ajusta la altura del contenedor */
-    width: 35px; /* Ajusta el ancho del contenedor para cubrir todo el espacio del ícono */
-    display: flex; /* Utiliza flexbox para alinear verticalmente el ícono */
-    align-items: center; /* Alinea el ícono verticalmente */
+    background-color: transparent;
+    /* Hace que el fondo del contenedor sea transparente */
+    position: absolute;
+    /* Posiciona el contenedor */
+    height: 100%;
+    /* Ajusta la altura del contenedor */
+    width: 35px;
+    /* Ajusta el ancho del contenedor para cubrir todo el espacio del ícono */
+    display: flex;
+    /* Utiliza flexbox para alinear verticalmente el ícono */
+    align-items: center;
+    /* Alinea el ícono verticalmente */
 }
+
 
 /* Estilo específico para el ícono del candado */
+
 .card .input-group .input-group-prepend .input-group-text .bi {
-    margin: auto; /* Centra el ícono horizontalmente dentro del contenedor */
+    margin: auto;
+    /* Centra el ícono horizontalmente dentro del contenedor */
 }
+
 
 /* Estilo específico para el ícono del ojo */
+
 .card .input-group .input-group-append .input-group-text .bi {
-  position: relative; /* Cambiamos la posición a relativa para que se ajuste correctamente */
-  top: auto; /* Quitamos la alineación vertical */
-  left: 260px; /* Quitamos el ajuste horizontal */
-  transform: none; /* Quitamos cualquier transformación aplicada */
-  padding: 3px; /* Mantenemos el relleno para separar el borde del ícono */
-  z-index: 10000;
-  border-left: 1px solid rgb(17, 17, 71); /* Agregamos una línea de borde al lado izquierdo */
+    position: relative;
+    /* Cambiamos la posición a relativa para que se ajuste correctamente */
+    top: auto;
+    /* Quitamos la alineación vertical */
+    left: 260px;
+    /* Quitamos el ajuste horizontal */
+    transform: none;
+    /* Quitamos cualquier transformación aplicada */
+    padding: 3px;
+    /* Mantenemos el relleno para separar el borde del ícono */
+    z-index: 10000;
+    border-left: 1px solid rgb(17, 17, 71);
+    /* Agregamos una línea de borde al lado izquierdo */
 }
-
-
 
 
 /* Estilo para el botón con fondo azul */
+
 .card .btn-primary {
-  background-color: rgb(17, 17, 71) !important;
-  border-color: blue !important;
+    background-color: rgb(17, 17, 71) !important;
+    border-color: blue !important;
 }
+
 
 /* Estilo para el título principal */
+
 .card .card-header h5 .main-title {
-  color: rgb(17, 17, 71) !important;
-  font-weight: bold;
-  font-size: 20px; /* ajusta el tamaño según lo necesites */
-  margin-bottom: 0; /* quita el margen inferior */
+    color: rgb(17, 17, 71) !important;
+    font-weight: bold;
+    font-size: 20px;
+    /* ajusta el tamaño según lo necesites */
+    margin-bottom: 0;
+    /* quita el margen inferior */
 }
 
+
 /* Estilo para el subtítulo */
+
 .card .card-header h5 .subtitle {
-  color: rgb(17, 17, 71) !important;
-  font-weight: normal;
-  font-size: 16px; /* ajusta el tamaño según lo necesites */
+    color: rgb(17, 17, 71) !important;
+    font-weight: normal;
+    font-size: 16px;
+    /* ajusta el tamaño según lo necesites */
 }
 
 .error-message {
-  color: red;
+    color: red;
 }
-/*Cambios por si acaso*/
-
-.header_content{
-  background-color: #002340;
-  width: 100%;
-  height: 13vh;
-  justify-content: space-between;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  
-}
-.nav {
-  display: flex;
-  gap: 20px;
-}
-.a_back{
-  padding-right: 30px;
-  padding-left: 30px;
-  padding-bottom: 10px;
-  padding-top: 5px;
-  height: 4vh;
-  border-radius: 10px;
-  border: 1px solid white;
-  color: rgb(255, 255, 255);
-}
-.a_back:hover{
- background-color: white;
-  color: #002340;
-}
-
-.footer_content{
-  background-color: #002340;
-  width: 100%;
-  display: flex;
-  height: 15vh;
-}
-.link_sena{
-  color: white;
-}
-.class_footer{
-  color: white;
-  text-align: center;
-}
-.title_sigoset{
-  color: white;
-  font-size: xx-large;
-  font-weight:800;
-  margin-top: 20px;
-  padding: 5px;
-}
-.image_logo{
-  padding: 10px;
-  width: 80px;
-  height: 80px;
-}
-.header_{
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  align-items: center;
-}
-.container_login
-{
-margin: auto;
-margin-top: 50px;
-margin-bottom: 50px;
-width: 20%;
-}
-.footer_div
-{
-margin: auto;
-width: 70%;
-}
-.content_content{
-  height: 617px;
-}
-/*Media para el login*/
-
-
-@media screen and (max-width: 1250px) {
-  .container_login{
-margin: auto;
-margin-bottom: 50px;
-width: 50%;
-}
-}
-@media screen and (max-width: 1200px) {
-  .container_login{
-margin: auto;
-margin-bottom: 50px;
-width: 50%;
-}
-}
-@media screen and (max-width: 1000px) {
-  .container_login{
-margin: auto;
-margin-bottom: 50px;
-width: 20%;
-}
-}
-
-@media screen and (max-width: 600px) {
-  .container_login{
-margin: auto;
-margin-bottom: 50px;
-width: 50%;
-}
-}
-
-/*1/4*/
-@media screen and (max-width: 1660px) {
-  .container_login{
-margin: auto;
-margin-bottom: 50px;
-width: 70%;
-}
-}
-@media screen and (max-width: 460px) {
-  .container_login{
-margin: auto;
-margin-bottom: 50px;
-width: 60%;
-}
-}
-@media screen and (max-width: 500px) {
-  .container_login{
-margin: auto;
-margin-bottom: 50px;
-width: 80%;
-}
-}
-

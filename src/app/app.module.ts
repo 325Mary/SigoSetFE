@@ -11,15 +11,21 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {LoginService} from './services/usuario/login.service'
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { JwtModule } from '@auth0/angular-jwt';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatTableModule } from '@angular/material/table';
+import { ListPuestosVigComponent } from './components/puestos-vig/list-puestos-vig/list-puestos-vig.component';
+
 
 @NgModule({
   imports: [
-    BrowserAnimationsModule,
-    FormsModule,
     ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
+    MatTableModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -28,11 +34,13 @@ import { JwtModule } from '@auth0/angular-jwt';
       }
     }),
     
+    
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    SidebarComponent
+    SidebarComponent,
+    ListPuestosVigComponent
 
   ],
   providers: [LoginService, JwtHelperService],
