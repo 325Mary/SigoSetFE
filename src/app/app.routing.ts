@@ -4,11 +4,11 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { LoginComponent } from './components/Usuario/login/login.component';
+import {HomeComponent  } from "../app/views/home/home.component";import { LoginComponent } from './components/Usuario/login/login.component';
 
 const routes: Routes =[
   {
-    path: '',
+    path: '/',
     redirectTo: 'home',
     pathMatch: 'full',
   },
@@ -22,9 +22,13 @@ const routes: Routes =[
     path: '',
     component: AdminLayoutComponent,
     children: [{
-      path: '',
-      loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
+    path: '',
+    loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
     }]
+  },
+  {
+    path: '',
+    component: HomeComponent,
   }
 ];
 
