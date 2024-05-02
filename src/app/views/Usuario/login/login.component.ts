@@ -35,9 +35,13 @@ export class LoginComponent {
           this.router.navigate(['/dashboard']);
         }
     }, error => {
-        console.error('Error al iniciar sesión', error);
+      console.error('Error al iniciar sesión', error);
+      if (error && error.error && error.error.error) {
+        this.errorMessage = error.error.error;
+      } else {
         this.errorMessage = 'Usuario y Contraseña incorrectos';
-        console.log('Mensaje de error:', this.errorMessage);
+      }
+      console.log('Mensaje de error:', this.errorMessage);
     });
   }
 

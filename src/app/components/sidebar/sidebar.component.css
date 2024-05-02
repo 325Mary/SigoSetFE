@@ -6,3 +6,7 @@
     background-color: rgba(0, 49, 77, 1);
     transition-duration: 4ms;
 }
+.sidebar-wrapper {
+    overflow-y: auto; /* Establece el desplazamiento vertical */
+    max-height: 80vh; /* Establece la altura máxima para la barra de desplazamiento */
+}

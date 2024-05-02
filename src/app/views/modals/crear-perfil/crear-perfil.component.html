@@ -1,0 +1,16 @@
+<div class="container d-flex flex-column align-items-center">
+  <h5 class="mt-3 mb-4">Crear Nuevo Perfil</h5>
+
+  <form (submit)="crearPerfil()" class="w-100">
+      <div class="form-group d-flex flex-column align-items-center">
+          <label for="nombre">Nombre del Perfil:</label>
+          <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="nuevoPerfil.perfil" required>
+      </div>
+      <!-- Agrega más campos según sea necesario para tu perfil -->
+
+      <div class="d-flex justify-content-between w-100">
+          <button type="submit" class="btn ">Crear Perfil</button>
+          <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+      </div>
+  </form>
+</div>

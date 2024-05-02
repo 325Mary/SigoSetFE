@@ -8,14 +8,16 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import {LoginComponent} from '../../components/Usuario/login/login.component'
-import {RestablecerPasswordComponent} from '../../components/Usuario/restablecer-password/restablecer-password.component'
-import {  CambiarPasswordComponent } from "../../components/Usuario/cambiar-password/cambiar-password.component";
-import {PersonalizacionComponent} from '../../components/Usuario/personalizacion/personalizacion.component';
+import {LoginComponent} from '../../views/Usuario/login/login.component'
+import {RestablecerPasswordComponent} from '../../views/Usuario/restablecer-password/restablecer-password.component'
+import {  CambiarPasswordComponent } from "../../views/Usuario/cambiar-password/cambiar-password.component";
+import {PersonalizacionComponent} from '../../views/Usuario/personalizacion/personalizacion.component';
 import {NotFoundComponent} from '../../components/not-found/not-found.component'
-import { CrearUsersComponent} from "../../components/Usuario/crear-users/crear-users.component";
-import { ListUsersComponent } from "../../components/Usuario/list-users/list-users.component";
-import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component";
+import { CrearUsersComponent} from "../../views//Usuario/crear-users/crear-users.component";
+import { ListUsersComponent } from "../../views/Usuario/list-users/list-users.component";
+import {EditUserComponent} from "../../views/Usuario/edit-user/edit-user.component";
+import {CrearPerfilComponent} from  '../../views/modals/crear-perfil/crear-perfil.component'
+import {ListarPerfilesComponent} from '../../views/Perfiles/listar-perfiles/listar-perfiles.component'
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -75,5 +77,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'crearUsuario', component: CrearUsersComponent},
     { path: 'listarUsuarios', component: ListUsersComponent},
     { path: 'editarUsuario/:userId', component: EditUserComponent},
+    { path: 'crearPerfil', component: CrearPerfilComponent},
+    { path: 'AdministrarPerfiles', component: ListarPerfilesComponent},
     { path: '**', component: NotFoundComponent}
 ];

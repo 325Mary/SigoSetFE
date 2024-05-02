@@ -11,6 +11,9 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {LoginService} from './services/usuario/login.service'
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ListarPerfilesComponent } from './views/Perfiles/listar-perfiles/listar-perfiles.component';
+import {EditarPerfilComponent} from './views/modals/editar-perfil/editar-perfil.component';
+import {CrearPerfilComponent} from './views/modals/crear-perfil/crear-perfil.component'
 
 @NgModule({
   imports: [
@@ -32,7 +35,10 @@ import { JwtModule } from '@auth0/angular-jwt';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    SidebarComponent
+    SidebarComponent,
+    ListarPerfilesComponent,
+    EditarPerfilComponent,
+    CrearPerfilComponent
 
   ],
   providers: [LoginService, JwtHelperService],

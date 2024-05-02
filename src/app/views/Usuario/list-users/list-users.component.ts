@@ -70,13 +70,46 @@ enviarCorreo(idUsuario: string) {
 }
 
 cambiarEstado(idUsuario: string) {
-  this.loginService.cambiarEstadoUsuario(idUsuario, 'nuevoEstado').subscribe(
+  Swal.fire({
+    title: 'Selecciona un estado',
+    icon: 'question',
+    input: 'select',
+    inputOptions: {
+      'activo': 'Activo',
+      'inactivo': 'Inactivo'
+    },
+    inputPlaceholder: 'Selecciona un estado',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    inputValidator: (value) => {
+      if (!value) {
+        return 'Debes seleccionar un estado';
+      }
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let estado: string;
+      if (result.value === 'activo') {
+        estado = 'Y';
+      } else {
+        estado = 'N';
+      }
+      this.enviarSolicitudCambioEstado(idUsuario, estado);
+    }
+  });
+}
+
+enviarSolicitudCambioEstado(idUsuario: string, estado: string) {
+  this.loginService.cambiarEstadoUsuario(idUsuario, estado).subscribe(
     response => {
       Swal.fire({
         icon: 'success',
         title: 'Estado cambiado',
         text: 'El estado del usuario ha sido cambiado correctamente.'
       });
+      this.refreshUserList();
+
+      // Puedes realizar acciones adicionales aquí, como actualizar la vista
     },
     error => {
       Swal.fire({
@@ -89,7 +122,24 @@ cambiarEstado(idUsuario: string) {
   );
 }
 
+
 eliminarUsuario(idUsuario: string) {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Una vez eliminado, no podrás recuperar este usuario.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sí, eliminarlo'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.enviarSolicitudEliminacion(idUsuario);
+    }
+  });
+}
+
+enviarSolicitudEliminacion(idUsuario: string) {
   this.loginService.eliminarUsuario(idUsuario).subscribe(
     response => {
       Swal.fire({
@@ -110,6 +160,7 @@ eliminarUsuario(idUsuario: string) {
     }
   );
 }
+
 
 private refreshUserList() {
   // Vuelve a cargar la lista de usuarios después de eliminar uno

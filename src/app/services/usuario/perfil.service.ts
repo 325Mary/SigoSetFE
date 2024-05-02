@@ -19,4 +19,19 @@ export class PerfilService {
 
     return this.httpClient.get<any>(url);
   }
+
+  crearPerfil(perfilData: any): Observable<any> {
+    const url = `${this.baseUrl}crearPerfil`;
+    return this.httpClient.post<any>(url, perfilData);
+  }
+
+  editarPerfil(idperfil: number, nuevoPerfilData: any): Observable<any> {
+    const url = `${this.baseUrl}editPerfil/${idperfil}`;
+    return this.httpClient.put<any>(url, nuevoPerfilData);
+  }
+
+  eliminarPerfil(idperfil: number): Observable<any> {
+    const url = `${this.baseUrl}EliminarPerfil/${idperfil}`;
+    return this.httpClient.delete<any>(url);
+  }
 }

@@ -1,0 +1,14 @@
+<div class="modal-header  d-flex justify-content-center align-items-center">
+    <h5 class="modal-title">Editar Perfil: {{ perfilSeleccionado?.perfil }}</h5>
+</div>
+<div class="modal-body  d-flex justify-content-center align-items-center">
+    <div class="form-group">
+        <label for="nombre">Nombre del Perfil:</label>
+        <input type="text" class="form-control rounded-input" [(ngModel)]="perfilSeleccionado.perfil">
+    </div>
+</div>
+
+<div class="modal-footer  d-flex justify-content-center align-items-center">
+    <button type="button" class="btn btn" (click)="actualizarPerfil()">Actualizar</button>
+    <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+</div>

@@ -92,9 +92,9 @@ enviarCorreo(idUsuario: string): Observable<any> {
 }
 
 
-cambiarEstadoUsuario(idUsuario: string, nuevoEstado: string): Observable<any> {
-  const url = `${this.baseUrl}estadoUsuario/${idUsuario}`;
-  return this.httpClient.put<any>(url, { nuevoEstado });
+cambiarEstadoUsuario(idUsuario: string, estado: string): Observable<any> {
+  const url = `${this.baseUrl}estadoUser/${idUsuario}`;
+  return this.httpClient.put<any>(url, { estado });
 }
 
 

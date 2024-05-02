@@ -1,0 +1,45 @@
+<div class="container-fluid bg-light">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-md-4">
+      <div class="card shadow">
+        <div class="card-header bg-white">
+          <h5 class="text-center">
+            <span class="main-title">Ingrese sus credenciales</span><br>
+            <span class="main-title">de ingreso</span>
+          </h5>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()">
+            <div class="mb-2">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="bi bi-person"></i>
+                  </span>
+                </div>
+                <!-- <input type="text" class="form-control" id="email" [(ngModel)]="user.email_usuario" name="email" placeholder="Correo electrónico"> -->
+              </div>
+            </div>
+            <div class="mb-3 position-relative">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="bi bi-lock"></i>
+                  </span>
+                </div>
+                <!-- <input [type]="showPassword ? 'text' : 'password'" class="form-control pr-4" id="password" [(ngModel)]="user.password" name="password" placeholder="Contraseña"> -->
+                <!-- <span class="input-group-text" style="cursor: pointer;" (click)="togglePasswordVisibility()">
+                  <div class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></div>
+                </span> -->
+              </div>
+              <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+              <a routerLink="/restablecerPassword/">Recuperar Contraseña</a>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-sm d-block mx-auto">Ingresar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
