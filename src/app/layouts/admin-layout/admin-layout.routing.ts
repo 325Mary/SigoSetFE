@@ -11,7 +11,9 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import {LoginComponent} from '../../components/login/login.component'
 import {RestablecerPasswordComponent} from '../../components/restablecer-password/restablecer-password.component'
 import {  CambiarPasswordComponent } from "../../components/cambiar-password/cambiar-password.component";
-
+import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista-centros-formacion/lista-centros-formacion.component';
+import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
+import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -65,5 +67,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
-    { path: 'cambiarPassword', component:CambiarPasswordComponent}
+    { path: 'cambiarPassword', component:CambiarPasswordComponent},
+    { path: 'listaCentroFormacion', component:ListaCentrosFormacionComponent},
+    { path: 'registrarCentroFormacion', component:RegistrarCentroFormacionComponent},
+    { path: 'editarCentroFormacion/:id', component:RegistrarCentroFormacionComponent},
+    { path: 'detalleCentroFormacion/:id', component:DetalleCentroFormacionComponent},
 ];

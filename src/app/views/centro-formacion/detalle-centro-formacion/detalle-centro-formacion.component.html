@@ -1,0 +1,71 @@
+<!-- registrar-centro-formacion.component.html -->
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-sena-azul">
+                        <h4 class="card-title">de </h4>
+                        <p class="card-category">Complete your profile</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 m-1">
+                                <div class="row">
+                                    <label>
+                                        Zona:
+                                    </label>
+                                    <p>
+                                        {{zona.Nombre_zona}} 
+                                    </p>
+                                </div>
+                                <div class="row ">
+                                    <label for="centro_formacion">Nombre del Centro de Formación:</label>
+                                    <p>{{centroFormacion.centro_formacion}} </p>
+                                </div>
+                                <div class="row">
+                                    <label for="telefono_centrof">Telefono del Centro de Formación:</label>
+                                    <p>{{centroFormacion.telefono_centrof}} </p>
+                                </div>
+                                <div class="row ">
+                                    <label for="email_centrof">Correo Electronico del Centro de Formación:</label>
+                                    <p>{{centroFormacion.email_centrof}} </p>
+                                </div>
+                                <div class="row">
+                                    <label for="dir_centro_formacion">Direccion del Centro de Formación:</label>
+                                    <p>{{centroFormacion.dir_centro_formacion}} </p>
+                                </div>
+                            </div>
+                            <div class="col-md-5 m-1">
+                                <div class="row ">
+                                    <label>
+                                        Regional:
+                                    </label>
+                                    <p>{{regional[0].regional}} </p>
+                                </div>
+                                <div class="row ">
+                                    <label for="ordenador_gasto">Ordenador Gasto:</label>
+                                    <p>{{centroFormacion.ordenador_gasto}} </p>
+                                </div>
+                                <div class="row ">
+                                    <label for="telefono_ordenadorg">Telefono del Ordenador Gasto:</label>
+                                    <p>{{centroFormacion.telefono_ordenadorg}} </p>
+                                </div>
+                                <div class="row ">
+                                    <label for="email_ordenadorg">Correo Electronico del Ordenador Gasto:</label>
+                                    <p>{{centroFormacion.email_ordenadorg}} </p>
+                                </div>
+                            </div>
+                        </div>
+                        <button mat-raised-button type="submit" class="btn btn-default pull-right" [routerLink]="['/listaCentroFormacion']">Regresar</button>
+                        <button mat-raised-button type="submit" class="btn btn-danger pull-right" [routerLink]="['/editarCentroFormacion/', id]">Editar</button>
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
