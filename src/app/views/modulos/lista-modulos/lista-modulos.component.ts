@@ -1,0 +1,51 @@
+import { Component, OnInit } from '@angular/core';
+import { ModuloService } from '../../../services/modulos/modulos.service';
+
+interface Modulo {
+  idmodulo: number;
+  id_modulo_padre: number;
+  modulo: string;
+  url_modulo: string;
+  icono: string;
+  orden: number;
+  hijos: number | null;
+}
+@Component({
+  selector: 'app-lista-modulo',
+  templateUrl: './lista-modulos.component.html',
+  styleUrls: ['./lista-modulos.component.css']
+})
+export class ListaModuloComponent implements OnInit {
+  modulos: Modulo[] = [];
+  errorMessage: string = '';
+
+  constructor(private moduloService: ModuloService) { }
+
+  ngOnInit(): void {
+    this.obtenerModulos();
+  }
+
+  obtenerModulos(): void {
+    this.moduloService.obtenerModulos().subscribe(
+      (modulos) => {
+        this.modulos = modulos;
+      },
+      (error) => {
+        this.errorMessage = 'Error al obtener los módulos';
+      }
+    );
+  }
+
+  eliminarModulo(id: number): void {
+    if (confirm('¿Estás seguro de eliminar este módulo?')) {
+      this.moduloService.eliminarModulo(id).subscribe(
+        () => {
+          this.obtenerModulos();
+        },
+        (error) => {
+          this.errorMessage = 'Error al eliminar el módulo';
+        }
+      );
+    }
+  }
+}

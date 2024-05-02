@@ -1,0 +1,54 @@
+<!-- <div class="container">
+    <h2>Lista de Módulos</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>URL</th>
+          <th>Icono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let modulo of modulos">
+          <td>{{ modulo.idmodulo }}</td>
+          <td>{{ modulo.modulo }}</td>
+          <td>{{ modulo.url_modulo }}</td>
+          <td>{{ modulo.icono }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+   -->
+
+<div class="container">
+    <h2>Listado de Módulos</h2>
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Módulo</th>
+                <th>URL</th>
+                <th>Icono</th>
+                <th>Orden</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let modulo of modulos">
+                <td>{{ modulo.idmodulo }}</td>
+                <td>{{ modulo.modulo }}</td>
+                <td>{{ modulo.url_modulo }}</td>
+                <td>{{ modulo.icono }}</td>
+                <td>{{ modulo.orden }}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" (click)="eliminarModulo(modulo.idmodulo)">Eliminar</button>
+                    <button class="btn btn-primary btn-sm" (click)="editarModulo(modulo)">Editar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

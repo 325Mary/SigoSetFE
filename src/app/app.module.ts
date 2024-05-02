@@ -14,8 +14,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { HomeComponent } from './views/home/home.component';
 import { NavbarComponent } from "../app/components/navbar/navbar.component";
 import { BrowserModule } from '@angular/platform-browser';
-import { MatTableModule } from '@angular/material/table';
-import { ListPuestosVigComponent } from './components/puestos-vig/list-puestos-vig/list-puestos-vig.component';
 
 
 @NgModule({
@@ -27,7 +25,6 @@ import { ListPuestosVigComponent } from './components/puestos-vig/list-puestos-v
     HttpClientModule,
     RouterModule,
     AppRoutingModule,
-    MatTableModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -44,7 +41,8 @@ import { ListPuestosVigComponent } from './components/puestos-vig/list-puestos-v
     SidebarComponent,
     HomeComponent,
     NavbarComponent,
-    ListPuestosVigComponent
+
+    
 
   ],
   providers: [LoginService, JwtHelperService],

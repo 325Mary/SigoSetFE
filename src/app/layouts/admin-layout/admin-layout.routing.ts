@@ -20,6 +20,8 @@ import { RegionalComponent } from 'app/components/regional/regional.component';
 import { PuestosVigilanciaComponent } from 'app/components/puestos-vig/crear-puestos-vig/puestosVig.component';
 import { ListPuestosVigComponent } from 'app/components/puestos-vig/list-puestos-vig/list-puestos-vig.component';
 import { HomeComponent } from 'app/views/login/ladding/home.component';
+import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -83,6 +85,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'regionales',component:RegionalComponent},
     {path:'PuestosVigilancia',component:PuestosVigilanciaComponent},
     { path: '**', component: NotFoundComponent},
-    {path:'listarPuestosVig',component:ListPuestosVigComponent}
+    {path:'listarPuestosVig',component:ListPuestosVigComponent},
+    {path:'ListaModulo', component:ListaModuloComponent}
 
 ];

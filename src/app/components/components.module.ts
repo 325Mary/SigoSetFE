@@ -12,7 +12,11 @@ import { PersonalizacionComponent } from './Usuario/personalizacion/personalizac
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ListUsersComponent } from './Usuario/list-users/list-users.component';
 import {CrearUsersComponent} from './Usuario/crear-users/crear-users.component';
-import { EditUserComponent } from './Usuario/edit-user/edit-user.component'
+import { EditUserComponent } from './Usuario/edit-user/edit-user.component';
+import { MatTableModule } from '@angular/material/table';
+import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
+
+
 
 import { ListPuestosVigComponent } from './puestos-vig/list-puestos-vig/list-puestos-vig.component';
 
@@ -21,7 +25,8 @@ import { ListPuestosVigComponent } from './puestos-vig/list-puestos-vig/list-pue
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule
   ],
   declarations: [
     FooterComponent,
@@ -35,7 +40,8 @@ import { ListPuestosVigComponent } from './puestos-vig/list-puestos-vig/list-pue
     EditUserComponent,
     RegionalComponent,
     PuestosVigilanciaComponent,
-    // ListPuestosVigComponent,
+    ListPuestosVigComponent,
+    ListaModuloComponent,
   ],
   exports: [
     FooterComponent,
