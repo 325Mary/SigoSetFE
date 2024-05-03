@@ -1,3 +1,61 @@
 btn{
     background-color: rgb(4, 4, 253) !important;
 }
+
+/* Estilos para el contenedor principal */
+.container {
+    margin-top: 30px;
+    width: 70%;
+  }
+  
+  /* Estilos para el título */
+  .titulo-container {
+    width: calc(100% - 60px); /* Ancho del título */
+    margin-left: 30px; /* Ajuste para centrar */
+    position: relative;
+    top: 0; /* Reducir la separación entre el título y el formulario */
+    background-color: rgb(17, 17, 71);
+    color: white;
+    text-align: center;
+    z-index: 1;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  }
+  
+  /* Estilos para el contenedor del formulario */
+  .form-container {
+    background-color: #ffffff; /* Color de fondo */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    margin-top: -20px; /* Reducir la separación entre el título y el formulario */
+    margin-left: 15px; /* Ajuste de margen izquierdo */
+    margin-right: 15px; /* Ajuste de margen derecho */
+  }
+  
+  /* Estilos para los campos de entrada */
+  .form-container input[type="text"],
+  .form-container input[type="email"],
+  .form-container input[type="tel"],
+  .form-container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Estilos para el botón */
+  .form-container button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-container button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  

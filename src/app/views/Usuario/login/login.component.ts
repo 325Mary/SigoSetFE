@@ -41,7 +41,7 @@ export class LoginComponent {
       } else {
         this.errorMessage = 'Usuario y Contraseña incorrectos';
       }
-      console.log('Mensaje de error:', this.errorMessage);
+      console.log('Mensaje de error:', this.errorMessage);       
     });
   }
 

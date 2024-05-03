@@ -1,9 +1,13 @@
-<div class="profile-settings">
-    <h2>Configuración de perfil y aplicación</h2>
-  
+<div class="container">
+  <div class="titulo-container">
+      <h1 class="text-center titulo-perfiles">Configurar Usuario</h1>
+  </div>
+  <div class="form-container">
+
     <ul>
       <!-- Utiliza routerLink con el parámetro userId -->
       <li><a [routerLink]="['/cambiarPassword', userId]">Cambiar contraseña</a></li>
       <li><a [routerLink]="['/editarUsuario', userId]">Datos del Usuario</a></li>
     </ul>
   </div>
+</div>
