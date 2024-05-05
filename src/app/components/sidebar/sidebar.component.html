@@ -27,20 +27,39 @@
                         </a>
                     </li>
                 </ul>
-               
             </div>
-            <ul class="nav">
-                <!-- ...otros ítems del menú... -->
-              
-              
-              </ul>
-              
         </li>
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item" >
+
+        <!-- Item principal Empresa -->
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#collapseEmpresa" aria-expanded="false">
+                <i class="material-icons">business</i>
+                <p>Empresa</p>
+            </a>
+            <!-- Ítems secundarios desplegables -->
+            <div class="collapse" id="collapseEmpresa">
+                <ul class="nav flex-column ml-3">
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/crearEmpresa']">
+                            <p>Crear Empresa</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/ListEmpresas']">
+                            <p>Administrar Empresas</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Otros ítems del menú -->
+
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
             <a class="nav-link" [routerLink]="[menuItem.path]">
                 <i class="material-icons">{{menuItem.icon}}</i>
                 <p>{{menuItem.title}}</p>
             </a>
+        </li>
     </ul>
-  
 </div>

@@ -17,7 +17,9 @@ import { CrearUsersComponent} from "../../views//Usuario/crear-users/crear-users
 import { ListUsersComponent } from "../../views/Usuario/list-users/list-users.component";
 import {EditUserComponent} from "../../views/Usuario/edit-user/edit-user.component";
 import {CrearPerfilComponent} from  '../../views/modals/crear-perfil/crear-perfil.component'
-import {ListarPerfilesComponent} from '../../views/Perfiles/listar-perfiles/listar-perfiles.component'
+import {ListarPerfilesComponent} from '../../views/Perfiles/listar-perfiles/listar-perfiles.component';
+import {ListarEmpresaComponent} from '../../views/Empresa/listar-empresa/listar-empresa.component';
+import {CrearEmpresaComponent} from '../../views/Empresa/crear-empresa/crear-empresa.component'
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -79,5 +81,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'editarUsuario/:userId', component: EditUserComponent},
     { path: 'crearPerfil', component: CrearPerfilComponent},
     { path: 'AdministrarPerfiles', component: ListarPerfilesComponent},
+    { path: 'ListEmpresas', component: ListarEmpresaComponent},
+    { path: 'crearEmpresa', component: CrearEmpresaComponent},
     { path: '**', component: NotFoundComponent}
 ];

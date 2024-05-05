@@ -13,7 +13,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ListarPerfilesComponent } from './views/Perfiles/listar-perfiles/listar-perfiles.component';
 import {EditarPerfilComponent} from './views/modals/editar-perfil/editar-perfil.component';
-import {CrearPerfilComponent} from './views/modals/crear-perfil/crear-perfil.component'
+import {CrearPerfilComponent} from './views/modals/crear-perfil/crear-perfil.component';
+import { CrearEmpresaComponent } from './views/Empresa/crear-empresa/crear-empresa.component';
+import { ListarEmpresaComponent } from './views/Empresa/listar-empresa/listar-empresa.component';
+import { EditarEmpresaComponent } from './views/modals/editar-empresa/editar-empresa.component';
+import { VerEmpresaComponent } from './views/modals/ver-empresa/ver-empresa.component';
 
 @NgModule({
   imports: [
@@ -38,7 +42,11 @@ import {CrearPerfilComponent} from './views/modals/crear-perfil/crear-perfil.com
     SidebarComponent,
     ListarPerfilesComponent,
     EditarPerfilComponent,
-    CrearPerfilComponent
+    CrearPerfilComponent,
+    CrearEmpresaComponent,
+    ListarEmpresaComponent,
+    EditarEmpresaComponent,
+    VerEmpresaComponent
 
   ],
   providers: [LoginService, JwtHelperService],
