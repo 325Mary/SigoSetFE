@@ -23,7 +23,7 @@ import {CrearEmpresaComponent} from '../../views/Empresa/crear-empresa/crear-emp
 import { RegionalComponent } from 'app/components/regional/regional.component';
 import { PuestosVigilanciaComponent } from 'app/components/puestos-vig/crear-puestos-vig/puestosVig.component';
 import { ListPuestosVigComponent } from 'app/components/puestos-vig/list-puestos-vig/list-puestos-vig.component';
-import { HomeComponent } from 'app/views/home/home.component';
+import { HomeComponent } from 'app/views/ladding/home.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {

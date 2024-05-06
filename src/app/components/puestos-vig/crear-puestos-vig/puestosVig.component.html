@@ -23,23 +23,23 @@
             <form (submit)="crearPuesto(puestoData)" class="row g-6 p-6">
                 <div class="form-group col-md-12">
                     <label class="form-label " for="descripcion">Descripción:</label>
-                    <input class="text col-md-12" id="descripcion" name="descripcion" [(ngModel)]="puestoData.descripcion_puesto" required />
+                    <input class="text col-md-12" id="descripcion" name="descripcion" ![(ngModel)]="puestoData.descripcion_puesto" required />
                 </div>
                 <div class="form-group col-md-3">
                     <label class="form-label " for="tarifa">Tarifa:</label>
-                    <input type="number" id="tarifa" name="tarifa" [(ngModel)]="puestoData.tarifa_puesto" required />
+                    <input type="number" id="tarifa" name="tarifa" ![(ngModel)]="puestoData.tarifa_puesto" required />
                 </div>
                 <div class="form-group col-md-3">
                     <label class="form-label " for="ays">AYS:</label>
-                    <input type="number" id="ays" name="ays" [(ngModel)]="puestoData.ays" required />
+                    <input type="number" id="ays" name="ays" ![(ngModel)]="puestoData.ays" required />
                 </div>
                 <div class="form-group col-md-3">
                     <label class="form-label " for="iva">IVA:</label>
-                    <input type="number" id="iva" name="iva" [(ngModel)]="puestoData.iva" required />
+                    <input type="number" id="iva" name="iva" ![(ngModel)]="puestoData.iva" required />
                 </div>
                 <div class="form-group col-md-3">
                     <label class="form-label " for="total">Total:</label>
-                    <input type="number" id="total" name="total" [(ngModel)]="puestoData.total" required />
+                    <input type="number" id="total" name="total" ![(ngModel)]="puestoData.total" required />
                 </div>
                 <div class="col-sm-4 d-flex end">
 

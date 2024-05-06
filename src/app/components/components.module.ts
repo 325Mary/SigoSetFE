@@ -14,7 +14,7 @@ import { ListUsersComponent } from '../views/Usuario/list-users/list-users.compo
 import {CrearUsersComponent} from '../views/Usuario/crear-users/crear-users.component';
 import { EditUserComponent } from '../views/Usuario/edit-user/edit-user.component'
 // import { HomeComponent } from './home/home.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+// import { NgxPaginationModule } from 'ngx-pagination';
 
 import { RegionalComponent } from './regional/regional.component';
 import { PuestosVigilanciaComponent } from './puestos-vig/crear-puestos-vig/puestosVig.component';
@@ -26,7 +26,7 @@ import { ListPuestosVigComponent } from './puestos-vig/list-puestos-vig/list-pue
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
+    //NgxPaginationModule
   ],
   declarations: [
     FooterComponent,
