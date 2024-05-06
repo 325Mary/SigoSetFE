@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { EmpresaService } from "../../../services/empresas/empresa.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-empresa',
@@ -34,9 +35,19 @@ export class EditarEmpresaComponent {
             console.log('Empresa actualizada:', response);
             this.closeModal.emit();
             this.actualizarEmpresa.emit();
+            Swal.fire({
+              icon: 'success',
+              title: '¡Empresa actualizada!',
+              text: 'La empresa ha sido actualizada correctamente.'
+            });
         },
         error => {
             console.error('Error al actualizar la empresa:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Ocurrió un error al intentar actualizar la empresa. Por favor, inténtalo de nuevo.'
+            });
         }
     );
 }
