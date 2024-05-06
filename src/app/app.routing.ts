@@ -13,28 +13,32 @@ import { ListUsersComponent } from "../app/views/Usuario/list-users/list-users.c
 import {EditUserComponent} from "../app/views/Usuario/edit-user/edit-user.component";
 
 import {CrearPerfilComponent} from './views/modals/crear-perfil/crear-perfil.component'
+import {HomeComponent  } from "../app/views/home/home.component";
 
 const routes: Routes =[
   {
-    path: '',
-    redirectTo: 'dashboard',
+    path: '/',
+    redirectTo: 'home',
     pathMatch: 'full',
-  }, {
+  },
+  
+  // {
+  //   path:'/login',
+  //   component:LoginComponent
+  // },
+
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [{
-      path: '',
-      loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
+    path: '',
+    loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
     }]
   },
-  { path: 'login', component: LoginComponent},
-    { path: 'restablecerPassword', component: RestablecerPasswordComponent},
-    { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent},
-    { path: 'perfil', component: PersonalizacionComponent},
-    { path: 'crearUsuario', component: CrearUsersComponent},
-    { path: 'listarUsuarios', component: ListUsersComponent},
-    { path: 'editarUsuario/:userId', component: EditUserComponent},
-  { path: 'crearPerfil', component: CrearPerfilComponent}
+  // {
+  //   path: '',
+  //   component: HomeComponent,
+  // }
 ];
 
 @NgModule({

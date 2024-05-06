@@ -20,6 +20,10 @@ import {CrearPerfilComponent} from  '../../views/modals/crear-perfil/crear-perfi
 import {ListarPerfilesComponent} from '../../views/Perfiles/listar-perfiles/listar-perfiles.component';
 import {ListarEmpresaComponent} from '../../views/Empresa/listar-empresa/listar-empresa.component';
 import {CrearEmpresaComponent} from '../../views/Empresa/crear-empresa/crear-empresa.component'
+import { RegionalComponent } from 'app/components/regional/regional.component';
+import { PuestosVigilanciaComponent } from 'app/components/puestos-vig/crear-puestos-vig/puestosVig.component';
+import { ListPuestosVigComponent } from 'app/components/puestos-vig/list-puestos-vig/list-puestos-vig.component';
+import { HomeComponent } from 'app/views/home/home.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -65,6 +69,7 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
+    {path:'',component :HomeComponent},
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
@@ -83,5 +88,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'AdministrarPerfiles', component: ListarPerfilesComponent},
     { path: 'ListEmpresas', component: ListarEmpresaComponent},
     { path: 'crearEmpresa', component: CrearEmpresaComponent},
-    { path: '**', component: NotFoundComponent}
+    {path:'regionales',component:RegionalComponent},
+    {path:'PuestosVigilancia',component:PuestosVigilanciaComponent},
+    {path:'listarPuestosVig',component:ListPuestosVigComponent},
+    { path: '**', component: NotFoundComponent},
+
+
 ];

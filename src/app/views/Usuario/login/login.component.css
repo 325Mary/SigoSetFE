@@ -1,34 +1,51 @@
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
 /* Estilo para los inputs con borde azul y esquinas redondas */
+
 .card .input-group input[type="text"],
 .card .input-group input[type="password"] {
-  border: 1px solid rgb(17, 17, 71) !important;
-  padding-left: 35px; /* Ajusta el valor para dejar espacio al icono del candado */
-  padding-right: 35px; /* Ajusta el valor para dejar espacio al icono del ojo */
+    border: 1px solid rgb(17, 17, 71) !important;
+    padding-left: 35px;
+    /* Ajusta el valor para dejar espacio al icono del candado */
+    padding-right: 35px;
+    /* Ajusta el valor para dejar espacio al icono del ojo */
 }
+
 
 /* Estilo para el span dentro de los input-group para que los íconos estén dentro del borde */
+
 .card .input-group .input-group-text {
-  background-color: transparent; /* Hace que el fondo del span sea transparente */
-  
-  border: none; /* Elimina el borde del span */
+    background-color: transparent;
+    /* Hace que el fondo del span sea transparente */
+    border: none;
+    /* Elimina el borde del span */
 }
+
 
 /* Estilo específico para el contenedor del ícono */
+
 .card .input-group .input-group-prepend,
 .card .input-group .input-group-append {
-    background-color: transparent; /* Hace que el fondo del contenedor sea transparente */
-    position: absolute; /* Posiciona el contenedor */
-    height: 100%; /* Ajusta la altura del contenedor */
-    width: 35px; /* Ajusta el ancho del contenedor para cubrir todo el espacio del ícono */
-    display: flex; /* Utiliza flexbox para alinear verticalmente el ícono */
-    align-items: center; /* Alinea el ícono verticalmente */
+    background-color: transparent;
+    /* Hace que el fondo del contenedor sea transparente */
+    position: absolute;
+    /* Posiciona el contenedor */
+    height: 100%;
+    /* Ajusta la altura del contenedor */
+    width: 35px;
+    /* Ajusta el ancho del contenedor para cubrir todo el espacio del ícono */
+    display: flex;
+    /* Utiliza flexbox para alinear verticalmente el ícono */
+    align-items: center;
+    /* Alinea el ícono verticalmente */
 }
 
+
 /* Estilo específico para el ícono del candado */
+
 .card .input-group .input-group-prepend .input-group-text .bi {
-    margin: auto; /* Centra el ícono horizontalmente dentro del contenedor */
+    margin: auto;
+    /* Centra el ícono horizontalmente dentro del contenedor */
 }
 
 /* Estilo específico para el contenedor del ícono del ojo */
@@ -51,27 +68,33 @@
 z-index: 1000;
 }
 
-
-
 /* Estilo para el botón con fondo azul */
+
 .card .btn-primary {
-  background-color: rgb(17, 17, 71) !important;
-  border-color: blue !important;
+    background-color: rgb(17, 17, 71) !important;
+    border-color: blue !important;
 }
+
 
 /* Estilo para el título principal */
+
 .card .card-header h5 .main-title {
-  color: rgb(17, 17, 71) !important;
-  font-weight: bold;
-  font-size: 20px; /* ajusta el tamaño según lo necesites */
-  margin-bottom: 0; /* quita el margen inferior */
+    color: rgb(17, 17, 71) !important;
+    font-weight: bold;
+    font-size: 20px;
+    /* ajusta el tamaño según lo necesites */
+    margin-bottom: 0;
+    /* quita el margen inferior */
 }
 
+
 /* Estilo para el subtítulo */
+
 .card .card-header h5 .subtitle {
-  color: rgb(17, 17, 71) !important;
-  font-weight: normal;
-  font-size: 16px; /* ajusta el tamaño según lo necesites */
+    color: rgb(17, 17, 71) !important;
+    font-weight: normal;
+    font-size: 16px;
+    /* ajusta el tamaño según lo necesites */
 }
 
 .error-message {
