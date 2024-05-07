@@ -23,15 +23,13 @@ import { CrearEmpresaComponent } from './views/Empresa/crear-empresa/crear-empre
 import { ListarEmpresaComponent } from './views/Empresa/listar-empresa/listar-empresa.component';
 import { EditarEmpresaComponent } from './views/modals/editar-empresa/editar-empresa.component';
 import { VerEmpresaComponent } from './views/modals/ver-empresa/ver-empresa.component';
-import { HomeComponent } from './views/home/home.component';
 import { NavbarComponent } from "../app/components/navbar/navbar.component";
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTableModule } from '@angular/material/table';
 import { ListPuestosVigComponent } from './views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
 import { CrearRegionalComponent } from './views/Regionales/crear-regional/crear-regional.component';
 import { AdministrarRegionalComponent } from './views/Regionales/administrar-regional/administrar-regional.component';
-
-
+import  {HomeComponent} from './views/ladding/home.component'
 @NgModule({
   imports: [
     ReactiveFormsModule,
@@ -42,7 +40,7 @@ import { AdministrarRegionalComponent } from './views/Regionales/administrar-reg
     RouterModule,
     AppRoutingModule,
     SharedModule,
-
+    HomeComponent,
     MatTableModule,
     JwtModule.forRoot({
       config: {
@@ -68,7 +66,6 @@ import { AdministrarRegionalComponent } from './views/Regionales/administrar-reg
     CrearEmpresaComponent,
     ListarEmpresaComponent,
     EditarEmpresaComponent,
-
 
   ],
   providers: [

@@ -107,6 +107,13 @@ eliminarUsuario(idUsuario: string): Observable<any> {
   return this.httpClient.delete<any>(url);
 }
 
+isLoggedIn(): boolean {
+  // Verificar si el token de autenticación está presente en el almacenamiento local
+  const token = localStorage.getItem('token');
+  // Devolver verdadero si el token no está vacío y no está expirado
+  return !!token && !this.jwtHelper.isTokenExpired(token);
+}
+
 logout() {
   // Eliminar el token del almacenamiento local al cerrar sesión
   localStorage.removeItem('token');

@@ -1,1 +1,35 @@
 @import '~bootstrap-icons/font/bootstrap-icons.css';
+
+
+  
+.wrapper {
+    display: flex;
+    position: relative;
+  }
+  
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    z-index: 1000;
+  }
+  
+  .main-panel {
+    flex: 1;
+    transition: margin-left 0.3s ease; /* Agregamos una transición suave para el margen izquierdo */
+  }
+  
+  .content {
+    padding: 0px; /* Ajusta el espaciado interior según tus necesidades */
+  }
+  
+  .full-width-content {
+    display: none;
+  }
+  
+  .sidebar-visible .full-width-content {
+    display: none;
+  }
+  
