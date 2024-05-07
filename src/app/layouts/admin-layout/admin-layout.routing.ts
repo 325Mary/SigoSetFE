@@ -8,20 +8,37 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import {LoginComponent} from '../../components/Usuario/login/login.component'
-import {RestablecerPasswordComponent} from '../../components/Usuario/restablecer-password/restablecer-password.component'
-import {  CambiarPasswordComponent } from "../../components/Usuario/cambiar-password/cambiar-password.component";
-import {PersonalizacionComponent} from '../../components/Usuario/personalizacion/personalizacion.component';
-import {NotFoundComponent} from '../../components/not-found/not-found.component'
-import { CrearUsersComponent} from "../../components/Usuario/crear-users/crear-users.component";
-import { ListUsersComponent } from "../../components/Usuario/list-users/list-users.component";
-import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component";
-import { RegionalComponent } from 'app/components/regional/regional.component';
-import { PuestosVigilanciaComponent } from 'app/components/puestos-vig/crear-puestos-vig/puestosVig.component';
-import { ListPuestosVigComponent } from 'app/components/puestos-vig/list-puestos-vig/list-puestos-vig.component';
-import { HomeComponent } from 'app/views/login/ladding/home.component';
-import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
 
+import {LoginComponent} from '../../views/Usuario/login/login.component'
+import {RestablecerPasswordComponent} from '../../views/Usuario/restablecer-password/restablecer-password.component'
+import { CambiarPasswordComponent } from "../../views/Usuario/cambiar-password/cambiar-password.component";
+import {PersonalizacionComponent} from '../../views/Usuario/personalizacion/personalizacion.component';
+import {NotFoundComponent} from '../../components/not-found/not-found.component'
+
+import { CrearUsersComponent} from "../../views//Usuario/crear-users/crear-users.component";
+import { ListUsersComponent } from "../../views/Usuario/list-users/list-users.component";
+import {EditUserComponent} from "../../views/Usuario/edit-user/edit-user.component";
+
+import {CrearPerfilComponent} from  '../../views/modals/crear-perfil/crear-perfil.component'
+import {ListarPerfilesComponent} from '../../views/Perfiles/listar-perfiles/listar-perfiles.component';
+
+import {ListarEmpresaComponent} from '../../views/Empresa/listar-empresa/listar-empresa.component';
+import {CrearEmpresaComponent} from '../../views/Empresa/crear-empresa/crear-empresa.component'
+//Regional Component
+//import { RegionalComponent } from 'app/components/regional/regional.component';
+//
+import { CrearRegionalComponent } from 'app/views/Regionales/crear-regional/crear-regional.component';
+import { AdministrarRegionalComponent } from 'app/views/Regionales/administrar-regional/administrar-regional.component';
+
+import { PuestosVigilanciaComponent } from 'app/views/puestos-vig/crear-puestos-vig/puestosVig.component';
+import { ListPuestosVigComponent } from 'app/views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
+
+import { HomeComponent } from 'app/views/ladding/home.component';
+
+import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista-centros-formacion/lista-centros-formacion.component';
+import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
+import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
+import { Component } from '@angular/core';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -66,8 +83,12 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
-    {path:'home',component :HomeComponent},
+    {path:'',component :HomeComponent},
     { path: 'user-profile',   component: UserProfileComponent },
+
+    {path:'list-regional',component:AdministrarRegionalComponent},
+    {path:'create-regional',component:CrearRegionalComponent},
+    
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
@@ -81,11 +102,19 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'crearUsuario', component: CrearUsersComponent},
     { path: 'listarUsuarios', component: ListUsersComponent},
     { path: 'editarUsuario/:userId', component: EditUserComponent},
-    { path: 'cambiarPassword', component:CambiarPasswordComponent},
-    {path:'regionales',component:RegionalComponent},
+    { path: 'crearPerfil', component: CrearPerfilComponent},
+    { path: 'AdministrarPerfiles', component: ListarPerfilesComponent},
+    { path: 'ListEmpresas', component: ListarEmpresaComponent},
+    { path: 'crearEmpresa', component: CrearEmpresaComponent},
+
     {path:'PuestosVigilancia',component:PuestosVigilanciaComponent},
-    { path: '**', component: NotFoundComponent},
     {path:'listarPuestosVig',component:ListPuestosVigComponent},
-    {path:'ListaModulo', component:ListaModuloComponent}
+    { path: 'cambiarPassword', component:CambiarPasswordComponent},
+
+    { path: 'listaCentroFormacion', component:ListaCentrosFormacionComponent},
+    { path: 'registrarCentroFormacion', component:RegistrarCentroFormacionComponent},
+    { path: 'editarCentroFormacion/:id', component:RegistrarCentroFormacionComponent},
+    { path: 'detalleCentroFormacion/:id', component:DetalleCentroFormacionComponent},
+      { path: '**', component: NotFoundComponent},
 
 ];

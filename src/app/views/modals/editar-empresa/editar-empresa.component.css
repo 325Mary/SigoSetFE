@@ -1,0 +1,63 @@
+/* Estilos para el modal */
+.modal-content {
+    background-color: #f8f9fa; /* Color de fondo del modal */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.modal-header {
+    border-bottom: none; /* Sin borde inferior en la cabecera */
+    padding: 1rem; /* Espaciado interno */
+}
+
+.modal-title {
+    font-weight: bold; /* Texto en negrita */
+    color: #333; /* Color del texto */
+}
+
+.modal-body {
+    padding: 1rem; /* Espaciado interno */
+}
+
+.modal-footer {
+    border-top: none; /* Sin borde superior en el pie de página */
+    padding: 1rem; /* Espaciado interno */
+}
+/* Estilos para el input */
+.rounded-input {
+    border-radius: 15px; /* Bordes más redondos */
+    max-width: 180px; 
+    border: 2px solid #052c56;
+}
+
+/* Estilos para el label */
+.form-group label {
+    margin-bottom: 0.5rem; /* Margen inferior */
+}
+
+
+/* Estilos para los botones */
+.btn {
+    background-color: #007bff; /* Color de fondo del botón primario */
+    border-color: #007bff; /* Color del borde del botón primario */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Color de fondo del botón secundario */
+    border-color: #6c757d; /* Color del borde del botón secundario */
+}
+
+/* Estilos para el botón de cerrar en la cabecera */
+.btn-close {
+    color: #333; /* Color del icono de cierre */
+}
+
+/* Estilos para los campos de formulario */
+.form-group {
+    margin-bottom: 1.5rem; /* Margen inferior */
+}
+
+.form-control {
+    border-radius: 5px; /* Bordes redondeados */
+    border-color: #ced4da; /* Color del borde */
+}

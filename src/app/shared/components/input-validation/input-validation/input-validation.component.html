@@ -1,0 +1,12 @@
+<div class="form-group">
+    <label>{{ label }}</label>
+    <input [formControl]="control" [type]="type" class="form-control" [placeholder]="placeholder">
+    <div *ngIf="control.invalid && control.touched" class="text-danger">
+      <div *ngIf="control.errors.required">Este campo es obligatorio</div>
+      <div *ngIf="control.errors.email">Debe ser un correo electrónico válido</div>
+      <div *ngIf="control.errors.minlength">Debe tener al menos {{ minLength }} caracteres</div>
+      <div *ngIf="control.errors.maxlength">Debe tener como máximo {{ maxLength }} caracteres</div>
+      <div *ngIf="control.errors.pattern">Debe contener solo números</div>
+    </div>
+  </div>
+  

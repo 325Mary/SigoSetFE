@@ -1,0 +1,41 @@
+/* Estilos para el contenedor */
+.container {
+    border-radius: 15px; /* Bordes redondos */
+    padding: 20px; /* Espaciado interno */
+}
+
+/* Estilos para el input dentro del contenedor */
+.container input[type="text"] {
+    border-radius: 10px; /* Bordes redondos */
+    border: 2px solid #007bff; /* Borde sólido con color azul (puedes cambiar el color) */
+    padding: 10px; /* Espaciado interno */
+    width: 50%; /* Ancho completo */
+    box-sizing: border-box; /* Incluir el ancho del borde y el relleno en el ancho total */
+}
+
+
+/* Estilos para los botones */
+.btn {
+    background-color: #007bff; /* Color de fondo del botón primario */
+    border-color: #007bff; /* Color del borde del botón primario */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Color de fondo del botón secundario */
+    border-color: #6c757d; /* Color del borde del botón secundario */
+}
+
+/* Estilos para el botón de cerrar en la cabecera */
+.btn-close {
+    color: #333; /* Color del icono de cierre */
+}
+
+/* Estilos para los campos de formulario */
+.form-group {
+    margin-bottom: 1.5rem; /* Margen inferior */
+}
+
+.form-control {
+    border-radius: 5px; /* Bordes redondeados */
+    border-color: #ced4da; /* Color del borde */
+}

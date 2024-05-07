@@ -1,0 +1,81 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-sena-azul">
+                        <h4 class="card-title ">Listado De  Centros De Formacion</h4>
+                        <p class="card-category"> Here is a subtitle for this table</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Nombre 
+                                    </th>
+                                    <th>
+                                        Telefono
+                                    </th>
+                                    <th>
+                                        Correo Electronico
+                                    </th>
+                                    <th>
+                                        Accion
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of listaCentrosFormacion" >
+                                        <td>
+                                            {{item.idcentro_formacion}}
+                                        </td>
+                                        <td>
+                                            {{item.centro_formacion}}
+                                        </td>
+                                        <td>
+                                            {{item.telefono_centrof}}
+                                        </td>
+                                        <td>
+                                            {{item.email_centrof}}
+                                        </td>
+                                        <td >
+                                            <div class="comtainer">
+                                                <i tooltip="Editar datos del centro de formacion 
+                                                " placement="bottom" showDelay="200"
+                                                  class="butonW" [routerLink]="['/editarCentroFormacion/', item.idcentro_formacion]">
+                                                  <span class="fa-solid  fa-edit"></span>
+                                                </i>
+                                                <i tooltip="Ver datos del centro de formacion 
+                                                " placement="bottom" showDelay="200"
+                                                  class="butonW" [routerLink]="['/detalleCentroFormacion/', item.idcentro_formacion]">
+                                                  <span class="fa-solid fa-eye "></span>
+                                                </i>
+                                                <i tooltip="Eliminar centro de formacion  "
+                                                placement="bottom" showDelay="200" class="butonW "
+                                                (click)="eliminarCentroFormacion(item.idcentro_formacion)">
+                                                <span class="fa-solid fa-trash text-danger"></span>
+                                              </i>
+                        
+                        
+                                                
+                                              </div>
+                        
+                                        </td>
+                                    </tr>
+                                    
+                                    
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  </div>
+  

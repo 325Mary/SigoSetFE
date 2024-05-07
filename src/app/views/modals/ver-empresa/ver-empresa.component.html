@@ -1,0 +1,20 @@
+<div class="modal-body">
+    <h5 class="modal-title">Detalles de la Empresa</h5>
+    <hr>
+    <div class="details">
+        <div class="detail-group">
+            <p><i class="fas fa-envelope"></i> <strong>Email de la Empresa:</strong> {{ empresaSeleccionada.email_empresav }}</p>
+            <p><i class="fas fa-user"></i><strong>Persona de Contacto:</strong>  {{ empresaSeleccionada.persona_contacto }}</p>
+            <p><i class="fas fa-envelope"></i> <strong>Email de la Persona de Contacto:</strong> {{ empresaSeleccionada.email_personac }}</p>
+            <p><i class="fas fa-phone"></i> <strong>Teléfono de la Persona de Contacto:</strong>{{ empresaSeleccionada.telefono_personac }}</p>
+        </div>
+        <div class="detail-group">
+            <p><i class="fas fa-user-tie"></i><strong>Representante Legal:</strong>  {{ empresaSeleccionada.representante_legal }}</p>
+            <p><i class="fas fa-envelope"></i> <strong>Email del Representante Legal:</strong>  {{ empresaSeleccionada.email_representantel }}</p>
+            <p><i class="fas fa-phone"></i> <strong>Teléfono del Representante Legal:</strong>  {{ empresaSeleccionada.telefono_representantel }}</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer  d-flex justify-content-center align-items-center">
+    <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+</div>
