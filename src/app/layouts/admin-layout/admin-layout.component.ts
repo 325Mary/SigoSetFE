@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit,ChangeDetectorRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 import * as $ from "jquery";
 import { filter, Subscription } from 'rxjs';
+import {LoginService} from '../../services/usuario/login.service'
+import {TokenValidationService} from '../../services/VertificacionUser/token-validation.service'
 
 @Component({
   selector: 'app-admin-layout',
@@ -14,8 +16,11 @@ export class AdminLayoutComponent implements OnInit {
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
+  isLoggedIn: boolean = false; 
+  loginStatusSubscription: Subscription;
+  userData: any;
 
-  constructor( public location: Location, private router: Router) {}
+  constructor( public location: Location, private router: Router, private authService: LoginService,  private tokenValidationService: TokenValidationService,  private cdr: ChangeDetectorRef ) {}
 
   ngOnInit() {
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -125,7 +130,40 @@ export class AdminLayoutComponent implements OnInit {
               $sidebar_responsive.css('background-image','url("' + new_image + '")');
           }
       });
+
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationStart) {
+          this.checkAuthentication(); // Verificar autenticación al cambiar de ruta
+        }
+      });
+  
+      this.checkAuthentication(); // Verificar autenticación al cargar el componente
+  
+      this.loginStatusSubscription = this.authService.loginStatusChanged.subscribe(isLoggedIn => {
+        this.isLoggedIn = isLoggedIn;
+       
+      }); 
   }
+  async checkAuthentication() {
+    try {
+      console.log('Verificando autenticación...');
+      const token = localStorage.getItem('token');
+      if (token && await this.tokenValidationService.isValidToken(token)) {
+        this.isLoggedIn = true;
+        this.userData = await this.tokenValidationService.getUserData(token);
+        this.cdr.detectChanges(); // Realizar detección de cambios
+        console.log('Usuario autenticado.');
+      } else {
+        this.isLoggedIn = false; // Actualizar estado de autenticación si no hay token válido
+        console.log('Usuario no autenticado.');
+      }
+    } catch (error) {
+      console.error('Error al verificar la autenticación:', error);
+    }
+  }
+  
+
+
   ngAfterViewInit() {
       this.runOnRouteChange();
   }
