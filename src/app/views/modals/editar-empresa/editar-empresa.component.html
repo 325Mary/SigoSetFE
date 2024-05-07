@@ -6,14 +6,14 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="nombreEmpresa">Nombre Empresa:</label>
-                <input type="text" class="form-control" id="nombreEmpresa" [(ngModel)]="empresaSeleccionada.nombre_empresav">
+                <input type="text" class="form-control" id="nombreEmpresa" ![(ngModel)]="empresaSeleccionada.nombre_empresav">
             </div>
             
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="emailEmpresa">Email Empresa:</label>
-                <input type="email" class="form-control" id="emailEmpresa" [(ngModel)]="empresaSeleccionada.email_empresav">
+                <input type="email" class="form-control" id="emailEmpresa" ![(ngModel)]="empresaSeleccionada.email_empresav">
             </div>
         </div>
     </div>
@@ -21,13 +21,13 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="emailPersona">Email Persona de Contacto:</label>
-                <input type="email" class="form-control" id="emailPersona" [(ngModel)]="empresaSeleccionada.email_personac">
+                <input type="email" class="form-control" id="emailPersona" ![(ngModel)]="empresaSeleccionada.email_personac">
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="emailRepresentante">Email Representante Legal:</label>
-                <input type="email" class="form-control" id="emailRepresentante" [(ngModel)]="empresaSeleccionada.email_representantel">
+                <input type="email" class="form-control" id="emailRepresentante" ![(ngModel)]="empresaSeleccionada.email_representantel">
             </div>
         </div>
     </div>
@@ -35,13 +35,13 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="nit">NIT:</label>
-                <input type="text" class="form-control" id="nit" [(ngModel)]="empresaSeleccionada.nit_empresa" disabled>
+                <input type="text" class="form-control" id="nit" ![(ngModel)]="empresaSeleccionada.nit_empresa" disabled>
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="direccion">Dirección:</label>
-                <input type="text" class="form-control" id="direccion" [(ngModel)]="empresaSeleccionada.direccion_empresav">
+                <input type="text" class="form-control" id="direccion" ![(ngModel)]="empresaSeleccionada.direccion_empresav">
             </div>
         </div>
     </div>

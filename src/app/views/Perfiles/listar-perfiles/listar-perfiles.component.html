@@ -18,7 +18,7 @@
                 <button  (click)="abrirModalEditar(perfil)" title="Editar Perfil">
                     <i class="bi bi-pencil-square"></i>
                   </button>
-                  <button (click)="eliminarPerfil(perfil.idperfil)">
+                  <button (click)="eliminarPerfil(perfil.idperfil)" title="Eliminar perfil">
                     <i class="bi bi-trash"></i>
                   </button>
                   
@@ -41,16 +41,17 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <!-- Contenido del modal -->
-        <app-crear-perfil  (perfilCreado)="actualizarPerfiles()" (closeModal)="closeModal()"></app-crear-perfil> <!-- Componente de creación de perfil -->
+        <!-- <app-crear-perfil (perfilCreado)="actualizarPerfiles()" (closeModal)="closeModal()"></app-crear-perfil> Componente de creación de perfil -->
       </div>
     </div>
   </div>
+
 <div class="modal" [class.show]="showModal">
     <span class="close" (click)="handleCloseModal()">&times;</span>
     <div class="modal-dialog">
       <div class="modal-content">
         <!-- Contenido del modal -->
-        <app-editar-perfil [perfilSeleccionado]="perfilSeleccionado" (perfilActualizado)="actualizarPerfiles()" (closeModal)="handleCloseModal()"></app-editar-perfil>
+        <!-- <app-editar-perfil [perfilSeleccionado]="perfilSeleccionado" (perfilActualizado)="actualizarPerfiles()" (closeModal)="handleCloseModal()"></app-editar-perfil> -->
     </div>
     </div>
 </div>
