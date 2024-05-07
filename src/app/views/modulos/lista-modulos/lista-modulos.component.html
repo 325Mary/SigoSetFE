@@ -45,6 +45,8 @@
                 <td>{{ modulo.icono }}</td>
                 <td>{{ modulo.orden }}</td>
                 <td>
+                    <button type="button" class="btn btn-primary p-flex" (click)="verDetalle(egreso)">Ver</button>
+
                     <button class="btn btn-danger btn-sm" (click)="eliminarModulo(modulo.idmodulo)">Eliminar</button>
                     <button class="btn btn-primary btn-sm" (click)="editarModulo(modulo)">Editar</button>
                 </td>

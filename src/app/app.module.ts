@@ -30,7 +30,8 @@ import { MatTableModule } from '@angular/material/table';
 import { ListPuestosVigComponent } from './views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
 import { CrearRegionalComponent } from './views/Regionales/crear-regional/crear-regional.component';
 import { AdministrarRegionalComponent } from './views/Regionales/administrar-regional/administrar-regional.component';
-
+import { CrearModulosComponent } from './views/modulos/crear-modulos/crear-modulos.component';
+import { ListaModuloComponent } from './views/modulos/lista-modulos/lista-modulos.component';
 
 @NgModule({
   imports: [
@@ -68,6 +69,9 @@ import { AdministrarRegionalComponent } from './views/Regionales/administrar-reg
     CrearEmpresaComponent,
     ListarEmpresaComponent,
     EditarEmpresaComponent,
+    // CrearModulosComponent,
+    // ListaModuloComponent,
+    
 
 
   ],

@@ -20,6 +20,11 @@ import { EditUserComponent } from '../views/Usuario/edit-user/edit-user.componen
 import { PuestosVigilanciaComponent } from '../../app/views/puestos-vig/crear-puestos-vig/puestosVig.component';
 import { ListPuestosVigComponent } from '../../app/views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
 
+import { CrearModulosComponent } from 'app/views/modulos/crear-modulos/crear-modulos.component';
+import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component';
+
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -40,14 +45,18 @@ import { ListPuestosVigComponent } from '../../app/views/puestos-vig/list-puesto
     PersonalizacionComponent,
     ListUsersComponent,
     CrearUsersComponent,
-    EditUserComponent
+    EditUserComponent,
+    CrearModulosComponent,
+    ListaModuloComponent,
     
   ],
   exports: [
     FooterComponent,
     LoginComponent,
     CrearRegionalComponent,
-    AdministrarRegionalComponent
+    AdministrarRegionalComponent,
+    CrearModulosComponent,
+    ListaModuloComponent,
     
   ]
 })

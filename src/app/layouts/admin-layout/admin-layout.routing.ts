@@ -24,9 +24,7 @@ import {ListarPerfilesComponent} from '../../views/Perfiles/listar-perfiles/list
 
 import {ListarEmpresaComponent} from '../../views/Empresa/listar-empresa/listar-empresa.component';
 import {CrearEmpresaComponent} from '../../views/Empresa/crear-empresa/crear-empresa.component'
-//Regional Component
-//import { RegionalComponent } from 'app/components/regional/regional.component';
-//
+
 import { CrearRegionalComponent } from 'app/views/Regionales/crear-regional/crear-regional.component';
 import { AdministrarRegionalComponent } from 'app/views/Regionales/administrar-regional/administrar-regional.component';
 
@@ -38,6 +36,10 @@ import { HomeComponent } from 'app/views/ladding/home.component';
 import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista-centros-formacion/lista-centros-formacion.component';
 import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
 import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
+
+import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component';
+import { CrearModulosComponent } from 'app/views/modulos/crear-modulos/crear-modulos.component';
+
 import { Component } from '@angular/core';
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -115,6 +117,10 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'registrarCentroFormacion', component:RegistrarCentroFormacionComponent},
     { path: 'editarCentroFormacion/:id', component:RegistrarCentroFormacionComponent},
     { path: 'detalleCentroFormacion/:id', component:DetalleCentroFormacionComponent},
+    {path:'listaModulos',component:ListaModuloComponent},
+    {path:'crearModulos',component:CrearModulosComponent},
+
+
       { path: '**', component: NotFoundComponent},
 
 ];
