@@ -1,0 +1,18 @@
+<div class="card-body cont-table">
+    <div class="title">
+        <div class="row">
+            <div class="col">
+                <h2>Listado de Regionales</h2>
+                <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+                <ul class="list-group">
+                    <li *ngFor="let regional of regionales" class="list-group-item">
+                        <h4>{{ regional.nombreRegional }}</h4>
+                        <p>{{ regional.direccion }}</p>
+                    </li>
+                    <li *ngIf="regionales.length === 0" class="list-group-item">No hay regionales para mostrar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
