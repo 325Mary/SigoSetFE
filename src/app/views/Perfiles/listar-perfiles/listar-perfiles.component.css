@@ -6,48 +6,12 @@
   .modal.show {
     display: block; /* Mostrar cuando la clase .show está presente */
   }
-  
-  .btn {
-    background-color: #165598; /* Color de fondo del botón primario */
-    border-color: #007bff; /* Color del borde del botón primario */
-}
 
-button{
-  background-color: transparent !important; /* Fondo transparente */
-  border-color: transparent !important; /* Borde transparente */
+
+.button{
+  background-color: transparent; /* Fondo transparente */
+  border-color: transparent; /* Borde transparente */
   padding: 0;
-}
-.btn {
-  background-color: #007bff; /* Color de fondo del botón primario */
-  border-color: #007bff; /* Color del borde del botón primario */
-}
-
-.container .agregar-perfil {
-  background-color: #b3b5bb !important; /* Color de fondo personalizado */
-  border-radius: 4px;
-}
-
-.table-container {
-  position: relative;
-}
-
-.titulo-container {
-  width: calc(100% - 60px); /* El ancho es igual al 100% del contenedor menos 40px */
-  position: absolute;
-  top: 0;
-  margin-left: 15px; /* Mismo margen que el margen izquierdo de la tabla */
-  background-color: rgb(17, 17, 71) !important;
-  color: white;
-  text-align: center;
-  z-index: 1; /* Asegura que el título esté sobre la tabla */
-  border-radius: 3px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6)
-
-}
-
-.table {
-  background-color: rgb(255, 255, 255);
-  margin-top: 50px; /* Ajusta el margen superior para dejar espacio al título */
 }
 
 .table-bordered th,

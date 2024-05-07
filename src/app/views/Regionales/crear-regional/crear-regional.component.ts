@@ -16,6 +16,7 @@ export class CrearRegionalComponent implements OnInit {
 
   ngOnInit(): void {
     this.regionalForm = this.formBuilder.group({
+      id_regional: null,
       nombreRegional: ['', Validators.required],
       direccion: ['', Validators.required]
 
@@ -28,10 +29,9 @@ export class CrearRegionalComponent implements OnInit {
         response => {
           console.log('Regional creada exitosamente:', response);
           // Vuelve a listar las regionales después de crear una nueva
-          this.regionalForm.reset();
         },
         error => {
-          console.error('Error al crear la regional:', error.error);
+          console.error('Error al crear la regional:', error);
           this.errorMessage = 'Error al crear la regional. Por favor, inténtalo de nuevo más tarde.';
         }
       );

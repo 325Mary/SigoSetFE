@@ -23,7 +23,6 @@ import { CrearEmpresaComponent } from './views/Empresa/crear-empresa/crear-empre
 import { ListarEmpresaComponent } from './views/Empresa/listar-empresa/listar-empresa.component';
 import { EditarEmpresaComponent } from './views/modals/editar-empresa/editar-empresa.component';
 import { VerEmpresaComponent } from './views/modals/ver-empresa/ver-empresa.component';
-import { HomeComponent } from './views/home/home.component';
 import { NavbarComponent } from "../app/components/navbar/navbar.component";
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTableModule } from '@angular/material/table';
@@ -50,7 +49,6 @@ import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password
     RouterModule,
     AppRoutingModule,
     SharedModule,
-
     MatTableModule,
     JwtModule.forRoot({
       config: {

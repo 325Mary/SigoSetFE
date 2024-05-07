@@ -1,6 +1,5 @@
 // import { ListPuestosVigComponent } from './../list-puestos-vig/list-puestos-vig.component';
 import { Component, OnInit } from '@angular/core';
-
 declare const $: any;
 declare interface RouteInfo {
     path: string;
