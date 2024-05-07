@@ -1,3 +1,20 @@
+<h1>Lisatr puestos vista</h1>
+
+<div class="card-header">
+
+    <h2>Listado de Puestos de Vigilancia</h2>
+</div>
+
+<div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+<ul>
+    <li *ngFor="let puesto of puestos">
+        <span>{{ puesto.descripcion_puesto }}</span>
+        <button (click)="editarPuesto(puesto.idpuesto_vigilancia, puesto)">Editar</button>
+        <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)">Eliminar</button>
+    </li>
+</ul>
+
 <div class="container cont-table">
     <div class="title">
         <div class="row">

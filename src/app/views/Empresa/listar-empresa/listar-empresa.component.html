@@ -10,7 +10,7 @@
       <table class="table table-bordered text-center">
         <thead class="thead-light">
           <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-            <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarEmpresas()" ![(ngModel)]="terminoBusqueda">
+            <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarEmpresas()" [(ngModel)]="terminoBusqueda">
           </div>
           <tr>
             <th>ID</th>

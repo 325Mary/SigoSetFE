@@ -25,11 +25,13 @@
                 <ul class="nav flex-column ml-3">
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/crearUsuario']">
+                            <i class="material-icons">radio_button_checked </i>
                             <p>Crear Usuario </p>
                         </a>
                     </li>
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/listarUsuarios']">
+                            <i class="material-icons">radio_button_checked </i>
                             <p>Administrar Usuarios</p>
                         </a>
                     </li>
@@ -37,51 +39,6 @@
             </div>
         </li>
 
-         <!-- Item principal PERFILES -->
-         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
-                <i class="material-icons">person</i>
-                <p>Perfiles</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapsePerfil">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/crearPerfil']">
-                            <p>Crear Perfil </p>
-                        </a>
-                    </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/AdministrarPerfiles']">
-                            <p>Administrar Perfiles</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-        <!-- Item principal Empresa -->
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapseEmpresa" aria-expanded="false">
-                <i class="material-icons">business</i>
-                <p>Empresa</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapseEmpresa">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/crearEmpresa']">
-                            <p>Crear Empresa</p>
-                        </a>
-                    </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link"[routerLink]="['/ListEmpresas']">
-                            <p class="icon-success">Administrar Empresas</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
         <!-- Items para las Regionales -->
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#collapseRegional" aria-expanded="false">
@@ -93,12 +50,13 @@
                 <ul class="nav flex-column ml-3">
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/create-regional']">
-                            <i class="bi bi-plus-circle"></i> <!-- Ícono de Bootstrap -->
+                            <i class="material-icons">radio_button_checked </i>
                             <p>Crear Regionales</p>
                         </a>
                     </li>
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/list-regional']">
+                            <i class="material-icons">radio_button_checked </i>
                             <p class="icon-success" routerLink="active">Administrar Regionales</p>
                         </a>
                     </li>
@@ -116,17 +74,69 @@
                 <ul class="nav flex-column ml-3">
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/registrarCentroFormacion']">
+                            <i class="material-icons">radio_button_checked </i>
                             <p>Crear Centro de Formacion</p>
                         </a>
                     </li>
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/listaCentroFormacion']">
+                            <i class="material-icons">radio_button_checked </i>
                             <p class="icon-success">Administrar Centro de Formacion</p>
                         </a>
                     </li>
                 </ul>
             </div>
         </li>
+         <!-- Item principal PERFILES -->
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
+                <i class="material-icons">person</i>
+                <p>Perfiles</p>
+            </a>
+            <!-- Ítems secundarios desplegables -->
+            <div class="collapse" id="collapsePerfil">
+                <ul class="nav flex-column ml-3">
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/crearPerfil']">
+                            <i class="material-icons">radio_button_checked </i>
+                            <p>Crear Perfil </p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/AdministrarPerfiles']">
+                            <i class="material-icons">radio_button_checked </i>
+                            <p>Administrar Perfiles</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Item principal Empresa -->
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#collapseEmpresa" aria-expanded="false">
+                <i class="material-icons">domain</i>
+                <p>Empresa</p>
+            </a>
+            <!-- Ítems secundarios desplegables -->
+            <div class="collapse" id="collapseEmpresa">
+                <ul class="nav flex-column ml-3">
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/crearEmpresa']">
+                            <i class="material-icons">radio_button_checked </i>
+                            <p>Crear Empresa</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link"[routerLink]="['/ListEmpresas']">
+                            <i class="material-icons">radio_button_checked </i>
+                            <p class="icon-success">Administrar Empresas</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        
 
         <!-- Item principal puestos vigilancia -->
         <li class="nav-item">
@@ -139,11 +149,13 @@
                 <ul class="nav flex-column ml-3">
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/PuestosVigilancia']">
+                            <i class="material-icons">radio_button_checked </i>
                             <p>Crear Puesto de Vigilancia</p>
                         </a>
                     </li>
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link"[routerLink]="['/ListPuestosVig']">
+                            <i class="material-icons">radio_button_checked </i>
                             <p class="icon-success">Administrar Puesto de Vigilancia</p>
                         </a>
                     </li>

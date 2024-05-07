@@ -89,12 +89,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'list-regional',component:AdministrarRegionalComponent},
     {path:'create-regional',component:CrearRegionalComponent},
     
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
+  
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
     { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent},

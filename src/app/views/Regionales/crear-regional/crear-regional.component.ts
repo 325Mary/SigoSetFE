@@ -10,7 +10,7 @@ import { RegionalService } from '../../../services/regional/regional.service';
 export class CrearRegionalComponent implements OnInit {
   regionalForm: FormGroup;
   errorMessage: string = '';
-  regionales: CrearRegionalComponent[] = [];
+  regionales: CrearRegionalComponent[]
 
   constructor(private formBuilder: FormBuilder, private regionalService: RegionalService) { }
 
@@ -31,7 +31,7 @@ export class CrearRegionalComponent implements OnInit {
           this.regionalForm.reset();
         },
         error => {
-          console.error('Error al crear la regional:', error);
+          console.error('Error al crear la regional:', error.error);
           this.errorMessage = 'Error al crear la regional. Por favor, inténtalo de nuevo más tarde.';
         }
       );

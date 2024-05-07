@@ -1,46 +1,47 @@
-<div class="container">
-    <div class="titulo-container">
-        <h1 class="text-center titulo-perfiles">Crear Usuario</h1>
-    </div>
-    <div class="form-container">
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 40rem; ">
+        <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">Crear Usuario</h4>
+        </div>
+    <div class="card-body">
         <form (ngSubmit)="onSubmit()" class="formulario">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="idperfil">Perfil:</label>
-                        <select ![(ngModel)]="registroData.idperfil" class="form-control" required title="Perfil">
+                        <select [(ngModel)]="registroData.idperfil" class="form-control" required title="Perfil">
                             <option *ngFor="let perfil of perfiles" [value]="perfil.idperfil">{{ perfil.perfil }}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="identificacion">Identificación:</label>
-                        <input type="text" ![(ngModel)]="registroData.identificacion" class="form-control" required placeholder="Id">
+                        <input type="text" [(ngModel)]="registroData.identificacion" class="form-control" required placeholder="_">
                     </div>
                     <div class="form-group">
                         <label for="nombre_usuario">Nombre:</label>
-                        <input type="text" ![(ngModel)]="registroData.nombre_usuario" class="form-control" required  placeholder="Nombre de Uusario">
+                        <input type="text" [(ngModel)]="registroData.nombre_usuario" class="form-control" required  placeholder="_">
                     </div>
                     <div class="form-group">
                         <label for="telefono_usuario">Teléfono:</label>
-                        <input type="tel" ![(ngModel)]="registroData.telefono_usuario" class="form-control" required placeholder="Teléfono">
+                        <input type="tel" [(ngModel)]="registroData.telefono_usuario" class="form-control" required placeholder="_">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="idcentro_formacion">ID Centro Formación:</label>
-                        <input type="number" ![(ngModel)]="registroData.idcentro_formacion" class="form-control" required  placeholder="Id_centro">
+                        <input type="number" [(ngModel)]="registroData.idcentro_formacion" class="form-control" required  placeholder="_">
                     </div>
                     <div class="form-group">
                         <label for="apellido_usuario">Apellido:</label>
-                        <input type="text" ![(ngModel)]="registroData.apellido_usuario" class="form-control" required placeholder=" Apellido usuario">
+                        <input type="text" [(ngModel)]="registroData.apellido_usuario" class="form-control" required placeholder=" _">
                     </div>
                     <div class="form-group">
                         <label for="email_usuario">Email:</label>
-                        <input type="email" ![(ngModel)]="registroData.email_usuario" class="form-control" required  placeholder="example@gmail.com">
+                        <input type="email" [(ngModel)]="registroData.email_usuario" class="form-control" required  placeholder="_">
                     </div>
                     <div class="form-group">
                         <label for="estado">Estado:</label>
-                        <select ![(ngModel)]="registroData.estado" class="form-control" required title="Estado">
+                        <select [(ngModel)]="registroData.estado" class="form-control" required title="Estado">
                             <option value="Y">Activo</option>
                             <option value="N">Inactivo</option>
                         </select>
@@ -49,9 +50,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
-                    <button type="submit" class="btn" [disabled]="!validarFormulario()">Registrar Usuario</button>
+                    <button type="submit" class="btn btn-danger pull-right" [disabled]="!validarFormulario()">Registrar Usuario</button>
                 </div>
             </div>
         </form>
     </div>
+</div>
 </div>

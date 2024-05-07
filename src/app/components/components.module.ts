@@ -32,22 +32,22 @@ import { ListPuestosVigComponent } from '../../app/views/puestos-vig/list-puesto
   ],
   declarations: [
     FooterComponent,
-    LoginComponent,
-    RestablecerPasswordComponent,
-    CambiarPasswordComponent,
-    CrearRegionalComponent,
-    AdministrarRegionalComponent,
-    PersonalizacionComponent,
-    ListUsersComponent,
-    CrearUsersComponent,
-    EditUserComponent
+    //LoginComponent,
+    //RestablecerPasswordComponent,
+    //CambiarPasswordComponent,
+    //CrearRegionalComponent,
+    //AdministrarRegionalComponent,
+    //PersonalizacionComponent,
+    //ListUsersComponent,
+    //CrearUsersComponent,
+   // EditUserComponent
     
   ],
   exports: [
     FooterComponent,
-    LoginComponent,
-    CrearRegionalComponent,
-    AdministrarRegionalComponent
+   // LoginComponent,
+    //CrearRegionalComponent,
+    //AdministrarRegionalComponent
     
   ]
 })
