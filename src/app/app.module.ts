@@ -58,7 +58,6 @@ import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password
       }
     }),
 
-
   ],
   declarations: [
     //Aqui se deben llamar tods los componentes o vistas de este modo no aprecera los errores de !
