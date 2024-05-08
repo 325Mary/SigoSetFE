@@ -1,19 +1,19 @@
 <div class="modal-header d-flex justify-content-center align-items-center">
-    <h5 class="modal-title">Editar Empresa: {{ empresaSeleccionada?.nombre_empresav }}</h5>
+    <h5 class="modal-title">Editar Empresa: {{ empresaSeleccionada?.nombre_empresa }}</h5>
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-6">
             <div class="form-group">
                 <label for="nombreEmpresa">Nombre Empresa:</label>
-                <input type="text" class="form-control" id="nombreEmpresa" ![(ngModel)]="empresaSeleccionada.nombre_empresav">
+                <input type="text" class="form-control" id="nombreEmpresa" ![(ngModel)]="empresaSeleccionada.nombre_empresa">
             </div>
             
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="emailEmpresa">Email Empresa:</label>
-                <input type="email" class="form-control" id="emailEmpresa" ![(ngModel)]="empresaSeleccionada.email_empresav">
+                <input type="email" class="form-control" id="emailEmpresa" ![(ngModel)]="empresaSeleccionada.email_empresa">
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="direccion">Dirección:</label>
-                <input type="text" class="form-control" id="direccion" ![(ngModel)]="empresaSeleccionada.direccion_empresav">
+                <input type="text" class="form-control" id="direccion" ![(ngModel)]="empresaSeleccionada.direccion_empresa">
             </div>
         </div>
     </div>

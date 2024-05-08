@@ -24,9 +24,9 @@
           <ng-container *ngIf="!noResultados">
             <tr *ngFor="let empresa of empresas">
               <td>{{empresa.idempresa}}</td>
-              <td>{{ empresa.nombre_empresav }}</td>
+              <td>{{ empresa.nombre_empresa }}</td>
               <td>{{empresa.nit_empresa}}</td>
-              <td>{{empresa.direccion_empresav}}</td>
+              <td>{{empresa.direccion_empresa}}</td>
               <td>
                 <button (click)="abrirModalEditar(empresa)" title="Editar Perfil">
                   <i class="bi bi-pencil-square"></i>
@@ -34,7 +34,7 @@
                 <button (click)="abrirModalVerEmpresa(empresa)" title="Ver Detalles">
                   <i class="bi bi-eye"></i>
                 </button>
-                <button (click)="eliminarEmpresa(empresa.idempresa_vigilancia)" title="Boton de eliminar">
+                <button (click)="eliminarEmpresa(empresa.idempresa)" title="Boton de eliminar">
                   <i class="bi bi-trash"></i>
                 </button>
               </td>
