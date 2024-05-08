@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../../services/usuario/login.service';
 import { PerfilService } from '../../../services/usuario/perfil.service';
+import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service'
 import Swal from 'sweetalert2';
 
 
@@ -27,11 +28,13 @@ export class CrearUsersComponent {
     estado: ''
   };
   perfiles: Perfil[] = [];
+  centrosF: any[] = [];
 
-  constructor(private authservice: LoginService, private perfilService: PerfilService) {}
+  constructor(private authservice: LoginService, private perfilService: PerfilService, private centroS: CentroFormacionService) {}
 
   ngOnInit(): void {
     this.obtenerPerfiles();
+    this.obtenerCentros()
   }
 
   obtenerPerfiles() {
@@ -46,6 +49,21 @@ export class CrearUsersComponent {
       },
       error => {
         console.error('Error al recuperar perfiles:', error);
+      }
+    );
+  }
+  obtenerCentros() {
+    this.centroS.getCentrosFormacion().subscribe(
+      (response: any) => {
+        console.log(response); // Verifica que los datos se estén recuperando correctamente
+        if (response && response.data && response.data.length > 0) {
+          this.centrosF = response.data; // Asigna el primer elemento del primer array
+        } else {
+          console.error('No se han recuperado centros de formacion');
+        }
+      },
+      error => {
+        console.error('Error al recuperar centros de formacion :', error);
       }
     );
   }

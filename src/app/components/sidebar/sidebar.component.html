@@ -15,6 +15,25 @@
                     <p>{{menuItem.title}}</p>
                 </a>
             </li>
+
+              <!-- Item principal PERFILES -->
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
+                    <i class="material-icons">account_circle </i>
+                    <p>Perfiles</p>
+                </a>
+                <!-- Ítems secundarios desplegables -->
+                <div class="collapse" id="collapsePerfil">
+                    <ul class="nav flex-column ml-3">
+                        <li routerLinkActive="active" class="nav-item">
+                            <a class="nav-link" [routerLink]="['/AdministrarPerfiles']">
+                                <i class="material-icons">radio_button_checked </i>
+                                <p>Administrar Perfiles</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <!-- Item principal Usuario -->
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#collapseUsuario" aria-expanded="false">
@@ -83,24 +102,6 @@
                             <a class="nav-link" [routerLink]="['/listaCentroFormacion']">
                                 <i class="material-icons">radio_button_checked </i>
                                 <p class="icon-success">Administrar Centro</p>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <!-- Item principal PERFILES -->
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
-                    <i class="material-icons">account_circle </i>
-                    <p>Perfiles</p>
-                </a>
-                <!-- Ítems secundarios desplegables -->
-                <div class="collapse" id="collapsePerfil">
-                    <ul class="nav flex-column ml-3">
-                        <li routerLinkActive="active" class="nav-item">
-                            <a class="nav-link" [routerLink]="['/AdministrarPerfiles']">
-                                <i class="material-icons">radio_button_checked </i>
-                                <p>Administrar Perfiles</p>
                             </a>
                         </li>
                     </ul>
