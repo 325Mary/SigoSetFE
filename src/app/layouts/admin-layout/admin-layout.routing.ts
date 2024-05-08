@@ -14,7 +14,7 @@ import {RestablecerPasswordComponent} from '../../views/Usuario/restablecer-pass
 import { CambiarPasswordComponent } from "../../views/Usuario/cambiar-password/cambiar-password.component";
 import {PersonalizacionComponent} from '../../views/Usuario/personalizacion/personalizacion.component';
 import {NotFoundComponent} from '../../components/not-found/not-found.component'
-<<<<<<< HEAD
+
 
 import { CrearUsersComponent} from "../../views//Usuario/crear-users/crear-users.component";
 import { ListUsersComponent } from "../../views/Usuario/list-users/list-users.component";
@@ -40,17 +40,10 @@ import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista
 import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
 import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
 import { Component } from '@angular/core';
-=======
-import { CrearUsersComponent} from "../../components/Usuario/crear-users/crear-users.component";
-import { ListUsersComponent } from "../../components/Usuario/list-users/list-users.component";
-import {EditUserComponent} from "../../components/Usuario/edit-user/edit-user.component";
-import { RegionalComponent } from 'app/components/regional/regional.component';
-import { PuestosVigilanciaComponent } from 'app/components/puestos-vig/crear-puestos-vig/puestosVig.component';
-import { ListPuestosVigComponent } from 'app/components/puestos-vig/list-puestos-vig/list-puestos-vig.component';
-import { HomeComponent } from 'app/views/login/ladding/home.component';
+
+//import { RegionalComponent } from 'app/components/regional/regional.component';
 import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
 
->>>>>>> origin/14-crear-los-modulos
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -115,7 +108,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'crearEmpresa', component: CrearEmpresaComponent},
 
     {path:'PuestosVigilancia',component:PuestosVigilanciaComponent},
-<<<<<<< HEAD
     {path:'listarPuestosVig',component:ListPuestosVigComponent},
     { path: 'cambiarPassword', component:CambiarPasswordComponent},
 
@@ -124,10 +116,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'editarCentroFormacion/:id', component:RegistrarCentroFormacionComponent},
     { path: 'detalleCentroFormacion/:id', component:DetalleCentroFormacionComponent},
       { path: '**', component: NotFoundComponent},
-=======
-    { path: '**', component: NotFoundComponent},
-    {path:'listarPuestosVig',component:ListPuestosVigComponent},
-    {path:'ListaModulo', component:ListaModuloComponent}
->>>>>>> origin/14-crear-los-modulos
 
 ];

@@ -12,20 +12,10 @@ import {AdministrarRegionalComponent} from '../../app/views/Regionales/administr
 import {CrearRegionalComponent} from '../views/Regionales/crear-regional/crear-regional.component'
 import { PersonalizacionComponent } from '../views/Usuario/personalizacion/personalizacion.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-<<<<<<< HEAD
 import { ListUsersComponent } from '../views/Usuario/list-users/list-users.component';
 import {CrearUsersComponent} from '../views/Usuario/crear-users/crear-users.component';
 import { EditUserComponent } from '../views/Usuario/edit-user/edit-user.component'
 // import { NgxPaginationModule } from 'ngx-pagination';
-=======
-import { ListUsersComponent } from './Usuario/list-users/list-users.component';
-import {CrearUsersComponent} from './Usuario/crear-users/crear-users.component';
-import { EditUserComponent } from './Usuario/edit-user/edit-user.component';
-import { MatTableModule } from '@angular/material/table';
-import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
-
-
->>>>>>> origin/14-crear-los-modulos
 
 import { PuestosVigilanciaComponent } from '../../app/views/puestos-vig/crear-puestos-vig/puestosVig.component';
 import { ListPuestosVigComponent } from '../../app/views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
@@ -35,7 +25,6 @@ import { ListPuestosVigComponent } from '../../app/views/puestos-vig/list-puesto
     CommonModule,
     RouterModule,
     FormsModule,
-<<<<<<< HEAD
     MatFormFieldModule,
     ReactiveFormsModule,
 
@@ -53,25 +42,6 @@ import { ListPuestosVigComponent } from '../../app/views/puestos-vig/list-puesto
     //CrearUsersComponent,
    // EditUserComponent
     
-=======
-    ReactiveFormsModule,
-    MatTableModule
-  ],
-  declarations: [
-    FooterComponent,
-    LoginComponent,
-    RestablecerPasswordComponent,
-    CambiarPasswordComponent,
-    PersonalizacionComponent,
-    NotFoundComponent,
-    CrearUsersComponent,
-    ListUsersComponent,
-    EditUserComponent,
-    RegionalComponent,
-    PuestosVigilanciaComponent,
-    ListPuestosVigComponent,
-    ListaModuloComponent,
->>>>>>> origin/14-crear-los-modulos
   ],
   exports: [
     FooterComponent,
