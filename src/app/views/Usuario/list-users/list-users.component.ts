@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { LoginService } from '../../../services/usuario/login.service';
+import { PerfilService } from '../../../services/usuario/perfil.service';
 import Swal from 'sweetalert2';
 
 
@@ -9,13 +10,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
+  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
+
+  showModal: boolean = false;
 
   usuarios: any[];
   pageSize: number = 10; // Número de usuarios por página
   currentPage: number = 1; // Página actual
-  
- 
-  constructor(private loginService: LoginService) { }
+  usuarioSeleccionado: any []
+  perfiles: any[] = [];
+
+  constructor(private loginService: LoginService,  private perfilService: PerfilService) { }
 
   ngOnInit(): void {
     this.loginService.listarUsuarios().subscribe(
@@ -31,8 +36,23 @@ export class ListUsersComponent implements OnInit {
         console.error('Error al obtener la lista de usuarios:', error);
       }
     );
+    this.obtenerPerfiles()
   }
-
+  obtenerPerfiles() {
+    this.perfilService.obtenerPerfiles().subscribe(
+      (response: any) => {
+        console.log(response); // Verifica que los datos se estén recuperando correctamente
+        if (response && response.data && response.data.length > 0) {
+          this.perfiles = response.data[0]; // Asigna el primer elemento del primer array
+        } else {
+          console.error('No se han recuperado perfiles');
+        }
+      },
+      error => {
+        console.error('Error al recuperar perfiles:', error);
+      }
+    );
+  }
     // Función para cambiar de página
   setPage(pageNumber: number) {
     this.currentPage = pageNumber;
@@ -178,5 +198,69 @@ private refreshUserList() {
     }
   );
 }
+
+abrirModalVerUsuario(usuario: any): void {
+  this.usuarioSeleccionado = usuario;
+  this.showModal = true;
+  console.log('Modal abierto');
+}
+
+
+handleCloseModal(): void {
+  this.showModal = false;
+  console.log('Modal cerrado');
+}
+
+closeModal(): void {
+  this.showModal = false;
+}
+
+abrirCambiarPerfil(usuario: any) {
+  // Crear las opciones de perfiles para el Sweet Alert
+  const options = {};
+  this.perfiles.forEach(perfil => {
+    options[perfil.idperfil] = perfil.perfil;
+  });
+
+  Swal.fire({
+    title: 'Selecciona un perfil',
+    input: 'select',
+    inputOptions: options,
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    inputValidator: (value) => {
+      if (!value) {
+        return 'Debes seleccionar un perfil';
+      }
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.cambiarPerfilUsuario(usuario.idUsuario, result.value);
+    }
+  });
+}
+
+cambiarPerfilUsuario(idUsuario: string, idPerfil: string) {
+  this.loginService.editUser(idUsuario, { idperfil: idPerfil }).subscribe(
+    response => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Perfil cambiado',
+        text: 'El perfil del usuario ha sido cambiado correctamente.'
+      });
+      this.refreshUserList();
+    },
+    error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al cambiar perfil',
+        text: 'Hubo un problema al cambiar el perfil del usuario. Por favor, inténtalo de nuevo más tarde.'
+      });
+      console.error('Error al cambiar perfil:', error);
+    }
+  );
+}
+
+
 
 }

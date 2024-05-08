@@ -24,10 +24,15 @@
             <td>{{ usuario.apellido_usuario }}</td>
             <td>{{ usuario.email_usuario }}</td>
             <td>
+              <button (click)="abrirCambiarPerfil(usuario)" title="Cambiar perfil">
+                <i class="bi bi-pencil"></i>
+            </button>
                 <button  (click)="enviarCorreo(usuario.idUsuario)" title="Enviar correo" *ngIf="usuario.firstLogin !== 0">
                     <i class="bi bi-envelope  black-icon"></i> <!-- Icono de correo de Bootstrap -->
                   </button>
-                 
+                  <button (click)="abrirModalVerUsuario(usuario)" title="Ver Detalles">
+                    <i class="bi bi-eye"></i>
+                  </button>
                   <button (click)="cambiarEstado(usuario.idUsuario)" title="Cambiar estado">
                     <ng-container *ngIf="usuario.estado === 'Y'; else inactivo">
                       <!-- Icono para usuario activo -->
@@ -62,3 +67,11 @@
     </div>
   </div>
   
+  <div class="modal" [class.show]="showModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Contenido del modal -->
+            <app-ver-user [usuarioSeleccionado]="usuarioSeleccionado" (closeModal)="handleCloseModal()"></app-ver-user>
+          </div>
+    </div>
+  </div>
