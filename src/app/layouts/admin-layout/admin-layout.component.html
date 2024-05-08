@@ -3,17 +3,25 @@
 <app-sidebar></app-sidebar>
 
  -->
- <div class="wrapper">
-    <div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
-        <app-sidebar></app-sidebar>
-        <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
+ <div class="wrapper" [ngClass]="{ 'sidebar-visible': isLoggedIn }">
+    <div *ngIf="isLoggedIn" class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg"  #sidebar>
+      <app-sidebar></app-sidebar>
+      <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
     </div>
-    <div class="main-panel">
+  
+    <div class="main-panel" [ngStyle]="{ 'margin-left': isLoggedIn ? '250px' : '0' }" #mainPanel>
+      <div class="content">
         <router-outlet></router-outlet>
         <div *ngIf="isMaps('maps')">
-            <app-footer></app-footer>
+          <app-footer></app-footer>
         </div>
+      </div>
     </div>
+  
+    <div *ngIf="!isLoggedIn" class="full-width-content"></div>
+
+  
+  
     <!-- <div class="fixed-plugin">
         <div class="dropdown show-dropdown open show">
             <a href="#" data-toggle="dropdown" aria-expanded="true">

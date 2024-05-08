@@ -1,5 +1,7 @@
 // import { ListPuestosVigComponent } from './../list-puestos-vig/list-puestos-vig.component';
 import { Component, OnInit } from '@angular/core';
+import {LoginService} from '../../services/usuario/login.service'
+import { Router } from '@angular/router';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -30,7 +32,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor( private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -41,4 +43,21 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
+  cerrarSesion() {
+    // Realizar la solicitud de cierre de sesión sin pasar ningún argumento
+    this.loginService.cerrarSesion().subscribe(
+      response => {
+        this.loginService.removerToken();
+        this.router.navigate(['/']);
+        history.replaceState(null, '', '/');
+      },
+      error => {
+        // Manejar errores (por ejemplo, mostrar un mensaje de error)
+        console.error('Error al cerrar sesión:', error);
+      }
+    );
+  }
+  
+  
 }
