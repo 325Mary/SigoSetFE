@@ -44,20 +44,20 @@ export class SidebarComponent implements OnInit {
       return true;
   };
 
-  cerrarSesion() {
-    // Realizar la solicitud de cierre de sesión sin pasar ningún argumento
-    this.loginService.cerrarSesion().subscribe(
-      response => {
-        this.loginService.removerToken();
-        this.router.navigate(['/']);
-        history.replaceState(null, '', '/');
-      },
-      error => {
-        // Manejar errores (por ejemplo, mostrar un mensaje de error)
-        console.error('Error al cerrar sesión:', error);
-      }
-    );
-  }
+  // cerrarSesion() {
+  //   // Realizar la solicitud de cierre de sesión sin pasar ningún argumento
+  //   this.loginService.cerrarSesion().subscribe(
+  //     response => {
+  //       this.loginService.removerToken();
+  //       this.router.navigate(['/']);
+  //       history.replaceState(null, '', '/');
+  //     },
+  //     error => {
+  //       // Manejar errores (por ejemplo, mostrar un mensaje de error)
+  //       console.error('Error al cerrar sesión:', error);
+  //     }
+  //   );
+  // }
   
   
 }

@@ -69,7 +69,7 @@ import {AuthInterceptor} from './services/usuario/auth.interceptor'
     CrearEmpresaComponent,
     ListarEmpresaComponent,
     EditarEmpresaComponent,
-
+    NavbarComponent
 
   ],
   providers: [
