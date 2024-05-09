@@ -1,16 +1,13 @@
-<div class="container" style="margin-top: 30px;">
-  <div class="row justify-content-center">
-    <div class="col-md-6 " style="position: relative">
-      <div class="titulo-container"> <!-- Contenedor del título -->
-        <h2 class="text-center titulo-perfiles">Listado de Empresas</h2>
-      </div>
 
-     
-
+<div class="container d-flex justify-content-center mt-5 mb-2">
+  <div class="card" style="width: 80rem;">
+    <div class="card-header card-header-sena-azul">
+      <!-- Contenedor del título -->
+        <h4 class="card-title">Listado de Empresas</h4>
       <table class="table table-bordered text-center">
         <thead class="thead-light">
           <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-            <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarEmpresas()" ![(ngModel)]="terminoBusqueda">
+            <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarEmpresas()" [(ngModel)]="terminoBusqueda">
           </div>
           <tr>
             <th>ID</th>
@@ -48,24 +45,68 @@
         </tbody>
       </table>
     </div>
+
+
+    <!-- <table class="table table-bordered text-center">
+      <thead class="thead-light">
+        <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+          <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
+            (input)="filtrarEmpresas()" [(ngModel)]="terminoBusqueda">
+        </div>
+        <tr>
+          <th>ID</th>
+          <th>Nombre Empresa</th>
+          <th>NIT</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!noResultados">
+          <tr *ngFor="let empresa of empresas">
+            <td>{{empresa.idempresa}}</td>
+            <td>{{ empresa.nombre_empresav }}</td>
+            <td>{{empresa.nit_empresa}}</td>
+            <td>{{empresa.direccion_empresav}}</td>
+            <td>
+              <button (click)="abrirModalEditar(empresa)" title="Editar Perfil">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button (click)="abrirModalVerEmpresa(empresa)" title="Ver Detalles">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button (click)="eliminarEmpresa(empresa.idempresa_vigilancia)" title="Boton de eliminar">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-container *ngIf="noResultados">
+          <tr>
+            <td colspan="5" class="text-center">No se encontraron resultados.</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table> -->
   </div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal" [class.show]="mostrarModalEditar">
   <div class="modal-dialog">
-      <div class="modal-content">
-          <!-- Contenido del modal -->
-          <!-- <app-editar-empresa [empresaSeleccionada]="empresaSeleccionada" (closeModal)="handleCloseModal()" (actualizarEmpresa)="actualizarEmpresa()"></app-editar-empresa> -->
-      </div>
+    <div class="modal-content">
+      <!-- Contenido del modal -->
+      <app-editar-empresa [empresaSeleccionada]="empresaSeleccionada" (closeModal)="handleCloseModal()" (actualizarEmpresa)="actualizarEmpresa()"></app-editar-empresa>
+    </div>
   </div>
 </div>
 
 <div class="modal" [class.show]="showModal">
   <div class="modal-dialog">
-      <div class="modal-content">
-          <!-- Contenido del modal -->
-          <!-- <app-ver-empresa [empresaSeleccionada]="empresaSeleccionada" (closeModal)="handleCloseModal()"></app-ver-empresa> -->
-        </div>
+    <div class="modal-content">
+      <!-- Contenido del modal -->
+      <app-ver-empresa [empresaSeleccionada]="empresaSeleccionada" (closeModal)="handleCloseModal()"></app-ver-empresa>
+    </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {CrearRegionalComponent} from '../../views/Regionales/crear-regional/crear-regional.component'
 import { AdministrarRegionalComponent } from '../../views/Regionales/administrar-regional/administrar-regional.component';
 import { environment } from '../../../environments/environment';
 
@@ -21,15 +22,15 @@ export class RegionalService {
     return this.httpClient.get<AdministrarRegionalComponent>(`${this.baseUrl}listRegionalByid/${id}`);
   }
 
-  createRegional(regionalData: AdministrarRegionalComponent): Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrl}/createRegional`, regionalData);
+  createRegional(regionalData: CrearRegionalComponent): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseUrl}createRegional`, regionalData);
   }
 
   updateRegional(id: number, regionalData: AdministrarRegionalComponent): Observable<any> {
-    return this.httpClient.put<any>(`${this.baseUrl}/editRegionalByid/${id}`, regionalData);
+    return this.httpClient.put<any>(`${this.baseUrl}editRegionalByid/${id}`, regionalData);
   }
 
   deleteRegionalById(id: number): Observable<any> {
-    return this.httpClient.delete<any>(`${this.baseUrl}/deleteRegionalByid/${id}`);
+    return this.httpClient.delete<any>(`${this.baseUrl}deleteRegionalByid/${id}`);
   }
 }

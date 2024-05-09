@@ -8,24 +8,18 @@ import { RegionalService } from '../../../services/regional/regional.service';
   styleUrls: ['./administrar-regional.component.css']
 })
 export class AdministrarRegionalComponent implements OnInit {
-  regionalForm: FormGroup;
   errorMessage: string = '';
-  regionales: AdministrarRegionalComponent[] = [];
+  regionales: AdministrarRegionalComponent[];
 
-  constructor(private formBuilder: FormBuilder, private regionalService: RegionalService) { }
+  constructor(private regionalService: RegionalService) { }
 
   ngOnInit(): void {
-    this.regionalForm = this.formBuilder.group({
-      nombreRegional: ['', Validators.required],
-      direccion: ['', Validators.required]
-
-  });
   this.listarRegionales(); // Llama al método para listar regionales al inicializar el componente
 }
 listarRegionales(): void {
   this.regionalService.getAllRegionals().subscribe(
     data => {
-      this.regionales = [];
+      this.regionales = data;
     },
     error => {
       console.error('Error al obtener las regionales:', error);

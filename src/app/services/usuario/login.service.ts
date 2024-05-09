@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter   } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ export class LoginService {
 
   
   private baseUrl = environment.apiUrl;
-
+  loginStatusChanged = new EventEmitter<boolean>();
   constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService,   private router: Router) { }
 
  
@@ -26,6 +26,10 @@ export class LoginService {
           localStorage.setItem('userId', response.userId);
           if (response.firstLogin) {
             this.router.navigate(['/cambiarPassword', { userId: response.userId }]);
+          }
+          else {
+            this.loginStatusChanged.emit(true);
+
           }
           return response;
         })
@@ -101,6 +105,19 @@ cambiarEstadoUsuario(idUsuario: string, estado: string): Observable<any> {
 eliminarUsuario(idUsuario: string): Observable<any> {
   const url = `${this.baseUrl}EliminarUser/${idUsuario}`;
   return this.httpClient.delete<any>(url);
+}
+
+isLoggedIn(): boolean {
+  // Verificar si el token de autenticación está presente en el almacenamiento local
+  const token = localStorage.getItem('token');
+  // Devolver verdadero si el token no está vacío y no está expirado
+  return !!token && !this.jwtHelper.isTokenExpired(token);
+}
+
+logout() {
+  // Eliminar el token del almacenamiento local al cerrar sesión
+  localStorage.removeItem('token');
+  this.loginStatusChanged.emit(false);
 }
 
 }

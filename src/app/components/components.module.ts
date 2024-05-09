@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FooterComponent } from './footer/footer.component';
@@ -25,13 +25,21 @@ import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modu
 
 
 
+import {VerUserComponent} from '../views/modals/ver-user/ver-user.component'
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   imports: [
+    NgModule,
     CommonModule,
     RouterModule,
     FormsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatTableModule,
+    RouterLink,
+
+ 
+
 
     //NgxPaginationModule
   ],
@@ -48,6 +56,16 @@ import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modu
     EditUserComponent,
     CrearModulosComponent,
     ListaModuloComponent,
+    // LoginComponent,
+    // RestablecerPasswordComponent,
+    // CambiarPasswordComponent,
+    // CrearRegionalComponent,
+    // AdministrarRegionalComponent,
+    // PersonalizacionComponent,
+    // ListUsersComponent,
+    // CrearUsersComponent,
+    // EditUserComponent,
+    // VerUserComponent,
     
   ],
   exports: [
@@ -57,6 +75,9 @@ import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modu
     AdministrarRegionalComponent,
     CrearModulosComponent,
     ListaModuloComponent,
+   // LoginComponent,
+    //CrearRegionalComponent,
+    //AdministrarRegionalComponent
     
   ]
 })

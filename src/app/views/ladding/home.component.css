@@ -64,7 +64,7 @@ a:hover {
   align-items: center;
   font-family: Arial, sans-serif;
   background-color: #f0f0f0; /* Color de fondo gris claro */
-  height: 70vh;
+  height: 60vh;
 }
 .content_main {
   display: flex;

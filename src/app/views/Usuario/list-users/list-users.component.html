@@ -1,64 +1,62 @@
-<div class="container" style="margin-top: 30px;">
-  <div class="row justify-content-center">
-    <div class="col-md-10 " style="position: relative">
+<div class="container d-flex justify-content-center mt-5 mb-5" style="width: 60rem;">
+  <div class="card">
+    <div class="card-header card-header-sena-azul"> <!-- Contenedor del título -->
+      <h4 class="card-title">Listado de Usuarios</h4>
+    </div>
+    <div class="card-body">
+      <div class="table">
+        <table class="table table-bordered text-center">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios.slice((currentPage-1)*pageSize, currentPage*pageSize)">
+              <td>{{ usuario.idUsuario }}</td>
+              <td>{{ usuario.nombre_usuario }}</td>
+              <td>{{ usuario.apellido_usuario }}</td>
+              <td>{{ usuario.email_usuario }}</td>
+              <td>
+                <button (click)="enviarCorreo(usuario.idUsuario)" title="Enviar correo"
+                  *ngIf="usuario.firstLogin !== 0">
+                  <i class="bi bi-envelope  black-icon"></i> <!-- Icono de correo de Bootstrap -->
+                </button>
 
-  <div class="titulo-container"> <!-- Contenedor del título -->
+                <button (click)="cambiarEstado(usuario.idUsuario)" title="Cambiar estado">
+                  <ng-container *ngIf="usuario.estado === 'Y'; else inactivo">
+                    <!-- Icono para usuario activo -->
+                    <i class="bi bi-check-circle-fill text-success "></i>
+                  </ng-container>
+                  <ng-template #inactivo>
+                    <!-- Icono para usuario inactivo -->
+                    <i class="bi bi-x-circle-fill inactivo"></i>
+                  </ng-template>
+                </button>
 
-    <h2 class="text-center titulo-perfiles">Listado de Usuarios</h2>
-  </div>
-    <div class="table">
-      <table class="table table-bordered text-center">
-        <thead >
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let usuario of usuarios.slice((currentPage-1)*pageSize, currentPage*pageSize)">
-            <td>{{ usuario.idUsuario }}</td>
-            <td>{{ usuario.nombre_usuario }}</td>
-            <td>{{ usuario.apellido_usuario }}</td>
-            <td>{{ usuario.email_usuario }}</td>
-            <td>
-                <button  (click)="enviarCorreo(usuario.idUsuario)" title="Enviar correo" *ngIf="usuario.firstLogin !== 0">
-                    <i class="bi bi-envelope  black-icon"></i> <!-- Icono de correo de Bootstrap -->
-                  </button>
-                 
-                  <button (click)="cambiarEstado(usuario.idUsuario)" title="Cambiar estado">
-                    <ng-container *ngIf="usuario.estado === 'Y'; else inactivo">
-                      <!-- Icono para usuario activo -->
-                      <i class="bi bi-check-circle-fill text-success "></i>
-                    </ng-container>
-                    <ng-template #inactivo>
-                      <!-- Icono para usuario inactivo -->
-                      <i class="bi bi-x-circle-fill inactivo"></i>
-                    </ng-template>
-                  </button>
-                  
-                    <button (click)="eliminarUsuario(usuario.idUsuario)" title="eliminar">
-                      <i class="bi bi-trash  black-icon"></i> <!-- Icono de eliminación -->
-                    </button>
-                  
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <button (click)="eliminarUsuario(usuario.idUsuario)" title="eliminar">
+                  <i class="bi bi-trash  black-icon"></i> <!-- Icono de eliminación -->
+                </button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-4">
+        <!-- Botones o enlaces para cambiar de página -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
+              <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
-  </div>
-    <div class="text-center mt-4">
-      <!-- Botones o enlaces para cambiar de página -->
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-            <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-  
+</div>

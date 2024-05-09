@@ -38,6 +38,9 @@ export class PuestosVigilanciaService {
       const total = tarifa + iva + ays;
       return total;
     }
+    
+
+
 }
 // const PuestoVigilancia = require('../models/model');
 

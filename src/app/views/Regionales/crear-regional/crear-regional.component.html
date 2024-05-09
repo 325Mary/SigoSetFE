@@ -1,21 +1,20 @@
-<p>crear-regional works!</p>
 <div class="container d-flex justify-content-center mt-5 mb-2">
-    <div class="card" style="width: 40rem;">
-        <div class="card-header">
-            <h2>Crear Nueva Regional</h2>
+    <div class="card" style="width: 80rem;">
+        <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">Crear Nueva Regional</h4>
         </div>
         <div class="card-body">
 
-            <form ![formGroup]="regionalForm" (ngSubmit)="createRegional()">
+            <form [formGroup]="regionalForm" (ngSubmit)="createRegional()">
                 <div class="form-group">
                     <label for="nombreRegional">Nombre:</label>
-                    <input type="text" id="nombreRegional" formControlName="nombreRegional" class="form-control" />
+                    <input type="text" id="nombreRegional" formControlName="nombreRegional" class="form-control" required/>
                 </div>
                 <div class="form-group">
                     <label for="direccion">Dirección:</label>
-                    <input type="text" id="direccion" formControlName="direccion" class="form-control" />
+                    <input type="text" id="direccion" formControlName="direccion" class="form-control" required/>
                 </div>
-                <button type="submit" class="btn btn-primary">Crear Regional</button>
+                <button type="submit" class="btn btn-danger pull-right">Crear Regional</button>
             </form>
         </div>
     </div>

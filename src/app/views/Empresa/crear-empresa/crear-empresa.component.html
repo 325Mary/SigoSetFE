@@ -1,74 +1,92 @@
 <!-- crear-empresa.component.html -->
-<h1>Vista empresa</h1>
-<div class="container">
-    <div class="titulo-container">
-        <h1 class="text-center titulo-perfiles">Crear Empresa</h1>
-    </div>
-    <div class="form-container">
-        <form (submit)="crearEmpresa()" class="w-100 container">
-            <div class="row">
-                <!-- Columna de Datos de la Empresa -->
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="nombreEmpresa">Nombre Empresa:</label>
-                        <input type="text" id="nombreEmpresa" name="nombreEmpresa" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.nombre_empresav" required>
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 60rem;">
+        <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">Crear Empresa</h4>
+        </div>
+        <div class="card-body">
+            <form (submit)="crearEmpresa()">
+                <div class="row">
+                    <!-- Columna de Datos de la Empresa -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="nombreEmpresa">Nombre Empresa:</label>
+                            <input type="text" id="nombreEmpresa" name="nombreEmpresa"
+                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.nombre_empresav" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nit">NIT:</label>
+                            <input type="text" id="nit" name="nit" class="form-control rounded-input"
+                                [(ngModel)]="nuevaEmpresa.nit_empresa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" id="direccion" name="direccion" class="form-control rounded-input"
+                                [(ngModel)]="nuevaEmpresa.direccion_empresav" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="nit">NIT:</label>
-                        <input type="text" id="nit" name="nit" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.nit_empresa" required>
+                    <!-- Columna de Teléfono y Correo Electrónico de la Empresa -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="telefonoEmpresa">Teléfono Empresa:</label>
+                            <input type="text" id="telefonoEmpresa" name="telefonoEmpresa"
+                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_empresav"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailEmpresa">Email Empresa:</label>
+                            <input type="email" id="emailEmpresa" name="emailEmpresa" class="form-control rounded-input"
+                                [(ngModel)]="nuevaEmpresa.email_empresav" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección:</label>
-                        <input type="text" id="direccion" name="direccion" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.direccion_empresav" required>
+                    <!-- Columna de Datos de Contacto -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="personaContacto">Persona de Contacto:</label>
+                            <input type="text" id="personaContacto" name="personaContacto"
+                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.persona_contacto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefonoContacto">Teléfono Persona de Contacto:</label>
+                            <input type="text" id="telefonoContacto" name="telefonoContacto"
+                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_personac"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailContacto">Email Persona de Contacto:</label>
+                            <input type="email" id="emailContacto" name="emailContacto"
+                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_personac" required>
+                        </div>
+                    </div>
+                    <!-- Columna de Datos del Representante Legal -->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="representanteLegal">Representante Legal:</label>
+                            <input type="text" id="representanteLegal" name="representanteLegal"
+                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.representante_legal"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefonoRepresentante">Teléfono Representante Legal:</label>
+                            <input type="text" id="telefonoRepresentante" name="telefonoRepresentante"
+                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_representantel"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailRepresentante">Email Representante Legal:</label>
+                            <input type="email" id="emailRepresentante" name="emailRepresentante"
+                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_representantel"
+                                required>
+                        </div>
                     </div>
                 </div>
-                <!-- Columna de Teléfono y Correo Electrónico de la Empresa -->
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="telefonoEmpresa">Teléfono Empresa:</label>
-                        <input type="text" id="telefonoEmpresa" name="telefonoEmpresa" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.telefono_empresav" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="emailEmpresa">Email Empresa:</label>
-                        <input type="email" id="emailEmpresa" name="emailEmpresa" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.email_empresav" required>
-                    </div>
-                </div>
-                <!-- Columna de Datos de Contacto -->
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="personaContacto">Persona de Contacto:</label>
-                        <input type="text" id="personaContacto" name="personaContacto" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.persona_contacto" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefonoContacto">Teléfono Persona de Contacto:</label>
-                        <input type="text" id="telefonoContacto" name="telefonoContacto" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.telefono_personac" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="emailContacto">Email Persona de Contacto:</label>
-                        <input type="email" id="emailContacto" name="emailContacto" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.email_personac" required>
-                    </div>
-                </div>
-                <!-- Columna de Datos del Representante Legal -->
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="representanteLegal">Representante Legal:</label>
-                        <input type="text" id="representanteLegal" name="representanteLegal" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.representante_legal" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefonoRepresentante">Teléfono Representante Legal:</label>
-                        <input type="text" id="telefonoRepresentante" name="telefonoRepresentante" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.telefono_representantel" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="emailRepresentante">Email Representante Legal:</label>
-                        <input type="email" id="emailRepresentante" name="emailRepresentante" class="form-control rounded-input" ![(ngModel)]="nuevaEmpresa.email_representantel" required>
-                    </div>
-                </div>
-            </div>
-            <!-- Agrega más campos según sea necesario para tu formulario -->
+                <!-- Agrega más campos según sea necesario para tu formulario -->
 
-            <div class="d-flex justify-content-between w-100 mt-4">
-                <button type="submit" class="btn" [disabled]="!camposCompletos()">Crear Empresa</button>
-            </div>
-        </form>
+                <div class="d-flex justify-content-between w-100 mt-4">
+                    <button type="submit" class="btn btn-danger pull-right" [disabled]="!camposCompletos()">Crear Empresa</button>
+                </div>
+            </form>
+        </div>
     </div>
+
 </div>

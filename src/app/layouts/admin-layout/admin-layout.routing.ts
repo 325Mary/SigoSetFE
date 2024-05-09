@@ -15,6 +15,7 @@ import { CambiarPasswordComponent } from "../../views/Usuario/cambiar-password/c
 import {PersonalizacionComponent} from '../../views/Usuario/personalizacion/personalizacion.component';
 import {NotFoundComponent} from '../../components/not-found/not-found.component'
 
+
 import { CrearUsersComponent} from "../../views//Usuario/crear-users/crear-users.component";
 import { ListUsersComponent } from "../../views/Usuario/list-users/list-users.component";
 import {EditUserComponent} from "../../views/Usuario/edit-user/edit-user.component";
@@ -41,6 +42,10 @@ import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modu
 import { CrearModulosComponent } from 'app/views/modulos/crear-modulos/crear-modulos.component';
 
 import { Component } from '@angular/core';
+
+//import { RegionalComponent } from 'app/components/regional/regional.component';
+// import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -91,12 +96,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'list-regional',component:AdministrarRegionalComponent},
     {path:'create-regional',component:CrearRegionalComponent},
     
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
+  
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
     { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent},

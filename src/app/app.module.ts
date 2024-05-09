@@ -23,15 +23,23 @@ import { CrearEmpresaComponent } from './views/Empresa/crear-empresa/crear-empre
 import { ListarEmpresaComponent } from './views/Empresa/listar-empresa/listar-empresa.component';
 import { EditarEmpresaComponent } from './views/modals/editar-empresa/editar-empresa.component';
 import { VerEmpresaComponent } from './views/modals/ver-empresa/ver-empresa.component';
-import { HomeComponent } from './views/home/home.component';
 import { NavbarComponent } from "../app/components/navbar/navbar.component";
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTableModule } from '@angular/material/table';
 import { ListPuestosVigComponent } from './views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
+import {PuestosVigilanciaComponent} from './views/puestos-vig/crear-puestos-vig/puestosVig.component'
 import { CrearRegionalComponent } from './views/Regionales/crear-regional/crear-regional.component';
 import { AdministrarRegionalComponent } from './views/Regionales/administrar-regional/administrar-regional.component';
 import { CrearModulosComponent } from './views/modulos/crear-modulos/crear-modulos.component';
 import { ListaModuloComponent } from './views/modulos/lista-modulos/lista-modulos.component';
+import { CrearUsersComponent} from './views/Usuario/crear-users/crear-users.component'
+import {EditUserComponent} from './views/Usuario/edit-user/edit-user.component'
+import { CambiarPasswordComponent } from './views/Usuario/cambiar-password/cambiar-password.component';
+import {ListUsersComponent} from './views/Usuario/list-users/list-users.component'
+import {LoginComponent} from './views/Usuario/login/login.component'
+import {PersonalizacionComponent} from './views/Usuario/personalizacion/personalizacion.component'
+import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password/restablecer-password.component'
+
 
 @NgModule({
   imports: [
@@ -44,7 +52,6 @@ import { ListaModuloComponent } from './views/modulos/lista-modulos/lista-modulo
     RouterModule.forRoot(ROUTES),
     AppRoutingModule,
     SharedModule,
-
     MatTableModule,
     JwtModule.forRoot({
       config: {
@@ -54,10 +61,11 @@ import { ListaModuloComponent } from './views/modulos/lista-modulos/lista-modulo
       }
     }),
 
-
   ],
   declarations: [
+    //Aqui se deben llamar tods los componentes o vistas de este modo no aprecera los errores de !
     AppComponent,
+    CrearUsersComponent,
     AdminLayoutComponent,
     SidebarComponent,
     ListaCentrosFormacionComponent,
@@ -70,10 +78,22 @@ import { ListaModuloComponent } from './views/modulos/lista-modulos/lista-modulo
     CrearEmpresaComponent,
     ListarEmpresaComponent,
     EditarEmpresaComponent,
+    PuestosVigilanciaComponent,
     // CrearModulosComponent,
     // ListaModuloComponent,
     
 
+    VerEmpresaComponent,
+    PuestosVigilanciaComponent,
+    ListPuestosVigComponent,
+    CrearRegionalComponent,
+    AdministrarRegionalComponent,
+    EditUserComponent,
+    CambiarPasswordComponent,
+    ListUsersComponent,
+    LoginComponent,
+    PersonalizacionComponent,
+    RestablecerPasswordComponent
 
   ],
   providers: [

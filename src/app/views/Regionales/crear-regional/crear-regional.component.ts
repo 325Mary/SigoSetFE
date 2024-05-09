@@ -10,12 +10,13 @@ import { RegionalService } from '../../../services/regional/regional.service';
 export class CrearRegionalComponent implements OnInit {
   regionalForm: FormGroup;
   errorMessage: string = '';
-  regionales: CrearRegionalComponent[] = [];
+  regionales: CrearRegionalComponent[]
 
   constructor(private formBuilder: FormBuilder, private regionalService: RegionalService) { }
 
   ngOnInit(): void {
     this.regionalForm = this.formBuilder.group({
+      id_regional: null,
       nombreRegional: ['', Validators.required],
       direccion: ['', Validators.required]
 
@@ -28,7 +29,6 @@ export class CrearRegionalComponent implements OnInit {
         response => {
           console.log('Regional creada exitosamente:', response);
           // Vuelve a listar las regionales después de crear una nueva
-          this.regionalForm.reset();
         },
         error => {
           console.error('Error al crear la regional:', error);
