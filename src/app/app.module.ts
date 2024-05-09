@@ -2,13 +2,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { CentroFormacionService } from './services/centro-formacion/centro-formacion.service'
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ROUTES, SidebarComponent } from './components/sidebar/sidebar.component';
 import { SharedModule } from './shared/shared.module';
 import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista-centros-formacion/lista-centros-formacion.component';
 import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
@@ -35,12 +35,13 @@ import { ListaModuloComponent } from './views/modulos/lista-modulos/lista-modulo
 
 @NgModule({
   imports: [
+    NgModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    RouterModule,
+    RouterModule.forRoot(ROUTES),
     AppRoutingModule,
     SharedModule,
 
