@@ -28,7 +28,6 @@ export class CrearRegionalComponent implements OnInit {
       this.regionalService.createRegional(nuevaRegional).subscribe(
         response => {
           console.log('Regional creada exitosamente:', response);
-          // Vuelve a listar las regionales después de crear una nueva
         },
         error => {
           console.error('Error al crear la regional:', error);

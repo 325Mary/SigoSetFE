@@ -9,7 +9,7 @@ import { RegionalService } from '../../../services/regional/regional.service';
 })
 export class AdministrarRegionalComponent implements OnInit {
   errorMessage: string = '';
-  regionales: AdministrarRegionalComponent[];
+  regionales: AdministrarRegionalComponent[]=[];
 
   constructor(private regionalService: RegionalService) { }
 

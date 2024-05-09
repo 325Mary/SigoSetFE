@@ -42,10 +42,12 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component'
     // CrearUsersComponent,
     // EditUserComponent,
     // VerUserComponent,
+    NavbarComponent
     
   ],
   exports: [
     FooterComponent,
+    NavbarComponent,
    // LoginComponent,
     //CrearRegionalComponent,
     //AdministrarRegionalComponent
