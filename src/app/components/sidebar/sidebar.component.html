@@ -158,6 +158,23 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
+                    <i class="material-icons">account_circle </i>
+                    <p>Contratos</p>
+                </a>
+                <!-- Ítems secundarios desplegables -->
+                <div class="collapse" id="collapsePerfil">
+                    <ul class="nav flex-column ml-3">
+                        <li routerLinkActive="active" class="nav-item">
+                            <a class="nav-link" [routerLink]="['/listContratos']">
+                                <i class="material-icons">radio_button_checked </i>
+                                <p>Administrar contratos</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
 
     </div>

@@ -43,6 +43,7 @@ import { Component } from '@angular/core';
 
 //import { RegionalComponent } from 'app/components/regional/regional.component';
 import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
+import {ListarContratosComponent} from 'app/views/contrato/listar-contratos/listar-contratos.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -115,6 +116,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'registrarCentroFormacion', component:RegistrarCentroFormacionComponent},
     { path: 'editarCentroFormacion/:id', component:RegistrarCentroFormacionComponent},
     { path: 'detalleCentroFormacion/:id', component:DetalleCentroFormacionComponent},
-      { path: '**', component: NotFoundComponent},
+    { path: 'listContratos', component: ListarContratosComponent},
+      { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

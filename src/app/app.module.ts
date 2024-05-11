@@ -37,7 +37,8 @@ import {ListUsersComponent} from './views/Usuario/list-users/list-users.componen
 import {LoginComponent} from './views/Usuario/login/login.component'
 import {PersonalizacionComponent} from './views/Usuario/personalizacion/personalizacion.component'
 import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password/restablecer-password.component'
-
+import {ListarContratosComponent} from './views/contrato/listar-contratos/listar-contratos.component';
+import { CrearContratoComponent } from './views/modals/crear-contrato/crear-contrato.component'
 
 @NgModule({
   imports: [
@@ -85,7 +86,9 @@ import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password
     ListUsersComponent,
     LoginComponent,
     PersonalizacionComponent,
-    RestablecerPasswordComponent
+    RestablecerPasswordComponent,
+    // CrearContratoComponent,
+    
 
   ],
   providers: [

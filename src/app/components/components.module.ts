@@ -19,7 +19,11 @@ import { EditUserComponent } from '../views/Usuario/edit-user/edit-user.componen
 
 import { PuestosVigilanciaComponent } from '../../app/views/puestos-vig/crear-puestos-vig/puestosVig.component';
 import { ListPuestosVigComponent } from '../../app/views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
-import {VerUserComponent} from '../views/modals/ver-user/ver-user.component'
+import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
+import {ListarContratosComponent} from '../views/contrato/listar-contratos/listar-contratos.component';
+import {EditarContratoComponent} from '../views/modals/editar-contrato/editar-contrato.component';
+import {CrearContratoComponent} from '../views/modals/crear-contrato/crear-contrato.component'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +46,10 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component'
     // CrearUsersComponent,
     // EditUserComponent,
     // VerUserComponent,
-    NavbarComponent
+    NavbarComponent,
+    ListarContratosComponent,
+    EditarContratoComponent,
+    CrearContratoComponent
     
   ],
   exports: [
