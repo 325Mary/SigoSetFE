@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -14,7 +14,7 @@ import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista
 import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
 import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
 import { LoginService } from './services/usuario/login.service'
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ListarPerfilesComponent } from './views/Perfiles/listar-perfiles/listar-perfiles.component';
 import { EditarPerfilComponent } from './views/modals/editar-perfil/editar-perfil.component';
@@ -30,6 +30,7 @@ import { ListPuestosVigComponent } from './views/puestos-vig/list-puestos-vig/li
 import {PuestosVigilanciaComponent} from './views/puestos-vig/crear-puestos-vig/puestosVig.component'
 import { CrearRegionalComponent } from './views/Regionales/crear-regional/crear-regional.component';
 import { AdministrarRegionalComponent } from './views/Regionales/administrar-regional/administrar-regional.component';
+import {AuthInterceptor} from './services/usuario/auth.interceptor'
 import { CrearUsersComponent} from './views/Usuario/crear-users/crear-users.component'
 import {EditUserComponent} from './views/Usuario/edit-user/edit-user.component'
 import { CambiarPasswordComponent } from './views/Usuario/cambiar-password/cambiar-password.component';
@@ -39,6 +40,7 @@ import {PersonalizacionComponent} from './views/Usuario/personalizacion/personal
 import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password/restablecer-password.component'
 import {ListarContratosComponent} from './views/contrato/listar-contratos/listar-contratos.component';
 import { CrearContratoComponent } from './views/modals/crear-contrato/crear-contrato.component'
+import {VerUserComponent} from './views/modals/ver-user/ver-user.component';
 
 @NgModule({
   imports: [
@@ -87,6 +89,8 @@ import { CrearContratoComponent } from './views/modals/crear-contrato/crear-cont
     LoginComponent,
     PersonalizacionComponent,
     RestablecerPasswordComponent,
+    NavbarComponent,
+    VerUserComponent,
     // CrearContratoComponent,
     
 
@@ -94,8 +98,9 @@ import { CrearContratoComponent } from './views/modals/crear-contrato/crear-cont
   providers: [
     LoginService,
     CentroFormacionService
-
-    , JwtHelperService],
+    , JwtHelperService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  ],
   bootstrap: [AppComponent]
-})
+}) 
 export class AppModule { }

@@ -1,7 +1,7 @@
-import { Injectable, EventEmitter   } from '@angular/core';
+import { Injectable  , EventEmitter   } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators'; // Importa el operador map
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
@@ -20,21 +20,23 @@ export class LoginService {
 
   iniciarSesion(formValue: any): Observable<any> {
     const url = `${this.baseUrl}iniciarSesion`;
-    return this.httpClient.post<any>(url, formValue)
-      .pipe(
-        map(response => {
-          localStorage.setItem('userId', response.userId);
-          if (response.firstLogin) {
-            this.router.navigate(['/cambiarPassword', { userId: response.userId }]);
-          }
-          else {
-            this.loginStatusChanged.emit(true);
-
-          }
-          return response;
-        })
-      );
+    return this.httpClient.post<any>(url, formValue).pipe(
+      map(response => {
+        if (response.token) {
+          localStorage.setItem('token', response.token); // Aquí agregamos el token al localStorage
+        }
+        localStorage.setItem('userId', response.userId);
+        console.log('token:', localStorage)
+        if (response.firstLogin) {
+          this.router.navigate(['/cambiarPassword', { userId: response.userId }]);
+        } else {
+          this.loginStatusChanged.emit(true);
+        }
+        return response;
+      })
+    );
   }
+  
 
   enviarCodigoRestablecimiento(email_usuario: string) {
     return this.httpClient.post<any>(`${this.baseUrl}solicitarRestablecimiento`, { email_usuario });
@@ -107,17 +109,30 @@ eliminarUsuario(idUsuario: string): Observable<any> {
   return this.httpClient.delete<any>(url);
 }
 
-isLoggedIn(): boolean {
-  // Verificar si el token de autenticación está presente en el almacenamiento local
+
+cerrarSesion(): Observable<any> {
   const token = localStorage.getItem('token');
-  // Devolver verdadero si el token no está vacío y no está expirado
-  return !!token && !this.jwtHelper.isTokenExpired(token);
+  if (!token) {
+    return throwError('No se encontró un token de autenticación en el almacenamiento local.'
+    );
+  }
+
+  const url = `${this.baseUrl}cerrarSesion`;
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}` // Agrega un espacio después de 'Bearer'
+  });
+  return this.httpClient.post<any>(url, null, { headers }).pipe(
+    map(response => {
+      // Eliminar el token del almacenamiento local después de cerrar la sesión
+      this.removerToken();
+      return response;
+    })
+  );
 }
 
-logout() {
-  // Eliminar el token del almacenamiento local al cerrar sesión
+removerToken() {
   localStorage.removeItem('token');
-  this.loginStatusChanged.emit(false);
 }
+
 
 }

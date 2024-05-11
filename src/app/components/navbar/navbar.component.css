@@ -1,70 +1,32 @@
+.nav {
+  background-color: rgb(17, 17, 71) !important;
+  padding: 10px; /* Espaciado interno */
+  display: flex;
+  justify-content: space-between; /* Alinear elementos al principio y al final */
+  align-items: center; /* Centrar verticalmente los elementos */
+}
 
-.header {
-  background-color: #002340; /* Color de fondo azul */
-  color: #fff;
+.a_iniciar {
+  color: white; /* Color del texto del enlace */
+  text-decoration: none; /* Quitar subrayado del enlace */
+  margin: 10px; /* Espacio entre el enlace y el borde derecho */
+  border: 1px solid #0e0e0e; /* Cambiar border-radius por border */
+  padding: 5px 10px; /* Añadir relleno al enlace */
+  font-size: 18px; /* Aumentar tamaño de la letra */
+  border-radius: 3px;
+}
+
+.image_logo {
+  width: 80px;
+  height: 80px;
   padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
-a {
-  text-decoration: none;
-  color: rgb(245, 244, 244);
-}
-
-
-.nav a {
-  font-weight: 600;
-  padding-right: 30px;
-  padding: 12px;
-}
-
-nav a:hover {
-  color: rgb(211, 211, 211);
-  background: rgb(5, 162, 235);
-  border-radius: 1000px;
-  transition: 0.2s;
-}
-
-.logo-img {
-  width: 80px; /* Nuevo tamaño del logo */
-  height: 80px;
-}
-.sesion-img {
-  width: 80px; /* Nuevo tamaño del logo */
-  height: 80px;
-}
-
-
-.frasesigoset {
-  margin-right: auto; /* Ajusta el valor según necesites */
-  padding-left: 10px;
-}
-
-
-
-.sigoset {
-  display: flex;
-  justify-content: center; /* Centrar horizontalmente */
-  align-items: center; /* Centrar verticalmente */
-}
-
-/* diseño más responsivo */
-
-@media screen and (max-width: 768px) {
-  .nav {
-      flex-direction: column;
-      align-items: center;
-  }
-  
-  .nav a {
-      padding-right: 0;
-      padding-bottom: 10px;
-  }
-
-  .header {
-      flex-direction: column;
-      text-align: center;
-  }
+.btn{
+  color: white; /* Color del texto del enlace */
+  margin: 10px; /* Espacio entre el enlace y el borde derecho */
+  border: 1px solid #0e0e0e; /* Cambiar border-radius por border */
+  padding: 5px 10px; /* Añadir relleno al enlace */
+  font-size: 18px; /* Aumentar tamaño de la letra */
+  border-radius: 3px;
 }

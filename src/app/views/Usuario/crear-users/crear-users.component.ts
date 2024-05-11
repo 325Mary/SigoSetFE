@@ -3,7 +3,7 @@ import { LoginService } from '../../../services/usuario/login.service';
 import { PerfilService } from '../../../services/usuario/perfil.service';
 import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service'
 import Swal from 'sweetalert2';
-
+import { Router } from '@angular/router';
 
 interface Perfil {
   idperfil: number;
@@ -29,8 +29,8 @@ export class CrearUsersComponent {
   };
   perfiles: Perfil[] = [];
   centrosF: any[] = [];
-
-  constructor(private authservice: LoginService, private perfilService: PerfilService, private centroS: CentroFormacionService) {}
+  mostrarMensaje: boolean = false; 
+  constructor(private authservice: LoginService, private perfilService: PerfilService, private centroS: CentroFormacionService,  private router: Router,) {}
 
   ngOnInit(): void {
     this.obtenerPerfiles();
@@ -78,6 +78,7 @@ export class CrearUsersComponent {
             title: '¡Registro exitoso!',
             text: 'El usuario ha sido registrado correctamente.'
           });
+          this.router.navigateByUrl('/listarUsuarios')
           // Aquí puedes realizar cualquier otra acción necesaria después del registro exitoso
           console.log(response);
         },
@@ -101,8 +102,19 @@ export class CrearUsersComponent {
   }
   
 
+  verificarEmail() {
+    // Verifica si el campo de email tiene algún valor y si falta el símbolo '@'
+    this.mostrarMensaje = this.registroData.email_usuario && !this.validarEmail(this.registroData.email_usuario);
+  }
+  
+  validarEmail(email: string): boolean {
+    // Verifica si el email contiene el símbolo '@'
+    return email.includes('@');
+  }
+  
   validarFormulario(): boolean {
     // Realiza la validación del formulario aquí, por ejemplo:
+    const emailValido = this.validarEmail(this.registroData.email_usuario);
     return (
       this.registroData.idperfil &&
       this.registroData.idcentro_formacion &&
@@ -110,10 +122,11 @@ export class CrearUsersComponent {
       this.registroData.nombre_usuario &&
       this.registroData.apellido_usuario &&
       this.registroData.telefono_usuario &&
-      this.registroData.email_usuario &&
-      // this.registroData.password &&
+      emailValido && // Email válido
       this.registroData.estado
     );
   }
+  
+  
 
 }

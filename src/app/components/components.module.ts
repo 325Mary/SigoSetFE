@@ -46,15 +46,13 @@ import {CrearContratoComponent} from '../views/modals/crear-contrato/crear-contr
     // CrearUsersComponent,
     // EditUserComponent,
     // VerUserComponent,
-    NavbarComponent,
-    ListarContratosComponent,
+     ListarContratosComponent,
     EditarContratoComponent,
     CrearContratoComponent
     
   ],
   exports: [
     FooterComponent,
-    NavbarComponent,
    // LoginComponent,
     //CrearRegionalComponent,
     //AdministrarRegionalComponent
