@@ -125,6 +125,7 @@ cerrarSesion(): Observable<any> {
     map(response => {
       // Eliminar el token del almacenamiento local después de cerrar la sesión
       this.removerToken();
+      localStorage.removeItem('isLoggedIn');
       return response;
     })
   );

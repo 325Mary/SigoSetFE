@@ -46,6 +46,12 @@ export class AdminLayoutComponent implements OnInit {
         console.log('isLoggedIn set to false:', this.isLoggedIn);
       }
     });
+    const storedLoginStatus = localStorage.getItem('isLoggedIn');
+    if (storedLoginStatus) {
+      this.isLoggedIn = JSON.parse(storedLoginStatus);
+    } else {
+      this.isLoggedIn = false; // Si no hay estado almacenado, establecer como false por defecto
+    }
 
     // Otros códigos de inicialización y suscripciones
   }

@@ -16,22 +16,14 @@ app-navbar {
   z-index: 1000;
 }
 
-.main-panel {
-  flex: 1;
-  transition: margin-left 0.3s ease;
-  margin-left: 250px; /* Agrega un margen izquierdo igual al ancho del sidebar */
+/* Estilos aplicados solo cuando isLoggedIn es true */
+.content.content-with-sidebar {
+  padding-top: 60px; /* Ajusta el espaciado superior para dejar espacio para el navbar */
+  margin-left: 250px; /* Deja espacio para el sidebar */
+  margin-top: 60px; /* Compensa el espacio del navbar */
 }
 
-.content {
-  padding: 0px; /* Ajusta el espaciado interior según tus necesidades */
-}
-
-/* Ajusta el contenido para que empiece después del sidebar */
+/* Estilos aplicados solo cuando isLoggedIn es false */
 .full-width-content {
-  margin-left: 250px; /* Ajusta el margen izquierdo para que coincida con el ancho del sidebar */
-}
-
-.sidebar-visible .full-width-content {
-  margin-left: 0; /* Elimina el margen izquierdo cuando el sidebar está visible */
-  
+  margin-left: 0; /* Ajusta el margen izquierdo cuando el sidebar no está visible */
 }

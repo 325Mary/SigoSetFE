@@ -159,6 +159,12 @@ export class NavbarComponent  implements OnInit{
           console.log('User logged out.');
         }
       });
+      const storedLoginStatus = localStorage.getItem('isLoggedIn');
+      if (storedLoginStatus) {
+        this.isLoggedIn = JSON.parse(storedLoginStatus);
+      } else {
+        this.isLoggedIn = false; // Si no hay estado almacenado, establecer como false por defecto
+      }
     const userId = this.loginService.getUserId();
     if (userId) {
       this.loginService.getUserById(userId).subscribe(
