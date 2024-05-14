@@ -1,50 +1,69 @@
+<div class="container" style="margin-top: 30px;">
+  <div class="row justify-content-center">
+    <div class="col-md-10 " style="position: relative">
 
-<div class="container d-flex justify-content-center mt-5 mb-2">
-    <div class="card" style="width: 80rem;">
-      <div class="card-header card-header-sena-azul">
-        <!-- Contenedor del título -->
-          <h4 class="card-title">Listado de Contratos</h4>
+      <div class="titulo-container"> <!-- Contenedor del título -->
+        <h2 class="text-center titulo-perfiles">Listado de Contratos</h2>
+      </div>
+      <div class="table">
+
         <table class="table table-bordered text-center">
-          <thead class="thead-light">
+          <thead >
             <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
               <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarContratos()" [(ngModel)]="terminoBusqueda">
             </div>
-            <tr>
-              <th>ID</th>
-              <th>Nombre Empresa</th>
-              <th>fecha Inicio</th>
-              <th>fecha fin</th>
-              <th>Acciones</th>
+          <tr>
+            <th>ID</th>
+            <th>Nombre Empresa</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="contratosFiltrados.length > 0; else noResultados">
+            <tr *ngFor="let contrato of contratosFiltrados.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
+              <td>{{ contratoIndex(contrato) }}</td>
+              <td>{{ contrato.nombre_empresa }}</td>
+              <td>{{ contrato.fecha_inicio | date: 'yyyy-MM-dd' }}</td>
+              <td>{{ contrato.fecha_fin | date: 'yyyy-MM-dd' }}</td>
+              <td>
+                <button (click)="abrirModalEditar(contrato)" title="Editar Perfil">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button (click)="eliminarContrato(contrato.idContrato_empresa)" title="Boton de eliminar">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngIf="!noResultados">
-              <tr *ngFor="let contrato of contratos">
-                <td>{{contrato.id}}</td>
-                <td>{{contrato.nombre_empresa}}</td>
-                <td>{{ contrato.fecha_inicio | date: 'yyyy-MM-dd' }}</td>
-                <td>{{ contrato.fecha_fin | date: 'yyyy-MM-dd' }}</td>
-                
-                <td>
-                  <button (click)="abrirModalEditar(contrato)" title="Editar Perfil">
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
-                  <button (click)="eliminarContrato(contrato.idContrato_empresa)" title="Boton de eliminar">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </ng-container>
-            <ng-container *ngIf="noResultados">
-              <tr>
-                <td colspan="5" class="text-center">No se encontraron resultados.</td>
-              </tr>
-            </ng-container>
-          </tbody>
-        </table>
-      </div>
-  
+          </ng-container>
+        </tbody>
+        <ng-template #noResultados>
+          <tr>
+            <td colspan="5" class="text-center">No se encontraron resultados.</td>
+          </tr>
+        </ng-template>
+        
+      </table>
+    </div>
+    <button class="btn btn-danger" (click)="abrirModalCrear()" title="Crear perfil">
+      <i class="bi bi-plus"></i> Agregar contrato
+    </button>
   </div>
+  <!-- Paginación -->
+  <div class="text-center mt-4" id="pagination">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
+          <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+
+
+
   
   
   <!-- Modal -->

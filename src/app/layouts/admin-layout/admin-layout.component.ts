@@ -4,6 +4,7 @@ import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { filter, Subscription } from 'rxjs';
 import { LoginService } from '../../services/usuario/login.service';
+import {TokenValidationService} from '../../services/VertificacionUser/token-validation.service'
 
 @Component({
   selector: 'app-admin-layout',
@@ -18,36 +19,63 @@ export class AdminLayoutComponent implements OnInit {
   elemMainPanel: ElementRef | undefined;
   elemSidebar: ElementRef | undefined;
 
-  constructor(public location: Location, private router: Router, private loginService: LoginService) {}
+  constructor(public location: Location, private router: Router, private loginService: LoginService, private tokenValidationService: TokenValidationService) {}
 
-  ngOnInit() {
-    // Siempre inicializamos isLoggedIn como false al inicio
-    this.isLoggedIn = false;
-    console.log('Initial isLoggedIn value:', this.isLoggedIn);
-    const storedToken = localStorage.getItem('accessToken');
-    if (storedToken) {
-      // Si hay un token almacenado, establecer isLoggedIn como true
-      this.isLoggedIn = true;
-      console.log('isLoggedIn set to true:', this.isLoggedIn);
-    }
-  
-    // Suscripción a los cambios de autenticación
-    this.loginService.loginStatusChanged.subscribe(status => {
-      this.isLoggedIn = status;
-      this.scrollToTopPosition();
-      localStorage.setItem('isLoggedIn', JSON.stringify(status));
-    });
-
-    // Manejamos eventos de cambio de ruta para mantener isLoggedIn como false en ciertas condiciones
+  ngOnInit(): void {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart && (event.url === '/login' || event.url === '/')) {
-        // Mantenemos isLoggedIn como false si la URL es '/login' o '/'
         this.isLoggedIn = false;
-        console.log('isLoggedIn set to false:', this.isLoggedIn);
+        localStorage.setItem('isLoggedIn', JSON.stringify(false));
       }
     });
 
-    // Otros códigos de inicialización y suscripciones
+    this.loginService.loginStatusChanged.subscribe(status => {
+      this.isLoggedIn = status;
+      localStorage.setItem('isLoggedIn', JSON.stringify(status));
+      if (!status) {
+      }
+    });
+
+    const storedLoginStatus = localStorage.getItem('isLoggedIn');
+    if (storedLoginStatus) {
+      this.isLoggedIn = JSON.parse(storedLoginStatus);
+    } else {
+      this.isLoggedIn = false;
+      localStorage.setItem('isLoggedIn', JSON.stringify(false));
+    }
+
+    if (this.isLoggedIn) {
+      this.validateToken();
+    }
+  }
+
+  private validateToken(): void {
+    const storedToken = this.tokenValidationService.getToken();
+
+    if (storedToken) {
+      const isValidToken = this.tokenValidationService.isValidToken(storedToken);
+
+      if (isValidToken) {
+        this.isLoggedIn = true;
+        const userId = this.tokenValidationService.getUserData(storedToken).userId;
+      } else {
+        this.isLoggedIn = false;
+        this.router.navigate(['/sesionCaducada']);
+      }
+    } else {
+      this.isLoggedIn = false;
+    }
+
+    const userId = this.loginService.getUserId();
+    if (userId) {
+      this.loginService.getUserById(userId).subscribe(
+        user => {
+        },
+        error => {
+          console.error('Error al obtener el usuario:', error);
+        }
+      );
+    }
   }
 
   scrollToTopPosition() {

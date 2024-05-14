@@ -44,6 +44,8 @@ import { Component } from '@angular/core';
 //import { RegionalComponent } from 'app/components/regional/regional.component';
 import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
 import {ListarContratosComponent} from 'app/views/contrato/listar-contratos/listar-contratos.component';
+import {AdministrarCentroComponent} from 'app/views/administrarServicios/administrar-centro/administrar-centro.component'
+import {SesionCaucadaComponent} from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -117,6 +119,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'editarCentroFormacion/:id', component:RegistrarCentroFormacionComponent},
     { path: 'detalleCentroFormacion/:id', component:DetalleCentroFormacionComponent},
     { path: 'listContratos', component: ListarContratosComponent},
+    { path: 'AdministrarCentros', component: AdministrarCentroComponent},
+    { path: 'sesionCaducada', component: SesionCaucadaComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

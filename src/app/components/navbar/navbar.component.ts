@@ -3,6 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { LoginService } from '../../services/usuario/login.service';
+import {TokenValidationService} from '../../services/VertificacionUser/token-validation.service'
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,7 @@ export class NavbarComponent  implements OnInit{
     profile: string = '';
   
   
-    constructor(location: Location,  private element: ElementRef, private router: Router,  private loginService: LoginService) {
+    constructor(location: Location,  private element: ElementRef, private router: Router,  private loginService: LoginService, private tokenValidationService: TokenValidationService) {
     //   this.location = location;
     //       this.sidebarVisible = false;
     }
@@ -128,50 +129,67 @@ export class NavbarComponent  implements OnInit{
     //   return 'Dashboard';
     // }
 
-   ngOnInit(): void {
-    this.isLoggedIn = false;
-    console.log('Initial isLoggedIn value:', this.isLoggedIn);
-
-    // Suscripción a los cambios de autenticación
-    this.loginService.loginStatusChanged.subscribe(status => {
-      this.isLoggedIn = status;
-      localStorage.setItem('isLoggedIn', JSON.stringify(status));
-    });
-    const storedToken = localStorage.getItem('accessToken');
-    if (storedToken) {
-      // Si hay un token almacenado, establecer isLoggedIn como true
-      this.isLoggedIn = true;
-      console.log('isLoggedIn set to true:', this.isLoggedIn);
-    }
-  
-    // Manejamos eventos de cambio de ruta para mantener isLoggedIn como false en ciertas condiciones
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart && (event.url === '/login' || event.url === '/')) {
-        // Mantenemos isLoggedIn como false si la URL es '/login' o '/'
-        this.isLoggedIn = false;
-        console.log('isLoggedIn set to false:', this.isLoggedIn);
-      }
-    });
-    this.loginService.loginStatusChanged.subscribe(status => {
-        this.isLoggedIn = status;
-        if (!status) {
-          // Si el usuario cierra sesión, puedes realizar cualquier otra limpieza aquí
-          console.log('User logged out.');
+    ngOnInit(): void {
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationStart && (event.url === '/login' || event.url === '/')) {
+          this.isLoggedIn = false;
+          localStorage.setItem('isLoggedIn', JSON.stringify(false));
         }
       });
-    const userId = this.loginService.getUserId();
-    if (userId) {
-      this.loginService.getUserById(userId).subscribe(
-        user => {
-          this.username = user.nombre_usuario;
-        },
-        error => {
-          console.error('Error al obtener el usuario:', error);
+  
+      this.loginService.loginStatusChanged.subscribe(status => {
+        this.isLoggedIn = status;
+        localStorage.setItem('isLoggedIn', JSON.stringify(status));
+        if (!status) {
+          this.username = '';
+          this.profile = '';
         }
-      );
+      });
+  
+      const storedLoginStatus = localStorage.getItem('isLoggedIn');
+      if (storedLoginStatus) {
+        this.isLoggedIn = JSON.parse(storedLoginStatus);
+      } else {
+        this.isLoggedIn = false;
+        localStorage.setItem('isLoggedIn', JSON.stringify(false));
+      }
+  
+      if (this.isLoggedIn) {
+        this.validateToken();
+      }
     }
-    
-   }
+  
+    private validateToken(): void {
+      const storedToken = this.tokenValidationService.getToken();
+  
+      if (storedToken) {
+        const isValidToken = this.tokenValidationService.isValidToken(storedToken);
+  
+        if (isValidToken) {
+          this.isLoggedIn = true;
+          const userId = this.tokenValidationService.getUserData(storedToken).userId;
+          console.log('user:', userId)
+          this.username = this.tokenValidationService.getUserData(storedToken).username;
+        } else {
+          this.isLoggedIn = false;
+          this.router.navigate(['/sesionCaducada']);
+        }
+      } else {
+        this.isLoggedIn = false;
+      }
+  
+      const userId = this.loginService.getUserId();
+      if (userId) {
+        this.loginService.getUserById(userId).subscribe(
+          user => {
+            this.username = user.nombre_usuario;
+          },
+          error => {
+            console.error('Error al obtener el usuario:', error);
+          }
+        );
+      }
+    }
    cerrarSesion() {
     // Realizar la solicitud de cierre de sesión sin pasar ningún argumento
     this.loginService.cerrarSesion().subscribe(

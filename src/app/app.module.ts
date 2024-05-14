@@ -41,6 +41,9 @@ import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password
 import {ListarContratosComponent} from './views/contrato/listar-contratos/listar-contratos.component';
 import { CrearContratoComponent } from './views/modals/crear-contrato/crear-contrato.component'
 import {VerUserComponent} from './views/modals/ver-user/ver-user.component';
+import {EditarContratoComponent} from './views/modals/editar-contrato/editar-contrato.component';
+import { AdministrarCentroComponent } from './views/administrarServicios/administrar-centro/administrar-centro.component';
+import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-caucada.component';
 
 @NgModule({
   imports: [
@@ -63,7 +66,6 @@ import {VerUserComponent} from './views/modals/ver-user/ver-user.component';
 
   ],
   declarations: [
-    //Aqui se deben llamar tods los componentes o vistas de este modo no aprecera los errores de !
     AppComponent,
     CrearUsersComponent,
     AdminLayoutComponent,
@@ -91,8 +93,11 @@ import {VerUserComponent} from './views/modals/ver-user/ver-user.component';
     RestablecerPasswordComponent,
     NavbarComponent,
     VerUserComponent,
-    // CrearContratoComponent,
-    
+    ListarContratosComponent,
+    EditarContratoComponent,
+    CrearContratoComponent,
+    AdministrarCentroComponent,
+    SesionCaucadaComponent,    
 
   ],
   providers: [
