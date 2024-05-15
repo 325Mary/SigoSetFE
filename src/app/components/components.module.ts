@@ -71,12 +71,12 @@ import { MatTableModule } from '@angular/material/table';
   ],
   exports: [
     FooterComponent,
-    LoginComponent,
-    CrearRegionalComponent,
-    AdministrarRegionalComponent,
-    CrearModulosComponent,
-    ListaModuloComponent,
-    NavbarComponent,
+    // LoginComponent,
+    // CrearRegionalComponent,
+    // AdministrarRegionalComponent,
+    // CrearModulosComponent,
+    // ListaModuloComponent,
+    // NavbarComponent,
    // LoginComponent,
     //CrearRegionalComponent,
     //AdministrarRegionalComponent

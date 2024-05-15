@@ -79,8 +79,8 @@ import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password
     ListarEmpresaComponent,
     EditarEmpresaComponent,
     PuestosVigilanciaComponent,
-    // CrearModulosComponent,
-    // ListaModuloComponent,
+    CrearModulosComponent,
+    ListaModuloComponent,
     
 
     VerEmpresaComponent,
