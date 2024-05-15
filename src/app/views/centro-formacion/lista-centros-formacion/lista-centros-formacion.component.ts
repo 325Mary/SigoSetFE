@@ -10,7 +10,8 @@ import Swal from 'sweetalert2';
 export class ListaCentrosFormacionComponent implements OnInit {
   listaCentrosFormacion: CentroFormacion[] = []
   constructor(private _centroFormacionService: CentroFormacionService, ) { }
-
+  pageSize: number = 10; // Número de usuarios por página
+  currentPage: number = 1; // Página actual
 
   ngOnInit(): void {
     this.getListaCentrosFormacion()
@@ -21,8 +22,19 @@ export class ListaCentrosFormacionComponent implements OnInit {
     console.log(this.listaCentrosFormacion)
     console.log( data.message)
   }, error => {
-  })
+  });
+   
 }
+  // Función para cambiar de página
+  setPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+
+  // Función para obtener los números de página disponibles
+  getPages(): number[] {
+    const pageCount = Math.ceil(this.listaCentrosFormacion.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
+  }
 eliminarCentroFormacion(id: any) {
   Swal.fire({
     title: 'Eliminar Centro de formación',
