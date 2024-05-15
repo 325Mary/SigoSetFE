@@ -1,5 +1,5 @@
 .nav {
-  background-color: rgb(17, 17, 71) !important;
+  background-color: rgba(0, 49, 77, 1) !important;
   padding: 10px; /* Espaciado interno */
   display: flex;
   justify-content: space-between; /* Alinear elementos al principio y al final */
@@ -23,10 +23,11 @@
 }
 
 .btn{
-  color: white; /* Color del texto del enlace */
+  color: rgb(255, 255, 255) ; /* Color del texto del enlace */
   margin: 10px; /* Espacio entre el enlace y el borde derecho */
-  border: 1px solid #0e0e0e; /* Cambiar border-radius por border */
+  border: 1px solid white;
   padding: 5px 10px; /* Añadir relleno al enlace */
   font-size: 18px; /* Aumentar tamaño de la letra */
-  border-radius: 3px;
+  border-radius: 10px;
+  background-color: rgba(0, 49, 77, 1);
 }

@@ -1,52 +1,58 @@
-<h1>Lisatr puestos vista</h1>
+<div class="container d-flex justify-content-center mt-5 mb-5" >
+    <div class="card cont-table">
+        <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">Listado de Puestos de Vigilancia</h4>
+        </div>
+        <div class="card-body">
+            <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
 
-<div class="card-header">
+            <ul>
+                <li *ngFor="let puesto of puestos">
+                    <span>{{ puesto.descripcion_puesto }}</span>
+                    <button (click)="editarPuesto(puesto.idpuesto_vigilancia, puesto)">Editar</button>
+                    <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)">Eliminar</button>
+                </li>
+            </ul>
 
-    <h2>Listado de Puestos de Vigilancia</h2>
-</div>
-
-<div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
-
-<ul>
-    <li *ngFor="let puesto of puestos">
-        <span>{{ puesto.descripcion_puesto }}</span>
-        <button (click)="editarPuesto(puesto.idpuesto_vigilancia, puesto)">Editar</button>
-        <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)">Eliminar</button>
-    </li>
-</ul>
-
-<div class="container cont-table">
-    <div class="title">
-        <div class="row">
-            <div class="col">
-                <h1 class="col text-center">Listado de Puestos de Vigilancia</h1>
-                <div class="card">
-                    <table mat-table [dataSource]="puestos" class="mat-elevation-z8">
-                        <!-- <ng-container matColumnDef="descripcion">
-                            <th mat-header-cell *matHeaderCellDef> Descripción </th>
-                            <td mat-cell *matCellDef="let puesto"> {{ puesto.descripcion_puesto }} </td>
-                        </ng-container> -->
-                        <ng-container matColumnDef="tarifa">
-                            <th mat-header-cell *matHeaderCellDef> Tarifa </th>
-                            <td mat-cell *matCellDef="let puesto"> {{ puesto.tarifa_puesto }} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="ays">
-                            <th mat-header-cell *matHeaderCellDef> AYS </th>
-                            <td mat-cell *matCellDef="let puesto"> {{ puesto.ays }} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="iva">
-                            <th mat-header-cell *matHeaderCellDef> IVA </th>
-                            <td mat-cell *matCellDef="let puesto"> {{ puesto.iva }} </td>
-                        </ng-container>
-                        <ng-container matColumnDef="total">
-                            <th mat-header-cell *matHeaderCellDef> Total </th>
-                            <td mat-cell *matCellDef="let puesto"> {{ puesto.total }} </td>
-                        </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="['descripcion', 'tarifa', 'ays', 'iva', 'total']"></tr>
-                        <tr mat-row *matRowDef="let row; columns: ['descripcion', 'tarifa', 'ays', 'iva', 'total'];"></tr>
-                    </table>
+            <div class="container cont-table">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="col text-center">Listado de Puestos de Vigilancia</h4>
+                            <div class="card">
+                                <table mat-table [dataSource]="puestos" class="mat-elevation-z8">
+                                    <ng-container matColumnDef="descripcion">
+                                        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                                        <td mat-cell *matCellDef="let puesto"> {{ puesto.descripcion_puesto }} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="tarifa">
+                                        <th mat-header-cell *matHeaderCellDef> Tarifa </th>
+                                        <td mat-cell *matCellDef="let puesto"> {{ puesto.tarifa_puesto }} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="ays">
+                                        <th mat-header-cell *matHeaderCellDef> AYS </th>
+                                        <td mat-cell *matCellDef="let puesto"> {{ puesto.ays }} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="iva">
+                                        <th mat-header-cell *matHeaderCellDef> IVA </th>
+                                        <td mat-cell *matCellDef="let puesto"> {{ puesto.iva }} </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="total">
+                                        <th mat-header-cell *matHeaderCellDef> Total </th>
+                                        <td mat-cell *matCellDef="let puesto"> {{ puesto.total }} </td>
+                                    </ng-container>
+                                    <tr mat-header-row
+                                        *matHeaderRowDef="['descripcion', 'tarifa', 'ays', 'iva', 'total']"></tr>
+                                    <tr mat-row
+                                        *matRowDef="let row; columns: ['descripcion', 'tarifa', 'ays', 'iva', 'total'];">
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

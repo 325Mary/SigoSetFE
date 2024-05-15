@@ -143,20 +143,21 @@
                         </a>
                     </li>
                     <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link"[routerLink]="['/ListPuestosVig']">
+                        <a class="nav-link"[routerLink]="['/listarPuestosVig']">
                             <p class="icon-success">Administrar Puesto de Vigilancia</p>
                         </a>
                     </li>
                 </ul>
             </div>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
+            <a class="nav-link" data-toggle="collapse" href="#collapseContratos" aria-expanded="false">
                 <i class="material-icons">account_circle </i>
                 <p>Contratos</p>
             </a>
             <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapsePerfil">
+            <div class="collapse" id="collapseContratos">
                 <ul class="nav flex-column ml-3">
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/listContratos']">
@@ -168,12 +169,12 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
+            <a class="nav-link" data-toggle="collapse" href="#collapseGCentros" aria-expanded="false">
                 <i class="material-icons">account_circle </i>
                 <p>gestionar Centros</p>
             </a>
             <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapsePerfil">
+            <div class="collapse" id="collapseGCentros">
                 <ul class="nav flex-column ml-3">
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/AdministrarCentros']">

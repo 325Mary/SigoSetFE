@@ -16,15 +16,15 @@ export class EditarEmpresaComponent {
 
   actuEmpresa(): void {
     const empresaActualizada = {
-        direccion_empresav: this.empresaSeleccionada.direccion_empresa,
-        email_empresav: this.empresaSeleccionada.email_empresa,
+        direccion_empresa: this.empresaSeleccionada.direccion_empresa,
+        email_empresa: this.empresaSeleccionada.email_empresa,
         email_personac: this.empresaSeleccionada.email_personac,
         email_representantel: this.empresaSeleccionada.email_representantel,
         nit_empresa: this.empresaSeleccionada.nit_empresa,
-        nombre_empresav: this.empresaSeleccionada.nombre_empresa,
+        nombre_empresa: this.empresaSeleccionada.nombre_empresa,
         persona_contacto: this.empresaSeleccionada.persona_contacto,
         representante_legal: this.empresaSeleccionada.representante_legal,
-        telefono_empresav: this.empresaSeleccionada.telefono_empresa,
+        telefono_empresa: this.empresaSeleccionada.telefono_empresa,
         telefono_personac: this.empresaSeleccionada.telefono_personac,
         telefono_representantel: this.empresaSeleccionada.telefono_representantel
         // Agrega aquí las demás propiedades que desees actualizar

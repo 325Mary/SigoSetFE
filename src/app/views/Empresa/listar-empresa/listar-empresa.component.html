@@ -4,6 +4,8 @@
     <div class="card-header card-header-sena-azul">
       <!-- Contenedor del título -->
         <h4 class="card-title">Listado de Empresas</h4>
+        </div>
+
       <table class="table table-bordered text-center">
         <thead class="thead-light">
           <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
@@ -23,7 +25,7 @@
               <td>{{empresa.idempresa}}</td>
               <td>{{ empresa.nombre_empresa }}</td>
               <td>{{empresa.nit_empresa}}</td>
-              <td>{{empresa.direccion_empresav}}</td>
+              <td>{{empresa.direccion_empresa}}</td>
               <td>
                 <button (click)="abrirModalEditar(empresa)" title="Editar Perfil">
                   <i class="bi bi-pencil-square"></i>
@@ -31,7 +33,7 @@
                 <button (click)="abrirModalVerEmpresa(empresa)" title="Ver Detalles">
                   <i class="bi bi-eye"></i>
                 </button>
-                <button (click)="eliminarEmpresa(empresa.idempresa_vigilancia)" title="Boton de eliminar">
+                <button (click)="eliminarEmpresa(empresa.idempresa)" title="Boton de eliminar">
                   <i class="bi bi-trash"></i>
                 </button>
               </td>
@@ -89,7 +91,7 @@
       </tbody>
     </table> -->
   </div>
-</div>
+
 
 
 <!-- Modal -->
