@@ -28,7 +28,7 @@
 
             <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
 
-            <form [formGroup]="moduloForm" (submit)="crearModulo()">
+            <form ![formGroup]="moduloForm" (submit)="crearModulo()">
                 <div class="items-form ">
                     <label for="modulo">Nombre del Módulo:</label>
                     <input type="text" id="modulo" formControlName="modulo" class="p-inputtext" />

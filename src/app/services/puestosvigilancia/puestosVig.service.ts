@@ -13,26 +13,25 @@ export class PuestosVigilanciaService {
   constructor(private httpClient: HttpClient) { }
 
   obtenerPuestos(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}optenertodospuestosvig`);
+    return this.httpClient.get(`${this.baseUrl}puestos`);
   }
 
   obtenerPuestoPorId(id: number): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}obtenerpuestovigporid/${id}`);
+    return this.httpClient.get(`${this.baseUrl}puestoporid/${id}`);
   }
 
   crearPuesto(puestoData: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}crearpuestovig`, puestoData);
+    return this.httpClient.post(`${this.baseUrl}crearPuesto`, puestoData);
   }
 
   editarPuesto(id: number, nuevoPuestoData: any): Observable<any> {
-    return this.httpClient.put(`${this.baseUrl}editarpuestovig/${id}`, nuevoPuestoData);
+    return this.httpClient.put(`${this.baseUrl}editarPuesto/${id}`, nuevoPuestoData);
   }
 
   eliminarPuesto(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrl}eliminarpuestovig/${id}`);
+    return this.httpClient.delete(`${this.baseUrl}eliminarPuesto/${id}`);
   }
 
-  calcularT
   calcularTotal(tarifa: number, ays: number): number {
       const iva = tarifa * 0.19;
       const total = tarifa + iva + ays;

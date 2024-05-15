@@ -54,7 +54,6 @@ const routes: Routes =[
        useHash: true
     })
   ],
-  exports: [RouterModule
-  ],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

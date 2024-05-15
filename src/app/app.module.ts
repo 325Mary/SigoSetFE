@@ -46,16 +46,17 @@ import {EditarContratoComponent} from './views/modals/editar-contrato/editar-con
 import { AdministrarCentroComponent } from './views/administrarServicios/administrar-centro/administrar-centro.component';
 import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-caucada.component';
 import {AuthInterceptor} from './services/usuario/auth.interceptor';
+import { DataSource } from '@angular/cdk/collections';
+import { CrearPuestoComponent } from './views/modals/crear-puesto/crear-puesto.component';
 
 @NgModule({
   imports: [
-    NgModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule,
     AppRoutingModule,
     SharedModule,
     MatTableModule,
@@ -68,6 +69,7 @@ import {AuthInterceptor} from './services/usuario/auth.interceptor';
     }),
 
   ],
+
   declarations: [
     AppComponent,
     CrearUsersComponent,
@@ -84,13 +86,11 @@ import {AuthInterceptor} from './services/usuario/auth.interceptor';
     ListarEmpresaComponent,
     EditarEmpresaComponent,
     PuestosVigilanciaComponent,
+    ListaModuloComponent,
     CrearModulosComponent,
     ListaModuloComponent,
-    
-
     VerEmpresaComponent,
     PuestosVigilanciaComponent,
-    ListPuestosVigComponent,
     CrearRegionalComponent,
     AdministrarRegionalComponent,
     EditUserComponent,
@@ -99,13 +99,18 @@ import {AuthInterceptor} from './services/usuario/auth.interceptor';
     LoginComponent,
     PersonalizacionComponent,
     RestablecerPasswordComponent,
+    CrearContratoComponent,
+    CrearModulosComponent,
+    PuestosVigilanciaComponent,
     NavbarComponent,
     VerUserComponent,
     ListarContratosComponent,
     EditarContratoComponent,
     CrearContratoComponent,
+    CrearContratoComponent,
     AdministrarCentroComponent,
-    SesionCaucadaComponent,    
+    SesionCaucadaComponent,
+    CrearPuestoComponent,    
 
   ],
   providers: [

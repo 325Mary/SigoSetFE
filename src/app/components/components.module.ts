@@ -15,6 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ListUsersComponent } from '../views/Usuario/list-users/list-users.component';
 import {CrearUsersComponent} from '../views/Usuario/crear-users/crear-users.component';
 import { EditUserComponent } from '../views/Usuario/edit-user/edit-user.component'
+import { MatTableModule } from '@angular/material/table';
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 import { PuestosVigilanciaComponent } from '../../app/views/puestos-vig/crear-puestos-vig/puestosVig.component';
@@ -23,7 +24,7 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
 
 @NgModule({
   imports: [
-    NgModule,
+    //NgModule,
     CommonModule,
     RouterModule,
     FormsModule,
@@ -31,10 +32,6 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
     ReactiveFormsModule,
     MatTableModule,
     RouterLink,
-
- 
-
-
     //NgxPaginationModule
   ],
   declarations: [

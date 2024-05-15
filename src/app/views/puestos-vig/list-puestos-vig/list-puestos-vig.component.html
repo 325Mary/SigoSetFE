@@ -6,21 +6,16 @@
         <div class="card-body">
             <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
 
-            <ul>
+            <!-- <ul>
                 <li *ngFor="let puesto of puestos">
                     <span>{{ puesto.descripcion_puesto }}</span>
                     <button (click)="editarPuesto(puesto.idpuesto_vigilancia, puesto)">Editar</button>
                     <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)">Eliminar</button>
                 </li>
-            </ul>
+            </ul> -->
 
-            <div class="container cont-table">
-                <div class="title">
-                    <div class="row">
-                        <div class="col">
-                            <h4 class="col text-center">Listado de Puestos de Vigilancia</h4>
-                            <div class="card">
-                                <table mat-table [dataSource]="puestos" class="mat-elevation-z8">
+            <div class="table">
+               <table mat-table [dataSource]="puestos" class="mat-elevation-z8">
                                     <ng-container matColumnDef="descripcion">
                                         <th mat-header-cell *matHeaderCellDef> Descripción </th>
                                         <td mat-cell *matCellDef="let puesto"> {{ puesto.descripcion_puesto }} </td>
@@ -41,19 +36,48 @@
                                         <th mat-header-cell *matHeaderCellDef> Total </th>
                                         <td mat-cell *matCellDef="let puesto"> {{ puesto.total }} </td>
                                     </ng-container>
-                                    <tr mat-header-row *matHeaderRowDef="['descripcion', 'tarifa', 'ays', 'iva', 'total']"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: ['descripcion', 'tarifa', 'ays', 'iva', 'total'];">
+                                    <tr mat-header-row
+                                        *matHeaderRowDef="['descripcion', 'tarifa', 'ays', 'iva', 'total']"></tr>
+                                    <tr mat-row
+                                        *matRowDef="let row; columns: ['descripcion', 'tarifa', 'ays', 'iva', 'total'];">
                                     </tr>
                                 </table>
-                            </div>
+                <!-- Esto va en el archivo de puestosVig.components.html -->
+                <!-- <table class="table text-center">
+                    <thead>
+                        <div class="form-group"
+                            style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                            <input type="text" class="form-control" style="border: none;" placeholder="Buscar...">
                         </div>
-                    </div>
-                </div>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Tarifa</th>
+                            <th>AYS</th>
+                            <th>IVA</th>
+                            <th>TOTAL</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let puestoData of puestos">
+                            <td>fila1</td>
+                            <td>{{ puestoData.tarifa_puesto | number: '1.2-2' }}</td>
+                            <td>{{ puestoData.ays | number: '1.2-2' }}</td>
+                            <td>{{ puestoData.iva | number: '1.2-2' }}</td>
+                            <td>{{ puestoData.total | number: '1.2-2' }}</td>
+                            <td>
+                                <button (click)="editarPuesto(puesto.id, puesto)">Editar</button>
+                                <button (click)="eliminarPuesto(puesto.id)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
             </div>
-
         </div>
     </div>
 </div>
+
+
 <!-- 
 <div class="container cont-table">
     <div class="title">

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatTableModule } from '@angular/material/table';
+import { PuestosVigilanciaComponent } from '../crear-puestos-vig/puestosVig.component'; 
 
 @Component({
   selector: 'app-list-puestos-vig',
@@ -9,15 +9,15 @@ import { MatTableModule } from '@angular/material/table';
   styleUrls: ['../list-puestos-vig/list-puestos-vig.component.css']
 })
 export class ListPuestosVigComponent implements OnInit {
-  puestos: any[] = [];
-  puestoData: any;
+  puestos: [];
+  puestoData: PuestosVigilanciaComponent;
   errorMessage: string = '';
   dataSource: MatTableDataSource<any>; // Agrega esta propiedad
 
   constructor(private puestosService: PuestosVigilanciaService) {
     this.dataSource = new MatTableDataSource<any>(); // Inicializa el dataSource
   }
-
+  
   ngOnInit(): void {
     this.obtenerPuestos();
   }
@@ -26,7 +26,9 @@ export class ListPuestosVigComponent implements OnInit {
     this.puestosService.obtenerPuestos().subscribe(
       (data) => {
         this.puestos = data.data;
-        this.dataSource.data = this.puestos; // Actualiza el dataSource con los datos obtenidos
+        this.dataSource.data = this.puestos;
+        console.log(this.puestoData, 'estsos son');
+         // Actualiza el dataSource con los datos obtenidos
       },
       (error) => {
         this.errorMessage = 'Error al obtener los puestos';

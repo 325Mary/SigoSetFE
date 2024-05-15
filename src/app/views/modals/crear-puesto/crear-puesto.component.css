@@ -1,0 +1,19 @@
+.modal-body .success-message {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-body .success-message i {
+  font-size: 50px;
+  color: green;
+}
+
+.modal-body .success-message p {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.modal-footer button {
+  background-color: #ccc;
+  border-color: #ccc;
+}

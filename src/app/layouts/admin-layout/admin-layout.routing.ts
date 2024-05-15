@@ -38,7 +38,6 @@ import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista
 import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
 import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
 
-import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component';
 import { CrearModulosComponent } from 'app/views/modulos/crear-modulos/crear-modulos.component';
 
 import { Component } from '@angular/core';
@@ -98,7 +97,6 @@ export const AdminLayoutRoutes: Routes = [
 
     {path:'list-regional',component:AdministrarRegionalComponent},
     {path:'create-regional',component:CrearRegionalComponent},
-    
   
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
