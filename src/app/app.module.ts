@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -14,7 +14,7 @@ import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista
 import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
 import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
 import { LoginService } from './services/usuario/login.service'
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ListarPerfilesComponent } from './views/Perfiles/listar-perfiles/listar-perfiles.component';
 import { EditarPerfilComponent } from './views/modals/editar-perfil/editar-perfil.component';
@@ -39,7 +39,13 @@ import {ListUsersComponent} from './views/Usuario/list-users/list-users.componen
 import {LoginComponent} from './views/Usuario/login/login.component'
 import {PersonalizacionComponent} from './views/Usuario/personalizacion/personalizacion.component'
 import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password/restablecer-password.component'
-
+import {ListarContratosComponent} from './views/contrato/listar-contratos/listar-contratos.component';
+import { CrearContratoComponent } from './views/modals/crear-contrato/crear-contrato.component'
+import {VerUserComponent} from './views/modals/ver-user/ver-user.component';
+import {EditarContratoComponent} from './views/modals/editar-contrato/editar-contrato.component';
+import { AdministrarCentroComponent } from './views/administrarServicios/administrar-centro/administrar-centro.component';
+import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-caucada.component';
+import {AuthInterceptor} from './services/usuario/auth.interceptor';
 
 @NgModule({
   imports: [
@@ -63,7 +69,6 @@ import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password
 
   ],
   declarations: [
-    //Aqui se deben llamar tods los componentes o vistas de este modo no aprecera los errores de !
     AppComponent,
     CrearUsersComponent,
     AdminLayoutComponent,
@@ -93,14 +98,22 @@ import {RestablecerPasswordComponent} from './views/Usuario/restablecer-password
     ListUsersComponent,
     LoginComponent,
     PersonalizacionComponent,
-    RestablecerPasswordComponent
+    RestablecerPasswordComponent,
+    NavbarComponent,
+    VerUserComponent,
+    ListarContratosComponent,
+    EditarContratoComponent,
+    CrearContratoComponent,
+    AdministrarCentroComponent,
+    SesionCaucadaComponent,    
 
   ],
   providers: [
     LoginService,
     CentroFormacionService
-
-    , JwtHelperService],
+    , JwtHelperService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  ],
   bootstrap: [AppComponent]
-})
+}) 
 export class AppModule { }

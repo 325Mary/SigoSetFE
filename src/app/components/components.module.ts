@@ -19,14 +19,8 @@ import { EditUserComponent } from '../views/Usuario/edit-user/edit-user.componen
 
 import { PuestosVigilanciaComponent } from '../../app/views/puestos-vig/crear-puestos-vig/puestosVig.component';
 import { ListPuestosVigComponent } from '../../app/views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
+import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
 
-import { CrearModulosComponent } from 'app/views/modulos/crear-modulos/crear-modulos.component';
-import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component';
-
-
-
-import {VerUserComponent} from '../views/modals/ver-user/ver-user.component'
-import { MatTableModule } from '@angular/material/table';
 @NgModule({
   imports: [
     NgModule,
@@ -66,17 +60,11 @@ import { MatTableModule } from '@angular/material/table';
     // CrearUsersComponent,
     // EditUserComponent,
     // VerUserComponent,
-    // NavbarComponent
+    
     
   ],
   exports: [
     FooterComponent,
-    // LoginComponent,
-    // CrearRegionalComponent,
-    // AdministrarRegionalComponent,
-    // CrearModulosComponent,
-    // ListaModuloComponent,
-    // NavbarComponent,
    // LoginComponent,
     //CrearRegionalComponent,
     //AdministrarRegionalComponent

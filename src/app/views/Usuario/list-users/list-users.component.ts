@@ -19,6 +19,10 @@ export class ListUsersComponent implements OnInit {
   currentPage: number = 1; // Página actual
   usuarioSeleccionado: any []
   perfiles: any[] = [];
+  usuariosFiltrados: any[] = []; // Array para almacenar usuarios filtrados
+  terminoBusqueda: string = ''; // Propiedad para almacenar el término de búsqueda
+  noResultados: boolean = false;
+  usuarioIndex: number = 0; // Contador para mostrar un ID autoincrementable
 
   constructor(private loginService: LoginService,  private perfilService: PerfilService) { }
 
@@ -27,6 +31,7 @@ export class ListUsersComponent implements OnInit {
       response => {
         if (response.data && response.data.length > 0) {
           this.usuarios = response.data[0];
+          this.usuariosFiltrados = [...this.usuarios];
           console.log('Primer array de usuarios:', this.usuarios);
         } else {
           console.error('La respuesta no contiene datos o el primer array está vacío.');
@@ -188,7 +193,9 @@ private refreshUserList() {
     response => {
       if (response.data && response.data.length > 0) {
         this.usuarios = response.data[0];
+        this.usuariosFiltrados = [...this.usuarios];
         console.log('Lista de usuarios actualizada:', this.usuarios);
+        this.usuarioIndex = (this.currentPage - 1) * this.pageSize;
       } else {
         console.error('La respuesta no contiene datos o el primer array está vacío.');
       }
@@ -261,6 +268,28 @@ cambiarPerfilUsuario(idUsuario: string, idPerfil: string) {
   );
 }
 
+filtrarUsuarios(): void {
+  if (this.terminoBusqueda.trim() !== '') {
+    this.usuariosFiltrados = this.usuarios.filter((usuario) => {
+      return (
+        usuario.nombre_usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        usuario.apellido_usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        usuario.email_usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      );
+    });
+    this.noResultados = this.usuariosFiltrados.length === 0;
+  } else {
+    this.usuariosFiltrados = [...this.usuarios]; // Mostrar todos los usuarios si el término de búsqueda está vacío
+    this.noResultados = false;
+  }
+}
+
+
+// Método para limpiar el término de búsqueda
+limpiarFiltro(): void {
+  this.terminoBusqueda = '';
+  this.filtrarUsuarios(); // Vuelve a mostrar todos los usuarios
+}
 
 
 }

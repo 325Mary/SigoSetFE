@@ -1,0 +1,94 @@
+<div class="container">
+  <h3>Administrar Centros</h3>
+  <!-- Primeros cuatro select en una fila horizontal -->
+  <hr class="blue-line">
+
+  <div class="select-container">
+    <label for="zonas">Zona:</label>
+    <select id="zonas" (change)="onZonaSelected($event.target.value)">
+      <option value="" disabled selected></option> <!-- Mensaje de placeholder -->
+      <option *ngFor="let zona of zonas" [value]="zona.id">{{ zona.Nombre_zona }}</option>
+    </select>
+    <div class="triangle" [class.rotate]="isSelectOpen('zonas')"></div>
+  </div>
+
+  <div class="select-container">
+    <label for="departamentos">Departamento:</label>
+    <select id="departamentos" (change)="onDeparatamentoSelect($event.target.value)">
+      <option value="" disabled selected></option> <!-- Mensaje de placeholder -->
+      <option *ngFor="let departamento of departamentos" [value]="departamento.id">{{ departamento.departamento }}</option>
+    </select>
+    <div class="triangle" [class.rotate]="isSelectOpen('departamentos')"></div>
+  </div>
+
+  <div class="select-container">
+    <label for="municipios">Municipio:</label>
+    <select id="municipios" (change)="onCentroFSelect($event.target.value)">
+      <option value="" disabled selected></option> <!-- Mensaje de placeholder -->
+      <option *ngFor="let municipio of municipios" [value]="municipio.id">{{ municipio.municipio }}</option>
+    </select>
+    <div class="triangle" [class.rotate]="isSelectOpen('municipios')"></div>
+  </div>
+
+  <div class="select-container">
+    <label for="centrosFormacion">Centro de Formación:</label>
+    <select id="centrosFormacion" (change)="onCentroFSelect($event.target.value)">
+      <option value="" disabled selected></option> <!-- Mensaje de placeholder -->
+      <option *ngFor="let centroFormacion of centrosFormacion" [value]="centroFormacion.id">{{ centroFormacion.centro_formacion }}</option>
+    </select>
+    <div class="triangle" [class.rotate]="isSelectOpen('centrosFormacion')"></div>
+  </div>
+   <hr class="blue-line">
+ 
+<div class="vertical" style="flex-direction: column; margin-left: 0px;">
+  <!-- Select de servicios en una fila separada -->
+  <div class="select-vertical" style="margin-top: 20px;" > <!-- Ajusta el margen superior para separar de los select anteriores -->
+    <label for="servicios">Servicio:</label>
+    <select id="servicios" (change)="onServicioSelected($event.target.value)">
+      <option value="" disabled selected>Seleccione un servicio</option> <!-- Mensaje de placeholder -->
+      <option value="aseo">Aseo</option>
+      <option value="vigilancia">Vigilancia</option>
+      <option value="tiquetes">Viajes</option>
+      <option value="jardineria">Jardinería</option>
+    </select>
+    <div class="triangle" [class.rotate]="isSelectOpen('servicios')"></div>
+  </div>
+  <hr class="blue-line">
+
+
+  <!-- Nuevo select para los puntos de vigilancia -->
+  <div class="select-vertical"style= "margin-top:20px" *ngIf="servicioSeleccionado === 'vigilancia' && puestos">
+    <label for="puestosVigilancia">Puntos de Vigilancia:</label>
+    <select id="puestosVigilancia" (change)="onPuestoVigilanciaSelected($event.target.value)">
+      <option value="" disabled selected>Seleccione Tipos de puestos   </option>
+      <option *ngFor="let puesto of puestos" [value]="puesto.idpuesto_vigilancia" [disabled]="puesto.seleccionado">{{ puesto.descripcion_puesto }}</option>
+    </select>
+    <div class="triangle" [class.rotate]="isSelectOpen('puestosVigilancia')"></div>
+  </div>
+
+  <div *ngFor="let puesto of puestosSeleccionados" class="puesto-container">
+    
+    <div class="descripcion-puesto">
+      <!-- Descripción del puesto seleccionado -->
+      <span>Descripción del puesto : {{ puesto.descripcion_puesto }}</span>
+    </div>
+    <div class="cantidad-rectangulo ">
+      <!-- Espacio para el contador -->
+      <span>Cantidad: {{ puesto.cantidad }}</span>
+      <button class="btn btn-danger btn-sm" (click)="aumentarCantidad(puesto)">
+        <i class="fa fa-plus"></i> <!-- Icono de aumento -->
+      </button>
+    </div>
+    <div class="descripcion-puesto">
+      <!-- Espacio para el contador -->
+      <span>$:</span>
+      <input type="number">
+    </div>
+  </div>
+  
+  
+  
+  
+
+</div>
+</div>
