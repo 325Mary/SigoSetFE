@@ -46,7 +46,18 @@ import {EditarContratoComponent} from './views/modals/editar-contrato/editar-con
 import { AdministrarCentroComponent } from './views/administrarServicios/administrar-centro/administrar-centro.component';
 import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-caucada.component';
 import {AuthInterceptor} from './services/usuario/auth.interceptor';
-
+import { DetalleModuloComponent } from './views/modulos/detalle-modulo/detalle-modulo.component';
+import { EditarModuloComponent } from './views/modulos/editar-modulo/editar-modulo.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @NgModule({
   imports: [
     NgModule,
@@ -59,6 +70,17 @@ import {AuthInterceptor} from './services/usuario/auth.interceptor';
     AppRoutingModule,
     SharedModule,
     MatTableModule,
+    MatTableModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatDialog,
+    Inject,
+    MatDialogRef,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -86,6 +108,8 @@ import {AuthInterceptor} from './services/usuario/auth.interceptor';
     PuestosVigilanciaComponent,
     CrearModulosComponent,
     ListaModuloComponent,
+    DetalleModuloComponent,
+    EditarModuloComponent,
     
 
     VerEmpresaComponent,
@@ -105,7 +129,9 @@ import {AuthInterceptor} from './services/usuario/auth.interceptor';
     EditarContratoComponent,
     CrearContratoComponent,
     AdministrarCentroComponent,
-    SesionCaucadaComponent,    
+    SesionCaucadaComponent,
+    DetalleModuloComponent,
+    EditarModuloComponent,    
 
   ],
   providers: [
