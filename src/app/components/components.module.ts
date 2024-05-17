@@ -35,7 +35,7 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
     //NgxPaginationModule
   ],
   declarations: [
-    FooterComponent,
+    //FooterComponent,
     // LoginComponent,
     // RestablecerPasswordComponent,
     // CambiarPasswordComponent,
@@ -61,7 +61,7 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
     
   ],
   exports: [
-    FooterComponent,
+    //FooterComponent,
    // LoginComponent,
     //CrearRegionalComponent,
     //AdministrarRegionalComponent

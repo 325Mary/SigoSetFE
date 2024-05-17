@@ -26,6 +26,7 @@ import { VerEmpresaComponent } from './views/modals/ver-empresa/ver-empresa.comp
 import { NavbarComponent } from "../app/components/navbar/navbar.component";
 import { BrowserModule } from '@angular/platform-browser';
 import { MatTableModule } from '@angular/material/table';
+import { FooterComponent } from './components/footer/footer.component';
 import { ListPuestosVigComponent } from './views/puestos-vig/list-puestos-vig/list-puestos-vig.component';
 import {PuestosVigilanciaComponent} from './views/puestos-vig/crear-puestos-vig/puestosVig.component'
 import { CrearRegionalComponent } from './views/Regionales/crear-regional/crear-regional.component';
@@ -76,6 +77,7 @@ import { CrearPuestoComponent } from './views/modals/crear-puesto/crear-puesto.c
     AdminLayoutComponent,
     SidebarComponent,
     ListaCentrosFormacionComponent,
+    FooterComponent,
     RegistrarCentroFormacionComponent,
     DetalleCentroFormacionComponent,
     ListPuestosVigComponent,

@@ -1,12 +1,18 @@
 footer {
-  background-color:#002340; /* Color de fondo blanco */
-  color: #fff;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  min-height: 10vh;
+  background-color: rgba(0, 49, 77, 1) !important; /* Color de fondo principal */
+  color: #fff; /* Color del texto */
+  bottom: 0; /* Posición en la parte inferior */
+  width: 100%; /* Ocupa todo el ancho */
+  display: flex; /* Flexbox para centrar contenido */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100px; /* Altura fija del footer */
+  position: fixed; /* Fija el footer en la parte inferior */
+  z-index: 1000; /* Asegura que el footer esté encima de todo */
+  text-align: center; /* Asegura que el texto esté centrado */
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+footer p {
+  margin: 0; /* Elimina el margen del párrafo */
+  text-align: center; /* Asegura que el texto esté centrado */
 }

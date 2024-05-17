@@ -10,9 +10,6 @@
     <router-outlet></router-outlet>
     <app-navbar></app-navbar> 
 
-    <div *ngIf="isMaps('maps')">
-      <app-footer></app-footer>
-    </div>
   </div>
 
   <!-- Sidebar (solo se muestra cuando está loggedIn) -->
@@ -40,7 +37,7 @@
 
 
 
-  <!-- <div class="fixed-plugin">
+ <!-- <div class="fixed-plugin">
       <div class="dropdown show-dropdown open show">
           <a href="#" data-toggle="dropdown" aria-expanded="true">
               <i class="fa fa-cog fa-2x"> </i>
@@ -61,5 +58,7 @@
               </li>
           </ul>
       </div>
-  </div> -->
+  </div>  -->
+  
+  <app-footer></app-footer>
 </div>

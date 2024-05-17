@@ -42,6 +42,8 @@
 
 .imagen_sigoset {
   width: 100%; /* La imagen ocupa el 100% del ancho del contenedor */
-  max-width: 400px; /* Limita el ancho máximo de la imagen */
+  max-width: 800px; /* Limita el ancho máximo de la imagen */
   margin-top: 20px; /* Añade un espacio superior */
+  transition:ease-in-out;
+
 }
