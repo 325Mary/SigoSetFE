@@ -2,3 +2,27 @@
     background-color: rgba(0, 49, 77, 1);
    
 } */
+@import "~bootstrap/dist/css/bootstrap.css";
+.modal {
+    display: none; /* Por defecto oculto */
+   
+  }
+  
+  .modal.show {
+    display: block; /* Mostrar cuando la clase .show está presente */
+  }
+  
+  .btn {
+    background-color: #165598; /* Color de fondo del botón primario */
+    border-color: #007bff; /* Color del borde del botón primario */
+}
+/* Define el tamaño de la modal */
+.custom-modal {
+  max-width: 800px; /* Ancho máximo */
+  width: 100%; /* Para asegurarse de que ocupe todo el ancho disponible */
+}
+
+/* Añade un margen automático para centrar la modal */
+.custom-modal .modal-dialog {
+  margin: auto;
+}

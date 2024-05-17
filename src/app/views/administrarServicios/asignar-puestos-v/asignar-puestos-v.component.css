@@ -1,0 +1,138 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Alinea los elementos arriba */
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    transition: all 0.5s; /* Agrega una transición suave */
+}
+
+.card {
+    width: calc(50% - 10px); /* Ajusta el ancho de las tarjetas y elimina el espacio entre ellas */
+    margin-right: 10px; /* Agrega un margen entre las tarjetas */
+    /* Otros estilos de las tarjetas */
+}
+
+.form-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.third-form {
+    position: absolute;
+    top: 50%;
+    left: 50%; /* Ajusta la posición horizontalmente */
+    transform: translate(-50%, -50%); /* Centra horizontalmente y verticalmente el formulario */
+    z-index: 1000; /* Asegura que la tercera tarjeta esté encima de las otras dos */
+}
+
+.select-vertical label {
+    font-weight: bold;
+}
+
+.select-vertical select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    appearance: none;
+    background-color: #f9f9f9;
+}
+
+.puesto-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.descripcion-puesto {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-right: 20px;
+    max-width: 250px;
+}
+
+.descripcion-puesto span {
+    font-weight: bold;
+}
+
+.cantidad-rectangulo {
+    background-color: #20494b;
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Estilo para el botón en general */
+.form-toggle-buttons button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Agrega una transición suave */
+}
+
+/* Estilo para el contenedor de los botones */
+.form-toggle-buttons {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    margin-top: 20px; /* Agrega un margen superior */
+}
+
+/* Estilo para el botón cuando se hace hover */
+.form-toggle-buttons button:hover {
+    background-color: #0056b3; /* Cambia el color al hacer hover */
+}
+
+
+.form-toggle-buttons-left {
+    order: 1; /* Cambia el orden a la izquierda */
+}
+
+.form-toggle-buttons-right {
+    order: 3; /* Cambia el orden a la derecha */
+}
+
+.form-container-left {
+    width: calc(50% - 10px); /* Ajusta el ancho del formulario y elimina el espacio entre los formularios */
+    margin-right: 40px; /* Agrega un margen entre los formularios */
+    /* Otros estilos del formulario */
+    order: 2; /* Cambia el orden a la izquierda */
+}
+
+.form-container-right {
+    width: calc(50% - 10px); /* Ajusta el ancho del formulario y elimina el espacio entre los formularios */
+    margin-left: 40px; /* Agrega un margen entre los formularios */
+    /* Otros estilos del formulario */
+    order: 2; /* Cambia el orden a la derecha */
+    margin-top: 30px;
+    align-items: center;
+}

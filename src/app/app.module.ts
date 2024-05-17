@@ -44,6 +44,10 @@ import {VerUserComponent} from './views/modals/ver-user/ver-user.component';
 import {EditarContratoComponent} from './views/modals/editar-contrato/editar-contrato.component';
 import { AdministrarCentroComponent } from './views/administrarServicios/administrar-centro/administrar-centro.component';
 import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-caucada.component';
+import { InformesComponent } from './views/administrarServicios/informes/informes.component';
+import { ValidarOblVComponent } from './views/modals/validar/validar-obl-v/validar-obl-v.component';
+import { PuestoVxCentroComponent } from './views/modals/Puestos/puesto-vx-centro/puesto-vx-centro.component';
+import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component';
 
 @NgModule({
   imports: [
@@ -97,7 +101,11 @@ import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-ca
     EditarContratoComponent,
     CrearContratoComponent,
     AdministrarCentroComponent,
-    SesionCaucadaComponent,    
+    SesionCaucadaComponent,
+    InformesComponent,
+    ValidarOblVComponent,
+    PuestoVxCentroComponent,
+    AsignarPuestosVComponent,    
 
   ],
   providers: [

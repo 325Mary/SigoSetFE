@@ -1,0 +1,90 @@
+<div class="container">
+
+    
+  
+    <!-- Formulario de Vigilancia Humana -->
+    <div *ngIf="mostrarFormularioHumano" class="form-container-left">
+                <form class="form-section">
+            <div class="select-vertical">
+                <label for="empresaVigilancia">Empresa:</label>
+                <select id="empresaElectronica">
+                    <option value="" disabled selected>Seleccione Empresa</option>
+                    <option *ngFor="let empresa of empresas" [value]="empresa.idempresa">{{ empresa.nombre_empresa }}</option>
+                </select>
+                
+            </div>
+            <div class="select-vertical">
+                <label for="puestosVigilancia">Vigilancia Humana:</label>
+                <select id="puestosVigilancia" (change)="onPuestoVigilanciaSelected($event.target.value)">
+                    <option value="" disabled selected>Seleccione Tipos de puestos</option>
+                    <option *ngFor="let puesto of puestos" [value]="puesto.idpuesto_vigilancia" [disabled]="puesto.seleccionado">{{ puesto.descripcion_puesto }}</option>
+                </select>
+                <div class="triangle" [class.rotate]="isSelectOpen('puestosVigilancia')"></div>
+            </div>
+            <div *ngFor="let puesto of puestosSeleccionadosVigilancia" class="puesto-container">
+                <div class="descripcion-puesto">
+                    <span> {{ puesto.descripcion_puesto }}</span>
+                </div>
+                <div class="cantidad-rectangulo">
+                    <span>Cantidad: {{ puesto.cantidad }}</span>
+                    <button class="btn btn-danger btn-sm" (click)="aumentarCantidad(puesto)">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <hr>
+            <button class="btn btn-primary" (click)="guardarCambios()">Guardar Cambios</button>
+        </form>
+    </div>
+
+   
+
+    <!-- Formulario de Vigilancia Electrónica -->
+    <div *ngIf="mostrarFormularioElectronica" class="form-container-right">
+        <form class="form-section">
+            <div class="select-vertical">
+                <label for="empresaElectronica">Empresa:</label>
+                <select id="empresaElectronica">
+                    <option value="" disabled selected>Seleccione Empresa</option>
+                    <!-- Agrega opciones de empresas aquí -->
+                </select>
+            </div>
+            <div class="select-vertical">
+                <label for="vigilanciaElectronica"> Vigilancia Electronica:</label>
+                <select id="vigilanciaElectronica" (change)="onVigilanciaElectronicaSelected($event.target.value)">
+                    <option value="" disabled selected>Seleccione Tipos de puestos</option>
+                    <option *ngFor="let vigiElect of vigiElectronica" [value]="vigiElect.idvigilancia_electronica" [disabled]="vigiElect.seleccionado">{{ vigiElect.descripcion }}</option>
+                </select>
+                <div class="triangle" [class.rotate]="isSelectOpen('vigilanciaElectronica')"></div>
+            </div>
+            <div *ngFor="let vigiElect of puestosSeleccionadosElectronica" class="puesto-container">
+                <div class="descripcion-puesto">
+                    <span> {{ vigiElect.descripcion }}</span>
+                </div>
+                <div class="cantidad-rectangulo">
+                    <span>Cantidad: {{ vigiElect.cantidad }}</span>
+                    <button class="btn btn-danger btn-sm" (click)="aumentarCantidad(vigiElect)">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <hr>
+            <button class="btn btn-primary" (click)="guardarCambios()">Guardar Cambios</button>
+        </form>
+
+    </div>
+    <div class="form-toggle-buttons" [ngClass]="{ 'form-toggle-buttons-left': !mostrarFormularioHumano, 'form-toggle-buttons-right': mostrarFormularioHumano }">
+        <button *ngIf="!mostrarFormularioElectronica" (click)="mostrarFormulario('electronica')">
+            Vigilancia Electrónica
+            <i class="fas fa-arrow-right"></i> <!-- Flecha a la derecha -->
+        </button>
+        <button *ngIf="!mostrarFormularioHumano" (click)="mostrarFormulario('humano')">
+            Vigilancia Humana
+            <i class="fas fa-arrow-left"></i> <!-- Flecha a la izquierda -->
+        </button>
+    </div>
+    
+   
+</div>
+
+

@@ -1,21 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service'
 import {CentroFormacion} from '../../../models/centro-formacion/centro-formacion'
+import { PuestosEXcentroService } from '../../../services/PuestosXcentro/puestos-excentro.service';
+import {PuestosVXcentroService} from '../../../services/PuestosXcentro/puestos-vxcentro.service'
+
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-lista-centros-formacion',
   templateUrl: './lista-centros-formacion.component.html',
   styleUrls: ['./lista-centros-formacion.component.css']
 })
 export class ListaCentrosFormacionComponent implements OnInit {
+  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
+  showModal: boolean = false;
+  mostrarModalPuestos: boolean = false; 
+centroSeleccionado: any = {}
   listaCentrosFormacion: CentroFormacion[] = []
-  constructor(private _centroFormacionService: CentroFormacionService, ) { }
+  puestoVxCentro: any;
+  puestoExCentro: any;
+
+  constructor(private _centroFormacionService: CentroFormacionService,  private _puestosEXCentroService: PuestosEXcentroService,
+    private _puestosVXCentroService: PuestosVXcentroService) { }
   pageSize: number = 10; // Número de usuarios por página
   currentPage: number = 1; // Página actual
 
   ngOnInit(): void {
-    this.getListaCentrosFormacion()
+    this.getListaCentrosFormacion();
   }
+   
   getListaCentrosFormacion() {
   this._centroFormacionService.getCentrosFormacion().subscribe(data => {
     this.listaCentrosFormacion= data.data;
@@ -75,6 +88,47 @@ eliminarCentroFormacion(id: any) {
   })
 
 }
+getPuestosVxCentro(idcentro_formacion: number) {
+  this._puestosVXCentroService.obtenerPuestosVxCentro(idcentro_formacion).subscribe(data => {
+      this.puestoVxCentro = data;
+      console.log('Puestos Vx Centro:', this.puestoVxCentro);
+  }, error => {
+      console.error(error);
+  });
+}
+
+getPuestosExCentro(idcentro_formacion: number) {
+  this._puestosEXCentroService.obtenerPuestosExCentro(idcentro_formacion).subscribe(data => {
+      this.puestoExCentro = data;
+      console.log('Puestos Ex Centro:', this.puestoExCentro);
+  }, error => {
+      console.error(error);
+  });
+}
+
+closeModal(): void {
+  this.showModal = false;
+  this.mostrarModalPuestos = false;
+}
+
+abrirModalVerPuestos(item: any): void {
+  console.log('Item seleccionado:', item);
+  this.centroSeleccionado = item;
+  this.mostrarModalPuestos = true;
+  this.showModal = true;
+}
+
+
+handleCloseModal(): void {
+  this.showModal = false;
+  this.mostrarModalPuestos = false;
+}
+
+actualizarLista(): void {
+  this.getListaCentrosFormacion();
+}
+
+
 }
 
 
