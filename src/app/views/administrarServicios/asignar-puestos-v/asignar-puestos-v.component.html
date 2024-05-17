@@ -7,10 +7,10 @@
                 <form class="form-section">
             <div class="select-vertical">
                 <label for="empresaVigilancia">Empresa:</label>
-                <select id="empresaElectronica">
+                <select id="empresaVigilancia" (change)="empresaSeleccionada = $event.target.value">
                     <option value="" disabled selected>Seleccione Empresa</option>
                     <option *ngFor="let empresa of empresas" [value]="empresa.idempresa">{{ empresa.nombre_empresa }}</option>
-                </select>
+                  </select>
                 
             </div>
             <div class="select-vertical">
@@ -44,10 +44,10 @@
         <form class="form-section">
             <div class="select-vertical">
                 <label for="empresaElectronica">Empresa:</label>
-                <select id="empresaElectronica">
+                <select id="empresaVigilancia" (change)="empresaSeleccionada = $event.target.value">
                     <option value="" disabled selected>Seleccione Empresa</option>
-                    <!-- Agrega opciones de empresas aquí -->
-                </select>
+                    <option *ngFor="let empresa of empresas" [value]="empresa.idempresa">{{ empresa.nombre_empresa }}</option>
+                  </select>
             </div>
             <div class="select-vertical">
                 <label for="vigilanciaElectronica"> Vigilancia Electronica:</label>
