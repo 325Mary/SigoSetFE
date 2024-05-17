@@ -58,6 +58,13 @@
                                                     (click)="eliminarCentroFormacion(item.idcentro_formacion)">
                                                     <span class="fa-solid fa-trash text-danger"></span>
                                                 </i>
+                                                <i title="Asignar Puestos por centro" (click)="abrirModalPuestos(item)">
+                                                    <span class="fas fa-shield-alt"></span>
+                                                </i>
+                                                <i title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
+                                                    <span class="fas fa-shield-alt"></span>
+                                                </i>
+                                                
                                             </div>
                                         </td>
                                     </tr>
@@ -83,3 +90,15 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Modal -->
+<div class="modal" [class.show]="mostrarModalPuestos">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Contenido del modal -->
+        <app-puesto-vx-centro ></app-puesto-vx-centro>
+      </div>
+    </div>
+  </div>

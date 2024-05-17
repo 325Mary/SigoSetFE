@@ -49,6 +49,10 @@ import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-ca
 import {AuthInterceptor} from './services/usuario/auth.interceptor';
 import { DataSource } from '@angular/cdk/collections';
 import { CrearPuestoComponent } from './views/modals/crear-puesto/crear-puesto.component';
+import { InformesComponent } from './views/administrarServicios/informes/informes.component';
+import { ValidarOblVComponent } from './views/modals/validar/validar-obl-v/validar-obl-v.component';
+import { PuestoVxCentroComponent } from './views/modals/Puestos/puesto-vx-centro/puesto-vx-centro.component';
+import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component';
 
 @NgModule({
   imports: [
@@ -112,7 +116,10 @@ import { CrearPuestoComponent } from './views/modals/crear-puesto/crear-puesto.c
     CrearContratoComponent,
     AdministrarCentroComponent,
     SesionCaucadaComponent,
-    CrearPuestoComponent,    
+    InformesComponent,
+    ValidarOblVComponent,
+    PuestoVxCentroComponent,
+    AsignarPuestosVComponent,    
 
   ],
   providers: [

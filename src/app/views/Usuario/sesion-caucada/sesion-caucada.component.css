@@ -1,5 +1,18 @@
 .logo_img_small {
+    max-width: 500px;
+    height: auto;
+  }
+@media screen and (max-with:800px){
+  .logo_img_small {
     max-width: 200px;
     height: auto;
   }
-  
+}
+.message{
+  padding: 30px;
+  font-size: x-large;
+  color:#00314D ;
+}
+.material_icons{
+  width: 10vh;
+}

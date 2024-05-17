@@ -1,0 +1,118 @@
+.container {
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan a una nueva línea */
+    justify-content: flex-start; /* Alinea los elementos al principio */
+    gap: 20px; /* Espacio entre los elementos */
+}
+.select-vertical {
+    padding: 5px; /* Reducción del padding */
+    appearance: none;
+    border: none; /* Elimina el borde */
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Sombreado */
+    width: calc(100% - 0px); /* Ajusta el ancho del select */
+    position: relative; /* Ajusta la posición del triángulo */
+
+}
+
+
+select {
+    width: calc(100% - 0px); /* Ajusta el ancho del select */
+    padding: 5px; /* Reducción del padding */
+    appearance: none;
+    border: none; /* Elimina el borde */
+}
+label {
+    margin-right: 10px;
+}
+
+.triangle {
+    position: absolute;
+    top: 50%;
+    right: 6px; /* Ajusta la posición horizontal del triángulo */
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent; /* Ajusta el tamaño del triángulo */
+    border-right: 6px solid transparent; /* Ajusta el tamaño del triángulo */
+    border-top: 4px solid #838383; /* Cambia el color del triángulo */
+    transition: transform 0.3s ease; /* Transición de rotación */
+}
+
+.rotate {
+    transform: rotate(180deg); /* Rotación para indicar que el select está abierto */
+}
+
+.puesto-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio entre cada puesto */
+  }
+  
+  .container {
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan a una nueva línea */
+    justify-content: flex-start; /* Alinea los elementos al principio */
+    gap: 20px; /* Espacio entre los elementos */
+}
+.select-vertical {
+    padding: 5px; /* Reducción del padding */
+    appearance: none;
+    border: none; /* Elimina el borde */
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Sombreado */
+    width: calc(100% - 0px); /* Ajusta el ancho del select */
+    position: relative; /* Ajusta la posición del triángulo */
+
+}
+
+
+select {
+    width: calc(100% - 0px); /* Ajusta el ancho del select */
+    padding: 5px; /* Reducción del padding */
+    appearance: none;
+    border: none; /* Elimina el borde */
+}
+label {
+    margin-right: 10px;
+}
+
+.triangle {
+    position: absolute;
+    top: 50%;
+    right: 6px; /* Ajusta la posición horizontal del triángulo */
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent; /* Ajusta el tamaño del triángulo */
+    border-right: 6px solid transparent; /* Ajusta el tamaño del triángulo */
+    border-top: 4px solid #838383; /* Cambia el color del triángulo */
+    transition: transform 0.3s ease; /* Transición de rotación */
+}
+
+.rotate {
+    transform: rotate(180deg); /* Rotación para indicar que el select está abierto */
+}
+
+.puesto-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio entre cada puesto */
+    position: relative; /* Establecer posición relativa */
+}
+
+.cantidad-rectangulo {
+    background-color: rgb(32, 32, 75); /* Color de fondo para el contenedor de cantidad */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    color: #fff;
+    margin-left: auto; /* Empujar al extremo derecho */
+}
