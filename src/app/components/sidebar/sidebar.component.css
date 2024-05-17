@@ -10,3 +10,32 @@
     overflow-y: auto; /* Establece el desplazamiento vertical */
     max-height: 80vh; /* Establece la altura máxima para la barra de desplazamiento */
 }
+/* Base styles for the sidebar */
+.sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #f1f1f1;
+    height: 100vh;
+    z-index: 10;
+  }
+  
+  /* Styles for screens wider than 768px */
+  @media screen and (min-width: 768px) {
+    .sidebar {
+      display: block;
+    }
+  }
+  
+  /* Styles for screens narrower than 768px */
+  @media screen and (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+  
+    .sidebar-open {
+      display: block;
+    }
+  }
+  

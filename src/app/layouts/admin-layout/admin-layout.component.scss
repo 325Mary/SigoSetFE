@@ -5,7 +5,7 @@
   left: 0;
   bottom: 0; /* Hace que el sidebar ocupe toda la altura disponible */
   width: 250px;
-  z-index: 1000;
+   z-index: 1000;
 }
 
 app-navbar {
@@ -22,6 +22,13 @@ app-navbar {
   margin-left: 250px; /* Deja espacio para el sidebar */
   margin-top: 60px; /* Compensa el espacio del navbar */
 }
+
+@media screen and (max-width:1200px) {
+  .content.content-with-sidebar {
+  margin-left: 0; /* Deja espacio para el sidebar */
+}
+}
+
 
 /* Estilos aplicados solo cuando isLoggedIn es false */
 .full-width-content {
