@@ -1,8 +1,5 @@
-
-    <nav class="nav">
-      <img src="assets/img/image (12).png" alt="Símbolo del SENA" class="image_logo">
-      <a *ngIf="!isLoggedIn" routerLink="/login"  class="a_iniciar">Login</a>
-      <button *ngIf="isLoggedIn" (click)="cerrarSesion()" class="btn">Cerrar Sesión</button>
-    </nav>
-
-  
+<nav class="nav">
+    <img src="assets/img/image (12).png" alt="Símbolo del SENA" class="image_logo">
+    <a *ngIf="!isLoggedIn" routerLink="/login" class="a_iniciar">Login</a>
+    <button *ngIf="isLoggedIn" (click)="cerrarSesion()" class="btn">Cerrar Sesión</button>
+</nav>

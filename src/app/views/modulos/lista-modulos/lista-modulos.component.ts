@@ -1,5 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
-import { ModuloService } from '../../../services/modulos/modulos.service';
+import { ModuloService, } from '../../../services/modulos/modulos.service';
+import { DetalleModuloComponent } from '../detalle-modulo/detalle-modulo.component';
+import { EditarModuloComponent } from '../editar-modulo/editar-modulo.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 interface Modulo {
   idmodulo: number;
@@ -17,9 +22,13 @@ interface Modulo {
 })
 export class ListaModuloComponent implements OnInit {
   modulos: Modulo[] = [];
+  selectedModulo: Modulo | null = null;
   errorMessage: string = '';
 
-  constructor(private moduloService: ModuloService) { }
+  //Borrar si es snesesario
+  displayedColumns: string[] = ['idmodulo', 'modulo', 'url_modulo', 'icono', 'acciones']; // Replace with your desired column names
+  //----------------------------------------------------------------------------------
+  constructor(private moduloService: ModuloService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.obtenerModulos();
@@ -36,6 +45,35 @@ export class ListaModuloComponent implements OnInit {
     );
   }
 
+  verDetalle(modulo: Modulo): void {
+    this.dialog.open(DetalleModuloComponent, {
+      width: '400px',
+      data: { modulo }
+    });
+  }
+
+  editarModulo(modulo: Modulo): void {
+    const dialogRef = this.dialog.open(EditarModuloComponent, {
+      width: '400px',
+      data: { modulo }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.obtenerModulos();
+      }
+    });
+  }
+
+
+ obtenerModuloPorId(id: number): void {
+    this.moduloService.obtenerModuloPorId(id).subscribe(
+      (modulo) => this.selectedModulo = modulo,
+      (error) => this.errorMessage = 'Error al obtener el módulo'
+    );
+  }
+  
+
   eliminarModulo(id: number): void {
     if (confirm('¿Estás seguro de eliminar este módulo?')) {
       this.moduloService.eliminarModulo(id).subscribe(
@@ -48,4 +86,8 @@ export class ListaModuloComponent implements OnInit {
       );
     }
   }
+
+
+  
+
 }

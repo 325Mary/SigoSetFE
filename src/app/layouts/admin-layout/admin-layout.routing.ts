@@ -39,11 +39,13 @@ import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/re
 import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
 
 import { CrearModulosComponent } from 'app/views/modulos/crear-modulos/crear-modulos.component';
+import { EditarModuloComponent } from 'app/views/modulos/editar-modulo/editar-modulo.component';
+import { DetalleModuloComponent } from 'app/views/modulos/detalle-modulo/detalle-modulo.component';
+import{ListaModuloComponent} from 'app/views/modulos/lista-modulos/lista-modulos.component'
 
 import { Component } from '@angular/core';
 
 //import { RegionalComponent } from 'app/components/regional/regional.component';
-import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
 import {ListarContratosComponent} from 'app/views/contrato/listar-contratos/listar-contratos.component';
 import {AdministrarCentroComponent} from 'app/views/administrarServicios/administrar-centro/administrar-centro.component'
 import {SesionCaucadaComponent} from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
@@ -122,6 +124,12 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'AdministrarCentros', component: AdministrarCentroComponent},
     { path: 'sesionCaducada', component: SesionCaucadaComponent},
     { path: 'asignarpuestosPorCentro/:idcentro_formacion', component: AsignarPuestosVComponent},
+    { path: 'crear-modulo', component: CrearModulosComponent },
+    {path: 'listarModulos', component: ListaModuloComponent},
+    {path: 'editarModulo',component: EditarModuloComponent},
+    {path: 'detalleModulo',component:DetalleModuloComponent},
+    { path: '', redirectTo: '/modulos', pathMatch: 'full' },
+
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

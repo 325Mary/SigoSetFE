@@ -24,7 +24,6 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
 
 @NgModule({
   imports: [
-    //NgModule,
     CommonModule,
     RouterModule,
     FormsModule,

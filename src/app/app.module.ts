@@ -49,20 +49,19 @@ import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-ca
 import {AuthInterceptor} from './services/usuario/auth.interceptor';
 import { DataSource } from '@angular/cdk/collections';
 import { CrearPuestoComponent } from './views/modals/crear-puesto/crear-puesto.component';
-import { InformesComponent } from './views/administrarServicios/informes/informes.component';
-import { ValidarOblVComponent } from './views/modals/validar/validar-obl-v/validar-obl-v.component';
 import { PuestoVxCentroComponent } from './views/modals/Puestos/puesto-vx-centro/puesto-vx-centro.component';
+import { CommonModule } from '@angular/common';
 import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component';
-
 @NgModule({
   imports: [
+     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
+    CommonModule,
     RouterModule,
-    AppRoutingModule,
     SharedModule,
     MatTableModule,
     JwtModule.forRoot({
@@ -76,7 +75,9 @@ import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-p
   ],
 
   declarations: [
+    AsignarPuestosVComponent,
     AppComponent,
+    PuestoVxCentroComponent,
     CrearUsersComponent,
     AdminLayoutComponent,
     SidebarComponent,
@@ -116,10 +117,7 @@ import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-p
     CrearContratoComponent,
     AdministrarCentroComponent,
     SesionCaucadaComponent,
-    InformesComponent,
-    ValidarOblVComponent,
-    PuestoVxCentroComponent,
-    AsignarPuestosVComponent,    
+    CrearPuestoComponent,    
 
   ],
   providers: [

@@ -53,8 +53,9 @@ export class PuestosVigilanciaComponent implements OnInit {
   }
 
   actualizarCalculos(): void {
+    this.puestoData.ays = this.puestoData.tarifa_puesto *0.08;
     
-    this.puestoData.iva = this.puestoData.tarifa_puesto * 0.19;
+    this.puestoData.iva = (this.puestoData.tarifa_puesto + this.puestoData.ays)* 0.19;
     
     this.puestoData.total = this.puestoData.tarifa_puesto  + this.puestoData.ays + this.puestoData.iva;
   }
