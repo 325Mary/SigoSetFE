@@ -47,6 +47,9 @@ import {ListarContratosComponent} from 'app/views/contrato/listar-contratos/list
 import {AdministrarCentroComponent} from 'app/views/administrarServicios/administrar-centro/administrar-centro.component'
 import {SesionCaucadaComponent} from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
 import {AsignarPuestosVComponent} from 'app/views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component'
+import { ValidarVigilanciaComponent } from "app/views/administrarServicios/validar-vigilancia/validar-vigilancia.component";
+
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -122,6 +125,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'AdministrarCentros', component: AdministrarCentroComponent},
     { path: 'sesionCaducada', component: SesionCaucadaComponent},
     { path: 'asignarpuestosPorCentro/:idcentro_formacion', component: AsignarPuestosVComponent},
+    { path: 'validadVigilancia', component:ValidarVigilanciaComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

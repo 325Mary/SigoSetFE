@@ -3,9 +3,11 @@ import { PuestosEXcentroService } from '../../../services/PuestosXcentro/puestos
 import { PuestosVXcentroService } from '../../../services/PuestosXcentro/puestos-vxcentro.service';
 import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 import { VigilanciaElectronicaService } from '../../../services/PuestosElectronicos/vigilancia-electronica.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'; 
 import { EmpresaService } from '../../../services/empresas/empresa.service';
+import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service'
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-asignar-puestos-v',
@@ -19,6 +21,7 @@ export class AsignarPuestosVComponent {
   puestoVxCentro: any;
   puestoExCentro: any;
   puestos: any[] = [];
+  centro: any[]=[];
   vigiElectronica: any[] = [];
   servicioSeleccionado: string;
   puestosSeleccionados: any[] = [];
@@ -31,6 +34,8 @@ export class AsignarPuestosVComponent {
   mostrarFormularioHumano: boolean = true;
   mostrarFormularioElectronica: boolean = false;
   formularioVisible: boolean = false;
+  nombreCentro: string;
+
 
   constructor(
     private _puestosEXCentroService: PuestosEXcentroService,
@@ -38,7 +43,9 @@ export class AsignarPuestosVComponent {
     private puestosService: PuestosVigilanciaService,
     private vigilanciaElectronicaS: VigilanciaElectronicaService,
     private route: ActivatedRoute,
-    private empresaService: EmpresaService
+    private router: Router,
+    private empresaService: EmpresaService,
+    private centroService: CentroFormacionService
   ) { }
 
   ngOnInit(): void {
@@ -49,9 +56,10 @@ export class AsignarPuestosVComponent {
       // Obtener el ID del centro de los parámetros de ruta
       this.centroId = params['idcentro_formacion'];
       console.log('id:', this.centroId);
-      // Ahora puedes usar este ID para cargar la información del centro o realizar otras operaciones necesarias
+      this.obtenerinforXcentro(this.centroId);
     });
     this.obtenerEmpresas();
+    this.obtenerinforXcentro(this.centroId)
   }
 
   obtenerEmpresas() {
@@ -77,6 +85,20 @@ export class AsignarPuestosVComponent {
       }
     );
   }
+
+  obtenerinforXcentro(centroId: string): void {
+    this.centroService.getCentroFormacion(centroId).subscribe(
+      (response) => {
+        this.centro = response.data;
+        this.nombreCentro = response.data.centro_formacion; // Set the center name
+        console.log('centroooo:', this.centro);
+      },
+      (error) => {
+        console.error('Error al obtener centro:', error);
+      }
+    );
+  }
+  
 
   obtenerVigilanciaElectronica(): void {
     this.vigilanciaElectronicaS.obtenerVigilaciaElectronica().subscribe(
@@ -126,10 +148,16 @@ export class AsignarPuestosVComponent {
     puesto.cantidad++;
   }
 
-  guardarCambios(): void {
+  reloadComponent() {
+    this.router.navigate([this.router.url], { skipLocationChange: true });
+  }
+  
+
+  guardarCambiosVigilanciaHumana(): void {
     const centroFormacionId = this.centroId;
     const idempresaSeleccionada = this.empresaSeleccionada;
-    // Guardar cambios para puestos de vigilancia
+    let saveCount = 0;
+  
     this.puestosSeleccionadosVigilancia.forEach(puesto => {
       if (puesto.cantidad > 0) {
         this._puestosVXCentroService.crearPuestoVxCentro({
@@ -138,13 +166,26 @@ export class AsignarPuestosVComponent {
           idpuesto_vigilancia: puesto.idpuesto_vigilancia,
           cantidad_puestov: puesto.cantidad
         }).subscribe(() => {
-          console.log('Cantidad actualizada para puesto de vigilancia.');
+          saveCount++;
+          if (saveCount === this.puestosSeleccionadosVigilancia.length) {
+            Swal.fire('¡Éxito!', 'Cantidad actualizada para puesto de vigilancia humana.', 'success');
+            console.log('Cantidad actualizada para puesto de vigilancia.');
+            this.puestosSeleccionadosVigilancia = [];
+            this.reloadComponent();
+          }
         }, (error) => {
+          Swal.fire('Error', error.error.message || 'Hubo un error al actualizar la cantidad para puesto de vigilancia.', 'error');
           console.error('Error al actualizar cantidad para puesto de vigilancia:', error);
         });
       }
     });
-    // Guardar cambios para puestos de electrónica
+  }
+  
+  guardarCambiosVigilanciaElectronica(): void {
+    const centroFormacionId = this.centroId;
+    const idempresaSeleccionada = this.empresaSeleccionada;
+    let saveCount = 0;
+  
     this.puestosSeleccionadosElectronica.forEach(vigiElect => {
       if (vigiElect.cantidad > 0) {
         this._puestosEXCentroService.crearPuestoVExCentro({
@@ -153,13 +194,22 @@ export class AsignarPuestosVComponent {
           idvigilancia_electronica: vigiElect.idvigilancia_electronica,
           cantidad: vigiElect.cantidad,
         }).subscribe(() => {
-          console.log('Cantidad actualizada para puesto de electrónica.');
+          saveCount++;
+          if (saveCount === this.puestosSeleccionadosElectronica.length) {
+            Swal.fire('¡Éxito!', 'Cantidad actualizada para puesto de vigilancia electrónica.', 'success');
+            console.log('Cantidad actualizada para puesto de electrónica.');
+            this.puestosSeleccionadosElectronica = [];
+            this.reloadComponent();
+          }
         }, (error) => {
+          Swal.fire('Error', error.error.message || 'Hubo un error al actualizar la cantidad para puesto de electrónica.', 'error');
           console.error('Error al actualizar cantidad para puesto de electrónica:', error);
         });
       }
     });
   }
+  
+  
 
   mostrarFormulario(tipo: string) {
     if (tipo === 'humano') {

@@ -46,8 +46,11 @@ import { AdministrarCentroComponent } from './views/administrarServicios/adminis
 import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-caucada.component';
 import { InformesComponent } from './views/administrarServicios/informes/informes.component';
 import { ValidarOblVComponent } from './views/modals/validar/validar-obl-v/validar-obl-v.component';
-import { PuestoVxCentroComponent } from './views/modals/Puestos/puesto-vx-centro/puesto-vx-centro.component';
 import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component';
+import { ListPuestosXcCentroComponent } from './views/modals/list-puestos-xc-centro/list-puestos-xc-centro.component';
+import { PuestosEXcentroService } from "./services/PuestosXcentro/puestos-excentro.service";
+import { PuestosVXcentroService } from "./services/PuestosXcentro/puestos-vxcentro.service";
+import { ValidarVigilanciaComponent } from './views/administrarServicios/validar-vigilancia/validar-vigilancia.component';
 
 @NgModule({
   imports: [
@@ -104,14 +107,17 @@ import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-p
     SesionCaucadaComponent,
     InformesComponent,
     ValidarOblVComponent,
-    PuestoVxCentroComponent,
-    AsignarPuestosVComponent,    
+    AsignarPuestosVComponent,
+    ListPuestosXcCentroComponent,
+    ValidarVigilanciaComponent,    
 
   ],
   providers: [
     LoginService,
     CentroFormacionService
     , JwtHelperService,
+    PuestosEXcentroService,
+    PuestosVXcentroService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  ],
   bootstrap: [AppComponent]
