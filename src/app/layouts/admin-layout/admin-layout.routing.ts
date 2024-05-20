@@ -48,7 +48,8 @@ import {AdministrarCentroComponent} from 'app/views/administrarServicios/adminis
 import {SesionCaucadaComponent} from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
 import {AsignarPuestosVComponent} from 'app/views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component'
 import { ValidarVigilanciaComponent } from "app/views/administrarServicios/validar-vigilancia/validar-vigilancia.component";
-
+import {  CrearVEComponent} from "app/views/VigilanciaElectronica/crear-ve/crear-ve.component";
+import { ListarVEComponent } from "app/views/VigilanciaElectronica/listar-ve/listar-ve.component";
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -125,7 +126,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'AdministrarCentros', component: AdministrarCentroComponent},
     { path: 'sesionCaducada', component: SesionCaucadaComponent},
     { path: 'asignarpuestosPorCentro/:idcentro_formacion', component: AsignarPuestosVComponent},
-    { path: 'validadVigilancia', component:ValidarVigilanciaComponent},
+    { path: 'validarVigilancia', component:ValidarVigilanciaComponent},
+    { path: 'crearVigilanciaElectronica', component:CrearVEComponent},
+    { path: 'listarVigilanciaElectronica', component:ListarVEComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

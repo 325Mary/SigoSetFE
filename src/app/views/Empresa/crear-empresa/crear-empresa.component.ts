@@ -55,11 +55,11 @@ export class CrearEmpresaComponent {
   
   camposCompletos(): boolean {
     return !!(
-        this.nuevaEmpresa.nombre_empresav &&
+        this.nuevaEmpresa.nombre_empresa &&
         this.nuevaEmpresa.nit_empresa &&
-        this.nuevaEmpresa.direccion_empresav &&
-        this.nuevaEmpresa.telefono_empresav &&
-        this.nuevaEmpresa.email_empresav &&
+        this.nuevaEmpresa.direccion_empresa &&
+        this.nuevaEmpresa.telefono_empresa &&
+        this.nuevaEmpresa.email_empresa &&
         this.nuevaEmpresa.persona_contacto &&
         this.nuevaEmpresa.telefono_personac &&
         this.nuevaEmpresa.email_personac &&

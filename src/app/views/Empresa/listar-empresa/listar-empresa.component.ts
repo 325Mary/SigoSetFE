@@ -105,9 +105,9 @@ eliminarEmpresa(idempresa_vigilancia: number): void {
 filtrarEmpresas(): any[] {
   const empresasFiltradas = this.empresas.filter((empresa) => {
     return (
-      empresa.nombre_empresav.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+      empresa.nombre_empresa.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
       empresa.nit_empresa.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-      empresa.direccion_empresav.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      empresa.direccion_empresa.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
     );
   });
   this.noResultados = empresasFiltradas.length === 0;

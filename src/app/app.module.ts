@@ -51,6 +51,9 @@ import { ListPuestosXcCentroComponent } from './views/modals/list-puestos-xc-cen
 import { PuestosEXcentroService } from "./services/PuestosXcentro/puestos-excentro.service";
 import { PuestosVXcentroService } from "./services/PuestosXcentro/puestos-vxcentro.service";
 import { ValidarVigilanciaComponent } from './views/administrarServicios/validar-vigilancia/validar-vigilancia.component';
+import {CrearVEComponent  } from "./views/VigilanciaElectronica/crear-ve/crear-ve.component";
+import { ListarVEComponent } from './views/VigilanciaElectronica/listar-ve/listar-ve.component';
+import { EditarVEComponent } from './views/modals/editar-ve/editar-ve.component';
 
 @NgModule({
   imports: [
@@ -109,8 +112,10 @@ import { ValidarVigilanciaComponent } from './views/administrarServicios/validar
     ValidarOblVComponent,
     AsignarPuestosVComponent,
     ListPuestosXcCentroComponent,
-    ValidarVigilanciaComponent,    
-
+    ValidarVigilanciaComponent,
+    CrearVEComponent,
+    ListarVEComponent,
+    EditarVEComponent,
   ],
   providers: [
     LoginService,
