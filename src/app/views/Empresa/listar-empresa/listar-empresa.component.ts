@@ -65,7 +65,7 @@ abrirModalEditar(empresa: any): void {
   this.mostrarModalEditar = true;
 }
 
-eliminarEmpresa(idempresa_vigilancia: number): void {
+eliminarEmpresa(idempresa: number): void {
   // Mostrar un cuadro de confirmación antes de eliminar la empresa
   Swal.fire({
     title: '¿Estás seguro?',
@@ -77,7 +77,7 @@ eliminarEmpresa(idempresa_vigilancia: number): void {
   }).then((result) => {
     if (result.isConfirmed) {
       // Llamar al servicio para eliminar la empresa
-      this.empresaService.eliminarEmpresa(idempresa_vigilancia).subscribe(
+      this.empresaService.eliminarEmpresa(idempresa).subscribe(
         () => {
           // Mostrar un mensaje de éxito después de eliminar la empresa
           Swal.fire(
