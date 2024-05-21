@@ -52,6 +52,18 @@ import { CrearPuestoComponent } from './views/modals/crear-puesto/crear-puesto.c
 import { PuestoVxCentroComponent } from './views/modals/Puestos/puesto-vx-centro/puesto-vx-centro.component';
 import { CommonModule } from '@angular/common';
 import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component';
+import { CrearObligacionComponent } from './views/obligacionesContractuales/crear-obligacion/crear-obligacion.component';
+import { AdministrarObligacionComponent } from './views/obligacionesContractuales/administrar-obligacion/administrar-obligacion.component';
+import { EditarObligacionModalComponent } from './views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component'; 
+import { VerObligacionModalComponent } from './views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component'; 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+
+
+
 @NgModule({
   imports: [
      AppRoutingModule,
@@ -64,6 +76,13 @@ import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-p
     RouterModule,
     SharedModule,
     MatTableModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+
+
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -117,7 +136,11 @@ import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-p
     CrearContratoComponent,
     AdministrarCentroComponent,
     SesionCaucadaComponent,
-    CrearPuestoComponent,    
+    CrearPuestoComponent,
+    CrearObligacionComponent,
+    AdministrarObligacionComponent,
+    EditarObligacionModalComponent,
+    VerObligacionModalComponent,    
 
   ],
   providers: [

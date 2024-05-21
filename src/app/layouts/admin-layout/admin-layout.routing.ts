@@ -50,6 +50,12 @@ import {ListarContratosComponent} from 'app/views/contrato/listar-contratos/list
 import {AdministrarCentroComponent} from 'app/views/administrarServicios/administrar-centro/administrar-centro.component'
 import {SesionCaucadaComponent} from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
 import {AsignarPuestosVComponent} from 'app/views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component'
+
+import { CrearObligacionComponent } from 'app/views/obligacionesContractuales/crear-obligacion/crear-obligacion.component';
+import { AdministrarObligacionComponent } from 'app/views/obligacionesContractuales/administrar-obligacion/administrar-obligacion.component';
+import { VerObligacionModalComponent } from 'app/views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component'; 
+import { EditarObligacionModalComponent } from 'app/views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component'; 
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -129,6 +135,13 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'editarModulo',component: EditarModuloComponent},
     {path: 'detalleModulo',component:DetalleModuloComponent},
     { path: '', redirectTo: '/modulos', pathMatch: 'full' },
+
+    
+    {path:'crearObligacionContractual',component:CrearObligacionComponent},
+    {path:'administrarObligacionContractual',component:AdministrarObligacionComponent},
+    {path:'verObligacionContractual',component:VerObligacionModalComponent},
+    {path:'editarObligacionContractual',component:EditarObligacionModalComponent},
+
 
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
