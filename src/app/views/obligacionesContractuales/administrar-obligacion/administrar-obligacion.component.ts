@@ -2,8 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ObligacionContractualService } from 'app/services/obligacionContractual/obligacion-contractual.service'; 
-import { EditarObligacionComponent } from 'app/views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component';  
-import { VerObligacionComponent } from 'app/views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component'; 
+import { EditarObligacionModalComponent } from 'app/views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component';   
+import { VerObligacionModalComponent } from 'app/views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component';  
 
 @Component({
   selector: 'app-administrar-obligacion',
@@ -31,7 +31,7 @@ export class AdministrarObligacionComponent implements OnInit {
   }
 
   editarObligacion(obligacion: any): void {
-    const dialogRef = this.dialog.open(EditarObligacionComponent, {
+    const dialogRef = this.dialog.open(EditarObligacionModalComponent, {
       width: '400px',
       data: { obligacion }
     });
@@ -44,7 +44,7 @@ export class AdministrarObligacionComponent implements OnInit {
   }
 
   verObligacion(obligacion: any): void {
-    this.dialog.open(VerObligacionComponent, {
+    this.dialog.open(VerObligacionModalComponent, {
       width: '400px',
       data: { obligacion }
     });
