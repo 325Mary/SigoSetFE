@@ -9,27 +9,34 @@ import { environment } from '../../../environments/environment';
 })
 export class ObligacionContractualService {
 
+  
+
   private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   obtenerObligacionesContractuales(): Observable<any> {
-    return this.http.get(this.baseUrl);
+    const url = `${this.baseUrl}verobligacionContractuales`;
+    return this.http.get<any>(url);
   }
 
   obtenerObligacionContractualPorId(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/obligacionContractualPorId/${id}`);
+    const url = `${this.baseUrl}obligacionContractualPorId/${id}`;
+    return this.http.get<any>(url);
   }
 
-  crearObligacionContractual(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/crearObligacionContractual`, data);
+  crearObligacionContractual(obligacionData: any): Observable<any> {
+    const url = `${this.baseUrl}crearObligacionContractual`;
+    return this.http.post<any>(url, obligacionData);
   }
 
-  actualizarObligacionContractualPorId(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/editarObligacionContractual/${id}`, data);
+  actualizarObligacionContractualPorId(id: number, obligacionData: any): Observable<any> {
+    const url = `${this.baseUrl}editarObligacionContractual/${id}`;
+    return this.http.put<any>(url, obligacionData);
   }
 
   eliminarObligacionContractualPorId(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/eliminarObligacionContractual/${id}`);
+    const url = `${this.baseUrl}eliminarObligacionContractual/${id}`;
+    return this.http.delete<any>(url);
   }
 }
