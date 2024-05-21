@@ -4,23 +4,38 @@
             <h4 class="card-title">Listado de Regionales</h4>
         </div>
         <div class="card-body">
-            <div class="title">
-                <div class="row">
-                    <div class="col">
+            <div class="table">
+                <table class="table table-bordered text-center">
+                    <thead>
                         <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-                        <ul class="list-group">
-                            <li *ngFor="let regional of regionales" class="list-group-item">
-                                <h4>{{ regional.nombreRegional }}</h4>
-                                <p>{{ regional.direccion }}</p>
-                            </li>
-                            <li *ngIf="regionales.length === 0" class="list-group-item">
-                                <h1>No hay regionales para mostrar </h1>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                        <tr>
+                            <td>ID</td>
+                            <td>Regional</td>
+                            <td>Dirección</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let regional of regionales">
+                            <td>{{ regional.id }}</td>
+                            <td>{{ regional.regional }}</td>
+                            <td>{{ regional.direccion }}</td>
+                            <td>
+                                <button (click)="modalverRegional(regional.id)" title="ver">
+                                    <i class="bi bi-eye black-icon"></i>
+                                </button>
+                                <button (click)="modaleditarRegional(regional.id)" title="editar">
+                                    <i class="bi bi-pencil black-icon"></i>
+                                </button>
+                                <button (click)="eliminarRegional(regional.id)" title="eliminar">
+                                    <i class="bi bi-trash black-icon"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>{{regionales}}</p>
             </div>
         </div>
-
     </div>
 </div>

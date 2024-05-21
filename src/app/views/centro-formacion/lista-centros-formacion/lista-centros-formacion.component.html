@@ -58,7 +58,7 @@
                                                     (click)="eliminarCentroFormacion(item.idcentro_formacion)">
                                                     <span class="fa-solid fa-trash text-danger"></span>
                                                 </i>
-                                                <i title="Asignar Puestos por centro" (click)="abrirModalPuestos(item)">
+                                                <i title="Asignar Puestos por centro" (click)="abrirModalVerPuestos(item)">
                                                     <span class="fas fa-shield-alt"></span>
                                                 </i>
                                                 <i title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
@@ -94,11 +94,18 @@
 
 
 <!-- Modal -->
-<div class="modal" [class.show]="mostrarModalPuestos">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Contenido del modal -->
-        <app-puesto-vx-centro ></app-puesto-vx-centro>
-      </div>
+<div class="modal" [class.show]="mostrarModalPuestos" tabindex="-1">
+    <div class="modal-dialog modal-xl" style="width: 70%;"> <!-- Aquí puedes usar modal-lg o modal-xl -->
+        <div class="modal-content">
+            <!-- Contenido del modal -->
+            <app-list-puestos-xc-centro 
+    [centroSeleccionado]="centroSeleccionado"
+    [mostrarModal]="mostrarModalPuestos"
+    (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
+</app-list-puestos-xc-centro>
+
+        </div>
     </div>
-  </div>
+</div>
+
+  

@@ -17,8 +17,10 @@ export class ListarEmpresaComponent {
   showModal1: boolean = false;
 
   empresaSeleccionada: any = {};
+
   mostrarModalCrear: boolean = false; 
   mostrarModalEditar: boolean = false;
+  
   idEmpresaAEditar: number | null = null;
   terminoBusqueda: string = '';
   noResultados: boolean = false;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { PuestosVigilanciaComponent } from '../crear-puestos-vig/puestosVig.component'; 
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-puestos-vig',
@@ -28,9 +29,23 @@ export class ListPuestosVigComponent implements OnInit {
         this.puestos = data.data;
         this.dataSource.data = this.puestos;
         console.log(this.puestoData, 'estsos son');
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Puestos Listados",
+          showConfirmButton: false,
+          timer: 1500
+        });
          // Actualiza el dataSource con los datos obtenidos
       },
       (error) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "No hay Puestos",
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.errorMessage = 'Error al obtener los puestos';
       }
     );

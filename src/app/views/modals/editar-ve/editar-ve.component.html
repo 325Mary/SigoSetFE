@@ -1,0 +1,46 @@
+<div class="modal-header d-flex justify-content-center align-items-center">
+    <h5 class="modal-title">Editar Vigilancia Electrónica: {{ vigiElSeleccionada?.descripcion }}</h5>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" class="form-control" id="descripcion" [(ngModel)]="vigiElSeleccionada.descripcion">
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="tarifa">Tarifa:</label>
+                <input type="number" class="form-control" id="tarifa" [(ngModel)]="vigiElSeleccionada.tarifa" (change)="calcularTotales()">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="ays">Ays:</label>
+                <input type="number" class="form-control" id="ays" [(ngModel)]="vigiElSeleccionada.ays" disabled>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="iva">IVA:</label>
+                <input type="number" class="form-control" id="iva" [(ngModel)]="vigiElSeleccionada.iva" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="total">Total:</label>
+                <input type="number" class="form-control" id="total" [(ngModel)]="vigiElSeleccionada.total" disabled>
+            </div>
+        </div>
+        <!-- Puedes agregar más campos según sea necesario -->
+    </div>
+</div>
+<div class="modal-footer d-flex justify-content-center align-items-center">
+    <button type="button" class="btn btn-primary" (click)="actuaList()">Actualizar</button>
+    <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+</div>

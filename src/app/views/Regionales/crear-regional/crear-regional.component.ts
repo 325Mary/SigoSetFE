@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegionalService } from '../../../services/regional/regional.service';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-regional',
@@ -12,12 +14,12 @@ export class CrearRegionalComponent implements OnInit {
   errorMessage: string = '';
   regionales: CrearRegionalComponent[]
 
-  constructor(private formBuilder: FormBuilder, private regionalService: RegionalService) { }
+  constructor(private formBuilder: FormBuilder, private regionalService: RegionalService,private router: Router) { }
 
   ngOnInit(): void {
     this.regionalForm = this.formBuilder.group({
-      id_regional: null,
-      nombreRegional: ['', Validators.required],
+      id_regional: [null],
+      regional: ['', Validators.required],
       direccion: ['', Validators.required]
 
   });
@@ -27,15 +29,31 @@ export class CrearRegionalComponent implements OnInit {
       const nuevaRegional = this.regionalForm.value;
       this.regionalService.createRegional(nuevaRegional).subscribe(
         response => {
-          console.log('Regional creada exitosamente:', response);
+          Swal.fire({
+            title:"! Hecho ¡",
+            text:"Regional creada con Exito",
+            icon:"success",
+            timer:3000
+          }).then((response)=>{
+            if(response.isConfirmed){
+              this.router.navigate(['list-regional'])
+            }
+          })
         },
         error => {
-          console.error('Error al crear la regional:', error);
-          this.errorMessage = 'Error al crear la regional. Por favor, inténtalo de nuevo más tarde.';
+          Swal.fire({
+            title:"! Error ¡",
+            text:"No se pudo crear la regional",
+            icon:"warning"
+          })
         }
       );
     } else {
-      console.log('El formulario no es válido');
+      Swal.fire({
+        title:"!Oye¡",
+        text:"Ingresa datos primero",
+        icon:"info"
+      })
     }
   }
 

@@ -2,18 +2,19 @@
 import { Component, OnInit } from '@angular/core';
 import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 import { CrearContratoComponent } from 'app/views/modals/crear-contrato/crear-contrato.component';
-
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-puestos-vigilancia',
   templateUrl: '../crear-puestos-vig/puestosVig.component.html',
   styleUrls: ['./../crear-puestos-vig/puestosVig.component.css']
 })
 export class PuestosVigilanciaComponent implements OnInit {
-  puestos: any[] = [];
+  puestos: any[];
   puestoData: any = { descripcion_puesto: '', tarifa_puesto: 0, ays: 0, iva: 0, total: 0 };
   errorMessage: string = '';
 
-  constructor(private puestosService: PuestosVigilanciaService) { }
+  constructor(private router:Router, private puestosService: PuestosVigilanciaService) { }
 
     isOpen = false;
 
@@ -29,24 +30,13 @@ export class PuestosVigilanciaComponent implements OnInit {
     this.obtenerPuestos();
   }
 
-  // openModal(content: any): void {
-  //   this.actualizarCalculos(); // Actualizar los cálculos antes de abrir el modal
-  //   this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-  //     if (result === 'confirm') {
-  //       this.crearPuesto(this.puestoData);
-  //     }
-  //   }, (reason) => {
-  //     // Se ejecuta cuando el modal se cierra sin confirmar la acción
-  //     console.log(`Modal cerrado: ${reason}`);
-  //   });
-  // }
-
   obtenerPuestos(): void {
     this.puestosService.obtenerPuestos().subscribe(
       (data) => {
         this.puestos = data.data;
+        console.log(data)
       },
-      (error) => {
+      (error) => {   
         this.errorMessage = 'Error al obtener los puestos';
       }
     );
@@ -66,12 +56,28 @@ export class PuestosVigilanciaComponent implements OnInit {
       (data) => {
         this.obtenerPuestos();
         this.puestoData = { descripcion_puesto: '', tarifa_puesto: 0, ays: 0, iva: 0, total: 0 };
+        Swal.fire({
+          title:"! Hecho ¡",
+          text:"Puesto creado con Exito",
+          icon:"success",
+          timer:3000
+        }).then((response)=>{
+          if(response.isConfirmed){
+            this.router.navigate(['list-regional'])
+          }
+        })
         this.errorMessage = 'Puesto creado con éxito';
         console.log('Puesto creado');
         
       },
       (error) => {
         this.errorMessage = 'Error al crear el puesto';
+        Swal.fire({
+          title:"! Error ¡",
+          text:"No se pudo crear el Puesto",
+          icon:"warning",
+          timer:3000
+        })
       }
     );
   }

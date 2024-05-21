@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PuestoVxCentroComponent } from './puesto-vx-centro.component';
+import { CrearVEComponent } from './crear-ve.component';
 
-describe('PuestoVxCentroComponent', () => {
-  let component: PuestoVxCentroComponent;
-  let fixture: ComponentFixture<PuestoVxCentroComponent>;
+describe('CrearVEComponent', () => {
+  let component: CrearVEComponent;
+  let fixture: ComponentFixture<CrearVEComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PuestoVxCentroComponent ]
+      declarations: [ CrearVEComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PuestoVxCentroComponent);
+    fixture = TestBed.createComponent(CrearVEComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

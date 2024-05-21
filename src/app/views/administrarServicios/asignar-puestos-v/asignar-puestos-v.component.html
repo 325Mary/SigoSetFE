@@ -1,7 +1,11 @@
-<div class="container">
 
-    
-  
+
+
+<div class="container">
+   <div class="titulo-container">
+    <h2  class="card-title "> Asignar puestos de vigilancia para: {{ nombreCentro }}</h2>
+  </div> 
+
     <!-- Formulario de Vigilancia Humana -->
     <div *ngIf="mostrarFormularioHumano" class="form-container-left">
                 <form class="form-section">
@@ -33,7 +37,7 @@
                 </div>
             </div>
             <hr>
-            <button class="btn btn-primary" (click)="guardarCambios()">Guardar Cambios</button>
+            <button class="btn btn-primary" (click)="guardarCambiosVigilanciaHumana()">Guardar Cambios</button>
         </form>
     </div>
 
@@ -69,13 +73,14 @@
                 </div>
             </div>
             <hr>
-            <button class="btn btn-primary" (click)="guardarCambios()">Guardar Cambios</button>
+            <button class="btn btn-primary" (click)="guardarCambiosVigilanciaElectronica()">Guardar Cambios</button>
         </form>
 
     </div>
     <div class="form-toggle-buttons" [ngClass]="{ 'form-toggle-buttons-left': !mostrarFormularioHumano, 'form-toggle-buttons-right': mostrarFormularioHumano }">
         <button *ngIf="!mostrarFormularioElectronica" (click)="mostrarFormulario('electronica')">
-            Vigilancia Electrónica
+            Vigilancia
+            <br> Electrónica
             <i class="fas fa-arrow-right"></i> <!-- Flecha a la derecha -->
         </button>
         <button *ngIf="!mostrarFormularioHumano" (click)="mostrarFormulario('humano')">
@@ -84,7 +89,7 @@
         </button>
     </div>
     
-   
+   <button class="volver-button" a routerLink="/listaCentroFormacion">Volver</button>
 </div>
 
 

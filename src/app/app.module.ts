@@ -46,12 +46,23 @@ import {VerUserComponent} from './views/modals/ver-user/ver-user.component';
 import {EditarContratoComponent} from './views/modals/editar-contrato/editar-contrato.component';
 import { AdministrarCentroComponent } from './views/administrarServicios/administrar-centro/administrar-centro.component';
 import { SesionCaucadaComponent } from './views/Usuario/sesion-caucada/sesion-caucada.component';
+
 import {AuthInterceptor} from './services/usuario/auth.interceptor';
 import { DataSource } from '@angular/cdk/collections';
 import { CrearPuestoComponent } from './views/modals/crear-puesto/crear-puesto.component';
-import { PuestoVxCentroComponent } from './views/modals/Puestos/puesto-vx-centro/puesto-vx-centro.component';
 import { CommonModule } from '@angular/common';
 import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component';
+
+import { InformesComponent } from './views/administrarServicios/informes/informes.component';
+import { ValidarOblVComponent } from './views/modals/validar/validar-obl-v/validar-obl-v.component';
+import { ListPuestosXcCentroComponent } from './views/modals/list-puestos-xc-centro/list-puestos-xc-centro.component';
+import { PuestosEXcentroService } from "./services/PuestosXcentro/puestos-excentro.service";
+import { PuestosVXcentroService } from "./services/PuestosXcentro/puestos-vxcentro.service";
+import { ValidarVigilanciaComponent } from './views/administrarServicios/validar-vigilancia/validar-vigilancia.component';
+import {CrearVEComponent  } from "./views/VigilanciaElectronica/crear-ve/crear-ve.component";
+import { ListarVEComponent } from './views/VigilanciaElectronica/listar-ve/listar-ve.component';
+import { EditarVEComponent } from './views/modals/editar-ve/editar-ve.component';
+
 @NgModule({
   imports: [
      AppRoutingModule,
@@ -77,7 +88,6 @@ import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-p
   declarations: [
     AsignarPuestosVComponent,
     AppComponent,
-    PuestoVxCentroComponent,
     CrearUsersComponent,
     AdminLayoutComponent,
     SidebarComponent,
@@ -117,13 +127,24 @@ import { AsignarPuestosVComponent } from './views/administrarServicios/asignar-p
     CrearContratoComponent,
     AdministrarCentroComponent,
     SesionCaucadaComponent,
+
     CrearPuestoComponent,    
+    InformesComponent,
+    ValidarOblVComponent,
+    AsignarPuestosVComponent,
+    ListPuestosXcCentroComponent,
+    ValidarVigilanciaComponent,
+    CrearVEComponent,
+    ListarVEComponent,
+    EditarVEComponent,
 
   ],
   providers: [
     LoginService,
     CentroFormacionService
     , JwtHelperService,
+    PuestosEXcentroService,
+    PuestosVXcentroService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  ],
   bootstrap: [AppComponent]

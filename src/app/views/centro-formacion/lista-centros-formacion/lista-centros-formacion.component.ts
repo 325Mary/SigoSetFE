@@ -115,14 +115,14 @@ abrirModalVerPuestos(item: any): void {
   console.log('Item seleccionado:', item);
   this.centroSeleccionado = item;
   this.mostrarModalPuestos = true;
-  this.showModal = true;
+  console.log('Centro seleccionado asignado en el padre:', this.centroSeleccionado);
 }
 
 
 handleCloseModal(): void {
-  this.showModal = false;
   this.mostrarModalPuestos = false;
 }
+
 
 actualizarLista(): void {
   this.getListaCentrosFormacion();

@@ -50,6 +50,10 @@ import {ListarContratosComponent} from 'app/views/contrato/listar-contratos/list
 import {AdministrarCentroComponent} from 'app/views/administrarServicios/administrar-centro/administrar-centro.component'
 import {SesionCaucadaComponent} from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
 import {AsignarPuestosVComponent} from 'app/views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component'
+import { ValidarVigilanciaComponent } from "app/views/administrarServicios/validar-vigilancia/validar-vigilancia.component";
+import {  CrearVEComponent} from "app/views/VigilanciaElectronica/crear-ve/crear-ve.component";
+import { ListarVEComponent } from "app/views/VigilanciaElectronica/listar-ve/listar-ve.component";
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -130,6 +134,9 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'detalleModulo',component:DetalleModuloComponent},
     { path: '', redirectTo: '/modulos', pathMatch: 'full' },
 
+    { path: 'validarVigilancia', component:ValidarVigilanciaComponent},
+    { path: 'crearVigilanciaElectronica', component:CrearVEComponent},
+    { path: 'listarVigilanciaElectronica', component:ListarVEComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

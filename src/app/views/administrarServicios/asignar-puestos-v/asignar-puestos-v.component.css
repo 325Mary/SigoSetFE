@@ -2,11 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start; /* Alinea los elementos arriba */
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     position: relative;
     transition: all 0.5s; /* Agrega una transición suave */
+    margin-top: 80px;
 }
 
 .card {
@@ -19,9 +20,10 @@
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
     width: 100%;
     max-width: 500px;
+    margin-top: 50px;
 }
 
 .third-form {
@@ -56,15 +58,19 @@
     background-color: #f9f9f9;
     border-radius: 5px;
     margin-right: 20px;
-    max-width: 250px;
+    max-width: 250px; /* Ajusta el ancho máximo a lo que prefieras */
+    min-width: 200px; /* Establece un ancho mínimo si es necesario */
+    word-wrap: break-word; /* Permite la ruptura de palabras largas */
+    overflow-wrap: break-word; /* Permite la ruptura de palabras largas */
 }
 
 .descripcion-puesto span {
     font-weight: bold;
+    display: block; /* Asegura que el span tome todo el ancho disponible */
+    white-space: normal; /* Permite el ajuste de texto en múltiples líneas */
 }
-
 .cantidad-rectangulo {
-    background-color: #20494b;
+    background-color: #081545;
     border-radius: 5px;
     padding: 10px;
     color: #fff;
@@ -88,7 +94,6 @@
     cursor: pointer;
 }
 
-/* Estilo para el botón en general */
 .form-toggle-buttons button {
     background-color: #007bff;
     color: #fff;
@@ -96,15 +101,8 @@
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Agrega una transición suave */
-}
-
-/* Estilo para el contenedor de los botones */
-.form-toggle-buttons {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    margin-top: 20px; /* Agrega un margen superior */
+    transition: background-color 0.2s; /* Transiciones suaves */
+    animation: pulse 2s infinite; /* Animación continua */
 }
 
 /* Estilo para el botón cuando se hace hover */
@@ -112,27 +110,69 @@
     background-color: #0056b3; /* Cambia el color al hacer hover */
 }
 
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 
 .form-toggle-buttons-left {
+    margin-top: 100px;
     order: 1; /* Cambia el orden a la izquierda */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+margin-left: 250px;
 }
 
 .form-toggle-buttons-right {
     order: 3; /* Cambia el orden a la derecha */
+    margin-top: 100px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+    margin-right: 250px;
+
+
 }
 
 .form-container-left {
     width: calc(50% - 10px); /* Ajusta el ancho del formulario y elimina el espacio entre los formularios */
-    margin-right: 40px; /* Agrega un margen entre los formularios */
     /* Otros estilos del formulario */
     order: 2; /* Cambia el orden a la izquierda */
 }
 
 .form-container-right {
     width: calc(50% - 10px); /* Ajusta el ancho del formulario y elimina el espacio entre los formularios */
-    margin-left: 40px; /* Agrega un margen entre los formularios */
-    /* Otros estilos del formulario */
     order: 2; /* Cambia el orden a la derecha */
-    margin-top: 30px;
-    align-items: center;
+    margin-left: 300px;
+}
+
+
+.titulo-container  {
+    width: calc(100% - 60px); 
+    position: absolute;
+    top: -20px;
+    margin-left: 15px; /* Mismo margen que el margen izquierdo de la tabla */
+    background-color: rgb(17, 17, 71) !important;
+    color: white;
+    text-align: center;
+    z-index: 1; /* Asegura que el título esté sobre la tabla */
+    border-radius: 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6)
+}
+.volver-button {
+    position: absolute;
+    bottom: 10px; 
+    left: 50%; /* Centra horizontalmente */
+    transform: translateX(-40%); /* Ajuste para centrar horizontalmente */
+    background-color: #a11919;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
 }

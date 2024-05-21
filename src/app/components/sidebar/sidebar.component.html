@@ -13,28 +13,7 @@
                 <p>{{menuItem.title}}</p>
             </a>
         </li>
-        <!-- Item principal Usuario -->
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapseUsuario" aria-expanded="false">
-                <i class="material-icons">person</i>
-                <p>Usuarios</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapseUsuario">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/crearUsuario']">
-                            <p>Crear Usuario </p>
-                        </a>
-                    </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/listarUsuarios']">
-                            <p>Administrar Usuarios</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+
 
          <!-- Item principal PERFILES -->
          <li class="nav-item">
@@ -58,6 +37,31 @@
                 </ul>
             </div>
         </li>
+
+
+        <!-- Item principal Usuario -->
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#collapseUsuario" aria-expanded="false">
+                <i class="material-icons">person</i>
+                <p>Usuarios</p>
+            </a>
+            <!-- Ítems secundarios desplegables -->
+            <div class="collapse" id="collapseUsuario">
+                <ul class="nav flex-column ml-3">
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/crearUsuario']">
+                            <p>Crear Usuario </p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/listarUsuarios']">
+                            <p>Administrar Usuarios</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
 
         <!-- Item principal Empresa -->
         <li class="nav-item">
@@ -168,17 +172,40 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapseGCentros" aria-expanded="false">
+            <a class="nav-link" data-toggle="collapse" href="#collapCentro" aria-expanded="false">
                 <i class="material-icons">account_circle </i>
                 <p>gestionar Centros</p>
             </a>
             <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapseGCentros">
+            <div class="collapse" id="collapCentro">
                 <ul class="nav flex-column ml-3">
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link" [routerLink]="['/AdministrarCentros']">
                             <i class="material-icons">radio_button_checked </i>
                             <p>Administrar centros</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#collapVigiEl" aria-expanded="false">
+                <i class="material-icons">account_circle </i>
+                <p>gestionar Vigilancia electronica</p>
+            </a>
+            <!-- Ítems secundarios desplegables -->
+            <div class="collapse" id="collapVigiEl">
+                <ul class="nav flex-column ml-3">
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/crearVigilanciaElectronica']">
+                            <i class="material-icons">radio_button_checked </i>
+                            <p>Crear Vigilancia Electronica</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/listarVigilanciaElectronica']">
+                            <i class="material-icons">radio_button_checked </i>
+                            <p>listar Vigilancia Electronica</p>
                         </a>
                     </li>
                 </ul>

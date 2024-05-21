@@ -10,9 +10,14 @@ footer {
   position: fixed; /* Fija el footer en la parte inferior */
   z-index: 1000; /* Asegura que el footer esté encima de todo */
   text-align: center; /* Asegura que el texto esté centrado */
+
 }
 
 footer p {
   margin: 0; /* Elimina el margen del párrafo */
   text-align: center; /* Asegura que el texto esté centrado */
+}
+a{
+  color: #fff;
+  text-decoration: underline;
 }
