@@ -15,6 +15,7 @@ export class ListaCentrosFormacionComponent implements OnInit {
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
   showModal: boolean = false;
   mostrarModalPuestos: boolean = false; 
+  mostrarModalSedes: boolean= false
 centroSeleccionado: any = {}
   listaCentrosFormacion: CentroFormacion[] = []
   puestoVxCentro: any;
@@ -88,23 +89,6 @@ eliminarCentroFormacion(id: any) {
   })
 
 }
-getPuestosVxCentro(idcentro_formacion: number) {
-  this._puestosVXCentroService.obtenerPuestosVxCentro(idcentro_formacion).subscribe(data => {
-      this.puestoVxCentro = data;
-      console.log('Puestos Vx Centro:', this.puestoVxCentro);
-  }, error => {
-      console.error(error);
-  });
-}
-
-getPuestosExCentro(idcentro_formacion: number) {
-  this._puestosEXCentroService.obtenerPuestosExCentro(idcentro_formacion).subscribe(data => {
-      this.puestoExCentro = data;
-      console.log('Puestos Ex Centro:', this.puestoExCentro);
-  }, error => {
-      console.error(error);
-  });
-}
 
 closeModal(): void {
   this.showModal = false;
@@ -118,9 +102,14 @@ abrirModalVerPuestos(item: any): void {
   console.log('Centro seleccionado asignado en el padre:', this.centroSeleccionado);
 }
 
+abrirModalVerSedes(item: any): void {
+  this.centroSeleccionado = item;
+  this.mostrarModalSedes = true;
+}
 
 handleCloseModal(): void {
   this.mostrarModalPuestos = false;
+  this.mostrarModalSedes=false
 }
 
 

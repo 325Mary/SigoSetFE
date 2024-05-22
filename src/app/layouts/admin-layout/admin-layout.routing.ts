@@ -126,7 +126,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'AdministrarCentros', component: AdministrarCentroComponent},
     { path: 'sesionCaducada', component: SesionCaucadaComponent},
     { path: 'asignarpuestosPorCentro/:idcentro_formacion', component: AsignarPuestosVComponent},
-    { path: 'validarVigilancia', component:ValidarVigilanciaComponent},
+    { path: 'validarVigilancia/:idcentro_formacion', component:ValidarVigilanciaComponent},
     { path: 'crearVigilanciaElectronica', component:CrearVEComponent},
     { path: 'listarVigilanciaElectronica', component:ListarVEComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima

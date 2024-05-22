@@ -28,7 +28,7 @@
               <td>{{ contrato.fecha_inicio | date: 'yyyy-MM-dd' }}</td>
               <td>{{ contrato.fecha_fin | date: 'yyyy-MM-dd' }}</td>
               <td>
-                <button (click)="abrirModalEditar(contrato)" title="Editar Perfil">
+                <button (click)="abrirModalEditar(contrato)" title="Editar contrato">
                   <i class="bi bi-pencil-square"></i>
                 </button>
                 <button (click)="eliminarContrato(contrato.idContrato_empresa)" title="Boton de eliminar">

@@ -8,4 +8,5 @@ export class CentroFormacion{
     email_ordenadorg?:any;
     idRegional?:any;
     idzona?:any;
+    regional?:any
 }

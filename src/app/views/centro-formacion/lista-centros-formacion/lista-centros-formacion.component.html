@@ -64,7 +64,12 @@
                                                 <i title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
                                                     <span class="fas fa-shield-alt"></span>
                                                 </i>
-                                                
+                                                <i title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
+                                                    <span class="fas fa-building"></span>
+                                                </i>
+                                                <i title="Generar Reporte" [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
+                                                    <span class="fas fa-file-pdf"></span>
+                                                </i>
                                             </div>
                                         </td>
                                     </tr>
@@ -79,7 +84,7 @@
                                     <li class="page-item" *ngFor="let page of getPages()"
                                         [class.active]="currentPage === page">
                                         <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-                                    </li>
+                                    </li>                            
                                 </ul>
                             </nav>
                         </div>
@@ -108,4 +113,16 @@
     </div>
 </div>
 
-  
+<div class="modal" [class.show]="mostrarModalSedes" tabindex="-1">
+    <div class="modal-dialog modal-xl" style="width: 70%;"> <!-- Aquí puedes usar modal-lg o modal-xl -->
+        <div class="modal-content">
+            <!-- Contenido del modal -->
+            <app-list-sedes-xcentro 
+    [centroSeleccionado]="centroSeleccionado"
+    [mostrarModal]="mostrarModalSedes"
+    (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
+</app-list-sedes-xcentro>
+
+        </div>
+    </div>
+</div>

@@ -176,3 +176,39 @@ margin-left: 250px;
     padding: 10px 20px;
     cursor: pointer;
 }
+/* Estilos personalizados para input[list] */
+input[list] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  input[list]:focus {
+    border-color: #66afe9;
+    outline: none;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+  }
+  
+  .select-vertical {
+    position: relative;
+  }
+  
+  .triangle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333;
+  }
+  
+  .triangle.rotate {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  
