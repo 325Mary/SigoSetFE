@@ -58,16 +58,16 @@
                                                     (click)="eliminarCentroFormacion(item.idcentro_formacion)">
                                                     <span class="fa-solid fa-trash text-danger"></span>
                                                 </i>
-                                                <i title="Asignar Puestos por centro" (click)="abrirModalVerPuestos(item)">
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG" title="listar Puestos por centro" (click)="abrirModalVerPuestos(item)">
                                                     <span class="fas fa-shield-alt"></span>
                                                 </i>
-                                                <i title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador" title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
                                                     <span class="fas fa-shield-alt"></span>
                                                 </i>
-                                                <i title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
+                                                <i  *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG "title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
                                                     <span class="fas fa-building"></span>
                                                 </i>
-                                                <i title="Generar Reporte" [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
+                                                <i  *ngIf="isLoggedIn &&  isOrdenadorG "title="Generar Reporte" [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
                                                     <span class="fas fa-file-pdf"></span>
                                                 </i>
                                             </div>

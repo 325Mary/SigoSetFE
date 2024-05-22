@@ -183,6 +183,7 @@ export class NavbarComponent  implements OnInit{
         this.loginService.getUserById(userId).subscribe(
           user => {
             this.username = user.nombre_usuario;
+            console.log('nombreUser:', this.username)
           },
           error => {
             console.error('Error al obtener el usuario:', error);
