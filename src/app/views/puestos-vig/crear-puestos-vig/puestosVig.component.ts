@@ -16,15 +16,6 @@ export class PuestosVigilanciaComponent implements OnInit {
 
   constructor(private router:Router, private puestosService: PuestosVigilanciaService) { }
 
-    isOpen = false;
-
-  openModal(): void {
-    this.isOpen = true;
-  }
-
-  closeModal(): void {
-    this.isOpen = false;
-  }
 
   ngOnInit(): void {
     this.obtenerPuestos();
@@ -50,34 +41,34 @@ export class PuestosVigilanciaComponent implements OnInit {
     this.puestoData.total = this.puestoData.tarifa_puesto  + this.puestoData.ays + this.puestoData.iva;
   }
 
-  crearPuesto(puestoData: any): void {
+  crearPuesto(): void {
     this.actualizarCalculos(); // Actualizar los cálculos antes de crear el puesto
-    this.puestosService.crearPuesto(puestoData).subscribe(
+    this.puestosService.crearPuesto(this.puestoData).subscribe(
       (data) => {
         this.obtenerPuestos();
         this.puestoData = { descripcion_puesto: '', tarifa_puesto: 0, ays: 0, iva: 0, total: 0 };
         Swal.fire({
-          title:"! Hecho ¡",
-          text:"Puesto creado con Exito",
-          icon:"success",
-          timer:3000
-        }).then((response)=>{
-          if(response.isConfirmed){
-            this.router.navigate(['list-regional'])
+          title: '! Hecho ¡',
+          text: 'Puesto creado con éxito',
+          icon: 'success',
+          timer: 3000
+        }).then((response) => {
+          if (response.isConfirmed) {
+            this.router.navigate(['listarPuestosVig']);
           }
-        })
+        });
         this.errorMessage = 'Puesto creado con éxito';
         console.log('Puesto creado');
-        
       },
       (error) => {
         this.errorMessage = 'Error al crear el puesto';
         Swal.fire({
-          title:"! Error ¡",
-          text:"No se pudo crear el Puesto",
-          icon:"warning",
-          timer:3000
-        })
+          title: '! Error ¡',
+          text: 'No se pudo crear el Puesto',
+          icon: 'warning',
+          timer: 3000
+        });
+        console.error('Error al crear el puesto:', error); // Log error for debugging
       }
     );
   }

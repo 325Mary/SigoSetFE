@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-header">
+        Crear Obligación Contractual
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="crearObligacion()">
+            <div class="form-group">
+                <label for="obligacionContractual">Obligación Contractual</label>
+                <input type="text" class="form-control" id="obligacionContractual" [(ngModel)]="nuevaObligacion.obligacion_contractual" name="obligacionContractual" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Crear</button>
+        </form>
+    </div>
+</div>

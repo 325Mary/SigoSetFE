@@ -62,6 +62,17 @@ import { ValidarVigilanciaComponent } from './views/administrarServicios/validar
 import {CrearVEComponent  } from "./views/VigilanciaElectronica/crear-ve/crear-ve.component";
 import { ListarVEComponent } from './views/VigilanciaElectronica/listar-ve/listar-ve.component';
 import { EditarVEComponent } from './views/modals/editar-ve/editar-ve.component';
+import { CrearObligacionComponent } from './views/obligacionesContractuales/crear-obligacion/crear-obligacion.component';
+import { AdministrarObligacionComponent } from './views/obligacionesContractuales/administrar-obligacion/administrar-obligacion.component';
+import { EditarObligacionModalComponent } from './views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component'; 
+import { VerObligacionModalComponent } from './views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component'; 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+
+
 
 @NgModule({
   imports: [
@@ -75,6 +86,13 @@ import { EditarVEComponent } from './views/modals/editar-ve/editar-ve.component'
     RouterModule,
     SharedModule,
     MatTableModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+
+
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -137,6 +155,11 @@ import { EditarVEComponent } from './views/modals/editar-ve/editar-ve.component'
     CrearVEComponent,
     ListarVEComponent,
     EditarVEComponent,
+    CrearPuestoComponent,
+    CrearObligacionComponent,
+    AdministrarObligacionComponent,
+    EditarObligacionModalComponent,
+    VerObligacionModalComponent,    
 
   ],
   providers: [
