@@ -36,6 +36,7 @@ obtenerEmpresas() {
     (response) => {
       this.empresas = response.data[0];
       console.log('empresas',this.empresas)
+      
     },
     (error) => {
       console.error('Error al obtener perfiles:', error);

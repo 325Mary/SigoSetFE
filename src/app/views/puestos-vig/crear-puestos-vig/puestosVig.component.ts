@@ -9,9 +9,8 @@ import Swal from 'sweetalert2';
   templateUrl: '../crear-puestos-vig/puestosVig.component.html',
   styleUrls: ['./../crear-puestos-vig/puestosVig.component.css']
 })
-export class PuestosVigilanciaComponent implements OnInit {
-  puestos: any[];
-  puestoData: any = { descripcion_puesto: '', tarifa_puesto: 0, ays: 0, iva: 0, total: 0 };
+export class PuestosVigilanciaComponent{
+  nuevopuesto: any = {};
   errorMessage: string = '';
 
   constructor(private router:Router, private puestosService: PuestosVigilanciaService) { }
@@ -21,32 +20,12 @@ export class PuestosVigilanciaComponent implements OnInit {
     this.obtenerPuestos();
   }
 
-  obtenerPuestos(): void {
-    this.puestosService.obtenerPuestos().subscribe(
-      (data) => {
-        this.puestos = data.data;
-        console.log(data)
-      },
-      (error) => {   
-        this.errorMessage = 'Error al obtener los puestos';
-      }
-    );
-  }
-
-  actualizarCalculos(): void {
-    this.puestoData.ays = this.puestoData.tarifa_puesto *0.08;
-    
-    this.puestoData.iva = (this.puestoData.tarifa_puesto + this.puestoData.ays)* 0.19;
-    
-    this.puestoData.total = this.puestoData.tarifa_puesto  + this.puestoData.ays + this.puestoData.iva;
-  }
-
-  crearPuesto(): void {
+  crearPuesto() {
     this.actualizarCalculos(); // Actualizar los cálculos antes de crear el puesto
-    this.puestosService.crearPuesto(this.puestoData).subscribe(
-      (data) => {
-        this.obtenerPuestos();
-        this.puestoData = { descripcion_puesto: '', tarifa_puesto: 0, ays: 0, iva: 0, total: 0 };
+    this.puestosService.crearPuesto(this.nuevopuesto).subscribe(
+      (response) => {
+        console.log('Puesto Creado');
+        this.nuevopuesto={}
         Swal.fire({
           title: '! Hecho ¡',
           text: 'Puesto creado con éxito',
@@ -72,6 +51,28 @@ export class PuestosVigilanciaComponent implements OnInit {
       }
     );
   }
+
+  obtenerPuestos(): void {
+    this.puestosService.obtenerPuestos().subscribe(
+      (data) => {
+        this.nuevopuesto = data.data;
+        console.log(data)
+      },
+      (error) => {   
+        this.errorMessage = 'Error al obtener los puestos';
+      }
+    );
+  }
+
+  actualizarCalculos(): void {
+    this.nuevopuesto.ays = this.nuevopuesto.tarifa_puesto *0.08;
+    
+    this.nuevopuesto.iva = (this.nuevopuesto.tarifa_puesto + this.nuevopuesto.ays)* 0.19;
+    
+    this.nuevopuesto.total = this.nuevopuesto.tarifa_puesto  + this.nuevopuesto.ays + this.nuevopuesto.iva;
+  }
+
+ 
 
 
 

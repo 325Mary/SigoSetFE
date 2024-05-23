@@ -1,74 +1,36 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs';
-import { ResponseI } from '../../models/response.interface';
-import { Observable, throwError } from 'rxjs'
-import { Zona } from '../../models/zona/zona'
+import { Observable } from 'rxjs'
 import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ZonaService {
+  private baseUrl = environment.apiUrl;
 
-  private baseUrl: string;
-  private myApiUrlZonas: string;
-  private myApiUrlZona: string;
+  constructor(private httpClient: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-    this.baseUrl = environment.apiUrl;
-    this.myApiUrlZonas = 'Zonas';
-    this.myApiUrlZona = 'zona/';
-   }
-  getZonas(): Observable<ResponseI>{
-    let direccion = this.baseUrl+ this.myApiUrlZonas
-    return this.http.get<ResponseI>(direccion)
-    .pipe(
-      catchError(err => {
-        // console.log("Error en el servidor");
-      return throwError(err);
-      })
-    )
+  getZona(): Observable<any> {
+    const url = `${this.baseUrl}zonas`;
+
+    return this.httpClient.get<any>(url);
   }
 
-  eliminarZona(id:string): Observable<ResponseI>{
-    let direccion = this.baseUrl+ this.myApiUrlZona
-    return this.http.delete<ResponseI>(`${direccion}${id}`)
-    .pipe(
-      catchError(err => {
-        return throwError(err)
-      })
-    )
+  crearZona(zonaData: any): Observable<any> {
+    const url = `${this.baseUrl}zona`;
+    return this.httpClient.post<any>(url, zonaData);
   }
 
-  registrarZona(zona:Zona): Observable<ResponseI>{
-    let direccion = this.baseUrl+ this.myApiUrlZona
-    return this.http.post<ResponseI>(direccion, zona )
-    .pipe(
-      catchError(err => {
-        return throwError(err)
-      })
-    )
+  editarZona(idzona: number, zonaData: any): Observable<any> {
+    const url = `${this.baseUrl}zona/${idzona}`;
+    return this.httpClient.put<any>(url, zonaData);
   }
 
-  getZona(id:string | number) : Observable<ResponseI>{
-    let direccion = this.baseUrl+ this.myApiUrlZona
-    return this.http.get<ResponseI>(`${direccion}${id}`)
-    .pipe(
-      catchError(err => {
-        return throwError(err)
-      })
-    )
+  eliminarZona(idzona: number): Observable<any> {
+    const url = `${this.baseUrl}zona/${idzona}`; 
+    return this.httpClient.delete<any>(url);
   }
-
-  editarCentroFormacion(id:string, zona:Zona): Observable<Zona>{
-    let direccion = this.baseUrl+ this.myApiUrlZona
   
-    return this.http.put<Zona>(`${direccion}${id}`, zona)
-    .pipe(
-      catchError(err => {
-        return throwError(err)
-      })
-    )
-  }
+ 
 }

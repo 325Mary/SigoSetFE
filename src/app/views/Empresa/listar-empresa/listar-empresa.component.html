@@ -47,49 +47,6 @@
         </tbody>
       </table>
     </div>
-
-
-    <!-- <table class="table table-bordered text-center">
-      <thead class="thead-light">
-        <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-          <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
-            (input)="filtrarEmpresas()" [(ngModel)]="terminoBusqueda">
-        </div>
-        <tr>
-          <th>ID</th>
-          <th>Nombre Empresa</th>
-          <th>NIT</th>
-          <th>Dirección</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngIf="!noResultados">
-          <tr *ngFor="let empresa of empresas">
-            <td>{{empresa.idempresa}}</td>
-            <td>{{ empresa.nombre_empresav }}</td>
-            <td>{{empresa.nit_empresa}}</td>
-            <td>{{empresa.direccion_empresav}}</td>
-            <td>
-              <button (click)="abrirModalEditar(empresa)" title="Editar Perfil">
-                <i class="bi bi-pencil-square"></i>
-              </button>
-              <button (click)="abrirModalVerEmpresa(empresa)" title="Ver Detalles">
-                <i class="bi bi-eye"></i>
-              </button>
-              <button (click)="eliminarEmpresa(empresa.idempresa_vigilancia)" title="Boton de eliminar">
-                <i class="bi bi-trash"></i>
-              </button>
-            </td>
-          </tr>
-        </ng-container>
-        <ng-container *ngIf="noResultados">
-          <tr>
-            <td colspan="5" class="text-center">No se encontraron resultados.</td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table> -->
   </div>
 
 

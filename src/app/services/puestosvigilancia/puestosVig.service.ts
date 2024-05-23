@@ -13,24 +13,27 @@ export class PuestosVigilanciaService {
   constructor(private httpClient: HttpClient) { }
 
   obtenerPuestos(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}puestos`);
+    const url = `${this.baseUrl}puestos`;
+    return this.httpClient.get<any>(url);
   }
 
-  obtenerPuestoPorId(id: number): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}puestoporid/${id}`);
+  obtenerPuestoPorId(idpuesto_vigilancia: number): Observable<any> {
+    const url = `${this.baseUrl}puestos/${idpuesto_vigilancia}`;
+    return this.httpClient.get<any>(url);
   }
 
   crearPuesto(puestoData: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}crearPuesto`, puestoData);
+    const url = `${this.baseUrl}crearPuesto`;
+    return this.httpClient.get<any>(url,puestoData);
   }
 
-  editarPuesto(id: number, nuevoPuestoData: any): Observable<any> {
-    return this.httpClient.put(`${this.baseUrl}editarPuesto/${id}`, nuevoPuestoData);
-  }
+  editarPuesto(idpuesto_vigilancia: number, nuevoPuestoData: any): Observable<any> {
+    const url = `${this.baseUrl}editarPuesto/${idpuesto_vigilancia}`;
+    return this.httpClient.get<any>(url,nuevoPuestoData);  }
 
-  eliminarPuesto(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrl}eliminarPuesto/${id}`);
-  }
+  eliminarPuesto(idpuesto_vigilancia: number): Observable<any> {
+    const url = `${this.baseUrl}eliminarPuesto/${idpuesto_vigilancia}`;
+    return this.httpClient.get<any>(url);  }
 
   calcularTotal(tarifa: number): number {
       const ays = tarifa *  0.08;

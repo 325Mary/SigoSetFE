@@ -6,7 +6,7 @@ footer {
   display: flex; /* Flexbox para centrar contenido */
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
-  height: 100px; /* Altura fija del footer */
+  height: 10%; /* Altura fija del footer */
   position: fixed; /* Fija el footer en la parte inferior */
   z-index: 1000; /* Asegura que el footer esté encima de todo */
   text-align: center; /* Asegura que el texto esté centrado */

@@ -45,7 +45,7 @@ export class AdministrarCentroComponent implements OnInit {
   }
 
   getZonas(): void {
-    this.zonaService.getZonas().subscribe(response => {
+    this.zonaService.getZona().subscribe(response => {
       this.zonas = response.data;
     });
   }

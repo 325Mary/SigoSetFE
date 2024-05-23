@@ -143,7 +143,7 @@ export class RegistrarCentroFormacionComponent implements OnInit {
     }
   }
   getlistaZonas () {
-    this._zonaService.getZonas().subscribe(data => {
+    this._zonaService.getZona().subscribe(data => {
       this.listaZonas = data.data;
       console.log(this.listaZonas)
     }, error => {

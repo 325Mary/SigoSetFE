@@ -8,28 +8,28 @@
             <form (submit)="crearPuesto()" class="row g-6 p-6">
                 <div class="form-group col-md-12">
                     <label class="form-label " for="descripcion">Descripción:</label>
-                    <input class="text col-md-12" id="descripcion" name="descripcion" class="form-control" [(ngModel)]="puestoData.descripcion_puesto" (input)="puestoData.descripcion_puesto = $event.target.value" required />
+                    <input class="text col-md-12" id="descripcion" name="descripcion" class="form-control" [(ngModel)]="nuevopuesto.descripcion_puesto" (input)="nuevopuesto.descripcion_puesto = $event.target.value" required />
 
                 </div>
                 <div class="form-group col-md-3">
                     <label class="form-label " for="tarifa">Tarifa:</label>
-                    <input type="number" id="tarifa" name="tarifa" class="form-control" [(ngModel)]="puestoData.tarifa_puesto" (input)="puestoData.tarifa_puesto = $event.target.valueAsNumber;actualizarCalculos()" required />
+                    <input type="number" id="tarifa" name="tarifa" class="form-control" [(ngModel)]="nuevopuesto.tarifa_puesto" (input)="nuevopuesto.tarifa_puesto = $event.target.valueAsNumber;actualizarCalculos()" required />
 
                 </div>
                 <!-- operaciones automaticas -->
                 <div class="form-group col-md-3">
                     <label class="form-label " for="ays">AYS:</label>
-                    <input type="number" id="ays" name="ays" class="form-control" [(ngModel)]="puestoData.ays" readonly />
+                    <input type="number" id="ays" name="ays" class="form-control" [(ngModel)]="nuevopuesto.ays" readonly />
                 </div>
 
                 <div class="form-group col-md-3">
                     <label class="form-label " for="iva">IVA:</label>
-                    <input type="number" id="iva" name="iva" [(ngModel)]="puestoData.iva" readonly />
+                    <input type="number" id="iva" name="iva" [(ngModel)]="nuevopuesto.iva" readonly />
                 </div>
 
                 <div class="form-group col-md-3">
                     <label class="form-label " for="total">Total:</label>
-                    <input type="number" id="total" name="total" [(ngModel)]="puestoData.total" readonly />
+                    <input type="number" id="total" name="total" [(ngModel)]="nuevopuesto.total" readonly />
                 </div>
                 
                 <div class="col-sm-4 d-flex end">

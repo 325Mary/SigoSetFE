@@ -60,6 +60,10 @@ import { ValidarVigilanciaComponent } from "app/views/administrarServicios/valid
 import {  CrearVEComponent} from "app/views/VigilanciaElectronica/crear-ve/crear-ve.component";
 import { ListarVEComponent } from "app/views/VigilanciaElectronica/listar-ve/listar-ve.component";
 
+import { CrearContratoComponent } from 'app/views/modals/crear-contrato/crear-contrato.component';
+import { AdministrarZonaComponent } from 'app/views/zonas/administrar-zona/administrar-zona.component';
+import { CrearZonaComponent } from 'app/views/zonas/crear-zona/crear-zona.component';
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -110,6 +114,10 @@ export const AdminLayoutRoutes: Routes = [
     {path:'list-regional',component:AdministrarRegionalComponent},
     {path:'create-regional',component:CrearRegionalComponent},
   
+    {path: 'list-zonas',component:AdministrarZonaComponent},
+    {path: 'crear-zonas',component:CrearZonaComponent},
+
+
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
     { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent},
