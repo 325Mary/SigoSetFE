@@ -7,192 +7,200 @@
 </div>
 <div class="sidebar-wrapper">
     <ul class="nav">
-
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
             <a class="nav-link" [routerLink]="[menuItem.path]">
                 <i class="material-icons">{{menuItem.icon}}</i>
                 <p>{{menuItem.title}}</p>
             </a>
         </li>
-        <!-- Item principal Usuario -->
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapseUsuario" aria-expanded="false">
-                <i class="material-icons">person</i>
-                <p>Usuarios</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapseUsuario">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/crearUsuario']">
-                            <p>Crear Usuario </p>
-                        </a>
-                    </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/listarUsuarios']">
-                            <p>Administrar Usuarios</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
 
-         <!-- Item principal PERFILES -->
-         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
-                <i class="material-icons">person</i>
-                <p>Perfiles</p>
+        <!-- Menú principal para todos los ítems desplegables -->
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#collapseMain" aria-expanded="false">
+                <i class="material-icons">menu</i>
+                <p>Administrar</p>
             </a>
             <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapsePerfil">
+            <div class="collapse" id="collapseMain">
                 <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/crearPerfil']">
-                            <p>Crear Perfil </p>
-                        </a>
-                    </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/AdministrarPerfiles']">
-                            <p>Administrar Perfiles</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
 
-        <!-- Item principal Empresa -->
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapseEmpresa" aria-expanded="false">
-                <i class="material-icons">business</i>
-                <p>Empresa</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapseEmpresa">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/crearEmpresa']">
-                            <p>Crear Empresa</p>
+                    <!-- Ítems de Usuarios -->
+                    <li *ngIf="isLoggedIn && isSuperAdministrador" class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseUsuario" aria-expanded="false">
+                            <i class="material-icons">person</i>
+                            <p>Usuarios</p>
                         </a>
+                        <div class="collapse" id="collapseUsuario">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/crearUsuario']">
+                                        <p>Crear Usuario</p>
+                                    </a>
+                                </li>
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/listarUsuarios']">
+                                        <p>Administrar Usuarios</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link"[routerLink]="['/ListEmpresas']">
-                            <p class="icon-success">Administrar Empresas</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <!-- Items para las Regionales -->
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapseRegional" aria-expanded="false">
-                <i class="material-icons">business</i>
-                <p>Regionales</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapseRegional">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/create-regional']">
-                            <i class="bi bi-plus-circle"></i> <!-- Ícono de Bootstrap -->
-                            <p>Crear Regionales</p>
-                        </a>
-                    </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/list-regional']">
-                            <p class="icon-success" routerLink="active">Administrar Regionales</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <!-- Item principal Centro de Formacion -->
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapseCentro" aria-expanded="false">
-                <i class="material-icons">business</i>
-                <p>Centro de Formacion</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapseCentro">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/registrarCentroFormacion']">
-                            <p>Crear Centro de Formacion</p>
-                        </a>
-                    </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/listaCentroFormacion']">
-                            <p class="icon-success">Administrar Centro de Formacion</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
 
-        <!-- Item principal puestos vigilancia -->
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapsePdeV" aria-expanded="false">
-                <i class="material-icons">radio_button_checked</i>
-                <p>Puestos de Vigilancia</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapsePdeV">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/PuestosVigilancia']">
-                            <p>Crear Puesto de Vigilancia</p>
+                    <!-- Ítems de Perfiles -->
+                    <li *ngIf="isLoggedIn && isSuperAdministrador" class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapsePerfil" aria-expanded="false">
+                            <i class="material-icons">person</i>
+                            <p>Perfiles</p>
                         </a>
+                        <div class="collapse" id="collapsePerfil">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/crearPerfil']">
+                                        <p>Crear Perfil</p>
+                                    </a>
+                                </li>
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/AdministrarPerfiles']">
+                                        <p>Administrar Perfiles</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link"[routerLink]="['/ListPuestosVig']">
-                            <p class="icon-success">Administrar Puesto de Vigilancia</p>
+
+                    <!-- Ítems de Empresa -->
+                    <li *ngIf="isLoggedIn && isSuperAdministrador" class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseEmpresa" aria-expanded="false">
+                            <i class="material-icons">business</i>
+                            <p>Empresa</p>
                         </a>
+                        <div class="collapse" id="collapseEmpresa">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/crearEmpresa']">
+                                        <p>Crear Empresa</p>
+                                    </a>
+                                </li>
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/ListEmpresas']">
+                                        <p class="icon-success">Administrar Empresas</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapseContrato" aria-expanded="false">
-                <i class="material-icons">account_circle </i>
-                <p>Contratos</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapseContrato">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/listContratos']">
-                            <i class="material-icons">radio_button_checked </i>
-                            <p>Administrar contratos</p>
+
+                    <!-- Ítems de Regionales -->
+                    <li  *ngIf="isLoggedIn && isSuperAdministrador" class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseRegional" aria-expanded="false">
+                            <i class="material-icons">business</i>
+                            <p>Regionales</p>
                         </a>
+                        <div class="collapse" id="collapseRegional">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/create-regional']">
+                                        <i class="bi bi-plus-circle"></i>
+                                        <p>Crear Regionales</p>
+                                    </a>
+                                </li>
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/list-regional']">
+                                        <p class="icon-success">Administrar Regionales</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                </ul>
-            </div>
-        </li>
-     
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#collapVigiEl" aria-expanded="false">
-                <i class="material-icons">account_circle </i>
-                <p>gestionar Vigilancia electronica</p>
-            </a>
-            <!-- Ítems secundarios desplegables -->
-            <div class="collapse" id="collapVigiEl">
-                <ul class="nav flex-column ml-3">
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/crearVigilanciaElectronica']">
-                            <i class="material-icons">radio_button_checked </i>
-                            <p>Crear Vigilancia Electronica</p>
+
+                    <!-- Ítems de Centro de Formación -->
+                    <li  *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG " class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseCentro" aria-expanded="false">
+                            <i class="material-icons">business</i>
+                            <p>Centro de Formación</p>
                         </a>
+                        <div class="collapse" id="collapseCentro">
+                            <ul class="nav flex-column ml-3">
+                                <li  *ngIf="isLoggedIn && isSuperAdministrador"  routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/registrarCentroFormacion']">
+                                        <p>Crear Centro de Formación</p>
+                                    </a>
+                                </li>
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/listaCentroFormacion']">
+                                        <p class="icon-success">Administrar Centro de Formación</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link" [routerLink]="['/listarVigilanciaElectronica']">
-                            <i class="material-icons">radio_button_checked </i>
-                            <p>listar Vigilancia Electronica</p>
+
+                    <!-- Ítems de Puestos de Vigilancia -->
+                    <li *ngIf="isLoggedIn && isSuperAdministrador" class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapsePdeV" aria-expanded="false">
+                            <i class="material-icons">radio_button_checked</i>
+                            <p>Puestos de Vigilancia</p>
                         </a>
+                        <div class="collapse" id="collapsePdeV">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/PuestosVigilancia']">
+                                        <p>Crear Puesto de Vigilancia</p>
+                                    </a>
+                                </li>
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/ListPuestosVig']">
+                                        <p class="icon-success">Administrar Puesto de Vigilancia</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
+
+                    <!-- Ítems de Contratos -->
+                    <li *ngIf="isLoggedIn && isSuperAdministrador" class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseContrato" aria-expanded="false">
+                            <i class="material-icons">account_circle</i>
+                            <p>Contratos</p>
+                        </a>
+                        <div class="collapse" id="collapseContrato">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/listContratos']">
+                                        <i class="material-icons">radio_button_checked</i>
+                                        <p>Administrar Contratos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Ítems de Vigilancia Electrónica -->
+                    <li *ngIf="isLoggedIn && isSuperAdministrador"  class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapVigiEl" aria-expanded="false">
+                            <i class="material-icons">account_circle</i>
+                            <p>Gestionar Vigilancia Electrónica</p>
+                        </a>
+                        <div class="collapse" id="collapVigiEl">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/crearVigilanciaElectronica']">
+                                        <i class="material-icons">radio_button_checked</i>
+                                        <p>Crear Vigilancia Electrónica</p>
+                                    </a>
+                                </li>
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/listarVigilanciaElectronica']">
+                                        <i class="material-icons">radio_button_checked</i>
+                                        <p>Listar Vigilancia Electrónica</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
         </li>
     </ul>
-
-    <!-- <button (click)="cerrarSesion()">Cerrar Sesión</button> -->
-
 </div>

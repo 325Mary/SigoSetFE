@@ -1,34 +1,29 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
     <div class="card" style="width: 60rem;">
         <div class="card-header card-header-sena-azul">
-            <h4 class="card-title" > Crear Vigilancia Electronica </h4>
+            <h4 class="card-title"> Crear Vigilancia Electronica </h4>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="onSubmit()" #vigilanciaForm="ngForm" class="centered-form">
+                <div class="form-group" style="text-align: center;">
+                    <label for="descripcion">Descripción:</label>
+                    <input type="text" id="descripcion" name="descripcion" [(ngModel)]="vigilanciaElectronica.descripcion" required style="width: 80%;">
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <label for="tarifa">Tarifa:</label>
+                    <input type="text" id="tarifa" name="tarifa" [(ngModel)]="vigilanciaElectronica.tarifa" (input)="calcularTotal()" required>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <label for="ays">Ays:</label>
+                    <input type="text" id="ays" name="ays" [(ngModel)]="vigilanciaElectronica.ays" (input)="calcularTotal()" required>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <label for="total">Total:</label>
+                    <input type="text" id="total" name="total" [(ngModel)]="vigilanciaElectronica.total" readonly>
+                </div>
+                <button type="submit" [disabled]="vigilanciaForm.invalid">Crear Vigilancia Electrónica</button>
+            </form>
+            
+        </div>
     </div>
-    <div class="card-body">
-
-<form (ngSubmit)="onSubmit()" #vigilanciaForm="ngForm" class="centered-form">
-    <div class="form-group" style="text-align: center;">
-        <label for="descripcion">Descripción:</label>
-        <input type="text" id="descripcion" name="descripcion" [(ngModel)]="vigilanciaElectronica.descripcion" required  style="width: 80%;">
-    </div>
-    <div class="form-group" style="text-align: center;">
-        <label for="tarifa">Tarifa:</label>
-        <input type="text" id="tarifa" name="tarifa" [(ngModel)]="vigilanciaElectronica.tarifa" (input)="formatTarifa($event)" required>
-    </div>
-    <div class="form-group" style="text-align: center;">
-        <label for="ays">Ays:</label>
-        <input type="text" id="ays" name="ays" [value]="vigilanciaElectronica.ays" readonly>
-    </div>
-    <div class="form-group" style="text-align: center;">
-        <label for="iva">IVA:</label>
-        <input type="text" id="iva" name="iva" [value]="vigilanciaElectronica.iva" readonly>
-    </div>
-    <div class="form-group" style="text-align: center;">
-        <label for="total">Total:</label>
-        <input type="text" id="total" name="total" [value]="vigilanciaElectronica.total" readonly>
-    </div>
-    <button type="submit" [disabled]="vigilanciaForm.invalid">Crear Vigilancia Electrónica</button>
-</form>
-    </div>
-
-</div>
 </div>
