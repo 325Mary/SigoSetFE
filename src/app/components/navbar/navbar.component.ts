@@ -1,198 +1,93 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { LoginService } from '../../services/usuario/login.service';
-import {TokenValidationService} from '../../services/VertificacionUser/token-validation.service'
+import { TokenValidationService } from '../../services/VertificacionUser/token-validation.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent  implements OnInit{
-    // private listTitles: any[];
-    // location: Location;
-    //   mobile_menu_visible: any = 0;
-    // private toggleButton: any;
-    // private sidebarVisible: boolean;
-    isLoggedIn: boolean = false;
-    username: string = '';
-    profile: string = '';
-  
-  
-    constructor(location: Location,  private element: ElementRef, private router: Router,  private loginService: LoginService, private tokenValidationService: TokenValidationService) {
-    //   this.location = location;
-    //       this.sidebarVisible = false;
-    }
-    // ngOnInit(){
-    //   this.listTitles = ROUTES.filter(listTitle => listTitle);
-    //   const navbar: HTMLElement = this.element.nativeElement;
-    //   this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
-    //   this.router.events.subscribe((event) => {
-    //     this.sidebarClose();
-    //      var $layer: any = document.getElementsByClassName('close-layer')[0];
-    //      if ($layer) {
-    //        $layer.remove();
-    //        this.mobile_menu_visible = 0;
-    //      }
-    //  });
-    
-    // }
+export class NavbarComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  username: string = '';
+  perfil: string = '';
 
-    // sidebarOpen() {
-    //     const toggleButton = this.toggleButton;
-    //     const body = document.getElementsByTagName('body')[0];
-    //     setTimeout(function(){
-    //         toggleButton.classList.add('toggled');
-    //     }, 500);
+  constructor(location: Location, private element: ElementRef, private router: Router, private loginService: LoginService, private tokenValidationService: TokenValidationService) {}
 
-    //     body.classList.add('nav-open');
-
-    //     this.sidebarVisible = true;
-    // };
-    // sidebarClose() {
-    //     const body = document.getElementsByTagName('body')[0];
-    //     this.toggleButton.classList.remove('toggled');
-    //     this.sidebarVisible = false;
-    //     body.classList.remove('nav-open');
-    // };
-    // sidebarToggle() {
-    //     // const toggleButton = this.toggleButton;
-    //     // const body = document.getElementsByTagName('body')[0];
-    //     var $toggle = document.getElementsByClassName('navbar-toggler')[0];
-
-    //     if (this.sidebarVisible === false) {
-    //         this.sidebarOpen();
-    //     } else {
-    //         this.sidebarClose();
-    //     }
-    //     const body = document.getElementsByTagName('body')[0];
-
-    //     if (this.mobile_menu_visible == 1) {
-    //         // $('html').removeClass('nav-open');
-    //         body.classList.remove('nav-open');
-    //         if ($layer) {
-    //             $layer.remove();
-    //         }
-    //         setTimeout(function() {
-    //             $toggle.classList.remove('toggled');
-    //         }, 400);
-
-    //         this.mobile_menu_visible = 0;
-    //     } else {
-    //         setTimeout(function() {
-    //             $toggle.classList.add('toggled');
-    //         }, 430);
-
-    //         var $layer = document.createElement('div');
-    //         $layer.setAttribute('class', 'close-layer');
-
-
-    //         if (body.querySelectorAll('.main-panel')) {
-    //             document.getElementsByClassName('main-panel')[0].appendChild($layer);
-    //         }else if (body.classList.contains('off-canvas-sidebar')) {
-    //             document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
-    //         }
-
-    //         setTimeout(function() {
-    //             $layer.classList.add('visible');
-    //         }, 100);
-
-    //         $layer.onclick = function() { //asign a function
-    //           body.classList.remove('nav-open');
-    //           this.mobile_menu_visible = 0;
-    //           $layer.classList.remove('visible');
-    //           setTimeout(function() {
-    //               $layer.remove();
-    //               $toggle.classList.remove('toggled');
-    //           }, 400);
-    //         }.bind(this);
-
-    //         body.classList.add('nav-open');
-    //         this.mobile_menu_visible = 1;
-
-    //     }
-    // };
-
-    // getTitle(){
-    //   var titlee = this.location.prepareExternalUrl(this.location.path());
-    //   if(titlee.charAt(0) === '#'){
-    //       titlee = titlee.slice( 1 );
-    //   }
-
-    //   for(var item = 0; item < this.listTitles.length; item++){
-    //       if(this.listTitles[item].path === titlee){
-    //           return this.listTitles[item].title;
-    //       }
-    //   }
-    //   return 'Dashboard';
-    // }
-
-    ngOnInit(): void {
-      this.router.events.subscribe((event) => {
-        if (event instanceof NavigationStart && (event.url === '/login' || event.url === '/')) {
-          this.isLoggedIn = false;
-          localStorage.setItem('isLoggedIn', JSON.stringify(false));
-        }
-      });
-  
-      this.loginService.loginStatusChanged.subscribe(status => {
-        this.isLoggedIn = status;
-        localStorage.setItem('isLoggedIn', JSON.stringify(status));
-        if (!status) {
-          this.username = '';
-          this.profile = '';
-        }
-      });
-  
-      const storedLoginStatus = localStorage.getItem('isLoggedIn');
-      if (storedLoginStatus) {
-        this.isLoggedIn = JSON.parse(storedLoginStatus);
-      } else {
+  ngOnInit(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart && (event.url === '/login' || event.url === '/')) {
         this.isLoggedIn = false;
         localStorage.setItem('isLoggedIn', JSON.stringify(false));
       }
-  
-      if (this.isLoggedIn) {
-        this.validateToken();
+    });
+
+    this.loginService.loginStatusChanged.subscribe(status => {
+      this.isLoggedIn = status;
+      localStorage.setItem('isLoggedIn', JSON.stringify(status));
+      if (status) {
+        this.fetchUsername();
+      } else {
+        this.username = '';
+        this.perfil = ''
       }
+    });
+
+    const storedLoginStatus = localStorage.getItem('isLoggedIn');
+    if (storedLoginStatus) {
+      this.isLoggedIn = JSON.parse(storedLoginStatus);
+    } else {
+      this.isLoggedIn = false;
+      localStorage.setItem('isLoggedIn', JSON.stringify(false));
     }
-  
-    private validateToken(): void {
-      const storedToken = this.tokenValidationService.getToken();
-  
-      if (storedToken) {
-        const isValidToken = this.tokenValidationService.isValidToken(storedToken);
-  
-        if (isValidToken) {
-          this.isLoggedIn = true;
-          const userId = this.tokenValidationService.getUserData(storedToken).userId;
-          console.log('user:', userId)
-          this.username = this.tokenValidationService.getUserData(storedToken).username;
-        } else {
-          this.isLoggedIn = false;
-          this.router.navigate(['/sesionCaducada']);
-        }
+
+    if (this.isLoggedIn) {
+      this.validateToken();
+    }
+  }
+
+  private validateToken(): void {
+    const storedToken = this.tokenValidationService.getToken();
+
+    if (storedToken) {
+      const isValidToken = this.tokenValidationService.isValidToken(storedToken);
+
+      if (isValidToken) {
+        this.isLoggedIn = true;
+        this.fetchUsername();
       } else {
         this.isLoggedIn = false;
+        this.router.navigate(['/sesionCaducada']);
       }
-  
-      const userId = this.loginService.getUserId();
-      if (userId) {
-        this.loginService.getUserById(userId).subscribe(
-          user => {
-            this.username = user.nombre_usuario;
-            console.log('nombreUser:', this.username)
-          },
-          error => {
-            console.error('Error al obtener el usuario:', error);
-          }
-        );
-      }
+    } else {
+      this.isLoggedIn = false;
     }
-   cerrarSesion() {
-    // Realizar la solicitud de cierre de sesión sin pasar ningún argumento
+  }
+
+  private fetchUsername(): void {
+    const storedToken = this.tokenValidationService.getToken();
+    if (storedToken) {
+      const userId = this.tokenValidationService.getUserData(storedToken).userId;
+      this.loginService.getUserById(userId).subscribe(
+        response => {
+          if (response && response.user) {
+            this.username = response.user.nombre_usuario;
+            this.perfil = response.user.perfil
+          } else {
+            console.error('Faltan datos de usuario en la respuesta');
+          }
+        },
+        error => {
+          console.error('Error al obtener el usuario:', error);
+        }
+      );
+    }
+  }
+
+  cerrarSesion() {
     this.loginService.cerrarSesion().subscribe(
       response => {
         this.loginService.removerToken();
@@ -200,10 +95,8 @@ export class NavbarComponent  implements OnInit{
         history.replaceState(null, '', '/');
       },
       error => {
-        // Manejar errores (por ejemplo, mostrar un mensaje de error)
         console.error('Error al cerrar sesión:', error);
       }
     );
   }
 }
-

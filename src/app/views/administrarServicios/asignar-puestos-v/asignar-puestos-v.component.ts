@@ -5,9 +5,8 @@ import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/pu
 import { VigilanciaElectronicaService } from '../../../services/PuestosElectronicos/vigilancia-electronica.service';
 import { ActivatedRoute, Router } from '@angular/router'; 
 import { EmpresaService } from '../../../services/empresas/empresa.service';
-import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service'
+import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service';
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-asignar-puestos-v',
@@ -21,7 +20,7 @@ export class AsignarPuestosVComponent {
   puestoVxCentro: any;
   puestoExCentro: any;
   puestos: any[] = [];
-  centro: any[]=[];
+  centro: any[] = [];
   vigiElectronica: any[] = [];
   servicioSeleccionado: string;
   puestosSeleccionados: any[] = [];
@@ -35,7 +34,6 @@ export class AsignarPuestosVComponent {
   mostrarFormularioElectronica: boolean = false;
   formularioVisible: boolean = false;
   nombreCentro: string;
-
 
   constructor(
     private _puestosEXCentroService: PuestosEXcentroService,
@@ -53,13 +51,12 @@ export class AsignarPuestosVComponent {
     this.obtenerVigilanciaElectronica();
 
     this.route.params.subscribe(params => {
-      // Obtener el ID del centro de los parámetros de ruta
       this.centroId = params['idcentro_formacion'];
       console.log('id:', this.centroId);
       this.obtenerinforXcentro(this.centroId);
     });
     this.obtenerEmpresas();
-    this.obtenerinforXcentro(this.centroId)
+    this.obtenerinforXcentro(this.centroId);
   }
 
   obtenerEmpresas() {
@@ -77,8 +74,14 @@ export class AsignarPuestosVComponent {
   obtenerPuestos(): void {
     this.puestosService.obtenerPuestos().subscribe(
       (data) => {
-        this.puestos = data.data[0];
-        // Actualizar el dataSource con los datos obtenidos, si es necesario
+        this.puestos = data.data[0].map(puesto => {
+          return {
+            idpuesto_vigilancia: puesto.idpuesto_vigilancia,
+            descripcion_puesto: puesto.descripcion_puesto,
+            seleccionado: false,
+            cantidad: 0
+          };
+        });
       },
       (error) => {
         console.error(error);
@@ -90,7 +93,7 @@ export class AsignarPuestosVComponent {
     this.centroService.getCentroFormacion(centroId).subscribe(
       (response) => {
         this.centro = response.data;
-        this.nombreCentro = response.data.centro_formacion; // Set the center name
+        this.nombreCentro = response.data.centro_formacion;
         console.log('centroooo:', this.centro);
       },
       (error) => {
@@ -98,7 +101,6 @@ export class AsignarPuestosVComponent {
       }
     );
   }
-  
 
   obtenerVigilanciaElectronica(): void {
     this.vigilanciaElectronicaS.obtenerVigilaciaElectronica().subscribe(
@@ -112,28 +114,39 @@ export class AsignarPuestosVComponent {
     );
   }
 
-  onPuestoVigilanciaSelected(idpuesto_vigilancia: any): void {
-    const selectedId = Number(idpuesto_vigilancia);
-    const puestoSeleccionado = this.puestos.find(puesto => puesto.idpuesto_vigilancia === selectedId);
-    if (puestoSeleccionado) {
-      if (!puestoSeleccionado.seleccionado) {
-        puestoSeleccionado.cantidad = 0;
-        puestoSeleccionado.seleccionado = true;
-        this.puestosSeleccionadosVigilancia.push(puestoSeleccionado);
+  onEmpresaSelected(event: any): void {
+    const selectedCompanyName = event.target.value;
+    const selectedCompany = this.empresas.find(empresa => empresa.nombre_empresa === selectedCompanyName);
+    if (selectedCompany) {
+      this.empresaSeleccionada = selectedCompany.idempresa;
+      console.log('Id de la empresa seleccionada:', this.empresaSeleccionada);
+    }
+  }
+  
+  
+
+  onPuestoVigilanciaSelected(event: any): void {
+    const selectedValue = event.target.value;
+    const selectedOption = this.puestos.find(puesto => puesto.descripcion_puesto === selectedValue);
+    if (selectedOption) {
+      if (!selectedOption.seleccionado) {
+        selectedOption.cantidad = 0;
+        selectedOption.seleccionado = true;
+        this.puestosSeleccionadosVigilancia.push(selectedOption);
       } else {
         console.log('Este puesto ya ha sido seleccionado.');
       }
     }
   }
 
-  onVigilanciaElectronicaSelected(idvigilancia_electronica: any): void {
-    const selectedId = Number(idvigilancia_electronica);
-    const puestoSeleccionado = this.vigiElectronica.find(vigiElectronica => vigiElectronica.idvigilancia_electronica === selectedId);
-    if (puestoSeleccionado) {
-      if (!puestoSeleccionado.seleccionado) {
-        puestoSeleccionado.cantidad = 0;
-        puestoSeleccionado.seleccionado = true;
-        this.puestosSeleccionadosElectronica.push(puestoSeleccionado);
+  onVigilanciaElectronicaSelected(event: any): void {
+    const selectedValue = event.target.value;
+    const selectedOption = this.vigiElectronica.find(vigiElect => vigiElect.descripcion === selectedValue);
+    if (selectedOption) {
+      if (!selectedOption.seleccionado) {
+        selectedOption.cantidad = 0;
+        selectedOption.seleccionado = true;
+        this.puestosSeleccionadosElectronica.push(selectedOption);
       } else {
         console.log('Este puesto ya ha sido seleccionado.');
       }
@@ -151,18 +164,17 @@ export class AsignarPuestosVComponent {
   reloadComponent() {
     this.router.navigate([this.router.url], { skipLocationChange: true });
   }
-  
 
   guardarCambiosVigilanciaHumana(): void {
     const centroFormacionId = this.centroId;
-    const idempresaSeleccionada = this.empresaSeleccionada;
+    const idempresaSeleccionada = this.empresaSeleccionada; // Utiliza el id de empresa seleccionada
     let saveCount = 0;
   
     this.puestosSeleccionadosVigilancia.forEach(puesto => {
       if (puesto.cantidad > 0) {
         this._puestosVXCentroService.crearPuestoVxCentro({
           idcentro_formacion: centroFormacionId,
-          idempresa: idempresaSeleccionada,
+          idempresa: idempresaSeleccionada, // Pasa el id de empresa seleccionada
           idpuesto_vigilancia: puesto.idpuesto_vigilancia,
           cantidad_puestov: puesto.cantidad
         }).subscribe(() => {
@@ -183,14 +195,14 @@ export class AsignarPuestosVComponent {
   
   guardarCambiosVigilanciaElectronica(): void {
     const centroFormacionId = this.centroId;
-    const idempresaSeleccionada = this.empresaSeleccionada;
+    const idempresaSeleccionada = this.empresaSeleccionada; // Utiliza el id de empresa seleccionada
     let saveCount = 0;
   
     this.puestosSeleccionadosElectronica.forEach(vigiElect => {
       if (vigiElect.cantidad > 0) {
         this._puestosEXCentroService.crearPuestoVExCentro({
           idcentro_formacion: centroFormacionId,
-          idempresa: idempresaSeleccionada,
+          idempresa: idempresaSeleccionada, // Pasa el id de empresa seleccionada
           idvigilancia_electronica: vigiElect.idvigilancia_electronica,
           cantidad: vigiElect.cantidad,
         }).subscribe(() => {
@@ -209,7 +221,6 @@ export class AsignarPuestosVComponent {
     });
   }
   
-  
 
   mostrarFormulario(tipo: string) {
     if (tipo === 'humano') {
@@ -222,14 +233,27 @@ export class AsignarPuestosVComponent {
   }
 
   guardarCambios1(tipo: string) {
-    // Aquí puedes agregar lógica para guardar los cambios del formulario
     console.log("Guardando cambios del formulario de tipo: " + tipo);
-
-    // Por ahora, simplemente reseteamos la visibilidad del formulario
     if (tipo === 'humano') {
       this.mostrarFormularioHumano = false;
     } else if (tipo === 'electronica') {
       this.mostrarFormularioElectronica = false;
     }
   }
+  eliminarPuesto(puesto: any): void {
+    const index = this.puestosSeleccionadosVigilancia.indexOf(puesto);
+    if (index !== -1) {
+      this.puestosSeleccionadosVigilancia.splice(index, 1);
+      // Reducir la cantidad si es mayor que cero
+      if (puesto.cantidad > 0) {
+        puesto.cantidad--;
+      }
+    }
+  }
+  reducirCantidad(puesto: any): void {
+    if (puesto.cantidad > 0) {
+      puesto.cantidad--;
+    }
+  }
+  
 }

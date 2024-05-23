@@ -8,6 +8,8 @@
     position: relative;
     transition: all 0.5s; /* Agrega una transición suave */
     margin-top: 80px;
+    width: 100%;
+    height: auto;
 }
 
 .card {
@@ -22,8 +24,9 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
     width: 100%;
-    max-width: 500px;
-    margin-top: 50px;
+    max-width: 800px;
+    margin-bottom: 40px;
+
 }
 
 .third-form {
@@ -58,8 +61,7 @@
     background-color: #f9f9f9;
     border-radius: 5px;
     margin-right: 20px;
-    max-width: 250px; /* Ajusta el ancho máximo a lo que prefieras */
-    min-width: 200px; /* Establece un ancho mínimo si es necesario */
+    width: 400px; /* Tamaño predeterminado */
     word-wrap: break-word; /* Permite la ruptura de palabras largas */
     overflow-wrap: break-word; /* Permite la ruptura de palabras largas */
 }
@@ -70,10 +72,15 @@
     white-space: normal; /* Permite el ajuste de texto en múltiples líneas */
 }
 .cantidad-rectangulo {
-    background-color: #081545;
-    border-radius: 5px;
-    padding: 10px;
-    color: #fff;
+    display: flex;
+    align-items: center;
+    background-color: #868484;
+    max-width: 100%; /* Ancho máximo igual al ancho máximo del formulario */
+    overflow: hidden; /* Oculta el contenido que se desborda */
+}
+
+.cantidad-rectangulo button {
+    margin-right: 3px; /* Añade un margen derecho entre los botones */
 }
 
 .btn-primary {
@@ -127,28 +134,25 @@
     margin-top: 100px;
     order: 1; /* Cambia el orden a la izquierda */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
-margin-left: 250px;
 }
 
 .form-toggle-buttons-right {
     order: 3; /* Cambia el orden a la derecha */
     margin-top: 100px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
-    margin-right: 250px;
 
 
 }
 
 .form-container-left {
-    width: calc(50% - 10px); /* Ajusta el ancho del formulario y elimina el espacio entre los formularios */
+    width: calc(80% - 20px); /* Ajusta el ancho del formulario y elimina el espacio entre los formularios */
     /* Otros estilos del formulario */
     order: 2; /* Cambia el orden a la izquierda */
 }
 
 .form-container-right {
-    width: calc(50% - 10px); /* Ajusta el ancho del formulario y elimina el espacio entre los formularios */
+    width: calc(80% - 20px); /* Ajusta el ancho del formulario y elimina el espacio entre los formularios */
     order: 2; /* Cambia el orden a la derecha */
-    margin-left: 300px;
 }
 
 
@@ -175,6 +179,7 @@ margin-left: 250px;
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+    line-height: 1;
 }
 /* Estilos personalizados para input[list] */
 input[list] {

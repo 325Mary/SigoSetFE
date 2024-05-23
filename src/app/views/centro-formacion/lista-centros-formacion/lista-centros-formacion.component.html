@@ -53,16 +53,16 @@
                                                     [routerLink]="['/detalleCentroFormacion/', item.idcentro_formacion]">
                                                     <span class="fa-solid fa-eye "></span>
                                                 </i>
-                                                <i tooltip="Eliminar centro de formacion  " placement="bottom"
+                                                <!-- <i tooltip="Eliminar centro de formacion  " placement="bottom"
                                                     showDelay="200" class="butonW "
                                                     (click)="eliminarCentroFormacion(item.idcentro_formacion)">
                                                     <span class="fa-solid fa-trash text-danger"></span>
-                                                </i>
+                                                </i> -->
                                                 <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG" title="listar Puestos por centro" (click)="abrirModalVerPuestos(item)">
-                                                    <span class="fas fa-shield-alt"></span>
+                                                    <span class="fas fa-shield"></span>
                                                 </i>
                                                 <i *ngIf="isLoggedIn && isSuperAdministrador" title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
-                                                    <span class="fas fa-shield-alt"></span>
+                                                    <span class="fas fa-user-secret"></span>
                                                 </i>
                                                 <i  *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG "title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
                                                     <span class="fas fa-building"></span>
