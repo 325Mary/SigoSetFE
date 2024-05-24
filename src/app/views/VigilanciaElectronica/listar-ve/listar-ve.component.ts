@@ -15,6 +15,7 @@ export class ListarVEComponent {
   vigiElSeleccionada: any = {};
   showModal: boolean = false;
   mostrarModalEditar: boolean = false;
+  mostrarModalCrear: boolean = false; 
 
   constructor(private vigilanciaService: VigilanciaElectronicaService) { }
 
@@ -41,6 +42,7 @@ export class ListarVEComponent {
   closeModal(): void {
     this.showModal = false;
     this.mostrarModalEditar = false;
+    this.mostrarModalCrear = false
   }
   
   handleCloseModal(): void {
@@ -82,5 +84,9 @@ export class ListarVEComponent {
         );
       }
     });
+}
+
+abrirModalCrear(): void {
+  this.mostrarModalCrear = true; 
 }
 }

@@ -1,7 +1,11 @@
-import { Component, ViewChild, ElementRef, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, Output, EventEmitter, ChangeDetectorRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { PuestosEXcentroService } from '../../../services/PuestosXcentro/puestos-excentro.service';
 import { PuestosVXcentroService } from '../../../services/PuestosXcentro/puestos-vxcentro.service';
 import { EmpresaService } from '../../../services/empresas/empresa.service';
+import { TokenValidationService } from '../../../services/VertificacionUser/token-validation.service';
+import { LoginService } from "../../../services/usuario/login.service";
+import { Subscription } from 'rxjs';
+import { NavigationStart, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,19 +25,41 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
   empresaSeleccionada: any;
   originalPuestoHumano: any = {};
   originalPuestoElectronico: any = {};
+  isLoggedIn = false;
+  userData: any;
+  loginStatusSubscription!: Subscription;
+  isSuperAdministrador = false;
+  isOrdenadorG = false;
+  currentRoute = '';
 
   constructor(
     private _puestosEXCentroService: PuestosEXcentroService,
     private _puestosVXCentroService: PuestosVXcentroService,
     private empresaService: EmpresaService,
-
-  ) { }
-
+    private tokenValidationService: TokenValidationService,
+    private authService: LoginService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,) {
+      this.router.events.subscribe((val) => {
+        this.currentRoute = this.router.url;
+      });
+     }
   ngOnInit(): void {
     if (this.centroSeleccionado) {
       this.obtenerPuestosVPorCentro(this.centroSeleccionado.idcentro_formacion);
       this.obtenerPuestosVEPorCentro(this.centroSeleccionado.idcentro_formacion);
     }
+    this.checkAuthentication();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.currentRoute = this.router.url;
+        this.checkAuthentication();
+        
+      }
+    });
+    this.loginStatusSubscription = this.authService.loginStatusChanged.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -159,6 +185,28 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
     if (this.centroSeleccionado) {
       this.obtenerPuestosVPorCentro(this.centroSeleccionado.idcentro_formacion);
       this.obtenerPuestosVEPorCentro(this.centroSeleccionado.idcentro_formacion);
+    }
+  }
+
+ 
+  async checkAuthentication() {
+    try {
+      const token = localStorage.getItem('token');
+      if (token && await this.tokenValidationService.isValidToken(token)) {
+        this.isLoggedIn = true;
+        this.userData = await this.tokenValidationService.getUserData(token);
+        this.setUserRoles(this.userData.idperfil);
+        console.log('isLogin:', this.userData)
+        this.cdr.detectChanges(); // Realizar detección de cambios
+      }
+    } catch (error) {
+      console.error('Error al verificar la autenticación:', error);
+    }
+  }
+  setUserRoles(idperfil: Number) {
+    if (idperfil) {
+      this.isSuperAdministrador = idperfil === 1;
+      this.isOrdenadorG = idperfil === 2;
     }
   }
 }

@@ -21,7 +21,7 @@ export class PuestosVigilanciaService {
   }
 
   crearPuesto(puestoData: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}crearpuestovig`, puestoData);
+    return this.httpClient.post(`${this.baseUrl}crearPuesto`, puestoData);
   }
 
   editarPuesto(id: number, nuevoPuestoData: any): Observable<any> {
@@ -29,6 +29,6 @@ export class PuestosVigilanciaService {
   }
 
   eliminarPuesto(id: number): Observable<any> {
-    return this.httpClient.delete(`${this.baseUrl}eliminarpuestovig/${id}`);
+    return this.httpClient.delete(`${this.baseUrl}eliminarPuesto/${id}`);
   }
 }

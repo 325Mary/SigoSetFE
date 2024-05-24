@@ -10,7 +10,7 @@
               <th>Empresa</th>
               <th>Descripción del Puesto</th>
               <th>Cantidad</th>
-              <th>Acciones</th>
+              <th  *ngIf="isLoggedIn && isSuperAdministrador">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -19,7 +19,7 @@
               <td *ngIf="!puesto.editando">{{ puesto.descripcion_puesto }}</td>
               <td *ngIf="!puesto.editando">{{ puesto.cantidad_puestov }}</td>
               <td *ngIf="!puesto.editando">
-                <button type="button" class="btn btn-danger me-3" (click)="editarPuestoHumano(puesto)">
+                <button  *ngIf="isLoggedIn && isSuperAdministrador" type="button" class="btn btn-danger me-3" (click)="editarPuestoHumano(puesto)">
                   Editar
                 </button>
               </td>
@@ -56,7 +56,7 @@
               <th>Empresa</th>
               <th>Descripción del Puesto</th>
               <th>Cantidad</th>
-              <th>Acciones</th>
+              <th  *ngIf="isLoggedIn && isSuperAdministrador">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -65,7 +65,7 @@
               <td *ngIf="!puesto.editando">{{ puesto.descripcion }}</td>
               <td *ngIf="!puesto.editando">{{ puesto.cantidad }}</td>
               <td *ngIf="!puesto.editando">
-                <button type="button" class="btn btn-danger me-3" (click)="editarPuestoElectronico(puesto)">
+                <button  *ngIf="isLoggedIn && isSuperAdministrador"  type="button" class="btn btn-danger me-3" (click)="editarPuestoElectronico(puesto)">
                   Editar
                 </button>
               </td>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { VigilanciaElectronicaService } from "../../../services/PuestosElectronicos/vigilancia-electronica.service";
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-ve',
@@ -16,7 +17,9 @@ export class CrearVEComponent {
   };
   errorMessage: string | null = null;
 
-  constructor(private vigilanciaElectronicaService: VigilanciaElectronicaService) {}
+  constructor(private vigilanciaElectronicaService: VigilanciaElectronicaService,
+    private router: Router
+  ) {}
 
   calcularTotal() {
     if (this.vigilanciaElectronica.tarifa && this.vigilanciaElectronica.ays) {
@@ -38,6 +41,7 @@ export class CrearVEComponent {
           this.errorMessage = null;
           // Mostrar alerta de éxito
           Swal.fire('¡Éxito!', 'Vigilancia Electrónica creada exitosamente', 'success');
+          this.router.navigate(['/listarVigilanciaElectronica']);
         },
         error => {
           console.error('Error creando vigilancia electrónica', error);

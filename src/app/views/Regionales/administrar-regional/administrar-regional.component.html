@@ -4,22 +4,58 @@
             <h4 class="card-title">Listado de Regionales</h4>
         </div>
         <div class="card-body">
-             <div class="title">
-            <div class="row">
-                <div class="col">
-                    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-                    <ul class="list-group">
-                        <li *ngFor="let regional of regionales" class="list-group-item">
-                            <h4>{{ regional.nombreRegional }}</h4>
-                            <p>{{ regional.direccion }}</p>
-                        </li>
-                        <li *ngIf="regionales.length === 0" class="list-group-item">
-                            <h1>No hay regionales para mostrar </h1>  </li>
-                    </ul>
-                </div>
+            <div class="title">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre Regional</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="regionales && regionales.length > 0; else noRegionales">
+                            <tr *ngFor="let regional of regionales; let i = index">
+                                <td>
+                                    <ng-container *ngIf="!regional.editando">
+                                        {{ regional.regional }}
+                                    </ng-container>
+                                    <ng-container *ngIf="regional.editando">
+                                        <input type="text" [(ngModel)]="regionales[i].regional" class="form-control">
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="!regional.editando">
+                                        {{ regional.direccion }}
+                                    </ng-container>
+                                    <ng-container *ngIf="regional.editando">
+                                        <input type="text" [(ngModel)]="regionales[i].direccion" class="form-control">
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="!regional.editando">
+                                        <!-- Icono de edición -->
+                                        <button title="editar Regional" class="btn btn-link" (click)="editarRegional(i)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </ng-container>
+                                    <ng-container *ngIf="regional.editando">
+                                        <!-- Botón para guardar cambios -->
+                                        <button class="btn btn-primary" (click)="guardarCambios(i)">Guardar</button>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-template #noRegionales>
+                            <tr>
+                                <td colspan="3">No hay regionales para mostrar</td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+                    
+                    
+                </table>
             </div>
         </div>
-        </div>
-       
     </div>
 </div>
