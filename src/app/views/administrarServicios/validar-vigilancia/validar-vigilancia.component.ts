@@ -30,6 +30,7 @@ export class ValidarVigilanciaComponent implements OnInit {
   fechaInicio: Date;
   fechaFin: Date;
   fechaActual: string;
+  isGeneratingPDF: boolean = false;
 
   constructor( private informeS : InformeService,
     private _puestosEXCentroService: PuestosEXcentroService,
@@ -151,6 +152,7 @@ export class ValidarVigilanciaComponent implements OnInit {
 
   
   async exportToPDF() {
+    this.isGeneratingPDF = true;
     const data = document.querySelector('.container') as HTMLElement;
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -186,8 +188,21 @@ export class ValidarVigilanciaComponent implements OnInit {
       }
     }
   
-    pdf.save('informe.pdf');
-  }
+    // Save PDF
+// Generate file name with current date
+const currentDate = new Date();
+const fileName = `informe_${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)}-${currentDate.getDate()}.pdf`;
+
+// Save PDF with generated file name
+pdf.save(fileName);
+
+    // Set isGeneratingPDF to false to close the overlay
+    this.isGeneratingPDF = false;
+
+    // Navigate to a specific route
+    this.router.navigate(['/listaCentroFormacion']);
+}
+
   
   selectAllCheckboxes(checked: boolean): void {
     const checkboxes = document.querySelectorAll('.table.table-bordered.section input[type="checkbox"]');

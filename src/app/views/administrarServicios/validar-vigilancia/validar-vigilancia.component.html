@@ -163,3 +163,8 @@
 <div style="text-align: center; margin-top: 20px;">
         <button (click)="exportToPDF()">Finalizar informe y exportar a PDF</button>
   </div>
+
+  <div class="overlay" *ngIf="isGeneratingPDF">
+    <div class="loading-text">Generando PDF...</div>
+  </div>
+  
