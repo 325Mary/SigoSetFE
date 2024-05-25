@@ -47,11 +47,7 @@ export class CrearVEComponent {
           console.error('Error creando vigilancia electrónica', error);
           this.errorMessage = 'Error creando vigilancia electrónica. Por favor, intenta nuevamente.';
           // Mostrar alerta de error
-          Swal.fire({
-            title:"! Error ¡",
-            text:"No se pudo crear la regional",
-            icon:"warning"
-          })
+          Swal.fire('¡Error!', 'Error creando vigilancia electrónica ya existe.', 'error');
         }
       );
   }

@@ -78,7 +78,6 @@ import { EditarZonaComponent } from './views/modals/editar-zona/editar-zona.comp
 import { VerZonaComponent } from './views/modals/ver-zona/ver-zona.component';
 
 
-
 @NgModule({
   imports: [
      AppRoutingModule,
@@ -161,6 +160,14 @@ import { VerZonaComponent } from './views/modals/ver-zona/ver-zona.component';
     ListarVEComponent,
     EditarVEComponent,
     ListSedesXcentroComponent,
+    CrearZonaComponent,
+    AdministrarZonaComponent,
+    EditarZonaComponent,
+    VerZonaComponent,
+    CrearObligacionComponent,
+    AdministrarObligacionComponent,
+    EditarObligacionModalComponent,
+    VerObligacionModalComponent
   ],
   providers: [
     LoginService,

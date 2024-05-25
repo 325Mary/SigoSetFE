@@ -13,7 +13,7 @@ export class CrearRegionalComponent implements OnInit {
   errorMessage: string = '';
   regionales: CrearRegionalComponent[];
 
-  constructor(private formBuilder: FormBuilder, private regionalService: RegionalService,private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private regionalService: RegionalService) { }
 
   ngOnInit(): void {
     this.regionalForm = this.formBuilder.group({
