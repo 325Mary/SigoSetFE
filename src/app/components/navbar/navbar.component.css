@@ -6,18 +6,24 @@
   align-items: center; /* Centrar verticalmente los elementos */
 }
 
-.a_iniciar {
-  color: rgb(255, 255, 255); /* Color del texto del enlace */
-  text-decoration: none; /* Quitar subrayado del enlace */
-  font-weight: bold;
+.login{
+  color: white; /* Color del texto del enlace */
   margin: 10px; /* Espacio entre el enlace y el borde derecho */
   border: 1px solid #0e0e0e; /* Cambiar border-radius por border */
   padding: 10px 29px; /* Añadir relleno al enlace */
   font-size: 18px; /* Aumentar tamaño de la letra */
   border-radius: 3px;
-  border: 2px solid white;
+} 
+.a_iniciar {
+  margin-right: 10px;
 }
 
+.dropdown .btn {
+  margin-right: 10px;
+  color: #ffffff;
+  border-radius: 5px;
+  background-color: rgb(4, 4, 83)
+}
 .image_logo {
   width: 100px;
   height: 100px;

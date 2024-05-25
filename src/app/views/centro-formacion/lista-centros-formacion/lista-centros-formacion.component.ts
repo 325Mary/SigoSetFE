@@ -1,9 +1,12 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit,ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service'
 import {CentroFormacion} from '../../../models/centro-formacion/centro-formacion'
 import { PuestosEXcentroService } from '../../../services/PuestosXcentro/puestos-excentro.service';
 import {PuestosVXcentroService} from '../../../services/PuestosXcentro/puestos-vxcentro.service'
-
+import { TokenValidationService } from '../../../services/VertificacionUser/token-validation.service';
+import { LoginService } from "../../../services/usuario/login.service";
+import { Subscription } from 'rxjs';
+import { NavigationStart, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,18 +18,48 @@ export class ListaCentrosFormacionComponent implements OnInit {
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
   showModal: boolean = false;
   mostrarModalPuestos: boolean = false; 
+  mostrarModalSedes: boolean= false
 centroSeleccionado: any = {}
   listaCentrosFormacion: CentroFormacion[] = []
   puestoVxCentro: any;
   puestoExCentro: any;
+  isLoggedIn = false;
+  userData: any;
+  loginStatusSubscription!: Subscription;
+  isSuperAdministrador = false;
+  isOrdenadorG = false;
+  currentRoute = '';
 
   constructor(private _centroFormacionService: CentroFormacionService,  private _puestosEXCentroService: PuestosEXcentroService,
-    private _puestosVXCentroService: PuestosVXcentroService) { }
+    private _puestosVXCentroService: PuestosVXcentroService,
+    private tokenValidationService: TokenValidationService,
+    private authService: LoginService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,) {
+      this.router.events.subscribe((val) => {
+        this.currentRoute = this.router.url;
+      });
+     }
+
   pageSize: number = 10; // Número de usuarios por página
   currentPage: number = 1; // Página actual
 
   ngOnInit(): void {
     this.getListaCentrosFormacion();
+
+    this.checkAuthentication();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.currentRoute = this.router.url;
+        this.closeModal();
+        this.checkAuthentication();
+        
+      }
+    });
+    this.loginStatusSubscription = this.authService.loginStatusChanged.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
+  
   }
    
   getListaCentrosFormacion() {
@@ -88,23 +121,6 @@ eliminarCentroFormacion(id: any) {
   })
 
 }
-getPuestosVxCentro(idcentro_formacion: number) {
-  this._puestosVXCentroService.obtenerPuestosVxCentro(idcentro_formacion).subscribe(data => {
-      this.puestoVxCentro = data;
-      console.log('Puestos Vx Centro:', this.puestoVxCentro);
-  }, error => {
-      console.error(error);
-  });
-}
-
-getPuestosExCentro(idcentro_formacion: number) {
-  this._puestosEXCentroService.obtenerPuestosExCentro(idcentro_formacion).subscribe(data => {
-      this.puestoExCentro = data;
-      console.log('Puestos Ex Centro:', this.puestoExCentro);
-  }, error => {
-      console.error(error);
-  });
-}
 
 closeModal(): void {
   this.showModal = false;
@@ -118,14 +134,40 @@ abrirModalVerPuestos(item: any): void {
   console.log('Centro seleccionado asignado en el padre:', this.centroSeleccionado);
 }
 
+abrirModalVerSedes(item: any): void {
+  this.centroSeleccionado = item;
+  this.mostrarModalSedes = true;
+}
 
 handleCloseModal(): void {
   this.mostrarModalPuestos = false;
+  this.mostrarModalSedes=false
 }
 
 
 actualizarLista(): void {
   this.getListaCentrosFormacion();
+}
+
+async checkAuthentication() {
+  try {
+    const token = localStorage.getItem('token');
+    if (token && await this.tokenValidationService.isValidToken(token)) {
+      this.isLoggedIn = true;
+      this.userData = await this.tokenValidationService.getUserData(token);
+      this.setUserRoles(this.userData.idperfil);
+      console.log('isLogin:', this.userData)
+      this.cdr.detectChanges(); // Realizar detección de cambios
+    }
+  } catch (error) {
+    console.error('Error al verificar la autenticación:', error);
+  }
+}
+setUserRoles(idperfil: Number) {
+  if (idperfil) {
+    this.isSuperAdministrador = idperfil === 1;
+    this.isOrdenadorG = idperfil === 2;
+  }
 }
 
 

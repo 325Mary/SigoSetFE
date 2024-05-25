@@ -3,6 +3,7 @@ import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/pu
 import { MatTableDataSource } from '@angular/material/table';
 import { PuestosVigilanciaComponent } from '../crear-puestos-vig/puestosVig.component';
 import Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-puestos-vig',
@@ -61,7 +62,7 @@ export class ListPuestosVigComponent implements OnInit {
   obtenerPuestos(): void {
     this.puestosService.obtenerPuestos().subscribe(
       (response) => {
-        this.puestos = response.data[0];
+        this.puestos = response.data[0][0];
         this.dataSource.data = this.puestos;
         console.log(this.puestos, 'estsos son');
         Swal.fire({
@@ -72,6 +73,7 @@ export class ListPuestosVigComponent implements OnInit {
           timer: 1500
         });
         // Actualiza el dataSource con los datos obtenidos
+        console.log('pv.', this.puestos)
       },
       (error) => {
         Swal.fire({
@@ -86,46 +88,59 @@ export class ListPuestosVigComponent implements OnInit {
     );
   }
 
+  crearPuesto(puestoData: any): void {
+    this.puestosService.crearPuesto(puestoData).subscribe(
+      (data) => {
+        this.obtenerPuestos();
+      },
+      (error) => {
+        this.errorMessage = 'Error al crear el puesto';
+      }
+    );
+  }
 
-  abrirModaleliminarPuesto(idpuesto_vigilancia: number): void {
+  editarPuesto(id: number, nuevoPuestoData: any): void {
+    this.puestosService.editarPuesto(id, nuevoPuestoData).subscribe(
+      (data) => {
+        this.obtenerPuestos();
+      },
+      (error) => {
+        this.errorMessage = 'Error al editar el puesto';
+      }
+    );
+  }
+
+  eliminarPuesto(id: number): void {
     Swal.fire({
-      title: '¿Eliminar Puesto?',
-      text: '¿Estás seguro de que deseas eliminar este Puesto?',
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then((result)=>{
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo'
+    }).then((result) => {
       if (result.isConfirmed) {
-        // Si el usuario confirma, llamar al servicio para eliminar la vigilancia electrónica
-        this.puestosService.eliminarPuesto(idpuesto_vigilancia).subscribe(
-          () => {
-            // Actualizar la lista de vigilancias electrónicas después de eliminar
+        this.puestosService.eliminarPuesto(id).subscribe(
+          (data) => {
             this.obtenerPuestos();
-            Swal.fire('Eliminado', 'La vigilancia electrónica ha sido eliminada', 'success');
+            Swal.fire(
+              '¡Eliminado!',
+              'El puesto ha sido eliminado.',
+              'success'
+            );
           },
-          error => {
-            console.error('Error al eliminar la vigilancia electrónica:', error);
-            Swal.fire('Error', 'No se pudo eliminar la vigilancia electrónica', 'error');
+          (error) => {
+            this.errorMessage = 'Error al eliminar el puesto';
+            Swal.fire(
+              '¡Error!',
+              'Hubo un problema al eliminar el puesto.',
+              'error'
+            );
           }
         );
       }
-    })
-
-
- 
-}
-  
+    });
   }
-
   
-  
-
-
-
-
-
-
-
+}

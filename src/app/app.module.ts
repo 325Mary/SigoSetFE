@@ -62,6 +62,7 @@ import { ValidarVigilanciaComponent } from './views/administrarServicios/validar
 import {CrearVEComponent  } from "./views/VigilanciaElectronica/crear-ve/crear-ve.component";
 import { ListarVEComponent } from './views/VigilanciaElectronica/listar-ve/listar-ve.component';
 import { EditarVEComponent } from './views/modals/editar-ve/editar-ve.component';
+import { ListSedesXcentroComponent } from './views/modals/list-sedes-xcentro/list-sedes-xcentro.component';
 import { CrearObligacionComponent } from './views/obligacionesContractuales/crear-obligacion/crear-obligacion.component';
 import { AdministrarObligacionComponent } from './views/obligacionesContractuales/administrar-obligacion/administrar-obligacion.component';
 import { EditarObligacionModalComponent } from './views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component'; 
@@ -159,16 +160,7 @@ import { VerZonaComponent } from './views/modals/ver-zona/ver-zona.component';
     CrearVEComponent,
     ListarVEComponent,
     EditarVEComponent,
-    CrearPuestoComponent,
-    CrearObligacionComponent,
-    AdministrarObligacionComponent,
-    EditarObligacionModalComponent,
-    VerObligacionModalComponent,
-    CrearZonaComponent,
-    AdministrarZonaComponent,
-    EditarZonaComponent,
-    VerZonaComponent,    
-
+    ListSedesXcentroComponent,
   ],
   providers: [
     LoginService,

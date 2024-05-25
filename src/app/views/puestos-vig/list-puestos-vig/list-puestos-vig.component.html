@@ -1,49 +1,38 @@
-<div class="container d-flex justify-content-center mt-5 mb-5">
-    <div class="card cont-table">
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 60rem;">
         <div class="card-header card-header-sena-azul">
-            <h4 class="card-title">Listado de Puestos de Vigilancia</h4>
-        </div>
-        <div class="card-body">
-            <div class="table">
-                 <table class="table text-center">
-                    <thead>
-                        <div class="form-group"
-                            style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-                            <input type="text" class="form-control" style="border: none;" placeholder="Buscar...">
-                        </div>
-                        <tr>
-                            <th>Descripción</th>
-                            <th>Tarifa</th>
-                            <th>AYS</th>
-                            <th>IVA</th>
-                            <th>TOTAL</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let puestoData of puestos">
-                            <td>{{puestoData.descripcion_puesto}}</td>
-                            <td>{{ puestoData.tarifa_puesto | number: '1.2-2' }}</td>
-                            <td>{{ puestoData.ays | number: '1.2-2' }}</td>
-                            <td>{{ puestoData.iva | number: '1.2-2' }}</td>
-                            <td>{{ puestoData.total | number: '1.2-2' }}</td>
-                            <td>
-                                <button (click)="abrirModalEditar(puestos)" title="Editar Perfil">
-                                    <i class="bi bi-pencil-square"></i>
-                                  </button>
-                                  <button (click)="abrirModalVerPuesto(puestos)" title="Ver Detalles">
-                                    <i class="bi bi-eye"></i>
-                                  </button>
-                                  <button (click)="abrirModaleliminarPuesto(puestos.idpuesto_vigilancia)" title="Boton de eliminar">
-                                    <i class="bi bi-trash"></i>
-                                  </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table> 
+                <h1 class="col text-center">Listado de Puestos de Vigilancia</h1>
             </div>
-        </div>
-    </div>
+            <div class="card-body">
+                                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Tarifa</th>
+                                <th>AYS</th>
+                                <th>IVA</th>
+                                <th>Total</th>
+                                <th>Acciones</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let puesto of puestos">
+                                <td>{{ puesto.descripcion_puesto }}</td>
+                                <td>{{ puesto.tarifa_puesto }}</td>
+                                <td>{{ puesto.ays }}</td>
+                                <td>{{ puesto.iva }}</td>
+                                <td>{{ puesto.total }}</td>
+                                <button  (click)="editarPuesto(puesto.idpuesto_vigilancia, puesto)" class="btn btn-link" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)" class="btn btn-link" title="Eliminar">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+</div>
 </div>
 
 

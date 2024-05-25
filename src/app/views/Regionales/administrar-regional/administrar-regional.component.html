@@ -4,38 +4,59 @@
             <h4 class="card-title">Listado de Regionales</h4>
         </div>
         <div class="card-body">
-            <div class="table">
-                <table class="table table-bordered text-center">
+            <div class="title">
+                <table class="table">
                     <thead>
-                        <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
                         <tr>
-                            <td>ID</td>
-                            <td>Regional</td>
-                            <td>Dirección</td>
-                            <td>Acciones</td>
+                            <th>Nombre Regional</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let regional of regionales">
-                            <td>{{ regional.id }}</td>
-                            <td>{{ regional.regional }}</td>
-                            <td>{{ regional.direccion }}</td>
-                            <td>
-                                <button (click)="modalverRegional(regional.id)" title="ver">
-                                    <i class="bi bi-eye black-icon"></i>
-                                </button>
-                                <button (click)="modaleditarRegional(regional.id)" title="editar">
-                                    <i class="bi bi-pencil black-icon"></i>
-                                </button>
-                                <button (click)="eliminarRegional(regional.id)" title="eliminar">
-                                    <i class="bi bi-trash black-icon"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <ng-container *ngIf="regionales && regionales.length > 0; else noRegionales">
+                            <tr *ngFor="let regional of regionales; let i = index">
+                                <td>
+                                    <ng-container *ngIf="!regional.editando">
+                                        {{ regional.regional }}
+                                    </ng-container>
+                                    <ng-container *ngIf="regional.editando">
+                                        <input type="text" [(ngModel)]="regionales[i].regional" class="form-control">
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="!regional.editando">
+                                        {{ regional.direccion }}
+                                    </ng-container>
+                                    <ng-container *ngIf="regional.editando">
+                                        <input type="text" [(ngModel)]="regionales[i].direccion" class="form-control">
+                                    </ng-container>
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="!regional.editando">
+                                        <!-- Icono de edición -->
+                                        <button title="editar Regional" class="btn btn-link" (click)="editarRegional(i)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </ng-container>
+                                    <ng-container *ngIf="regional.editando">
+                                        <!-- Botón para guardar cambios -->
+                                        <button class="btn btn-primary" (click)="guardarCambios(i)">Guardar</button>
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-template #noRegionales>
+                            <tr>
+                                <td colspan="3">No hay regionales para mostrar</td>
+                            </tr>
+                        </ng-template>
                     </tbody>
+                     
+                    
                 </table>
-                <p>{{regionales}}</p>
             </div>
         </div>
     </div>
 </div>
+

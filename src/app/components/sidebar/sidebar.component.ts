@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+// import { ListPuestosVigComponent } from './../list-puestos-vig/list-puestos-vig.component';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {LoginService} from '../../services/usuario/login.service'
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
+import { TokenValidationService } from '../../services/VertificacionUser/token-validation.service';
+import { Subscription } from 'rxjs';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -20,11 +23,39 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
+  isLoggedIn = false;
+  userData: any;
+  loginStatusSubscription!: Subscription;
+  isSuperAdministrador = false;
+  isOrdenadorG = false;
+  currentRoute = '';
 
-  constructor( private loginService: LoginService, private router: Router) { }
+
+  constructor( private loginService: LoginService,
+     private router: Router,
+     private tokenValidationService: TokenValidationService,
+     private authService: LoginService,
+     private cdr: ChangeDetectorRef) { 
+      this.router.events.subscribe((val) => {
+        this.currentRoute = this.router.url;
+      });
+     }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+
+
+    this.checkAuthentication();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.currentRoute = this.router.url;
+        this.checkAuthentication();
+        
+      }
+    });
+    this.loginStatusSubscription = this.authService.loginStatusChanged.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
   isMobileMenu() {
       if ($(window).width() > 991) {
@@ -48,5 +79,26 @@ export class SidebarComponent implements OnInit {
   //   );
   // }
   
+  
+  async checkAuthentication() {
+    try {
+      const token = localStorage.getItem('token');
+      if (token && await this.tokenValidationService.isValidToken(token)) {
+        this.isLoggedIn = true;
+        this.userData = await this.tokenValidationService.getUserData(token);
+        this.setUserRoles(this.userData.idperfil);
+        console.log('isLogin:', this.userData)
+        this.cdr.detectChanges(); // Realizar detección de cambios
+      }
+    } catch (error) {
+      console.error('Error al verificar la autenticación:', error);
+    }
+  }
+  setUserRoles(idperfil: Number) {
+    if (idperfil) {
+      this.isSuperAdministrador = idperfil === 1;
+      this.isOrdenadorG = idperfil === 2;
+    }
+  }
   
 }

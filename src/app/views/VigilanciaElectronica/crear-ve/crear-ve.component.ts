@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { VigilanciaElectronicaService } from "../../../services/PuestosElectronicos/vigilancia-electronica.service";
-import { Decimal } from 'decimal.js';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-crear-ve',
@@ -14,74 +12,36 @@ export class CrearVEComponent {
   vigilanciaElectronica = {
     descripcion: '',
     tarifa: '',
-    ays: null,
-    iva: null,
+    ays: '',
     total: null
   };
   errorMessage: string | null = null;
 
-  constructor(private vigilanciaElectronicaService: VigilanciaElectronicaService,private router: Router) {}
+  constructor(private vigilanciaElectronicaService: VigilanciaElectronicaService,
+    private router: Router
+  ) {}
 
-  formatTarifa(event: any) {
-    let value = event.target.value;
-
-    // Remover todo excepto números y puntos
-    value = value.replace(/[^\d.]/g, '');
-
-    // Reemplazar múltiples puntos por uno solo
-    const parts = value.split('.');
-    if (parts.length > 2) {
-      value = parts[0] + '.' + parts.slice(1).join('');
-    }
-
-    this.vigilanciaElectronica.tarifa = value;
-
-    // Si el valor es un número válido, realiza el cálculo
-    const numberValue = parseFloat(value.replace(/\./g, ''));
-    if (!isNaN(numberValue)) {
-      this.calcularValores();
+  calcularTotal() {
+    if (this.vigilanciaElectronica.tarifa && this.vigilanciaElectronica.ays) {
+      const tarifa = parseFloat(this.vigilanciaElectronica.tarifa);
+      const ays = parseFloat(this.vigilanciaElectronica.ays);
+      this.vigilanciaElectronica.total = (tarifa + ays) / 2;
     } else {
-      this.vigilanciaElectronica.ays = null;
-      this.vigilanciaElectronica.iva = null;
       this.vigilanciaElectronica.total = null;
     }
   }
 
-  calcularValores() {
-    if (this.vigilanciaElectronica.tarifa != null && this.vigilanciaElectronica.tarifa !== '') {
-      const tarifa = new Decimal(this.vigilanciaElectronica.tarifa.replace(/\./g, ''));
-      const ays = tarifa.times(0.08);
-      const iva = tarifa.plus(ays).times(0.019);
-      const total = tarifa.plus(ays).plus(iva);
-
-      this.vigilanciaElectronica.ays = ays.toNumber();
-      this.vigilanciaElectronica.iva = iva.toNumber();
-      this.vigilanciaElectronica.total = total.toNumber();
-    } else {
-      this.vigilanciaElectronica.ays = null;
-      this.vigilanciaElectronica.iva = null;
-      this.vigilanciaElectronica.total = null;
-    }
-  }
 
   onSubmit() {
     this.vigilanciaElectronicaService.crearVigilaciaElectronica(this.vigilanciaElectronica)
       .subscribe(
         response => {
           console.log('Vigilancia Electrónica creada exitosamente', response);
-          this.vigilanciaElectronica = { descripcion: '', tarifa: '', ays: null, iva: null, total: null };
+          this.vigilanciaElectronica = { descripcion: '', tarifa: '', ays: '', total: null };
           this.errorMessage = null;
           // Mostrar alerta de éxito
-          Swal.fire({
-            title:"! Hecho ¡",
-            text:"Puesto creado con Exito",
-            icon:"success",
-            timer:3000
-          }).then((response)=>{
-            if(response.isConfirmed){
-              this.router.navigate(['listarVigilanciaElectronica'])
-            }
-          })
+          Swal.fire('¡Éxito!', 'Vigilancia Electrónica creada exitosamente', 'success');
+          this.router.navigate(['/listarVigilanciaElectronica']);
         },
         error => {
           console.error('Error creando vigilancia electrónica', error);

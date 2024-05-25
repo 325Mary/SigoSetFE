@@ -162,7 +162,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'editarObligacionContractual',component:EditarObligacionModalComponent},
 
 
-    { path: 'validarVigilancia', component:ValidarVigilanciaComponent},
+    { path: 'validarVigilancia/:idcentro_formacion', component:ValidarVigilanciaComponent},
     { path: 'crearVigilanciaElectronica', component:CrearVEComponent},
     { path: 'listarVigilanciaElectronica', component:ListarVEComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima

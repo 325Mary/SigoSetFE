@@ -22,9 +22,7 @@ export class EditarVEComponent  {
     const datosActualizados = {
       descripcion: this.vigiElSeleccionada.descripcion,
       tarifa: this.vigiElSeleccionada.tarifa,
-      ays: this.vigiElSeleccionada.ays,
-      iva: this.vigiElSeleccionada.iva,
-      total: this.vigiElSeleccionada.total
+      ays: this.vigiElSeleccionada.ays
     };
 
     // Llama al servicio para editar la vigilancia electrónica
@@ -59,12 +57,14 @@ export class EditarVEComponent  {
     this.closeModal.emit();
   }
 
-  calcularTotales(): void {
-    // Calcula los valores de Ays, IVA y Total a partir de la tarifa ingresada
-    // Puedes utilizar la lógica de cálculo que tengas en tu backend o adaptarla aquí mismo
-    // Por ejemplo:
-    this.vigiElSeleccionada.ays = this.vigiElSeleccionada.tarifa * 0.08;
-    this.vigiElSeleccionada.iva = this.vigiElSeleccionada.tarifa * 0.019;
-    this.vigiElSeleccionada.total = this.vigiElSeleccionada.tarifa + this.vigiElSeleccionada.ays + this.vigiElSeleccionada.iva;
+    calcularTotal() {
+    if (this.vigiElSeleccionada.tarifa && this.vigiElSeleccionada.ays) {
+      const tarifa = parseFloat(this.vigiElSeleccionada.tarifa);
+      const ays = parseFloat(this.vigiElSeleccionada.ays);
+      this.vigiElSeleccionada.total = (tarifa + ays) / 2;
+    } else {
+      this.vigiElSeleccionada.total = null;
+    }
   }
+
 }

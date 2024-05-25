@@ -23,25 +23,14 @@ export class PuestosVigilanciaService {
   }
 
   crearPuesto(puestoData: any): Observable<any> {
-    const url = `${this.baseUrl}crearPuesto`;
-    return this.httpClient.get<any>(url,puestoData);
+    return this.httpClient.post(`${this.baseUrl}crearPuesto`, puestoData);
   }
 
   editarPuesto(idpuesto_vigilancia: number, nuevoPuestoData: any): Observable<any> {
     const url = `${this.baseUrl}editarPuesto/${idpuesto_vigilancia}`;
     return this.httpClient.get<any>(url,nuevoPuestoData);  }
 
-  eliminarPuesto(idpuesto_vigilancia: number): Observable<any> {
-    const url = `${this.baseUrl}eliminarPuesto/${idpuesto_vigilancia}`;
-    return this.httpClient.get<any>(url);  }
-
-  calcularTotal(tarifa: number): number {
-      const ays = tarifa *  0.08;
-      const iva = (tarifa + ays )* 0.19;
-      const total = tarifa + iva + ays;
-      return total;
-    }
-    
-
-
+  eliminarPuesto(id: number): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrl}eliminarPuesto/${id}`);
+  }
 }

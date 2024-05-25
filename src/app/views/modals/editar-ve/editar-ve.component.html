@@ -12,7 +12,7 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="tarifa">Tarifa:</label>
-                <input type="number" class="form-control" id="tarifa" [(ngModel)]="vigiElSeleccionada.tarifa" (change)="calcularTotales()">
+                <input type="number" class="form-control" id="tarifa" [(ngModel)]="vigiElSeleccionada.tarifa" (input)="calcularTotal()">
             </div>
         </div>
     </div>
@@ -20,16 +20,9 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="ays">Ays:</label>
-                <input type="number" class="form-control" id="ays" [(ngModel)]="vigiElSeleccionada.ays" disabled>
+                <input type="number" class="form-control" id="ays" [(ngModel)]="vigiElSeleccionada.ays" >
             </div>
         </div>
-        <div class="col-6">
-            <div class="form-group">
-                <label for="iva">IVA:</label>
-                <input type="number" class="form-control" id="iva" [(ngModel)]="vigiElSeleccionada.iva" disabled>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-6">
             <div class="form-group">

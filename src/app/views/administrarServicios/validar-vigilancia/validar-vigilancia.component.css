@@ -68,3 +68,21 @@
     display: none;
   }
     
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
+    z-index: 9999; /* Asegura que esté por encima de otros elementos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loading-text {
+    font-size: 24px; /* Tamaño grande de fuente */
+    color: white; /* Texto blanco */
+  }
+  

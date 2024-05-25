@@ -19,8 +19,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let vigilancia of vigilanciasElectronicas">
-      <td>{{ vigilancia.idvigilancia_electronica }}</td>
+     <tr *ngFor="let vigilancia of vigilanciasElectronicas; let i = index">
+    <td>{{ i + 1 }}</td>
       <td>{{ vigilancia.descripcion }}</td>
       <td>{{ vigilancia.tarifa | number: '1.0-0' }}</td>
       <td>{{ vigilancia.ays | number: '1.0-0' }}</td>
