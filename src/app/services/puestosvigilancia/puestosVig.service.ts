@@ -13,7 +13,7 @@ export class PuestosVigilanciaService {
   constructor(private httpClient: HttpClient) { }
 
   obtenerPuestos(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}optenertodospuestosvig`);
+    return this.httpClient.get(`${this.baseUrl}puestos`);
   }
 
   obtenerPuestoPorId(id: number): Observable<any> {
@@ -24,8 +24,8 @@ export class PuestosVigilanciaService {
     return this.httpClient.post(`${this.baseUrl}crearPuesto`, puestoData);
   }
 
-  editarPuesto(id: number, nuevoPuestoData: any): Observable<any> {
-    return this.httpClient.put(`${this.baseUrl}editarpuestovig/${id}`, nuevoPuestoData);
+  editarPuesto(idpuesto_vigilancia: number, nuevoPuestoData: any): Observable<any> {
+    return this.httpClient.put(`${this.baseUrl}editarPuesto/${idpuesto_vigilancia}`, nuevoPuestoData);
   }
 
   eliminarPuesto(id: number): Observable<any> {

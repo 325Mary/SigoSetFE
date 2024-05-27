@@ -55,6 +55,7 @@ import {CrearVEComponent  } from "./views/VigilanciaElectronica/crear-ve/crear-v
 import { ListarVEComponent } from './views/VigilanciaElectronica/listar-ve/listar-ve.component';
 import { EditarVEComponent } from './views/modals/editar-ve/editar-ve.component';
 import { ListSedesXcentroComponent } from './views/modals/list-sedes-xcentro/list-sedes-xcentro.component';
+import { EditarVHumanaComponent } from './views/modals/editar-vhumana/editar-vhumana.component';
 
 @NgModule({
   imports: [
@@ -118,6 +119,7 @@ import { ListSedesXcentroComponent } from './views/modals/list-sedes-xcentro/lis
     ListarVEComponent,
     EditarVEComponent,
     ListSedesXcentroComponent,
+    EditarVHumanaComponent,
   ],
   providers: [
     LoginService,

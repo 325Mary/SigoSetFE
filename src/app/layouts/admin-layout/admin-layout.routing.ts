@@ -129,6 +129,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'validarVigilancia/:idcentro_formacion', component:ValidarVigilanciaComponent},
     { path: 'crearVigilanciaElectronica', component:CrearVEComponent},
     { path: 'listarVigilanciaElectronica', component:ListarVEComponent},
+    { path: 'listarModulos', component: ListaModuloComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

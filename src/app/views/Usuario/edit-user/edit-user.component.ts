@@ -69,7 +69,8 @@ export class EditUserComponent implements OnInit {
   }
 
   submitForm() {
+    const { perfil, ...filteredData } = this.userData.user;
+
     // Llamar a la función para editar los datos del usuario
-    this.editUser(this.userId, this.userData.user);
-  }
+    this.editUser(this.userId, filteredData);  }
 }
