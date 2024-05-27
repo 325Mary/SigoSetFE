@@ -16,19 +16,32 @@
 
 /* Estilos para los botones */
 .btn {
-    background-color: #007bff; /* Color de fondo del botón primario */
-    border-color: #007bff; /* Color del borde del botón primario */
+    background-color: #012349; /* Color de fondo del botón primario */
+    border-radius: 5px;/* Color del borde del botón primario */
 }
 
-.btn-secondary {
-    background-color: #6c757d; /* Color de fondo del botón secundario */
-    border-color: #6c757d; /* Color del borde del botón secundario */
-}
+
+
 
 /* Estilos para el botón de cerrar en la cabecera */
-.btn-close {
-    color: #333; /* Color del icono de cierre */
+.boton {
+    width: 10%;
+    padding: 3px;
+    left: 6px;
+    border-radius:5px ;
+    font-weight:bolder ;
+    right: 6px;
+    top: 3px;
+    color: #012349;
+    background-color: #ffffff; /* Color del icono de cierre */
 }
+
+@media screen and (max-width: 800px) {
+    .boton{
+        width: 30%;
+    }   
+}
+
 
 /* Estilos para los campos de formulario */
 .form-group {

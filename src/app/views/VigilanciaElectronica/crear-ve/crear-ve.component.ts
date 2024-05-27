@@ -47,7 +47,7 @@ export class CrearVEComponent {
           console.error('Error creando vigilancia electrónica', error);
           this.errorMessage = 'Error creando vigilancia electrónica. Por favor, intenta nuevamente.';
           // Mostrar alerta de error
-          Swal.fire('¡Error!', 'Error creando vigilancia electrónica. Por favor, intenta nuevamente.', 'error');
+          Swal.fire('¡Error!', 'Error creando vigilancia electrónica ya existe.', 'error');
         }
       );
   }

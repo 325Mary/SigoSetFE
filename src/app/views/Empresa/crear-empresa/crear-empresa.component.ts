@@ -68,5 +68,20 @@ export class CrearEmpresaComponent {
         this.nuevaEmpresa.email_representantel
     );
 }
+//   camposCompletos(): boolean {
+//     return !!(
+//         this.nuevaEmpresa.nombre_empresa &&
+//         this.nuevaEmpresa.nit_empresa &&
+//         this.nuevaEmpresa.direccion_empresa &&
+//         this.nuevaEmpresa.telefono_empresa &&
+//         this.nuevaEmpresa.email_empresa &&
+//         this.nuevaEmpresa.persona_contacto &&
+//         this.nuevaEmpresa.telefono_personac &&
+//         this.nuevaEmpresa.email_personac &&
+//         this.nuevaEmpresa.representante_legal &&
+//         this.nuevaEmpresa.telefono_representantel &&
+//         this.nuevaEmpresa.email_representantel
+//     );
+// }
 
 }

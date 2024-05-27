@@ -1,18 +1,12 @@
-<!-- <button routerLink="/login/">Ir</button>
-<router-outlet></router-outlet>
-<app-sidebar></app-sidebar>
 
- -->
 
  <div class="wrapper" [ngClass]="{ 'sidebar-visible': isLoggedIn }">
   <!-- Contenido principal -->
+
   <div class="content" [ngClass]="{ 'content-with-sidebar': isLoggedIn }">
     <router-outlet></router-outlet>
     <app-navbar></app-navbar> 
 
-    <div *ngIf="isMaps('maps')">
-      <app-footer></app-footer>
-    </div>
   </div>
 
   <!-- Sidebar (solo se muestra cuando está loggedIn) -->
@@ -25,22 +19,11 @@
   <div *ngIf="!isLoggedIn && !isHomepage()" class="full-width-content"></div>
 
 
-  <!-- <div class="main-panel" [ngStyle]="{ 'margin-left': isLoggedIn ? '250px' : '0' }" #mainPanel>
-    <div class="content">
-      <router-outlet></router-outlet>
-      <app-navbar></app-navbar> 
-
-      <div *ngIf="isMaps('maps')">
-        <app-footer></app-footer>
-      </div>
-    </div>
-  </div> -->
-
   <div *ngIf="!isLoggedIn && !isHomepage()" class="full-width-content"></div>
 
 
 
-  <!-- <div class="fixed-plugin">
+ <!-- <div class="fixed-plugin">
       <div class="dropdown show-dropdown open show">
           <a href="#" data-toggle="dropdown" aria-expanded="true">
               <i class="fa fa-cog fa-2x"> </i>
@@ -61,5 +44,6 @@
               </li>
           </ul>
       </div>
-  </div> -->
+  </div>  -->
+
 </div>

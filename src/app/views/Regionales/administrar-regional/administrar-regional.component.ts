@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegionalService } from '../../../services/regional/regional.service';
+import Swal from 'sweetalert2';
+import { ViewChild } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { log } from 'console';
 
 @Component({
   selector: 'app-administrar-regional',
@@ -8,6 +11,8 @@ import { RegionalService } from '../../../services/regional/regional.service';
   styleUrls: ['./administrar-regional.component.css']
 })
 export class AdministrarRegionalComponent implements OnInit {
+
+  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
   errorMessage: string = '';
   regionales: any[]=[];
 

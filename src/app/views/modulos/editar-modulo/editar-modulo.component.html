@@ -1,0 +1,26 @@
+<h1>
+    Editar Módulo</h1>
+<div>
+    <form ![formGroup]="moduloForm">
+        <div>
+            <label for="modulo">Nombre del Módulo</label>
+            <input id="modulo" type="text" formControlName="modulo">
+        </div>
+        <div>
+            <label for="url_modulo">URL del Módulo</label>
+            <input id="url_modulo" type="text" formControlName="url_modulo">
+        </div>
+        <div>
+            <label for="icono">Icono</label>
+            <input id="icono" type="text" formControlName="icono">
+        </div>
+        <div>
+            <label for="orden">Orden</label>
+            <input id="orden" type="number" formControlName="orden">
+        </div>
+    </form>
+</div>
+<div>
+    <button type="button" class="warn" (click)="onCancel()">Cancelar</button>
+    <button type="button" class="primary" (click)="onSubmit()">Guardar</button>
+</div>

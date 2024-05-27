@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-header">
+        Administrar Obligaciones Contractuales
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Obligación Contractual</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let obligacion of obligaciones">
+                    <td>{{ obligacion.id_obligaciones_contractuales }}</td>
+                    <td>{{ obligacion.obligacion_contractual }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary" (click)="editarObligacion(obligacion)">
+                <i class="bi bi-pencil"></i>
+              </button>
+                        <button class="btn btn-sm btn-secondary" (click)="verObligacion(obligacion)">
+                <i class="bi bi-eye"></i>
+              </button>
+                        <button class="btn btn-sm btn-danger" (click)="eliminarObligacion(obligacion.id_obligaciones_contractuales)">
+                <i class="bi bi-trash"></i>
+              </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

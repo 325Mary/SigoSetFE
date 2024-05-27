@@ -1,0 +1,56 @@
+<!-- <div class="container cont-table">
+    <div class="p-grid form-cont">
+        <div class="card">
+            <h2>Crear Nuevo Módulo</h2>
+
+            <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+            <form ![formGroup]="moduloForm" (submit)="crearModulo()">
+                <div class="items-form ">
+                    <label for="modulo">Nombre del Módulo:</label>
+                    <input type="text" id="modulo" formControlName="modulo" class="p-inputtext" />
+
+                    <label for="url_modulo">URL del Módulo:</label>
+                    <input type="text" id="url_modulo" formControlName="url_modulo" class="p-inputtext" />
+                </div>
+                <div class="items-form col-4">
+                    <label for="icono">Icono:</label>
+                    <input type="text" id="icono" formControlName="icono" class="p-inputtext" />
+
+                    <label for="orden">Orden:</label>
+                    <input type="number" id="orden" formControlName="orden" class="p-inputtext" />
+                </div>
+                <button type="submit" class="btn-primary">Crear Módulo</button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="container cont-table">
+    <div class="p-grid form-cont">
+        <div class="card">
+            <h2>Crear Nuevo Módulo</h2>
+
+            <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+
+            <form !![formGroup]="moduloForm" (ngSubmit)="crearModulo()">
+                <div class="items-form ">
+                    <label for="modulo">Nombre del Módulo:</label>
+                    <input type="text" id="modulo" formControlName="modulo" class="p-inputtext" />
+
+                    <label for="url_modulo">URL del Módulo:</label>
+                    <input type="text" id="url_modulo" formControlName="url_modulo" class="p-inputtext" />
+                </div>
+                <div class="items-form col-4">
+                    <label for="icono">Icono:</label>
+                    <input type="text" id="icono" formControlName="icono" class="p-inputtext" />
+
+                    <label for="orden">Orden:</label>
+                    <input type="number" id="orden" formControlName="orden" class="p-inputtext" />
+                </div>
+                <button type="submit" class="btn-primary">Crear Módulo</button>
+            </form>
+        </div>
+    </div>
+</div>

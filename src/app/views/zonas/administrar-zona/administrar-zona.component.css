@@ -1,0 +1,45 @@
+button {
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+}
+
+#boton_editar {
+  color: blue;
+}
+
+#boton_delete {
+  color: red;
+}
+
+#boton_ver {
+  color: green;
+}
+
+.icono {
+  transition: transform 0.1s ease-in-out;
+}
+
+.icono:hover {
+  transform: rotate(
+    -20deg
+  );
+}
+#boton_ver :hover{
+       width: 50px;
+      }
+
+      .modal {
+        display: none; /* Por defecto oculto */
+       
+      }
+      
+      .modal.show {
+        display: block; /* Mostrar cuando la clase .show está presente */
+      }
+      
+      .btn {
+        background-color: #165598; /* Color de fondo del botón primario */
+        border-color: #007bff; /* Color del borde del botón primario */
+    }

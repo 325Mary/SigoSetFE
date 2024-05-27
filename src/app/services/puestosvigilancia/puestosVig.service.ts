@@ -16,8 +16,9 @@ export class PuestosVigilanciaService {
     return this.httpClient.get(`${this.baseUrl}puestos`);
   }
 
-  obtenerPuestoPorId(id: number): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}obtenerpuestovigporid/${id}`);
+  obtenerPuestoPorId(idpuesto_vigilancia: number): Observable<any> {
+    const url = `${this.baseUrl}puestos/${idpuesto_vigilancia}`;
+    return this.httpClient.get<any>(url);
   }
 
   crearPuesto(puestoData: any): Observable<any> {

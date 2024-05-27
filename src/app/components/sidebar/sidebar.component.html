@@ -112,7 +112,27 @@
                             </ul>
                         </div>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseZona" aria-expanded="false">
+                            <i class="material-icons">trip_origin</i>
+                            <p>Zona</p>
+                        </a>
+                        <!-- Ítems secundarios desplegables -->
+                        <div class="collapse" id="collapseZona">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/crear-zonas']">
+                                        <p>Crear Zona </p>
+                                    </a>
+                                </li>
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/list-zonas']">
+                                        <p>Administrar Zona</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
                     <!-- Ítems de Centro de Formación -->
                     <li  *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG " class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#collapseCentro" aria-expanded="false">

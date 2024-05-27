@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FooterComponent } from './footer/footer.component';
@@ -15,6 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ListUsersComponent } from '../views/Usuario/list-users/list-users.component';
 import {CrearUsersComponent} from '../views/Usuario/crear-users/crear-users.component';
 import { EditUserComponent } from '../views/Usuario/edit-user/edit-user.component'
+import { MatTableModule } from '@angular/material/table';
 // import { NgxPaginationModule } from 'ngx-pagination';
 
 import { PuestosVigilanciaComponent } from '../../app/views/puestos-vig/crear-puestos-vig/puestosVig.component';
@@ -28,11 +29,23 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
     FormsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-
+    MatTableModule,
+    RouterLink,
     //NgxPaginationModule
   ],
   declarations: [
-    FooterComponent,
+    //FooterComponent,
+    // LoginComponent,
+    // RestablecerPasswordComponent,
+    // CambiarPasswordComponent,
+    // CrearRegionalComponent,
+    // AdministrarRegionalComponent,
+    // PersonalizacionComponent,
+    // ListUsersComponent,
+    // CrearUsersComponent,
+    // EditUserComponent,
+    // CrearModulosComponent,
+    // ListaModuloComponent,
     // LoginComponent,
     // RestablecerPasswordComponent,
     // CambiarPasswordComponent,
@@ -47,7 +60,7 @@ import {VerUserComponent} from '../views/modals/ver-user/ver-user.component';
     
   ],
   exports: [
-    FooterComponent,
+    //FooterComponent,
    // LoginComponent,
     //CrearRegionalComponent,
     //AdministrarRegionalComponent

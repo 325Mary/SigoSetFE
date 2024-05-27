@@ -36,7 +36,8 @@ export class DetalleCentroFormacionComponent implements OnInit {
     this.getCentroFormacion()
   }
   getZona (id: number) {
-    this._zonaService.getZona(id).subscribe(data => {
+    //Cambiar depronto añadir cantidad en el .getzona()
+    this._zonaService.getZona().subscribe(data => {
       this.zona = data.data;
       console.log('zona')
       console.log(this.zona.Nombre_zona)

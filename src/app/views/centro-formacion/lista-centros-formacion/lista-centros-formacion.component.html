@@ -43,13 +43,11 @@
                                         </td>
                                         <td>
                                             <div class="comtainer">
-                                                <i  *ngIf="isLoggedIn && isSuperAdministrador"tooltip="Editar datos del centro de formacion 
-                                                " placement="bottom" showDelay="200" class="butonW"
+                                                <i  *ngIf="isLoggedIn && isSuperAdministrador"
                                                     [routerLink]="['/editarCentroFormacion/', item.idcentro_formacion]">
                                                     <span class="fa-solid  fa-edit"></span>
                                                 </i>
-                                                <i *ngIf="isLoggedIn && isSuperAdministrador" tooltip="Ver datos del centro de formacion 
-                                                " placement="bottom" showDelay="200" class="butonW"
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador" 
                                                     [routerLink]="['/detalleCentroFormacion/', item.idcentro_formacion]">
                                                     <span class="fa-solid fa-eye "></span>
                                                 </i>

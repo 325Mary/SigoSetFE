@@ -25,9 +25,7 @@ import {ListarPerfilesComponent} from '../../views/Perfiles/listar-perfiles/list
 
 import {ListarEmpresaComponent} from '../../views/Empresa/listar-empresa/listar-empresa.component';
 import {CrearEmpresaComponent} from '../../views/Empresa/crear-empresa/crear-empresa.component'
-//Regional Component
-//import { RegionalComponent } from 'app/components/regional/regional.component';
-//
+
 import { CrearRegionalComponent } from 'app/views/Regionales/crear-regional/crear-regional.component';
 import { AdministrarRegionalComponent } from 'app/views/Regionales/administrar-regional/administrar-regional.component';
 
@@ -39,17 +37,32 @@ import { HomeComponent } from 'app/views/ladding/home.component';
 import { ListaCentrosFormacionComponent } from 'app/views/centro-formacion/lista-centros-formacion/lista-centros-formacion.component';
 import { RegistrarCentroFormacionComponent } from 'app/views/centro-formacion/registrar-centro-formacion/registrar-centro-formacion.component';
 import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/detalle-centro-formacion/detalle-centro-formacion.component'
+
+import { CrearModulosComponent } from 'app/views/modulos/crear-modulos/crear-modulos.component';
+import { EditarModuloComponent } from 'app/views/modulos/editar-modulo/editar-modulo.component';
+import { DetalleModuloComponent } from 'app/views/modulos/detalle-modulo/detalle-modulo.component';
+import{ListaModuloComponent} from 'app/views/modulos/lista-modulos/lista-modulos.component'
+
 import { Component } from '@angular/core';
 
 //import { RegionalComponent } from 'app/components/regional/regional.component';
-import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'; 
 import {ListarContratosComponent} from 'app/views/contrato/listar-contratos/listar-contratos.component';
 import {AdministrarCentroComponent} from 'app/views/administrarServicios/administrar-centro/administrar-centro.component'
 import {SesionCaucadaComponent} from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
 import {AsignarPuestosVComponent} from 'app/views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component'
+
+import { CrearObligacionComponent } from 'app/views/obligacionesContractuales/crear-obligacion/crear-obligacion.component';
+import { AdministrarObligacionComponent } from 'app/views/obligacionesContractuales/administrar-obligacion/administrar-obligacion.component';
+import { VerObligacionModalComponent } from 'app/views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component'; 
+import { EditarObligacionModalComponent } from 'app/views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component'; 
+
 import { ValidarVigilanciaComponent } from "app/views/administrarServicios/validar-vigilancia/validar-vigilancia.component";
 import {  CrearVEComponent} from "app/views/VigilanciaElectronica/crear-ve/crear-ve.component";
 import { ListarVEComponent } from "app/views/VigilanciaElectronica/listar-ve/listar-ve.component";
+
+import { CrearContratoComponent } from 'app/views/modals/crear-contrato/crear-contrato.component';
+import { AdministrarZonaComponent } from 'app/views/zonas/administrar-zona/administrar-zona.component';
+import { CrearZonaComponent } from 'app/views/zonas/crear-zona/crear-zona.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -100,8 +113,11 @@ export const AdminLayoutRoutes: Routes = [
 
     {path:'list-regional',component:AdministrarRegionalComponent},
     {path:'create-regional',component:CrearRegionalComponent},
-    
   
+    {path: 'list-zonas',component:AdministrarZonaComponent},
+    {path: 'crear-zonas',component:CrearZonaComponent},
+
+
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},
     { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent},
@@ -126,6 +142,26 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'AdministrarCentros', component: AdministrarCentroComponent},
     { path: 'sesionCaducada', component: SesionCaucadaComponent},
     { path: 'asignarpuestosPorCentro/:idcentro_formacion', component: AsignarPuestosVComponent},
+    { path: 'crear-modulo', component: CrearModulosComponent },
+    {path: 'listarModulos', component: ListaModuloComponent},
+    {path: 'editarModulo',component: EditarModuloComponent},
+    {path: 'detalleModulo',component:DetalleModuloComponent},
+    { path: '', redirectTo: '/modulos', pathMatch: 'full' },
+
+    
+    {path:'crearObligacionContractual',component:CrearObligacionComponent},
+    {path:'administrarObligacionContractual',component:AdministrarObligacionComponent},
+    {path:'verObligacionContractual',component:VerObligacionModalComponent},
+    {path:'editarObligacionContractual',component:EditarObligacionModalComponent},
+
+
+    
+    {path:'crearObligacionContractual',component:CrearObligacionComponent},
+    {path:'administrarObligacionContractual',component:AdministrarObligacionComponent},
+    {path:'verObligacionContractual',component:VerObligacionModalComponent},
+    {path:'editarObligacionContractual',component:EditarObligacionModalComponent},
+
+
     { path: 'validarVigilancia/:idcentro_formacion', component:ValidarVigilanciaComponent},
     { path: 'crearVigilanciaElectronica', component:CrearVEComponent},
     { path: 'listarVigilanciaElectronica', component:ListarVEComponent},

@@ -14,7 +14,6 @@ export class EmpresaService {
 
   obtenerEmpresas(): Observable<any> {
     const url = `${this.baseUrl}listEmpresa`;
-
     return this.httpClient.get<any>(url);
   }
 
