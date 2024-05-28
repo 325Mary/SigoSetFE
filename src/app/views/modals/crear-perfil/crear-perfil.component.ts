@@ -20,7 +20,8 @@ export class CrearPerfilComponent implements OnInit {
   }
 
   crearPerfil() {
-    this.perfilService.crearPerfil(this.nuevoPerfil).subscribe(
+    if(this.validarPerfil()){
+       this.perfilService.crearPerfil(this.nuevoPerfil).subscribe(
       (response) => {
         console.log('Perfil creado exitosamente:', response.data);
         this.nuevoPerfil = {}; // Limpiar datos del nuevo perfil
@@ -54,6 +55,11 @@ export class CrearPerfilComponent implements OnInit {
         });
       }
     );
+    }
+   
+  }
+  validarPerfil():boolean{
+   return(this.nuevoPerfil.perfil);
   }
 
   close(): void {

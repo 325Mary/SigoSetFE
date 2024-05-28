@@ -17,9 +17,8 @@ export class EditarZonaComponent {
   @Input() zonaseleccionada: Zona;
   @Output() closeModal = new EventEmitter<void>();
   @Output() actualizarZona = new EventEmitter<void>();
-
   constructor(private zonaservice: ZonaService) {}
-
+  
   actuZona(): void {
     const zonaActualizada = { Nombre_zona: this.zonaseleccionada.Nombre_zona };
     this.zonaservice.editarZona(this.zonaseleccionada.idzona, zonaActualizada).subscribe(
@@ -49,8 +48,8 @@ export class EditarZonaComponent {
   }
 
   close(): void {
-    this.closeModal.emit();
+    this.closeModal.emit(); // Llama a closeModal.emit() para cerrar la modal
   }
-
+  
   ngOnInit(): void {}
 }

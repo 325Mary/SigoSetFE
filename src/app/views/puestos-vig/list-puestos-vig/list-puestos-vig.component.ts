@@ -19,8 +19,21 @@ export class ListPuestosVigComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>(); // Inicializa el dataSource
   }
 
+  
+  pageSize: number = 10; // Número de usuarios por página
+  currentPage: number = 1; // Página actual
+
   ngOnInit(): void {
     this.obtenerPuestos();
+  }
+  setPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+
+  // Función para obtener los números de página disponibles
+  getPages(): number[] {
+    const pageCount = Math.ceil(this.puestos.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
 
   obtenerPuestos(): void {

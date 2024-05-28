@@ -1,54 +1,54 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
-    <div class="card" style="width: 80rem;">
-      <div class="card-header card-header-sena-azul">
-
-<h2>Listado de Vigilancias Electrónicas</h2>
-      </div>
-<div class="card-body">
-
-<table class="table table-bordered text-center">
-    <thead>
-        <tr>
-      <th>ID</th>
-      <th>Descripción</th>
-      <th>Tarifa</th>
-      <th>Ays</th>
-      <th>IVA</th>
-      <th>Total</th>
-      <th>Accciones</th>
-    </tr>
-  </thead>
-  <tbody>
-     <tr *ngFor="let vigilancia of vigilanciasElectronicas; let i = index">
-    <td>{{ i + 1 }}</td>
-      <td>{{ vigilancia.descripcion }}</td>
-      <td>{{ vigilancia.tarifa | number: '1.0-0' }}</td>
-      <td>{{ vigilancia.ays | number: '1.0-0' }}</td>
-      <td>{{ vigilancia.iva | number: '1.0-0' }}</td>
-      <td>{{ vigilancia.total | number: '1.0-0' }}</td>
-      <td>
-        <button (click)="abrirModalEditar(vigilancia)" title="Editar vigilancia Electrónica">
-            <i class="bi bi-pencil-square"></i>
-          </button>
-          <button  (click)="eliminarVigilancia(vigilancia.idvigilancia_electronica)">
-            <i class="bi bi-trash"></i>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
+  <div class="card" style="width: 80rem;">
+    <div class="card-header card-header-sena-azul">
+      <h3>Listado de Vigilancias Electrónicas</h3>
     </div>
+    <div class="card-body">
+
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Tarifa</th>
+            <th>Ays</th>
+            <th>IVA</th>
+            <th>Total</th>
+            <th>Accciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vigilancia of vigilanciasElectronicas; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ vigilancia.descripcion }}</td>
+            <td>{{ vigilancia.tarifa | number: '1.0-0' }}</td>
+            <td>{{ vigilancia.ays | number: '1.0-0' }}</td>
+            <td>{{ vigilancia.iva | number: '1.0-0' }}</td>
+            <td>{{ vigilancia.total | number: '1.0-0' }}</td>
+            <td>
+              <button (click)="abrirModalEditar(vigilancia)" title="Editar vigilancia Electrónica">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button (click)="eliminarVigilancia(vigilancia.idvigilancia_electronica)" title="Eliminar vigilancia Electrónica">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>
 
 
 
 <div class="modal" [class.show]="mostrarModalEditar">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Contenido del modal -->
-        <app-editar-ve [vigiElSeleccionada]="vigiElSeleccionada" (closeModal)="handleCloseModal()" (actualizarList)="actualizarList()"></app-editar-ve>
-      </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Contenido del modal -->
+      <app-editar-ve [vigiElSeleccionada]="vigiElSeleccionada" (closeModal)="handleCloseModal()"
+        (actualizarList)="actualizarList()"></app-editar-ve>
     </div>
   </div>
+</div>

@@ -1,33 +1,42 @@
-<div class="user-details">
-    <div *ngIf="userData; else loading">
-      <form (submit)="submitForm()" class="user-form">
-        <div class="form-group">
-          <label for="email_usuario">Correo electrónico:</label>
-          <input type="email" id="email_usuario" name="email_usuario" [(ngModel)]="userData.user.email_usuario" class="form-control" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="nombre_usuario">Nombre:</label>
-          <input type="text" id="nombre_usuario" name="nombre_usuario" [(ngModel)]="userData.user.nombre_usuario" class="form-control" required>
-        </div>
-  
-        <div class="form-group">
-          <label for="apellido_usuario">Apellido:</label>
-          <input type="text" id="apellido_usuario" name="apellido_usuario" [(ngModel)]="userData.user.apellido_usuario" class="form-control" required>
-        </div>
-  
-      
-  
-        <div class="form-group">
-          <label for="telefono_usuario">Teléfono de contacto:</label>
-          <input type="text" id="telefono_usuario" name="telefono_usuario" [(ngModel)]="userData.user.telefono_usuario" class="form-control" required>
-        </div>
-  
-        <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
-      </form>
+<div class="container d-flex justify-content-center mt-5 mb-2">
+  <div class="card" style="width: 50rem;">
+    <div class="card-header card-header-sena-azul">
+      <h4 class="card-title">Editar Informacion del usuario: {{userData.user.nombre_usuario}} {{userData.user.apellido_usuario}}</h4>
     </div>
-    <ng-template #loading>
-      <p>Cargando detalles del usuario...</p>
-    </ng-template>
+    <div class="card-body">
+      <div class="user-details">
+        <div *ngIf="userData; else loading">
+          <form (submit)="submitForm()" class="user-form">
+            <div class="form-group">
+              <label for="email_usuario">Correo electrónico:</label>
+              <input type="email" id="email_usuario" name="email_usuario" [(ngModel)]="userData.user.email_usuario" class="form-control" required>
+            </div>
+      
+            <div class="form-group">
+              <label for="nombre_usuario">Nombre:</label>
+              <input type="text" id="nombre_usuario" name="nombre_usuario" [(ngModel)]="userData.user.nombre_usuario" class="form-control" required>
+            </div>
+      
+            <div class="form-group">
+              <label for="apellido_usuario">Apellido:</label>
+              <input type="text" id="apellido_usuario" name="apellido_usuario" [(ngModel)]="userData.user.apellido_usuario" class="form-control" required>
+            </div>
+      
+          
+      
+            <div class="form-group">
+              <label for="telefono_usuario">Teléfono de contacto:</label>
+              <input type="text" id="telefono_usuario" name="telefono_usuario" [(ngModel)]="userData.user.telefono_usuario" class="form-control" required>
+            </div>
+      
+            <button type="submit" class="btn btn-primary mx-auto">Guardar</button>
+          </form>
+        </div>
+        <ng-template #loading>
+          <p>Cargando detalles del usuario...</p>
+        </ng-template>
+      </div>
+      
+    </div>
   </div>
-  
+</div>

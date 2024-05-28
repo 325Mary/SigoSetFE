@@ -3,6 +3,9 @@
     margin-top: 30px;
     width: 70%;
 }
+.Precios{
+    justify-content: right;
+}
 
 /* Estilos para el título */
 .titulo-container {
@@ -39,18 +42,18 @@
 }
 
 /* Estilos para el botón */
-button[type="submit"] {
+/* button[type="submit"] {
     background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 0 auto; /* Esto centrará el botón horizontalmente */
-    display: block; /* Asegura que el botón se ajuste al ancho del contenedor */
-}
+    margin: 0 auto; 
+    display: block; 
+} */
 
 
- button[type="submit"]:hover {
+ /* button[type="submit"]:hover {
     background-color: #0056b3;
-}
+} */

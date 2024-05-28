@@ -99,8 +99,7 @@
                         <div class="collapse" id="collapseRegional">
                             <ul class="nav flex-column ml-3">
                                 <li routerLinkActive="active" class="nav-item">
-                                    <a class="nav-link" [routerLink]="['/create-regional']">
-                                        <i class="bi bi-plus-circle"></i>
+                                    <a class="nav-link" [routerLink]="['/create-regional']">                                
                                         <p>Crear Regionales</p>
                                     </a>
                                 </li>
@@ -112,6 +111,24 @@
                             </ul>
                         </div>
                     </li>
+                     <!-- Ítems de Departamentos -->
+                     <li  *ngIf="isLoggedIn && isSuperAdministrador" class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseDepartamento" aria-expanded="false">
+                            <i class="material-icons">trip_origin</i>
+                            <p>Departamentos</p>
+                        </a>
+                        <div class="collapse" id="collapseDepartamento">
+                            <ul class="nav flex-column ml-3">
+                                <li routerLinkActive="active" class="nav-item">
+                                    <a class="nav-link" [routerLink]="['/list-departamentos']">
+                                        <p class="icon-success">Administrar Departamentos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- --Zona menu-->
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#collapseZona" aria-expanded="false">
                             <i class="material-icons">trip_origin</i>

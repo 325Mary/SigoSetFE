@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./crear-ve.component.css']
 })
 export class CrearVEComponent {
-  vigilanciaElectronica = {
+  vigilanciaElectronica  :any= {
     descripcion: '',
     tarifa: '',
     ays: '',
@@ -31,9 +31,17 @@ export class CrearVEComponent {
     }
   }
 
+  validarElectronica():boolean{
+    return(
+      this.vigilanciaElectronica.descripcion &&
+      this.vigilanciaElectronica.tarifa
+    )
+
+  }
 
   onSubmit() {
-    this.vigilanciaElectronicaService.crearVigilaciaElectronica(this.vigilanciaElectronica)
+    if(this.validarElectronica()){
+      this.vigilanciaElectronicaService.crearVigilaciaElectronica(this.vigilanciaElectronica)
       .subscribe(
         response => {
           console.log('Vigilancia Electrónica creada exitosamente', response);
@@ -50,5 +58,7 @@ export class CrearVEComponent {
           Swal.fire('¡Error!', 'Error creando vigilancia electrónica ya existe.', 'error');
         }
       );
+    }
+    
   }
 }

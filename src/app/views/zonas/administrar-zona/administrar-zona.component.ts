@@ -10,17 +10,16 @@ import Swal from 'sweetalert2';
 export class AdministrarZonaComponent {
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
   zona: any[] = []; // Inicializar como array vacío
-  showModal: boolean = false;
-  showModal1: boolean = false;
-
+ 
   terminoBusqueda: string = '';
 
+  showModalEditar: boolean = false;
   zonaSeleccionada: any = {}
   
   mostrarModalCrear: boolean = false; 
   mostrarModalEditar: boolean = false;
   mostrarModalVer: boolean = false;
-
+  showModalVer: boolean = false;
   idzona : number | null= null;
   noResultados: boolean = false; // Inicializar como false
 
@@ -33,20 +32,24 @@ export class AdministrarZonaComponent {
   actualizarZona(): void {
     this.obtenerZonas();
   }
-
-  closeModal(): void {
-    this.showModal = false;
-    this.mostrarModalCrear = false;
-    this.mostrarModalEditar = false;
+  verZona():void{
+    this.obtenerZonas();
   }
-  
+
   handleCloseModal(): void {
     this.closeModal();
   }
 
+  closeModal(): void {
+    this.showModalVer = false;
+    this.mostrarModalCrear = false;
+    this.mostrarModalEditar = false;
+  }
+  
+ 
   abrirModalVerZona(zona: any): void {
     this.zonaSeleccionada = zona;
-    this.showModal = true;
+    this.showModalVer = true;
     console.log('Modal abieto');
     
   }
@@ -55,6 +58,12 @@ export class AdministrarZonaComponent {
   abrirModalEditar() {
     this.mostrarModalEditar = true;
   }
+  abrirModalEditarZona(zona: any): void {
+    this.zonaSeleccionada = zona;
+    this.showModalEditar = true; // Cambia showModal a showModalEditar
+  }
+  
+  
 
   abrirModalVer() {
     this.mostrarModalVer = true;
@@ -63,9 +72,9 @@ export class AdministrarZonaComponent {
   obtenerZonas() {
     this.zonaservice.getZona().subscribe(
       (response) => {
-        this.zona = response.data; // Asignar directamente los datos recibidos
+        this.zona = response.data; 
         console.log('Zona ', this.zona);
-        this.filtrarZona(); // Filtrar zonas después de obtenerlas
+        this.filtrarZona(); 
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -87,11 +96,6 @@ export class AdministrarZonaComponent {
     )
   }
 
-  abrirModalEditarZona(zona: any): void {
-    this.zonaSeleccionada = zona;
-    console.log('Zonas: ', this.zonaSeleccionada);
-    this.mostrarModalEditar = true;
-  }
 
   EliminarZona(idzona: number): void {
     Swal.fire({

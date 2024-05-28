@@ -76,6 +76,9 @@ import { CrearZonaComponent } from './views/zonas/crear-zona/crear-zona.componen
 import { AdministrarZonaComponent } from './views/zonas/administrar-zona/administrar-zona.component';
 import { EditarZonaComponent } from './views/modals/editar-zona/editar-zona.component';
 import { VerZonaComponent } from './views/modals/ver-zona/ver-zona.component';
+import { ListarDepartamentosComponent } from './views/Departamentos/listar-departamentos/listar-departamentos.component';
+import { EditarDepartamentoComponent } from './views/modals/editar-departamento/editar-departamento.component';
+import { VerDepartamentoComponent } from './views/modals/ver-departamento/ver-departamento.component';
 
 
 @NgModule({
@@ -167,7 +170,11 @@ import { VerZonaComponent } from './views/modals/ver-zona/ver-zona.component';
     CrearObligacionComponent,
     AdministrarObligacionComponent,
     EditarObligacionModalComponent,
-    VerObligacionModalComponent
+    VerObligacionModalComponent,
+    ListarDepartamentosComponent,
+    EditarDepartamentoComponent,
+    VerDepartamentoComponent,
+  
   ],
   providers: [
     LoginService,

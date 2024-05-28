@@ -64,6 +64,7 @@ import { CrearContratoComponent } from 'app/views/modals/crear-contrato/crear-co
 import { AdministrarZonaComponent } from 'app/views/zonas/administrar-zona/administrar-zona.component';
 import { CrearZonaComponent } from 'app/views/zonas/crear-zona/crear-zona.component';
 
+import { ListarDepartamentosComponent } from 'app/views/Departamentos/listar-departamentos/listar-departamentos.component';
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -110,6 +111,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     {path:'',component :HomeComponent},
     { path: 'user-profile',   component: UserProfileComponent },
+
+    {path: 'list-departamentos',component:ListarDepartamentosComponent},
 
     {path:'list-regional',component:AdministrarRegionalComponent},
     {path:'create-regional',component:CrearRegionalComponent},

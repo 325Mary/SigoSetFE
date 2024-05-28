@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header card-header-sena-azul">
                         <h4 class="card-title ">Listado De Centros De Formacion</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
+                      
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -42,7 +42,7 @@
                                             {{item.email_centrof}}
                                         </td>
                                         <td>
-                                            <div class="comtainer">
+                                            <div class="container">
                                                 <i  *ngIf="isLoggedIn && isSuperAdministrador"
                                                     [routerLink]="['/editarCentroFormacion/', item.idcentro_formacion]">
                                                     <span class="fa-solid  fa-edit"></span>
@@ -56,6 +56,9 @@
                                                     (click)="eliminarCentroFormacion(item.idcentro_formacion)">
                                                     <span class="fa-solid fa-trash text-danger"></span>
                                                 </i> -->
+
+                                              
+
                                                 <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG" title="listar Puestos por centro" (click)="abrirModalVerPuestos(item)">
                                                     <span class="fas fa-shield"></span>
                                                 </i>
@@ -63,7 +66,7 @@
                                                     <span class="fas fa-user-secret"></span>
                                                 </i>
                                                 <i  *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG "title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
-                                                    <span class="fas fa-building"></span>
+                                                    <span class="fa-solid fa-list"></span>
                                                 </i>
                                                 <i  *ngIf="isLoggedIn &&  isOrdenadorG "title="Generar Reporte" [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
                                                     <span class="fas fa-file-pdf"></span>

@@ -16,6 +16,8 @@ export class ListarEmpresaComponent {
   showModal: boolean = false;
   showModal1: boolean = false;
 
+  pageSize: number = 10; // Número de usuarios por página
+  currentPage: number = 1; // Página actual
   empresaSeleccionada: any = {};
 
   mostrarModalCrear: boolean = false; 
@@ -105,6 +107,16 @@ eliminarEmpresa(idempresa: number): void {
   });
 }
 
+  // Función para cambiar de página
+  setPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+
+  // Función para obtener los números de página disponibles
+  getPages(): number[] {
+    const pageCount = Math.ceil(this.empresas.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
+  }
 filtrarEmpresas(): any[] {
   const empresasFiltradas = this.empresas.filter((empresa) => {
     return (

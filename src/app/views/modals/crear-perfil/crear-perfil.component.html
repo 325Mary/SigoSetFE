@@ -12,7 +12,7 @@
       <!-- Agrega más campos según sea necesario para tu perfil -->
 
       <div class="d-flex justify-content-between w-100">
-          <button type="submit" class="btn ">Crear Perfil</button>
+          <button type="submit" class="btn "[disabled]="!validarPerfil()">Crear Perfil</button>
           <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
       </div>
   </form>

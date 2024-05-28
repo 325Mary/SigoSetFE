@@ -14,7 +14,6 @@ export class DepartamentoService {
 
   obtenerDepartamentos(): Observable<any> {
     const url = `${this.baseUrl}listMDepartamento`;
-
     return this.httpClient.get<any>(url);
   }
 

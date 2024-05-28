@@ -7,7 +7,10 @@ btn{
   margin-top: 30px;
   width: 60%;
 }
-
+.profile-settings{
+  text-align: center;
+  justify-content: center;
+}
 /* Estilos para el título */
 .titulo-container {
   width: calc(100% - 60px); /* Ancho del título */
@@ -49,3 +52,28 @@ btn{
   color: black !important;
 }
 
+.button-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.button-list li {
+  margin-bottom: 10px; /* Espacio entre botones */
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgba(0, 35, 64, 1); /* Color de fondo */
+  color: white; /* Color del texto */
+  text-align: center;
+  text-decoration: none; /* Sin subrayado */
+  border-radius: 5px; /* Bordes redondeados */
+  transition: background-color 0.3s; /* Animación de transición */
+}
+
+.button:hover {
+  background-color: #ffffff;
+  color: rgba(0, 35, 64, 1); /* Color de fondo al pasar el ratón */
+  border: 2px solid rgba(0, 35, 64, 1);
+}

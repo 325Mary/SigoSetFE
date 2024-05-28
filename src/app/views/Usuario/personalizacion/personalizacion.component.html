@@ -1,16 +1,18 @@
-<div class="container">
-  <div class="titulo-container">
-      <h1 class="text-center titulo-perfiles">Configurar Usuario</h1>
-  </div>
-  <div class="form-container">
-<div class="profile-settings">
-    <h2>Configuración de perfil y aplicación</h2>
+<div class="container d-flex justify-content-center mt-5 mb-2">
+  <div class="card" style="width: 50rem;">
+    <div class="card-header card-header-sena-azul">
+      <h4 class="card-title text-sm-center">Personalizar perfil</h4>
+      <h5 class="card-category text-sm-center">Configuración de perfil y aplicación</h5>
+    </div>
 
-    <ul>
-        <!-- Utiliza routerLink con el parámetro userId -->
-        <li><a [routerLink]="['/cambiarPassword', userId]">Cambiar contraseña</a></li>
-        <li><a [routerLink]="['/editarUsuario', userId]">Datos del Usuario</a></li>
-    </ul>
+    <div class="card-body">
+      <div class="profile-settings">
+        <ul class="button-list">
+          <li><a [routerLink]="['/cambiarPassword', userId]" class="button">Cambiar contraseña</a></li>
+          <li><a [routerLink]="['/editarUsuario', userId]" class="button">Datos del Usuario</a></li>
+        </ul>
+      </div>
+
+    </div>
   </div>
-</div>
 </div>

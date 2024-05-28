@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../../services/usuario/login.service';
 import { PerfilService } from '../../../services/usuario/perfil.service';
-import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service'
+import { CentroFormacionService } from '../../../services/centro-formacion/centro-formacion.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -24,25 +24,32 @@ export class CrearUsersComponent {
     apellido_usuario: '',
     telefono_usuario: '',
     email_usuario: '',
-    // password: '',
     estado: ''
   };
   perfiles: Perfil[] = [];
   centrosF: any[] = [];
-  mostrarMensaje: boolean = false; 
-  constructor(private authservice: LoginService, private perfilService: PerfilService, private centroS: CentroFormacionService,  private router: Router,) {}
+  mostrarMensaje: boolean = false;
+  caracteresTelefono: boolean = false;
+  caracteresIdentificacion: boolean = false;
+
+  constructor(
+    private authService: LoginService,
+    private perfilService: PerfilService,
+    private centroS: CentroFormacionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.obtenerPerfiles();
-    this.obtenerCentros()
+    this.obtenerCentros();
   }
 
   obtenerPerfiles() {
     this.perfilService.obtenerPerfiles().subscribe(
       (response: any) => {
-        console.log(response); // Verifica que los datos se estén recuperando correctamente
+        console.log(response);
         if (response && response.data && response.data.length > 0) {
-          this.perfiles = response.data[0]; // Asigna el primer elemento del primer array
+          this.perfiles = response.data[0];
         } else {
           console.error('No se han recuperado perfiles');
         }
@@ -52,12 +59,13 @@ export class CrearUsersComponent {
       }
     );
   }
+
   obtenerCentros() {
     this.centroS.getCentrosFormacion().subscribe(
       (response: any) => {
-        console.log(response); // Verifica que los datos se estén recuperando correctamente
+        console.log(response);
         if (response && response.data && response.data.length > 0) {
-          this.centrosF = response.data; // Asigna el primer elemento del primer array
+          this.centrosF = response.data;
         } else {
           console.error('No se han recuperado centros de formacion');
         }
@@ -70,50 +78,50 @@ export class CrearUsersComponent {
 
   onSubmit() {
     if (this.validarFormulario()) {
-      this.authservice.registrarUsuario(this.registroData).subscribe(
+      this.authService.registrarUsuario(this.registroData).subscribe(
         response => {
-          // Registro exitoso, mostrar mensaje de éxito
           Swal.fire({
             icon: 'success',
             title: '¡Registro exitoso!',
             text: 'El usuario ha sido registrado correctamente.'
-          });
-          this.router.navigateByUrl('/listarUsuarios')
-          // Aquí puedes realizar cualquier otra acción necesaria después del registro exitoso
-          console.log(response);
+          }).then((response)=>{
+            this.router.navigate(['/listarUsuarios'])
+          })
         },
         error => {
-          // Captura el mensaje de error del back
           const errorBack = error.error ? error.error.message : 'Error desconocido';
-  
-          // Muestra el error en el Sweet Alert
           Swal.fire({
             icon: 'error',
             title: '¡Error!',
             text: errorBack
           });
-  
-          console.error('Error del back:', error);
+          console.error('Error del backend:', error);
         }
       );
     } else {
       console.error('Formulario no válido');
     }
   }
-  
 
   verificarEmail() {
-    // Verifica si el campo de email tiene algún valor y si falta el símbolo '@'
     this.mostrarMensaje = this.registroData.email_usuario && !this.validarEmail(this.registroData.email_usuario);
   }
-  
+
   validarEmail(email: string): boolean {
-    // Verifica si el email contiene el símbolo '@'
     return email.includes('@');
   }
-  
+
+  verificarTelefono() {
+    this.mostrarMensaje = this.registroData.telefono_usuario && !this.validarTelefono(this.registroData.telefono_usuario);
+    this.caracteresTelefono = this.registroData.telefono_usuario.length > 10;
+  }
+
+  validarTelefono(telefono_usuario: string): boolean {
+    const telefonoRegex = /^\d{10}$/;
+    return telefonoRegex.test(telefono_usuario);
+  }
+
   validarFormulario(): boolean {
-    // Realiza la validación del formulario aquí, por ejemplo:
     const emailValido = this.validarEmail(this.registroData.email_usuario);
     return (
       this.registroData.idperfil &&
@@ -122,11 +130,27 @@ export class CrearUsersComponent {
       this.registroData.nombre_usuario &&
       this.registroData.apellido_usuario &&
       this.registroData.telefono_usuario &&
-      emailValido && // Email válido
+      emailValido &&
       this.registroData.estado
     );
   }
-  
-  
 
+  onInput(event: any, campo: string) {
+    const input = event.target.value;
+    if (input.length > 10) {
+      if (campo === 'telefono_usuario') {
+        this.caracteresTelefono = true;
+        this.registroData.telefono_usuario = input.slice(0, 10);
+      } else if (campo === 'identificacion') {
+        this.caracteresIdentificacion = true;
+        this.registroData.identificacion = input.slice(0, 10);
+      }
+    } else {
+      if (campo === 'telefono_usuario') {
+        this.caracteresTelefono = false;
+      } else if (campo === 'identificacion') {
+        this.caracteresIdentificacion = false;
+      }
+    }
+  }
 }
