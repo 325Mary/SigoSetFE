@@ -4,9 +4,9 @@
       <h4 class="card-title">Listado de Departamentos</h4>
     </div>
     <div class="card-body">
-      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+     <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
         <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarDep()" [(ngModel)]="terminoBusqueda">
-      </div>
+   
       <table class="table table-bordered text-center">
         <thead class="thead-light">
           <tr>
@@ -17,7 +17,7 @@
         </thead>
         <tbody>
           <ng-container *ngIf="!noResultados; else noResults">
-            <tr *ngFor="let departamento of departamentosFiltrados">
+            <tr *ngFor="let departamento of departamentos">
               <td>{{ departamento.iddepartamento }}</td>
               <td>{{ departamento.departamento }}</td>
               <td>
@@ -40,6 +40,26 @@
           </ng-template>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.show]="mostrarModalEditar"> 
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-editar-departamento [departamentoSeleccionado]="departamentoSeleccionado" 
+      (closeModal)="closeModal()"
+      (actualizarDepartamento)="actualizarDepartamentos()"></app-editar-departamento>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.show]="mostrarModalVer"> 
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-ver-departamento [departamentoSeleccionado]="departamentoSeleccionado" 
+      (closeModal)="closeModal()"
+      (verZona)="verDepartamneto()"></app-ver-departamento>
     </div>
   </div>
 </div>

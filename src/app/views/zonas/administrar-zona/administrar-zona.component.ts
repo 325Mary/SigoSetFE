@@ -44,6 +44,7 @@ export class AdministrarZonaComponent {
     this.showModalVer = false;
     this.mostrarModalCrear = false;
     this.mostrarModalEditar = false;
+    this.showModalEditar = false
   }
   
  
@@ -57,6 +58,8 @@ export class AdministrarZonaComponent {
 
   abrirModalEditar() {
     this.mostrarModalEditar = true;
+    this.showModalVer = true;
+
   }
   abrirModalEditarZona(zona: any): void {
     this.zonaSeleccionada = zona;

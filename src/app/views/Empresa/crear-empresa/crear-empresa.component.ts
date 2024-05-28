@@ -23,6 +23,12 @@ export class CrearEmpresaComponent implements OnInit {
     email_representantel: ''
   };
   mostrarMensaje: boolean = false;
+  errores: any = {
+    telefono_empresa: false,
+    nit: false,
+    telefono_personac: false,
+    telefono_representantel: false
+  };
 
   constructor(private empresaService: EmpresaService, private router: Router) { }
 
@@ -66,30 +72,54 @@ export class CrearEmpresaComponent implements OnInit {
   }
 
   // Validaciones
-  verificarEmail() {
-    this.mostrarMensaje = !this.validarEmail(this.nuevaEmpresa.email_empresa) || !this.validarEmail(this.nuevaEmpresa.email_personac) || !this.validarEmail(this.nuevaEmpresa.email_representantel);
+  verificarEmail(campo: string) {
+    if (campo === 'email_empresa') {
+      this.errores.email_empresa = !this.validarEmail(this.nuevaEmpresa.email_empresa);
+    } else if (campo === 'email_personac') {
+      this.errores.email_personac = !this.validarEmail(this.nuevaEmpresa.email_personac);
+    } else if (campo === 'email_representantel') {
+      this.errores.email_representantel = !this.validarEmail(this.nuevaEmpresa.email_representantel);
+    }
   }
 
   validarEmail(email: string): boolean {
     return email.includes('@');
   }
 
-  camposCompletos(): boolean {
-    const emailEmpresaV = this.validarEmail(this.nuevaEmpresa.email_empresa);
-    const emailPersona = this.validarEmail(this.nuevaEmpresa.email_personac);
-    const emailRepresentante = this.validarEmail(this.nuevaEmpresa.email_representantel);
-    return (
-      this.nuevaEmpresa.nombre_empresa &&
-      this.nuevaEmpresa.nit_empresa &&
-      this.nuevaEmpresa.direccion_empresa &&
-      this.nuevaEmpresa.telefono_empresa &&
-      emailEmpresaV &&
-      this.nuevaEmpresa.persona_contacto &&
-      this.nuevaEmpresa.telefono_personac &&
-      emailPersona &&
-      this.nuevaEmpresa.representante_legal &&
-      this.nuevaEmpresa.telefono_representantel &&
-      emailRepresentante
-    );
+  onInput(event: any, campo: string) {
+    const input = event.target.value;
+    const campos = ['telefono_empresa', 'nit', 'telefono_personac', 'telefono_representantel'];
+
+    if (campos.includes(campo)) {
+      if (input.length > 10) {
+          this.errores[campo] = 'El número no puede exceder los 10 caracteres';
+          this.nuevaEmpresa[campo] = input.slice(0, 10);
+      } else if (input.length < 10) {
+          this.errores[campo] = 'El número no debe tener menos 10 caracteres';
+      } else {
+          this.errores[campo] = null;
+      }
   }
+  
+  
+}
+
+camposCompletos(): boolean {
+  const emailEmpresaV = this.validarEmail(this.nuevaEmpresa.email_empresa);
+  const emailPersona = this.validarEmail(this.nuevaEmpresa.email_personac);
+  const emailRepresentante = this.validarEmail(this.nuevaEmpresa.email_representantel);
+  return (
+    this.nuevaEmpresa.nombre_empresa &&
+    this.nuevaEmpresa.nit_empresa &&
+    this.nuevaEmpresa.direccion_empresa &&
+    this.nuevaEmpresa.telefono_empresa &&
+    emailEmpresaV &&
+    this.nuevaEmpresa.persona_contacto &&
+    this.nuevaEmpresa.telefono_personac &&
+    emailPersona &&
+    this.nuevaEmpresa.representante_legal &&
+    this.nuevaEmpresa.telefono_representantel &&
+    emailRepresentante
+  );
+}
 }

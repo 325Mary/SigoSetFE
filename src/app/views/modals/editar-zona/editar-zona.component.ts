@@ -17,15 +17,15 @@ export class EditarZonaComponent {
   @Input() zonaseleccionada: Zona;
   @Output() closeModal = new EventEmitter<void>();
   @Output() actualizarZona = new EventEmitter<void>();
-  constructor(private zonaservice: ZonaService) {}
-  
+  constructor(private zonaservice: ZonaService) { }
+
   actuZona(): void {
     const zonaActualizada = { Nombre_zona: this.zonaseleccionada.Nombre_zona };
     this.zonaservice.editarZona(this.zonaseleccionada.idzona, zonaActualizada).subscribe(
       response => {
         console.log('Zona actualizada', response);
-        this.closeModal.emit();
         this.actualizarZona.emit();
+        this.closeModal.emit();
         Swal.fire({
           icon: 'success',
           title: 'Zona actualizada!',
@@ -48,8 +48,8 @@ export class EditarZonaComponent {
   }
 
   close(): void {
-    this.closeModal.emit(); // Llama a closeModal.emit() para cerrar la modal
+    this.closeModal.emit(); 
   }
-  
-  ngOnInit(): void {}
+
+  ngOnInit(): void { }
 }

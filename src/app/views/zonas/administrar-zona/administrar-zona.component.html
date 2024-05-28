@@ -25,9 +25,9 @@
                 <button (click)="abrirModalEditarZona(zona)" title="Editar Perfil" class="mr-1">
                   <i class="fas fa-pencil-alt icono" id="boton_editar"></i>
                 </button>
-                <button (click)="abrirModalVerZona(zona)" title="Ver Detalles" class="mr-2">
+                <!-- <button (click)="abrirModalVerZona(zona)" title="Ver Detalles" class="mr-2">
                   <i class="fas fa-eye icono" id="boton_ver"></i>
-                </button>
+                </button> -->
                 <button (click)="EliminarZona(zona.idzona)" title="Boton de eliminar">
                   <i class="fas fa-trash icono" id="boton_delete"></i>
                 </button>
@@ -55,7 +55,7 @@
   </div>
 </div>
 
-<div class="modal" [class.show]="showModalVer"> 
+<!-- <div class="modal" [class.show]="showModalVer"> 
   <div class="modal-dialog">
     <div class="modal-content">
       <app-ver-zona [zonaSelecionada]="zonaSeleccionada" 
@@ -63,4 +63,4 @@
       (verZona)="verZona()"></app-ver-zona>
     </div>
   </div>
-</div>
+</div> -->

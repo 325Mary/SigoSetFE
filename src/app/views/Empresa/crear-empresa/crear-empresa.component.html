@@ -14,7 +14,10 @@
                         </div>
                         <div class="form-group">
                             <label for="nit">NIT:</label>
-                            <input type="text" id="nit" name="nit" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.nit_empresa" required maxlength="10">
+                            <input type="number" id="nit" name="nit" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.nit_empresa" required maxlength="10" (input)="onInput($event, 'nit')">
+                            <div *ngIf="errores.nit" style="color: red;">
+                                El NIT no puede exceder los 10 caracteres.
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="direccion">Dirección:</label>
@@ -26,12 +29,14 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="telefonoEmpresa">Teléfono Empresa:</label>
-                            <input type="text" id="telefonoEmpresa" name="telefonoEmpresa" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_empresa" required maxlength="10">
+                            <input type="number" id="telefonoEmpresa" name="telefonoEmpresa" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_empresa" (input)="onInput($event, 'telefono_empresa')" required>
+                            <div *ngIf="errores.telefono_empresa" style="color: red;">{{ errores.telefono_empresa }}</div>
                         </div>
+                        
                         <div class="form-group">
                             <label for="emailEmpresa">Email Empresa:</label>
-                            <input type="email" id="emailEmpresa" name="emailEmpresa" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_empresa" (input)="verificarEmail()" required>
-                            <div *ngIf="mostrarMensaje && !validarEmail(nuevaEmpresa.email_empresa)" style="color: red;">El email debe contener el símbolo '@'</div>
+                            <input type="email" id="emailEmpresa" name="emailEmpresa" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_empresa" (input)="verificarEmail('email_empresa')" required>
+                            <div *ngIf="errores.email_empresa" style="color: red;">El email debe contener el símbolo '@'</div>
                         </div>
                     </div>
 
@@ -43,12 +48,15 @@
                         </div>
                         <div class="form-group">
                             <label for="telefonoContacto">Teléfono Persona de Contacto:</label>
-                            <input type="text" id="telefonoContacto" name="telefonoContacto" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_personac" required maxlength="10">
+                            <input type="number" id="telefonoContacto" name="telefonoContacto" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_personac" required maxlength="10" (input)="onInput($event, 'telefono_personac')">
+                            <div *ngIf="errores.telefono_personac" style="color: red;">
+                                {{errores.telefono_personac}}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="emailContacto">Email Persona de Contacto:</label>
-                            <input type="email" id="emailContacto" name="emailContacto" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_personac" (input)="verificarEmail()" required>
-                            <div *ngIf="mostrarMensaje && !validarEmail(nuevaEmpresa.email_personac)" style="color: red;">El email debe contener el símbolo '@'</div>
+                            <input type="email" id="emailContacto" name="emailContacto" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_personac" (input)="verificarEmail('email_personac')" required>
+                            <div *ngIf="errores.email_personac" style="color: red;">El email debe contener el símbolo '@'</div>
                         </div>
                     </div>
 
@@ -60,12 +68,15 @@
                         </div>
                         <div class="form-group">
                             <label for="telefonoRepresentante">Teléfono Representante Legal:</label>
-                            <input type="text" id="telefonoRepresentante" name="telefonoRepresentante" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_representantel" required maxlength="10">
+                            <input type="number" id="telefonoRepresentante" name="telefonoRepresentante" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_representantel" required maxlength="10" (input)="onInput($event, 'telefono_representantel')">
+                            <div *ngIf="errores.telefono_representantel" style="color: red;">
+                                {{errores.telefono_representantel}}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="emailRepresentante">Email Representante Legal:</label>
-                            <input type="email" id="emailRepresentante" name="emailRepresentante" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_representantel" (input)="verificarEmail()" required>
-                            <div *ngIf="mostrarMensaje && !validarEmail(nuevaEmpresa.email_representantel)" style="color: red;">El email debe contener el símbolo '@'</div>
+                            <input type="email" id="emailRepresentante" name="emailRepresentante" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_representantel" (input)="verificarEmail('email_representantel')" required>
+                            <div *ngIf="errores.email_representantel" style="color: red;">El email debe contener el símbolo '@'</div>
                         </div>
                     </div>
                 </div>

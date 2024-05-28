@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild,ElementRef } from '@angular/core';
 import { DepartamentoService } from 'app/services/Departamento/departamento.service';
 import Swal from 'sweetalert2';
-
+// 
 @Component({
   selector: 'app-listar-departamentos',
   templateUrl: './listar-departamentos.component.html',
   styleUrls: ['./listar-departamentos.component.css']
 })
-export class ListarDepartamentosComponent implements OnInit {
-  departamentos: any[] = [];
+export class ListarDepartamentosComponent{
+  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
+  departamentos: any[]=[]
   departamentosFiltrados: any[] = [];
   terminoBusqueda: string = '';
   noResultados: boolean = false;
@@ -21,40 +22,46 @@ export class ListarDepartamentosComponent implements OnInit {
   ngOnInit(): void {
     this.listarDepartamentos();
   }
+  handleCloseModal(): void {
+    this.closeModal();
+  }
 
-  listarDepartamentos() {
-    this.departamentoService.obtenerDepartamentos().subscribe(
-      (response) => {
-        if (response && response.data) {
-          this.departamentos = response.data;
-          this.departamentosFiltrados = response.data; // Inicializa los departamentos filtrados
-        } else {
-          this.departamentos = [];
-          this.departamentosFiltrados = [];
-        }
-        console.log('Estos son los departamentos', this.departamentos);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "!Departamentos listados correctamente¡",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      },
-      (error) => {
-        console.log('Error al obtener Departamentos', error);
-        Swal.fire({
-          position: "top-end",
-          icon: "warning",
-          title: "!No se pueden listar los Departamentos",
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
-    );
+  // listarDepartamentos() {
+  //   this.departamentoService.obtenerDepartamentos().subscribe(
+  //     (response) => {
+  //       this.departamentos=response[0]
+  //       console.log('Estos son los departamentos', this.departamentos);
+        
+  //          Swal.fire({
+  //         position: "top-end",
+  //         icon: "success",
+  //         title: "!Departamentos listados correctamente"+ this.departamentos,
+  //         showConfirmButton: false,
+  //         timer: 1500
+  //       });
+  //     },
+  //     (error) => {
+  //       console.log('Error al obtener Departamentos', error);
+  //       Swal.fire({
+  //         position: "top-end",
+  //         icon: "warning",
+  //         title: "!No se pueden listar los Departamentos",
+  //         showConfirmButton: false,
+  //         timer: 1500
+  //       });
+  //     }
+  //   );
+  // }
+  listarDepartamentos(): void {
+    this.departamentoService.obtenerDepartamentos().subscribe(response => {
+      this.departamentos = response.data[0];
+    });
   }
 
   actualizarDepartamentos(): void {
+    this.listarDepartamentos();
+  }
+  verDepartamneto():void{
     this.listarDepartamentos();
   }
 
@@ -62,9 +69,15 @@ export class ListarDepartamentosComponent implements OnInit {
     this.departamentoSeleccionado = departamento;
     this.mostrarModalEditar = true;
   }
+  abrirModalEditar() {
+    this.mostrarModalEditar = true;
+  }
 
   abrirModalVerDepartamento(departamento: any): void {
     this.departamentoSeleccionado = departamento;
+    this.mostrarModalVer = true;
+  }
+  abrirModalVer() {
     this.mostrarModalVer = true;
   }
 
@@ -110,5 +123,20 @@ export class ListarDepartamentosComponent implements OnInit {
       return departamento && departamento.departamento && departamento.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase());
     });
     this.noResultados = this.departamentosFiltrados.length === 0;
+  }
+
+  filtrarUsuarios(): void {
+    if (this.terminoBusqueda.trim() !== '') {
+      this.departamentosFiltrados = this.departamentos.filter((departamentos) => {
+        return (
+          departamentos.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) 
+      
+        );
+      });
+      this.noResultados = this.departamentosFiltrados.length === 0;
+    } else {
+      this.departamentosFiltrados = [...this.departamentos]; // Mostrar todos los usuarios si el término de búsqueda está vacío
+      this.noResultados = false;
+    }
   }
 }
