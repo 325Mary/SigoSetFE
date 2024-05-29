@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-header">
+        <input [(ngModel)]="terminoBusqueda" (input)="filtrarMunicipios()" type="text" class="form-control" placeholder="Buscar municipio">
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Municipio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let municipio of municipiosFiltrados">
+                    <td>{{ municipio.idmunicipio }}</td>
+                    <td>{{ municipio.municipio }}</td>
+                    <td>
+
+                        <button class="btn btn-warning btn-sm" (click)="abrirModalEditarMunicipio(municipio.idmunicipio)">
+                <i class="fa fa-pencil"></i>
+              </button>
+                        <button class="btn btn-danger btn-sm" (click)="eliminarMunicipio(municipio.idmunicipio)">
+                <i class="fa fa-trash"></i>
+              </button>
+                    </td>
+                </tr>
+                <tr *ngIf="noResultados">
+                    <td colspan="3" class="text-center">No se encontraron resultados</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

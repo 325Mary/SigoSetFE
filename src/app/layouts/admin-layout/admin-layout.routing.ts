@@ -66,6 +66,10 @@ import { CrearZonaComponent } from 'app/views/zonas/crear-zona/crear-zona.compon
 import { CrearModulosXperfilComponent } from "app/views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component";
 import { ListarModulosXperfilComponent } from "app/views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component";
 
+import { ListMunicipiosComponent } from 'app/views/list-municipios/list-municipios.component'; 
+import { VerMunicipioComponent } from 'app/views/modals/ver-municipios/ver-municipios.component';
+import { EditMunicipioComponent } from 'app/views/modals/edit-municipios/edit-municipios.component';
+
 import { ListarDepartamentosComponent } from 'app/views/Departamentos/listar-departamentos/listar-departamentos.component';
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -172,6 +176,12 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listarModulos', component: ListaModuloComponent},
     { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent},
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent},
-      { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
+     
+    
+    {path:'ListMunicipios',component:ListMunicipiosComponent},
+    {path:'VerMunicipios',component:VerMunicipioComponent},
+    {path:'EditMunicipios',component:EditMunicipioComponent},
+    
+    { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];
