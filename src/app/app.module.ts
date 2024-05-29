@@ -78,6 +78,9 @@ import { EditarZonaComponent } from './views/modals/editar-zona/editar-zona.comp
 import { VerZonaComponent } from './views/modals/ver-zona/ver-zona.component';
 
 import { EditarVHumanaComponent } from './views/modals/editar-vhumana/editar-vhumana.component';
+import { EditarModuloComponent } from "./views/modulos/editar-modulo/editar-modulo.component";
+import { CrearModulosXperfilComponent } from './views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component';
+import { ListarModulosXperfilComponent } from './views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component';
 
 @NgModule({
   imports: [
@@ -168,8 +171,11 @@ import { EditarVHumanaComponent } from './views/modals/editar-vhumana/editar-vhu
     CrearObligacionComponent,
     AdministrarObligacionComponent,
     EditarObligacionModalComponent,
-    VerObligacionModalComponent
+    VerObligacionModalComponent,
     EditarVHumanaComponent,
+    EditarModuloComponent,
+    CrearModulosXperfilComponent,
+    ListarModulosXperfilComponent,
   ],
   providers: [
     LoginService,

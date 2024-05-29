@@ -1,93 +1,84 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  AfterViewInit,ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { ModuloService, } from '../../../services/modulos/modulos.service';
-import { DetalleModuloComponent } from '../detalle-modulo/detalle-modulo.component';
-import { EditarModuloComponent } from '../editar-modulo/editar-modulo.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
+import Swal from 'sweetalert2';
 
-interface Modulo {
-  idmodulo: number;
-  id_modulo_padre: number;
-  modulo: string;
-  url_modulo: string;
-  icono: string;
-  orden: number;
-  hijos: number | null;
-}
 @Component({
   selector: 'app-lista-modulo',
   templateUrl: './lista-modulos.component.html',
   styleUrls: ['./lista-modulos.component.css']
 })
-export class ListaModuloComponent implements OnInit {
-  modulos: Modulo[] = [];
-  selectedModulo: Modulo | null = null;
-  errorMessage: string = '';
+export class ListaModuloComponent  {
+  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
+  showModal: boolean = false;
+  mostrarModalEditar: boolean = false; 
+  ModuloSeleccionado: any = {}
+  modulos: any[] = [];
 
-  //Borrar si es snesesario
-  displayedColumns: string[] = ['idmodulo', 'modulo', 'url_modulo', 'icono', 'acciones']; // Replace with your desired column names
-  //----------------------------------------------------------------------------------
-  constructor(private moduloService: ModuloService, public dialog: MatDialog) { }
+  constructor(private moduloService: ModuloService) {}
 
   ngOnInit(): void {
     this.obtenerModulos();
   }
 
-  obtenerModulos(): void {
+  obtenerModulos() {
     this.moduloService.obtenerModulos().subscribe(
-      (modulos) => {
-        this.modulos = modulos;
+      (response: any) => {
+        this.modulos = response.data[0];
       },
-      (error) => {
-        this.errorMessage = 'Error al obtener los módulos';
+      error => {
+        console.error('Error al obtener los módulos:', error);
       }
     );
   }
 
-  verDetalle(modulo: Modulo): void {
-    this.dialog.open(DetalleModuloComponent, {
-      width: '400px',
-      data: { modulo }
-    });
-  }
-
-  editarModulo(modulo: Modulo): void {
-    const dialogRef = this.dialog.open(EditarModuloComponent, {
-      width: '400px',
-      data: { modulo }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.obtenerModulos();
+  eliminarModulo(idmodulo: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.moduloService.eliminarModulo(idmodulo).subscribe(
+          () => {
+            this.modulos = this.modulos.filter(modulo => modulo.idmodulo !== idmodulo);
+            Swal.fire(
+              'Eliminado!',
+              'El módulo ha sido eliminado.',
+              'success'
+            );
+          },
+          error => {
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el módulo.',
+              'error'
+            );
+            console.error('Error al eliminar el módulo:', error);
+          }
+        );
       }
     });
   }
 
 
- obtenerModuloPorId(id: number): void {
-    this.moduloService.obtenerModuloPorId(id).subscribe(
-      (modulo) => this.selectedModulo = modulo,
-      (error) => this.errorMessage = 'Error al obtener el módulo'
-    );
+  closeModal(): void {
+    this.showModal = false;
+    this.mostrarModalEditar = false;
   }
   
-
-  eliminarModulo(id: number): void {
-    if (confirm('¿Estás seguro de eliminar este módulo?')) {
-      this.moduloService.eliminarModulo(id).subscribe(
-        () => {
-          this.obtenerModulos();
-        },
-        (error) => {
-          this.errorMessage = 'Error al eliminar el módulo';
-        }
-      );
-    }
+  abrirModalEditar(item: any): void {
+    console.log('Item seleccionado:', item);
+    this.ModuloSeleccionado = item;
+    this.mostrarModalEditar = true;
+    console.log('Centro seleccionado asignado en el padre:', this.ModuloSeleccionado);
   }
-
-
-  
-
+ 
+  handleCloseModal(): void {
+    this.mostrarModalEditar = false;
+  }
 }

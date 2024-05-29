@@ -1,118 +1,51 @@
-<!-- 
-<div class="container">
-    <h2>Listado de Módulos</h2>
-    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-        {{ errorMessage }}
-    </div>
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 60rem;">
+      <div class="card-header card-header-sena-azul">
+        <h4 class="card-title">Listar Módulo</h4>
+      </div>
+      <div class="card-body">
     <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Módulo</th>
-                <th>URL</th>
-                <th>Icono</th>
-                <th>Orden</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let modulo of modulos">
-                <td>{{ modulo.idmodulo }}</td>
-                <td>{{ modulo.modulo }}</td>
-                <td>{{ modulo.url_modulo }}</td>
-                <td>{{ modulo.icono }}</td>
-                <td>{{ modulo.orden }}</td>
-                <td>
-                    <button type="button" class="btn btn-primary p-flex" (click)="verDetalle(egreso)">Ver</button>
-
-                    <button class="btn btn-danger btn-sm" (click)="eliminarModulo(modulo.idmodulo)">Eliminar</button>
-                    <button class="btn btn-primary btn-sm" (click)="editarModulo(modulo)">Editar</button>
-                </td>
-            </tr>
-        </tbody>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Módulo</th>
+          <th>URL</th>
+          <th>Icono</th>
+          <th>Orden</th>
+          <th>Hijos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let modulo of modulos">
+          <td>{{ modulo.idmodulo }}</td>
+          <td>{{ modulo.modulo }}</td>
+          <td>{{ modulo.url_modulo }}</td>
+          <td><i class="fa" [ngClass]="modulo.icono"></i></td>
+          <td>{{ modulo.orden }}</td>
+          <td>{{ modulo.hijos }}</td>
+          <td>
+            <!-- Puedes agregar botones para editar/eliminar aquí -->
+            <button class="btn  btn-sm" (click)="abrirModalEditar(modulo)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarModulo(modulo.idmodulo)">Eliminar</button>
+        </td>
+        </tr>
+      </tbody>
     </table>
-</div> -->
-
-<div class="container">
-    <h2>Listado de Módulos</h2>
-
-    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-
-    <table mat-table ![dataSource]="modulos" class="mat-elevation-z8">
-        <ng-container matColumnDef="idmodulo">
-            <th mat-header-cell *matHeaderCellDef>ID</th>
-            <td mat-cell *matCellDef="let modulo">{{ modulo.idmodulo }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="modulo">
-            <th mat-header-cell *matHeaderCellDef>Módulo</th>
-            <td mat-cell *matCellDef="let modulo">{{ modulo.modulo }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="url_modulo">
-            <th mat-header-cell *matHeaderCellDef>URL</th>
-            <td mat-cell *matCellDef="let modulo">{{ modulo.url_modulo }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="icono">
-            <th mat-header-cell *matHeaderCellDef>Icono</th>
-            <td mat-cell *matCellDef="let modulo">{{ modulo.icono }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="orden">
-            <th mat-header-cell *matHeaderCellDef>Orden</th>
-            <td mat-cell *matCellDef="let modulo">{{ modulo.orden }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef>Acciones</th>
-            <td mat-cell *matCellDef="let modulo">
-                <button mat-icon-button color="primary" (click)="verDetalle(modulo)">
-        <mat-icon>visibility</mat-icon>
-      </button>
-                <button mat-icon-button color="accent" (click)="editarModulo(modulo)">
-        <mat-icon>edit</mat-icon>
-      </button>
-                <button mat-icon-button color="warn" (click)="eliminarModulo(modulo.idmodulo)">
-        <mat-icon>delete</mat-icon>
-      </button>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+  </div>
+    </div>
 </div>
 
-<div class="container">
-    <h2>Listado de Módulos</h2>
-    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-        {{ errorMessage }}
+<div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
+    <div class="modal-dialog modal-xl" style="width: 70%;"> <!-- Aquí puedes usar modal-lg o modal-xl -->
+        <div class="modal-content">
+            <!-- Contenido del modal -->
+            <app-editar-modulo
+    [ModuloSeleccionado]="ModuloSeleccionado"
+    [mostrarModal]="mostrarModalEditar"
+    (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
+</app-editar-modulo>
+
+        </div>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Módulo</th>
-                <th>URL</th>
-                <th>Icono</th>
-                <th>Orden</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let modulo of modulos">
-                <td>{{ modulo.idmodulo }}</td>
-                <td>{{ modulo.modulo }}</td>
-                <td>{{ modulo.url_modulo }}</td>
-                <td>{{ modulo.icono }}</td>
-                <td>{{ modulo.orden }}</td>
-                <td>
-                    <button mat-button (click)="verDetalle(modulo)">Ver</button>
-                    <button mat-button (click)="editarModulo(modulo)">Editar</button>
-                    <button mat-button (click)="eliminarModulo(modulo.idmodulo)">Eliminar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>
