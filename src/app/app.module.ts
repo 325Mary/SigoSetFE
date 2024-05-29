@@ -80,6 +80,10 @@ import { ListarDepartamentosComponent } from './views/Departamentos/listar-depar
 import { EditarDepartamentoComponent } from './views/modals/editar-departamento/editar-departamento.component';
 import { VerDepartamentoComponent } from './views/modals/ver-departamento/ver-departamento.component';
 
+import { EditarVHumanaComponent } from './views/modals/editar-vhumana/editar-vhumana.component';
+import { EditarModuloComponent } from "./views/modulos/editar-modulo/editar-modulo.component";
+import { CrearModulosXperfilComponent } from './views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component';
+import { ListarModulosXperfilComponent } from './views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component';
 
 @NgModule({
   imports: [
@@ -175,6 +179,10 @@ import { VerDepartamentoComponent } from './views/modals/ver-departamento/ver-de
     EditarDepartamentoComponent,
     VerDepartamentoComponent,
   
+    EditarVHumanaComponent,
+    EditarModuloComponent,
+    CrearModulosXperfilComponent,
+    ListarModulosXperfilComponent,
   ],
   providers: [
     LoginService,

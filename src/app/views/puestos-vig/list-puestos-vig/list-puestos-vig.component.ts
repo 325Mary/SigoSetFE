@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import Swal from 'sweetalert2';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-puestos-vig',
@@ -10,13 +11,21 @@ import Swal from 'sweetalert2';
   styleUrls: ['../list-puestos-vig/list-puestos-vig.component.css']
 })
 export class ListPuestosVigComponent implements OnInit {
+  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
+
   puestos: any[] = [];
   puestoData: any;
   errorMessage: string = '';
-  dataSource: MatTableDataSource<any>; // Agrega esta propiedad
+  dataSource: MatTableDataSource<any>;
+  showModal: boolean = false;
+  mostrarModalEditar: boolean = false;
+  puestoSeleccionado: any = {};
 
-  constructor(private puestosService: PuestosVigilanciaService) {
-    this.dataSource = new MatTableDataSource<any>(); // Inicializa el dataSource
+  constructor(
+    private puestosService: PuestosVigilanciaService,
+    private router: Router
+  ) {
+    this.dataSource = new MatTableDataSource<any>();
   }
 
   
@@ -40,8 +49,8 @@ export class ListPuestosVigComponent implements OnInit {
     this.puestosService.obtenerPuestos().subscribe(
       (data) => {
         this.puestos = data.data[0];
-        this.dataSource.data = this.puestos; // Actualiza el dataSource con los datos obtenidos
-        console.log('pv.', this.puestos)
+        this.dataSource.data = this.puestos;
+        console.log('pv.', this.puestos);
       },
       (error) => {
         this.errorMessage = 'Error al obtener los puestos';
@@ -103,5 +112,19 @@ export class ListPuestosVigComponent implements OnInit {
       }
     });
   }
-  
+
+  handleCloseModal(): void {
+    this.mostrarModalEditar = false;
+  }
+
+  actualizarLista(): void {
+    this.obtenerPuestos();
+  }
+
+  abrirModalEditar(puesto: any): void {
+    this.puestoSeleccionado = puesto;
+    this.mostrarModalEditar = true;
+    console.log(this.puestoSeleccionado);
+  }
 }
+

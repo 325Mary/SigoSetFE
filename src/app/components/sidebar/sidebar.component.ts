@@ -1,20 +1,20 @@
-// import { ListPuestosVigComponent } from './../list-puestos-vig/list-puestos-vig.component';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import {LoginService} from '../../services/usuario/login.service'
 import { Router, NavigationStart } from '@angular/router';
-import { TokenValidationService } from '../../services/VertificacionUser/token-validation.service';
 import { Subscription } from 'rxjs';
+import { ModulosXperfilService } from "../../services/modulos/modulos-xperfil.service";
+import { LoginService } from '../../services/usuario/login.service';
+import { TokenValidationService } from '../../services/VertificacionUser/token-validation.service';
 
 declare const $: any;
 declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
+  path: string;
+  title: string;
+  icon: string;
+  class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-  ];
+  { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+];
 
 @Component({
   selector: 'app-sidebar',
@@ -29,57 +29,41 @@ export class SidebarComponent implements OnInit {
   isSuperAdministrador = false;
   isOrdenadorG = false;
   currentRoute = '';
+  moduloXperfil: any[] = [];
+  moduleRoutes: { module: string, routes: any[] }[] = [];
+  collapsedModules: Set<string> = new Set();
 
-
-  constructor( private loginService: LoginService,
-     private router: Router,
-     private tokenValidationService: TokenValidationService,
-     private authService: LoginService,
-     private cdr: ChangeDetectorRef) { 
-      this.router.events.subscribe((val) => {
-        this.currentRoute = this.router.url;
-      });
-     }
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private tokenValidationService: TokenValidationService,
+    private authService: LoginService,
+    private modulosXperfilService: ModulosXperfilService,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.router.events.subscribe((val) => {
+      this.currentRoute = this.router.url;
+    });
+  }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
-
-
     this.checkAuthentication();
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.currentRoute = this.router.url;
         this.checkAuthentication();
-        
       }
     });
     this.loginStatusSubscription = this.authService.loginStatusChanged.subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
     });
   }
+
   isMobileMenu() {
-      if ($(window).width() > 991) {
-          return false;
-      }
-      return true;
+    return $(window).width() <= 991;
   };
 
-  // cerrarSesion() {
-  //   // Realizar la solicitud de cierre de sesión sin pasar ningún argumento
-  //   this.loginService.cerrarSesion().subscribe(
-  //     response => {
-  //       this.loginService.removerToken();
-  //       this.router.navigate(['/']);
-  //       history.replaceState(null, '', '/');
-  //     },
-  //     error => {
-  //       // Manejar errores (por ejemplo, mostrar un mensaje de error)
-  //       console.error('Error al cerrar sesión:', error);
-  //     }
-  //   );
-  // }
-  
-  
   async checkAuthentication() {
     try {
       const token = localStorage.getItem('token');
@@ -87,18 +71,52 @@ export class SidebarComponent implements OnInit {
         this.isLoggedIn = true;
         this.userData = await this.tokenValidationService.getUserData(token);
         this.setUserRoles(this.userData.idperfil);
-        console.log('isLogin:', this.userData)
+        this.obtenerModulosPorPerfil(this.userData.idperfil);
         this.cdr.detectChanges(); // Realizar detección de cambios
       }
     } catch (error) {
       console.error('Error al verificar la autenticación:', error);
     }
   }
+
   setUserRoles(idperfil: Number) {
     if (idperfil) {
       this.isSuperAdministrador = idperfil === 1;
       this.isOrdenadorG = idperfil === 2;
     }
   }
-  
+
+  obtenerModulosPorPerfil(idperfil: number) {
+    this.modulosXperfilService.obtenerModulosPorPerfil(idperfil).subscribe(
+      response => {
+        const groupedModules = response.data.reduce((acc, curr) => {
+          if (!acc[curr.modulo]) {
+            acc[curr.modulo] = [];
+          }
+          acc[curr.modulo].push(curr);
+          return acc;
+        }, {});
+
+        this.moduleRoutes = Object.keys(groupedModules).map(module => ({
+          module,
+          routes: groupedModules[module]
+        }));
+      },
+      error => {
+        console.error('Error al obtener los módulos por perfil:', error);
+      }
+    );
+  }
+
+  toggleCollapse(module: string) {
+    if (this.collapsedModules.has(module)) {
+      this.collapsedModules.delete(module);
+    } else {
+      this.collapsedModules.add(module);
+    }
+  }
+
+  isCollapsed(module: string): boolean {
+    return this.collapsedModules.has(module);
+  }
 }
