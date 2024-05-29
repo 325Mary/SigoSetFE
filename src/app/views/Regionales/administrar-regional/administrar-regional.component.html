@@ -4,6 +4,9 @@
             <h4 class="card-title">Listado de Regionales</h4>
         </div>
         <div class="card-body">
+            <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
+                  (input)="filtrarRegionales()" [(ngModel)]="terminoBusqueda">
             <div class="table-responsive">
                 <table class="table">
                     <thead class=" text-dark">
@@ -14,8 +17,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngIf="regionales && regionales.length > 0; else noRegionales" style="height: 30rem;">
-                            <tr *ngFor="let regional of regionales.slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
+                        <ng-container *ngIf="regionales && regionales.length > 0; else noResultados" style="height: 20rem;">
+                            <tr *ngFor="let regional of filtrarRegionales().slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
                                 <td>
                                     <ng-container *ngIf="!regional.editando">
                                         {{ regional.regional }}

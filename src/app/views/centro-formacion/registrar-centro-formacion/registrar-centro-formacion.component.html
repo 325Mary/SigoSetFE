@@ -26,7 +26,7 @@
                     <div class="row form-group">
                       <label for="telefono_centrof">Telefono del Centro de Formación:</label>
                       <input type="number" class="form-control" id="telefono_centrof" formControlName="telefono_centrof" placeholder="" required>
-                      <div *ngIf="centroFormacionForm.get('telefono_centrof')?.hasError('pattern') && centroFormacionForm.get('telefono_centrof')?.touched" style="color: red;">
+                      <div *ngIf="centroFormacionForm.get('telefono_centrof')?.hasError('pattern') && centroFormacionForm.get('telefono_ordenadorg')?.touched" style="color: red;">
                         El teléfono debe tener exactamente 10 dígitos.
                       </div>
                     </div>

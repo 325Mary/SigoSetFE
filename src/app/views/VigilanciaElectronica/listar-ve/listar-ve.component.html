@@ -4,7 +4,9 @@
       <h3>Listado de Vigilancias Electrónicas</h3>
     </div>
     <div class="card-body">
-
+      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarVE()" [(ngModel)]="terminoBusqueda">
+      </div>
       <table class="table table-bordered text-center">
         <thead>
           <tr>
@@ -12,43 +14,52 @@
             <th>Descripción</th>
             <th>Tarifa</th>
             <th>Ays</th>
-            <th>IVA</th>
             <th>Total</th>
-            <th>Accciones</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let vigilancia of vigilanciasElectronicas; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ vigilancia.descripcion }}</td>
-            <td>{{ vigilancia.tarifa | number: '1.0-0' }}</td>
-            <td>{{ vigilancia.ays | number: '1.0-0' }}</td>
-            <td>{{ vigilancia.iva | number: '1.0-0' }}</td>
-            <td>{{ vigilancia.total | number: '1.0-0' }}</td>
-            <td>
-              <button (click)="abrirModalEditar(vigilancia)" title="Editar vigilancia Electrónica">
-                <i class="bi bi-pencil-square"></i>
-              </button>
-              <button (click)="eliminarVigilancia(vigilancia.idvigilancia_electronica)" title="Eliminar vigilancia Electrónica">
-                <i class="bi bi-trash"></i>
-              </button>
-            </td>
-          </tr>
+          <ng-container *ngIf="!noResultados; else noResults">
+            <tr *ngFor="let vigilancia of filtrarVE().slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ vigilancia.descripcion }}</td>
+              <td>{{ vigilancia.tarifa}}</td>
+              <td>{{ vigilancia.ays}}</td>
+              <td>{{ vigilancia.total}}</td>
+              <td>
+                <button (click)="abrirModalEditar(vigilancia)" title="Editar vigilancia Electrónica">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+                <button (click)="eliminarVigilancia(vigilancia.idvigilancia_electronica)" title="Eliminar vigilancia Electrónica">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #noResults>
+            <tr>
+              <td colspan="7" class="text-center">No se encontraron resultados.</td>
+            </tr>
+          </ng-template>
         </tbody>
       </table>
     </div>
-
+    <div class="text-center mt-4">
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
+            <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
-
-
 
 <div class="modal" [class.show]="mostrarModalEditar">
   <div class="modal-dialog">
     <div class="modal-content">
-      <!-- Contenido del modal -->
-      <app-editar-ve [vigiElSeleccionada]="vigiElSeleccionada" (closeModal)="handleCloseModal()"
-        (actualizarList)="actualizarList()"></app-editar-ve>
+      <app-editar-ve [vigiElSeleccionada]="vigiElSeleccionada" (closeModal)="handleCloseModal()" (actualizarList)="actualizarList()"></app-editar-ve>
     </div>
   </div>
 </div>

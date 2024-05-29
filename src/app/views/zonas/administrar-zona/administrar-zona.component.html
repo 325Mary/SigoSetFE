@@ -9,7 +9,9 @@
           [(ngModel)]="terminoBusqueda">
       </div>
       <table class="table table-bordered text-center">
+
         <thead class="thead-light">
+
           <tr>
             <th>ID</th>
             <th>Nombre de Zona</th>
@@ -45,12 +47,11 @@
   </div>
 </div>
 
-<div class="modal" [class.show]="showModalEditar"> 
+<div class="modal" [class.show]="showModalEditar">
   <div class="modal-dialog">
     <div class="modal-content">
-      <app-editar-zona [zonaseleccionada]="zonaSeleccionada" 
-      (closeModal)="handleCloseModal()"
-      (actualizarZona)="actualizarZona()"></app-editar-zona>
+      <app-editar-zona [zonaseleccionada]="zonaSeleccionada" (closeModal)="handleCloseModal()"
+        (actualizarZona)="actualizarZona()"></app-editar-zona>
     </div>
   </div>
 </div>

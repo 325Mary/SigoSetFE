@@ -4,32 +4,44 @@
             <h4 class="card-title"> Crear Vigilancia Electronica </h4>
         </div>
         <div class="card-body">
-            <form (ngSubmit)="onSubmit()" #vigilanciaForm="ngForm" class="centered-form">
-                <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
-                    <input type="text" id="descripcion" name="descripcion" class="form-control"
-                        [(ngModel)]="vigilanciaElectronica.descripcion" required style="width: 100%;">
+            <form (ngSubmit)="onSubmit()" #vigilanciaForm="ngForm" class="form_puestos">
+                <div class="header_form">
+                    <div class="form-group">
+                        <label for="descripcion">Descripción:</label>
+                        <input type="text" id="descripcion" name="descripcion" class="form-control"
+                            [(ngModel)]="vigilanciaElectronica.descripcion" required style="width: 100%;">
+                    </div>
                 </div>
-                <div class="Precios">
-                    <div class="form-group">
-                        <label for="tarifa">Tarifa:</label>
-                        <input type="number" id="tarifa" name="tarifa" class="form-control"
-                            [(ngModel)]="vigilanciaElectronica.tarifa" (input)="calcularTotal()"style="width: 50%;" required>
+
+                <div class="fila">
+                    <div class="columna1">
+                        <div class="form-group">
+                            <label for="tarifa">Tarifa:</label>
+                            <input type="number" id="tarifa" name="tarifa" class="form-control"
+                                [(ngModel)]="vigilanciaElectronica.tarifa" (input)="calcularTotal()" style="width: 50%;"
+                                required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="ays">Ays:</label>
-                        <input type="number" id="ays" class="form-control" name="ays" style="width: 50%;"
-                            [(ngModel)]="vigilanciaElectronica.ays" (input)="calcularTotal()" required>
+
+                    <div class="columna2">
+                        <div class="form-group">
+                            <label for="ays">Ays:</label>
+                            <input type="number" id="ays" class="form-control" name="ays" style="width: 50%;"
+                                [(ngModel)]="vigilanciaElectronica.ays" (input)="calcularTotal()" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="total">Total:</label>
+                            <input type="text" id="total" class="form-control" name="total" style="width: 50%;"
+                                [(ngModel)]="vigilanciaElectronica.total" readonly>
+                        </div>
+                        <button type="submit" class="btn btn-danger" [disabled]="!validarElectronica()">Crear
+                            Puesto</button>
                     </div>
-                    <div class="form-group">
-                        <label for="total">Total:</label>
-                        <input type="text" id="total" class="form-control" name="total" style="width: 50%;"
-                            [(ngModel)]="vigilanciaElectronica.total" readonly>
-                    </div>
+
 
                 </div>
 
-                <button type="submit" class="btn btn-danger"  [disabled]="!validarElectronica()">Crear Puesto</button>
+
             </form>
 
         </div>

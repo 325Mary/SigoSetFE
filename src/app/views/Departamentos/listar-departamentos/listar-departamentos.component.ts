@@ -1,67 +1,51 @@
-import { Component, ViewChild,ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DepartamentoService } from 'app/services/Departamento/departamento.service';
 import Swal from 'sweetalert2';
-// 
+
 @Component({
   selector: 'app-listar-departamentos',
   templateUrl: './listar-departamentos.component.html',
   styleUrls: ['./listar-departamentos.component.css']
 })
-export class ListarDepartamentosComponent{
+export class ListarDepartamentosComponent implements OnInit {
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
-  departamentos: any[]=[]
+  departamentos: any[] = [];
   departamentosFiltrados: any[] = [];
   terminoBusqueda: string = '';
   noResultados: boolean = false;
   departamentoSeleccionado: any = {};
   mostrarModalEditar: boolean = false;
   mostrarModalVer: boolean = false;
+  pageSize: number = 10;
+  currentPage: number = 1;
 
   constructor(private departamentoService: DepartamentoService) { }
 
   ngOnInit(): void {
     this.listarDepartamentos();
   }
+
   handleCloseModal(): void {
     this.closeModal();
   }
 
-  // listarDepartamentos() {
-  //   this.departamentoService.obtenerDepartamentos().subscribe(
-  //     (response) => {
-  //       this.departamentos=response[0]
-  //       console.log('Estos son los departamentos', this.departamentos);
-        
-  //          Swal.fire({
-  //         position: "top-end",
-  //         icon: "success",
-  //         title: "!Departamentos listados correctamente"+ this.departamentos,
-  //         showConfirmButton: false,
-  //         timer: 1500
-  //       });
-  //     },
-  //     (error) => {
-  //       console.log('Error al obtener Departamentos', error);
-  //       Swal.fire({
-  //         position: "top-end",
-  //         icon: "warning",
-  //         title: "!No se pueden listar los Departamentos",
-  //         showConfirmButton: false,
-  //         timer: 1500
-  //       });
-  //     }
-  //   );
-  // }
   listarDepartamentos(): void {
-    this.departamentoService.obtenerDepartamentos().subscribe(response => {
-      this.departamentos = response.data[0];
-    });
+    this.departamentoService.obtenerDepartamentos().subscribe(
+      response => {
+        this.departamentos = response.data[0];
+        console.log('Departamentos listados', this.departamentos);
+        this.filtrarDep();
+      }, (error) => {
+        console.log('Error al listar departamentos', error);
+      }
+    );
   }
 
   actualizarDepartamentos(): void {
     this.listarDepartamentos();
   }
-  verDepartamneto():void{
+
+  verDepartamneto(): void {
     this.listarDepartamentos();
   }
 
@@ -69,6 +53,7 @@ export class ListarDepartamentosComponent{
     this.departamentoSeleccionado = departamento;
     this.mostrarModalEditar = true;
   }
+
   abrirModalEditar() {
     this.mostrarModalEditar = true;
   }
@@ -77,6 +62,7 @@ export class ListarDepartamentosComponent{
     this.departamentoSeleccionado = departamento;
     this.mostrarModalVer = true;
   }
+
   abrirModalVer() {
     this.mostrarModalVer = true;
   }
@@ -119,24 +105,33 @@ export class ListarDepartamentosComponent{
   }
 
   filtrarDep(): void {
-    this.departamentosFiltrados = this.departamentos.filter((departamento) => {
-      return departamento && departamento.departamento && departamento.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase());
-    });
+    if (this.terminoBusqueda.trim() !== '') {
+      this.departamentosFiltrados = this.departamentos.filter((departamento) => {
+        return (
+          departamento.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+        );
+      });
+    } else {
+      this.departamentosFiltrados = [...this.departamentos];
+    }
     this.noResultados = this.departamentosFiltrados.length === 0;
   }
 
-  filtrarUsuarios(): void {
-    if (this.terminoBusqueda.trim() !== '') {
-      this.departamentosFiltrados = this.departamentos.filter((departamentos) => {
-        return (
-          departamentos.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) 
-      
-        );
-      });
-      this.noResultados = this.departamentosFiltrados.length === 0;
-    } else {
-      this.departamentosFiltrados = [...this.departamentos]; // Mostrar todos los usuarios si el término de búsqueda está vacío
-      this.noResultados = false;
+  getPaginatedDepartamentos(): any[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = this.currentPage * this.pageSize;
+    return this.departamentosFiltrados.slice(startIndex, endIndex);
+  }
+
+  setPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+
+  getPages(): number[] {
+    if (!this.departamentosFiltrados) {
+      return [];
     }
+    const pageCount = Math.ceil(this.departamentosFiltrados.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
 }

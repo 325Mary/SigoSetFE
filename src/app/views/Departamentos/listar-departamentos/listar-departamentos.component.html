@@ -4,9 +4,9 @@
       <h4 class="card-title">Listado de Departamentos</h4>
     </div>
     <div class="card-body">
-     <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
         <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarDep()" [(ngModel)]="terminoBusqueda">
-   
+      </div>
       <table class="table table-bordered text-center">
         <thead class="thead-light">
           <tr>
@@ -17,7 +17,7 @@
         </thead>
         <tbody>
           <ng-container *ngIf="!noResultados; else noResults">
-            <tr *ngFor="let departamento of departamentos">
+            <tr *ngFor="let departamento of getPaginatedDepartamentos()">
               <td>{{ departamento.iddepartamento }}</td>
               <td>{{ departamento.departamento }}</td>
               <td>
@@ -40,6 +40,16 @@
           </ng-template>
         </tbody>
       </table>
+    </div>
+    <div class="text-center mt-4">
+      <!-- Botones o enlaces para cambiar de página -->
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
+            <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>

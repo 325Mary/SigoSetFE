@@ -16,7 +16,8 @@ export class AdministrarRegionalComponent implements OnInit {
   regionales: any[] = [];
   pageSize: number = 10; // Número de usuarios por página
   currentPage: number = 1; // Página actual
-
+  terminoBusqueda: string = '';
+  noResultados: boolean = false;
   constructor(private regionalService: RegionalService) { }
 
   ngOnInit(): void {
@@ -36,6 +37,7 @@ export class AdministrarRegionalComponent implements OnInit {
       (response: any) => {
         this.regionales = response[0];
         console.log('regionales:', this.regionales)
+        this.filtrarRegionales();
       },
       error => {
         console.error('Error al obtener las regionales:', error);
@@ -63,6 +65,17 @@ export class AdministrarRegionalComponent implements OnInit {
         // Manejar el error, por ejemplo, mostrar un mensaje al usuario
       }
     );
+  }
+  filtrarRegionales(): any[] {
+    const regionalesfiltradas = this.regionales.filter((regional) => {
+      return (
+        regional.regional.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        regional.direccion.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) 
+      
+      );
+    });
+    this.noResultados = regionalesfiltradas.length === 0;
+    return regionalesfiltradas;
   }
 
 

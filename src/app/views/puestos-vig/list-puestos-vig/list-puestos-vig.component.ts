@@ -11,17 +11,20 @@ import Swal from 'sweetalert2';
 })
 export class ListPuestosVigComponent implements OnInit {
   puestos: any[] = [];
+
   puestoData: any;
   errorMessage: string = '';
   dataSource: MatTableDataSource<any>; // Agrega esta propiedad
+  terminoBusqueda: string = '';
+  noResultados: boolean = false;
+  pageSize: number = 10;
+  currentPage: number = 1;
 
   constructor(private puestosService: PuestosVigilanciaService) {
     this.dataSource = new MatTableDataSource<any>(); // Inicializa el dataSource
   }
 
-  
-  pageSize: number = 10; // Número de usuarios por página
-  currentPage: number = 1; // Página actual
+
 
   ngOnInit(): void {
     this.obtenerPuestos();
@@ -42,6 +45,7 @@ export class ListPuestosVigComponent implements OnInit {
         this.puestos = data.data[0];
         this.dataSource.data = this.puestos; // Actualiza el dataSource con los datos obtenidos
         console.log('pv.', this.puestos)
+        this.filtrarVigilancia();
       },
       (error) => {
         this.errorMessage = 'Error al obtener los puestos';
@@ -103,5 +107,18 @@ export class ListPuestosVigComponent implements OnInit {
       }
     });
   }
-  
+
+
+  filtrarVigilancia(): any[] {
+    const puestosFiltradas = this.puestos.filter((puestovigilancia) => {
+      return (
+        puestovigilancia.descripcion_puesto.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        puestovigilancia.tarifa_puesto.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())||
+        puestovigilancia.ays.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+        puestovigilancia.total.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) 
+      );
+    });
+    this.noResultados = puestosFiltradas.length === 0;
+    return puestosFiltradas;
+  }
 }

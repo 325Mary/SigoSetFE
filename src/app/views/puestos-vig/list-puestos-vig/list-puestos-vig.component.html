@@ -5,9 +5,13 @@
             <p class="card-category">Editar, busca y actualiza los puestos de vigilancia</p>
         </div>
         <div class="card-body">
+            <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarVigilancia()" [(ngModel)]="terminoBusqueda">
+              </div>
             <table class="table">
                 <thead>
                     <tr>
+                        <td>ID</td>
                         <th>Descripción</th>
                         <th>Tarifa</th>
                         <th>AYS</th>
@@ -17,7 +21,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let puesto of puestos.slice((currentPage-1)*pageSize,currentPage*pageSize)">
+                    <ng-container *ngIf="!noResultados; else noResultados">
+                    <tr *ngFor="let puesto of filtrarVigilancia().slice((currentPage-1)*pageSize, currentPage*pageSize);let i = index">
+                        <td>{{i+1}}</td>
                         <td>{{ puesto.descripcion_puesto }}</td>
                         <td>{{ puesto.tarifa_puesto }}</td>
                         <td>{{ puesto.ays }}</td>
@@ -32,6 +38,9 @@
                             <i class="fas fa-trash-alt"></i>
                         </button>
                     </tr>
+                    </ng-container>
+
+                    
                 </tbody>
             </table>
         </div>

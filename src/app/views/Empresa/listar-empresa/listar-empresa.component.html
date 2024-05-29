@@ -5,12 +5,13 @@
       <h4 class="card-title">Listado de Empresas</h4>
     </div>
     <div class="card-body">
+      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
+          (input)="filtrarEmpresas()" [(ngModel)]="terminoBusqueda">
+      </div>
       <table class="table table-bordered text-center">
         <thead class="thead-light">
-          <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-            <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
-              (input)="filtrarEmpresas()" [(ngModel)]="terminoBusqueda">
-          </div>
+
           <tr>
             <th>ID</th>
             <th>Nombre Empresa</th>
@@ -20,8 +21,8 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="!noResultados">
-            <tr *ngFor="let empresa of empresas.slice((currentPage-1)*pageSize, currentPage*pageSize)">
+          <ng-container *ngIf="!noResultados else noResultados">
+            <tr *ngFor="let empresa of filtrarEmpresas().slice((currentPage-1)*pageSize,currentPage*pageSize)">
               <td>{{empresa.idempresa}}</td>
               <td>{{ empresa.nombre_empresa }}</td>
               <td>{{empresa.nit_empresa}}</td>
