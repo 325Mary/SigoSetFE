@@ -21,8 +21,8 @@
                                 </thead>
                                 <tbody>
                                     <ng-container *ngIf="!noResultados; else noResults">
-                                        <tr *ngFor="let item of centrosFiltrados.slice((currentPage-1)*pageSize, currentPage*pageSize)">
-                                            <td>{{item.idcentro_formacion}}</td>
+                                        <tr *ngFor="let item of centrosFiltrados.slice((currentPage-1)*pageSize, currentPage*pageSize);let i =index">
+                                            <td>{{i + 1}}</td>
                                             <td>{{item.centro_formacion}}</td>
                                             <td>{{item.telefono_centrof}}</td>
                                             <td>{{item.email_centrof}}</td>
