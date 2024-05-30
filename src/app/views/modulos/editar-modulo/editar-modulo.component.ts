@@ -1,52 +1,93 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ModuloService } from '../../../services/modulos/modulos.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-modulo',
   templateUrl: './editar-modulo.component.html',
   styleUrls: ['./editar-modulo.component.css']
 })
-export class EditarModuloComponent implements OnInit {
+export class EditarModuloComponent {
+  @Input() ModuloSeleccionado: any;
+  @Output() actualizarLista = new EventEmitter<void>();
+  @Input() mostrarModal: boolean;
+  @Output() closeModal = new EventEmitter<void>();
 
-  moduloForm: FormGroup;
+  iconos = [
+    'fa-user', 'fa-users', 'fa-home', 'fa-book', 'fa-cog', 'fa-check',
+    'fa-times', 'fa-edit', 'fa-trash', 'fa-save', 'fa-upload', 'fa-download',
+    'fa-arrow-up', 'fa-arrow-down', 'fa-arrow-left', 'fa-arrow-right',
+    'fa-building', 'fa-industry', 'fa-warehouse', 'fa-city', 'fa-business-time',
+    'fa-landmark', 'fa-hotel', 'fa-school', 'fa-store', 'fa-university',
+    'fa-list', 'fa-plus', 'fa-shield-alt', 'fa-user-shield', 'fa-camera', 'fa-key', 'fa-lock', 'fa-unlock', 'fa-bell', 'fa-video',
+  ];
+  iconoSeleccionado: string = '';
 
-  constructor(
-    private fb: FormBuilder,
-    private moduloService: ModuloService,
-    public dialogRef: MatDialogRef<EditarModuloComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    
-  }
+  constructor(private moduloService: ModuloService) {}
 
   ngOnInit(): void {
-    this.moduloForm = this.fb.group({
-      // idmodulo: [data.modulo.idmodulo],
-      modulo: ["", Validators.required],
-      url_modulo: ["", Validators.required],
-      icono: ["",Validators.required],
-      orden: [0, Validators.required]
-    });
-      
-  }
-
-  onSubmit() {
-    if (this.moduloForm.valid) {
-      this.moduloService.actualizarModulo(this.moduloForm.value).subscribe(
-        () => {
-          this.dialogRef.close(this.moduloForm.value);
-        },
-        error => {
-          console.error('Error al actualizar el módulo', error);
-        }
-      );
+    if (this.ModuloSeleccionado) {
+      this.iconoSeleccionado = this.ModuloSeleccionado.icono;
     }
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
+  onSubmit() {
+    if (this.validarFormulario()) {
+      const moduloData = { ...this.ModuloSeleccionado };
+      delete moduloData.idmodulo;  // Elimina el campo idmodulo
+
+      console.log('Datos enviados:', moduloData);
+
+      this.moduloService.editarModulo(this.ModuloSeleccionado.idmodulo, moduloData).subscribe(
+        response => {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Actualización exitosa!',
+            text: 'El módulo ha sido actualizado correctamente.'
+          });
+          this.actualizarLista.emit();
+          this.close();
+        },
+        error => {
+          console.error('Error en la solicitud:', error);
+          Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: error.error ? error.error.message : 'Error desconocido'
+          });
+        }
+      );
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: 'Formulario no válido'
+      });
+    }
+  }
+
+  validarFormulario(): boolean {
+    return (
+      this.ModuloSeleccionado.id_modulo_padre !== undefined &&
+      this.ModuloSeleccionado.modulo !== '' &&
+      this.ModuloSeleccionado.url_modulo !== '' &&
+      this.ModuloSeleccionado.icono !== '' &&
+      this.ModuloSeleccionado.orden !== undefined &&
+      this.ModuloSeleccionado.hijos !== undefined &&
+      this.validarRango(this.ModuloSeleccionado.hijos)
+    );
+  }
+
+  validarRango(value: number): boolean {
+    return value >= 0 && value <= 255; // Ajustar el rango si es necesario
+  }
+
+  seleccionarIcono(icono: string) {
+    this.ModuloSeleccionado.icono = icono;
+    this.iconoSeleccionado = icono;
+  }
+
+  close(): void {
+    this.closeModal.emit();
   }
 }

@@ -1,0 +1,14 @@
+.modal {
+    display: none; /* Por defecto oculto */
+   
+  }
+  
+  .modal.show {
+    display: block; /* Mostrar cuando la clase .show está presente */
+  }
+
+/* Define el tamaño de la modal */
+.custom-modal {
+  max-width: 800px; /* Ancho máximo */
+  width: 100%; /* Para asegurarse de que ocupe todo el ancho disponible */
+}

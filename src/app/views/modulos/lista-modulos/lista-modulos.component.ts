@@ -1,93 +1,109 @@
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ModuloService } from '../../../services/modulos/modulos.service';
+import Swal from 'sweetalert2';
 
-import { Component, OnInit } from '@angular/core';
-import { ModuloService, } from '../../../services/modulos/modulos.service';
-import { DetalleModuloComponent } from '../detalle-modulo/detalle-modulo.component';
-import { EditarModuloComponent } from '../editar-modulo/editar-modulo.component';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-
-interface Modulo {
-  idmodulo: number;
-  id_modulo_padre: number;
-  modulo: string;
-  url_modulo: string;
-  icono: string;
-  orden: number;
-  hijos: number | null;
-}
 @Component({
   selector: 'app-lista-modulo',
   templateUrl: './lista-modulos.component.html',
   styleUrls: ['./lista-modulos.component.css']
 })
 export class ListaModuloComponent implements OnInit {
-  modulos: Modulo[] = [];
-  selectedModulo: Modulo | null = null;
-  errorMessage: string = '';
+  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
+  showModal: boolean = false;
+  mostrarModalEditar: boolean = false;
+  ModuloSeleccionado: any = {};
+  modulos: any[] = [];
+  terminoBusqueda: string = '';
+  noResultados: boolean = false;
+  pageSize: number = 10;
+  currentPage: number = 1;
 
-  //Borrar si es snesesario
-  displayedColumns: string[] = ['idmodulo', 'modulo', 'url_modulo', 'icono', 'acciones']; // Replace with your desired column names
-  //----------------------------------------------------------------------------------
-  constructor(private moduloService: ModuloService, public dialog: MatDialog) { }
+  constructor(private moduloService: ModuloService) { }
 
   ngOnInit(): void {
     this.obtenerModulos();
   }
 
-  obtenerModulos(): void {
+  setPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+
+  getPages(): number[] {
+    const pageCount = Math.ceil(this.modulos.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
+  }
+
+  obtenerModulos() {
     this.moduloService.obtenerModulos().subscribe(
-      (modulos) => {
-        this.modulos = modulos;
+      (response: any) => {
+        this.modulos = response.data[0];
+        this.filtrarModulos();
       },
-      (error) => {
-        this.errorMessage = 'Error al obtener los módulos';
+      error => {
+        console.error('Error al obtener los módulos:', error);
       }
     );
   }
 
-  verDetalle(modulo: Modulo): void {
-    this.dialog.open(DetalleModuloComponent, {
-      width: '400px',
-      data: { modulo }
-    });
-  }
-
-  editarModulo(modulo: Modulo): void {
-    const dialogRef = this.dialog.open(EditarModuloComponent, {
-      width: '400px',
-      data: { modulo }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.obtenerModulos();
+  eliminarModulo(idmodulo: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.moduloService.eliminarModulo(idmodulo).subscribe(
+          () => {
+            this.modulos = this.modulos.filter(modulo => modulo.idmodulo !== idmodulo);
+            Swal.fire(
+              'Eliminado!',
+              'El módulo ha sido eliminado.',
+              'success'
+            );
+          },
+          error => {
+            Swal.fire(
+              'Error!',
+              'Hubo un problema al eliminar el módulo.',
+              'error'
+            );
+            console.error('Error al eliminar el módulo:', error);
+          }
+        );
       }
     });
   }
 
-
- obtenerModuloPorId(id: number): void {
-    this.moduloService.obtenerModuloPorId(id).subscribe(
-      (modulo) => this.selectedModulo = modulo,
-      (error) => this.errorMessage = 'Error al obtener el módulo'
-    );
+  closeModal(): void {
+    this.showModal = false;
+    this.mostrarModalEditar = false;
   }
-  
 
-  eliminarModulo(id: number): void {
-    if (confirm('¿Estás seguro de eliminar este módulo?')) {
-      this.moduloService.eliminarModulo(id).subscribe(
-        () => {
-          this.obtenerModulos();
-        },
-        (error) => {
-          this.errorMessage = 'Error al eliminar el módulo';
-        }
+  abrirModalEditar(item: any): void {
+    this.ModuloSeleccionado = item;
+    this.mostrarModalEditar = true;
+  }
+
+  handleCloseModal(): void {
+    this.mostrarModalEditar = false;
+  }
+
+  filtrarModulos(): any[] {
+    const terminoBusquedaLower = this.terminoBusqueda.toLowerCase();
+    const modulosFiltrados = this.modulos.filter(modulo => {
+      return (
+        modulo.modulo.toLowerCase().includes(terminoBusquedaLower) ||
+        modulo.url_modulo.toLowerCase().includes(terminoBusquedaLower) ||
+        modulo.icono.toLowerCase().includes(terminoBusquedaLower) ||
+        modulo.orden.toString().toLowerCase().includes(terminoBusquedaLower) ||
+        modulo.hijos.toString().toLowerCase().includes(terminoBusquedaLower)
       );
-    }
+    });
+    this.noResultados = modulosFiltrados.length === 0;
+    return modulosFiltrados;
   }
-
-
-  
-
 }

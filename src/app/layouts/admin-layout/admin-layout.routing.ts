@@ -63,6 +63,8 @@ import { ListarVEComponent } from "app/views/VigilanciaElectronica/listar-ve/lis
 import { CrearContratoComponent } from 'app/views/modals/crear-contrato/crear-contrato.component';
 import { AdministrarZonaComponent } from 'app/views/zonas/administrar-zona/administrar-zona.component';
 import { CrearZonaComponent } from 'app/views/zonas/crear-zona/crear-zona.component';
+import { CrearModulosXperfilComponent } from "app/views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component";
+import { ListarModulosXperfilComponent } from "app/views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component";
 
 import { ListarDepartamentosComponent } from 'app/views/Departamentos/listar-departamentos/listar-departamentos.component';
 export const AdminLayoutRoutes: Routes = [
@@ -144,21 +146,16 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listContratos', component: ListarContratosComponent},
     { path: 'AdministrarCentros', component: AdministrarCentroComponent},
     { path: 'sesionCaducada', component: SesionCaucadaComponent},
+
     { path: 'asignarpuestosPorCentro/:idcentro_formacion', component: AsignarPuestosVComponent},
-    { path: 'crear-modulo', component: CrearModulosComponent },
+    
+    { path: 'crearModulo', component: CrearModulosComponent },
     {path: 'listarModulos', component: ListaModuloComponent},
     {path: 'editarModulo',component: EditarModuloComponent},
     {path: 'detalleModulo',component:DetalleModuloComponent},
-    { path: '', redirectTo: '/modulos', pathMatch: 'full' },
 
     
-    {path:'crearObligacionContractual',component:CrearObligacionComponent},
-    {path:'administrarObligacionContractual',component:AdministrarObligacionComponent},
-    {path:'verObligacionContractual',component:VerObligacionModalComponent},
-    {path:'editarObligacionContractual',component:EditarObligacionModalComponent},
-
-
-    
+   
     {path:'crearObligacionContractual',component:CrearObligacionComponent},
     {path:'administrarObligacionContractual',component:AdministrarObligacionComponent},
     {path:'verObligacionContractual',component:VerObligacionModalComponent},
@@ -168,6 +165,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'validarVigilancia/:idcentro_formacion', component:ValidarVigilanciaComponent},
     { path: 'crearVigilanciaElectronica', component:CrearVEComponent},
     { path: 'listarVigilanciaElectronica', component:ListarVEComponent},
+    { path: 'listarModulos', component: ListaModuloComponent},
+    { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent},
+    { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

@@ -23,6 +23,7 @@ export class AdministrarObligacionComponent implements OnInit {
     this.obligacionService.obtenerObligacionesContractuales().subscribe(
       data => {
         this.obligaciones = data;
+        console.log('cntractura:', this.obligaciones)
       },
       error => {
         alert('Error al obtener las obligaciones contractuales.');
@@ -50,9 +51,9 @@ export class AdministrarObligacionComponent implements OnInit {
     });
   }
 
-  eliminarObligacion(id: number): void {
+  eliminarObligacion(idobligaciones_contractuales: number): void {
     if (confirm('¿Estás seguro de eliminar esta obligación?')) {
-      this.obligacionService.eliminarObligacionContractualPorId(id).subscribe(
+      this.obligacionService.eliminarObligacionContractualPorId(idobligaciones_contractuales).subscribe(
         response => {
           alert('Obligación contractual eliminada exitosamente.');
           this.obtenerObligaciones();

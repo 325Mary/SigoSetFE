@@ -16,27 +16,27 @@ export class ObligacionContractualService {
   constructor(private http: HttpClient) {}
 
   obtenerObligacionesContractuales(): Observable<any> {
-    const url = `${this.baseUrl}verobligacionContractuales`;
+    const url = `${this.baseUrl}vertodoObligacionesContractuales`;
     return this.http.get<any>(url);
   }
 
-  obtenerObligacionContractualPorId(id: number): Observable<any> {
-    const url = `${this.baseUrl}obligacionContractualPorId/${id}`;
+  obtenerObligacionContractualPorId(idobligaciones_contractuales: number): Observable<any> {
+    const url = `${this.baseUrl}obligacionContractualPorId/${idobligaciones_contractuales}`;
     return this.http.get<any>(url);
   }
 
-  crearObligacionContractual(obligacionData: any): Observable<any> {
+  crearObligacionContractual(nuevaObligacion: any): Observable<any> {
     const url = `${this.baseUrl}crearObligacionContractual`;
-    return this.http.post<any>(url, obligacionData);
+    return this.http.post<any>(url, nuevaObligacion);
   }
 
-  actualizarObligacionContractualPorId(id: number, obligacionData: any): Observable<any> {
-    const url = `${this.baseUrl}editarObligacionContractual/${id}`;
-    return this.http.put<any>(url, obligacionData);
+  actualizarObligacionContractualPorId(idobligaciones_contractuales: number, nuevaObligacion: any): Observable<any> {
+    const url = `${this.baseUrl}editarObligacionContractual/${idobligaciones_contractuales}`;
+    return this.http.put<any>(url, nuevaObligacion);
   }
 
-  eliminarObligacionContractualPorId(id: number): Observable<any> {
-    const url = `${this.baseUrl}eliminarObligacionContractual/${id}`;
+  eliminarObligacionContractualPorId(idobligaciones_contractuales: number): Observable<any> {
+    const url = `${this.baseUrl}eliminarObligacionContractual/${idobligaciones_contractuales}`;
     return this.http.delete<any>(url);
   }
 }

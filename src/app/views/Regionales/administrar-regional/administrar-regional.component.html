@@ -24,7 +24,7 @@
                                         {{ regional.regional }}
                                     </ng-container>
                                     <ng-container *ngIf="regional.editando">
-                                        <input type="text" [(ngModel)]="regionales[i].regional" class="form-control">
+                                        <input type="text" [(ngModel)]="regionales[i].regional" class="form-control" placeholder=".">
                                     </ng-container>
                                 </td>
                                 <td>
@@ -32,7 +32,7 @@
                                         {{ regional.direccion }}
                                     </ng-container>
                                     <ng-container *ngIf="regional.editando">
-                                        <input type="text" [(ngModel)]="regionales[i].direccion" class="form-control">
+                                        <input type="text" [(ngModel)]="regionales[i].direccion" class="form-control" placeholder=".">
                                     </ng-container>
                                 </td>
                                 <td>

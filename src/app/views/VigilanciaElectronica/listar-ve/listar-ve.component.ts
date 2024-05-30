@@ -111,4 +111,5 @@ export class ListarVEComponent implements OnInit {
     this.noResultados = puestosFiltrados.length === 0;
     return puestosFiltrados;
   }
+  
 }

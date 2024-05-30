@@ -4,6 +4,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ObligacionContractualService } from 'app/services/obligacionContractual/obligacion-contractual.service';  
 
+
 @Component({
   selector: 'app-editar-obligacion-modal',
   templateUrl: './editar-obligacion.component.html',
@@ -21,12 +22,16 @@ export class EditarObligacionModalComponent {
   }
 
   guardar(): void {
-    this.obligacionService.actualizarObligacionContractualPorId(this.data.obligacion.id_obligaciones_contractuales, this.data.obligacion).subscribe(
+    console.log('Datos antes de guardar:', this.data.obligacion); // Depuración
+    const nuevaObligacion = { obligaciones_contractuales: this.data.obligacion.obligaciones_contractuales };
+    this.obligacionService.actualizarObligacionContractualPorId(this.data.obligacion.idobligaciones_contractuales, nuevaObligacion).subscribe(
       response => {
         this.dialogRef.close(true);
+        console.log('Respuesta del servidor:', response);
       },
       error => {
         alert('Error al actualizar la obligación contractual.');
+        console.error('Error en la actualización:', error);
       }
     );
   }

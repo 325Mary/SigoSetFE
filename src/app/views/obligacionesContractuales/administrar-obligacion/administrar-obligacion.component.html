@@ -13,8 +13,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let obligacion of obligaciones">
-                    <td>{{ obligacion.id_obligaciones_contractuales }}</td>
-                    <td>{{ obligacion.obligacion_contractual }}</td>
+                    <td>{{ obligacion.idobligaciones_contractuales
+                    }}</td>
+                    <td>{{ obligacion.obligaciones_contractuales }}</td>
                     <td>
                         <button class="btn btn-sm btn-primary" (click)="editarObligacion(obligacion)">
                 <i class="bi bi-pencil"></i>
@@ -22,7 +23,7 @@
                         <button class="btn btn-sm btn-secondary" (click)="verObligacion(obligacion)">
                 <i class="bi bi-eye"></i>
               </button>
-                        <button class="btn btn-sm btn-danger" (click)="eliminarObligacion(obligacion.id_obligaciones_contractuales)">
+                        <button class="btn btn-sm btn-danger" (click)="eliminarObligacion(obligacion.idobligaciones_contractuales)">
                 <i class="bi bi-trash"></i>
               </button>
                     </td>
