@@ -84,6 +84,9 @@ import { EditarVHumanaComponent } from './views/modals/editar-vhumana/editar-vhu
 import { EditarModuloComponent } from "./views/modulos/editar-modulo/editar-modulo.component";
 import { CrearModulosXperfilComponent } from './views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component';
 import { ListarModulosXperfilComponent } from './views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component';
+import { ListMunicipiosComponent } from './views/list-municipios/list-municipios.component';
+import { VerMunicipioComponent } from './views/modals/ver-municipios/ver-municipios.component'; 
+import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-municipios.component';
 
 @NgModule({
   imports: [
@@ -183,6 +186,14 @@ import { ListarModulosXperfilComponent } from './views/modulos/listar-modulos-xp
     EditarModuloComponent,
     CrearModulosXperfilComponent,
     ListarModulosXperfilComponent,
+    ListMunicipiosComponent,
+    EditMunicipioComponent,
+    VerMunicipioComponent
+
+    
+    
+
+    
   ],
   providers: [
     LoginService,

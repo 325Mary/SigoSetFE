@@ -1,0 +1,31 @@
+<div class="container d-flex justify-content-center align-items-center mt-5 mb-2">
+    <div class="card" style="width: 50rem;">
+        <div class="card-header card-header-sena-azul  ">
+            <h5 class="card-title">Editar Municipio</h5>
+        </div>
+
+        <div class="card-body">
+            <form (ngSubmit)="editarMunicipio()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- <label for="iddepartamento">ID Departamento</label>
+                    <input type="text" class="form-control" id="iddepartamento" name="iddepartamento" [(ngModel)]="municipioSeleccionado.iddepartamento" required> -->
+
+                            <label for="municipio">Municipio</label>
+                            <input type="text" id="municipio" name="municipio" [(ngModel)]="municipioSeleccionado.municipio" required>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+            <div class="form-actions">
+
+                <button type="submit" class="btn btn-primary mx-auto" (click)="editarMunicipio()">Actualizar </button>
+                <button type="submit" class="btn btn-secondary " (click)="close()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
