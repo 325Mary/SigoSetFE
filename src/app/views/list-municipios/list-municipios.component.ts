@@ -21,6 +21,8 @@ export class ListMunicipiosComponent implements OnInit {
   municipioSeleccionado: any ={};
   mostrarModalEditar:boolean=false;
   mostrarModalVer: boolean=false;
+  pageSize: number = 10; 
+  currentPage: number = 1;
 
   constructor(private municipioService: MunicipioService, private dialog: MatDialog) {}
 
@@ -35,12 +37,20 @@ handleCloseModal():void{
   listarMunicipios() {
     this.municipioService.obtenerMunicipios().subscribe(
       (response) => {
+        // if (response && response.data) {
+        //   this.municipios = response.data[0];
+        //   this.municipiosFiltrados = response.data[0];
         if (response && response.data) {
-          this.municipios = response.data[0];
-          this.municipiosFiltrados = response.data[0];
+          this.municipios = response.data[0].map((municipio, index) => {
+            return{...municipio, displayId: index + 1 };
+          });
+          this.municipiosFiltrados = this.municipios;
+          // response.data[0];
+
         } else {
           this.municipios = [];
           this.municipiosFiltrados = [];
+          
         }
         Swal.fire({
           position: "top-end",
@@ -61,6 +71,15 @@ handleCloseModal():void{
         });
       }
     );
+  }
+
+  setPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+
+  getPages(): number[] {
+    const pageCount = Math.ceil(this.municipios.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
 
   actualizarMunicipios(): void {

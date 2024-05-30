@@ -1,40 +1,65 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
-    <div class="card" style="width: 80rem;">
+    <div class="card" style="width: 60rem;">
         <div class=" card-header card-header-sena-azul ">
             <h4 class="card-title">Listado de Municipios</h4>
         </div>
         <div class="card-body ">
-            <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+            <div class="table">
+                <table class="table table-bordered text-center">
 
-                <input [(ngModel)]="terminoBusqueda " (input)="filtrarMunicipios() " type="text " class="form-control " placeholder="Buscar municipio ">
-                <table class="table table-striped text-center ">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>ID</th>
-                            <th>Municipio</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let municipio of municipiosFiltrados ">
-                            <td>{{ municipio.idmunicipio }}</td>
-                            <td>{{ municipio.municipio }}</td>
-                            <td>
 
-                                <button class="btn btn-warning btn-sm " (click)="abrirModalEditarMunicipio(municipio) ">
-                <i class="fa fa-pencil-alt icono "></i>
-              </button>
-                                <button class="btn btn-danger btn-sm " (click)="eliminarMunicipio(municipio) ">
-                <i class="fa fa-trash icono "></i>
-              </button>
-                            </td>
-                        </tr>
-                        <tr *ngIf="noResultados ">
-                            <td colspan="3 " class="text-center ">No se encontraron resultados</td>
-                        </tr>
-                    </tbody>
+                    <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+
+                        <input [(ngModel)]="terminoBusqueda " (input)="filtrarMunicipios() " type="text " class="form-control " placeholder="Buscar municipio ">
+                        <table class="table table-striped text-center ">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Municipio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngIf="!noResultados; else noResults">
+                                    <ng-container *ngFor="let municipio of municipiosFiltrados.slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
+
+                                        <tr>
+                                            <td>{{ municipio.displayId }}</td>
+                                            <td>{{ municipio.municipio }}</td>
+
+                                            <td>
+                                                <button (click)="abrirModalEditarMunicipio(municipio) ">
+                                    <i class="bi bi-pencil icono"></i>
+                                </button>
+                                                <button (click)="eliminarMunicipio(municipio) ">
+                                    <i class="bi bi-trash  "></i>
+                                 </button>
+                                            </td>
+
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+
+                                <ng-template #noResults>
+                                    <tr>
+                                        <td colspan="3 " class="text-center ">No se encontraron resultados</td>
+                                    </tr>
+                                </ng-template>
+                            </tbody>
+                        </table>
+                    </div>
                 </table>
             </div>
+            <div class="text-center mt-4">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
+                            <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
         </div>
     </div>
 </div>
