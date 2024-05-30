@@ -86,7 +86,7 @@ handleCloseModal():void{
     });
   }
 
-  eliminarMunicipio(idmunicipio: number): void {
+  eliminarMunicipio(municipio:any): void {
     Swal.fire({
       title: '¿Estás seguro?',
       text: '¡No podrás revertir esto!',
@@ -96,7 +96,7 @@ handleCloseModal():void{
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.municipioService.eliminarMunicipio(idmunicipio).subscribe(
+        this.municipioService.eliminarMunicipio(municipio.idmunicipio).subscribe(
           () => {
             Swal.fire(
               '¡Eliminado!',
