@@ -20,7 +20,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let modulo of modulos">
+              <ng-container *ngIf="!noResultados; else noResults">
+               <tr *ngFor="let modulo of filtrarMxP().slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
                 <td>{{ modulo }}</td>
                 <td *ngFor="let perfil of perfiles">
                   <label class="switch">
@@ -31,6 +32,11 @@
                   </label>
                 </td>
               </tr>
+              
+              
+              
+              </ng-container>
+             
             </tbody>
           </table>
         </div>
