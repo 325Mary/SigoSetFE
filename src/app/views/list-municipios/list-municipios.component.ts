@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MunicipioService } from 'app/services/Municipio/municipio.service';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,10 +13,14 @@ import { EditMunicipioComponent } from '../modals/edit-municipios/edit-municipio
   styleUrls: ['./list-municipios.component.css']
 })
 export class ListMunicipiosComponent implements OnInit {
+  @ViewChild('modalContent') modalContent:ElementRef<any> | null = null;
   municipios: any[] = [];
   municipiosFiltrados: any[] = [];
   terminoBusqueda: string = '';
   noResultados: boolean = false;
+  municipioSeleccionado: any ={};
+  mostrarModalEditar:boolean=false;
+  mostrarModalVer: boolean=false;
 
   constructor(private municipioService: MunicipioService, private dialog: MatDialog) {}
 
@@ -24,11 +28,15 @@ export class ListMunicipiosComponent implements OnInit {
     this.listarMunicipios();
   }
 
+handleCloseModal():void{
+  this.handleCloseModal();
+}
+
   listarMunicipios() {
     this.municipioService.obtenerMunicipios().subscribe(
       (response) => {
         if (response && response.data) {
-          this.municipios = response.data;
+          this.municipios = response.data[0];
           this.municipiosFiltrados = response.data[0];
         } else {
           this.municipios = [];
@@ -55,17 +63,22 @@ export class ListMunicipiosComponent implements OnInit {
     );
   }
 
+  actualizarMunicipios(): void {
+    this.listarMunicipios();
+  }
+  verMunicipio():void{
+    this.listarMunicipios();
+  }
+
   abrirModalVerMunicipio(idmunicipio: number): void {
     this.dialog.open(VerMunicipioComponent, {
       data: { idmunicipio }
     });
   }
 
-  abrirModalEditarMunicipio(idmunicipio: number): void {
-    const dialogRef = this.dialog.open(EditMunicipioComponent, {
-      data: { idmunicipio }
-    });
-
+ 
+  abrirModalEditarMunicipio(municipio: any): void {
+    const dialogRef = this.dialog.open(EditMunicipioComponent, { data: { municipio } });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'Municipio actualizado') {
         this.listarMunicipios();
@@ -110,5 +123,14 @@ export class ListMunicipiosComponent implements OnInit {
       return municipio && municipio.municipio && municipio.municipio.toLowerCase().includes(this.terminoBusqueda.toLowerCase());
     });
     this.noResultados = this.municipiosFiltrados.length === 0;
+    if (this.noResultados) {
+      Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title: "No se encontraron municipios con el criterio de búsqueda.",
+        showConfirmButton: false,
+        timer: 1500
+      });
   }
+}
 }

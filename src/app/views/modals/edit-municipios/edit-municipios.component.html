@@ -1,21 +1,27 @@
-<div class="edit-municipio-container">
-    <h2>Editar Municipio</h2>
+<div class="modal-header d-flex justify-content-center align-items-center">
+    <h5 class="modal-title">Editar Municipio</h5>
+</div>
 
-    <form (ngSubmit)="editarMunicipio()" #municipioForm="ngForm">
-        <div class="form-group">
-            <label for="iddepartamento">ID Departamento</label>
-            <input type="text" id="iddepartamento" name="iddepartamento" [(ngModel)]="municipio.iddepartamento" required>
+<div class="modal-body">
+    <form (ngSubmit)="editarMunicipio()">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="iddepartamento">ID Departamento</label>
+                    <input type="text" class="form-control" id="iddepartamento" name="iddepartamento" [(ngModel)]="municipioSeleccionado.iddepartamento" required>
+
+                    <label for="municipio">Municipio</label>
+                    <input type="text" id="municipio" name="municipio" [(ngModel)]="municipioSeleccionado.municipio" required>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="municipio">Municipio</label>
-            <input type="text" id="municipio" name="municipio" [(ngModel)]="municipio.municipio" required>
-        </div>
 
-        <div class="form-actions">
-            <button type="submit">Actualizar Municipio</button>
-            <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
-
-        </div>
     </form>
+
+    <div class="form-actions">
+
+        <button type="button" class="btn btn-primary" (click)="editarMunicipio()">Actualizar </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+    </div>
 </div>

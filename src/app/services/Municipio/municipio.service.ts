@@ -12,7 +12,7 @@ export class MunicipioService {
   constructor(private httpClient: HttpClient) {}
 
   obtenerMunicipios(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}obtenerMunicipios`);
+    return this.httpClient.get(`${this.baseUrl}obtenerMunicipio`);
   }
 
   obtenerMunicipioPorId(idmunicipio: number): Observable<any> {

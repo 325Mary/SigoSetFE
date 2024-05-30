@@ -1,43 +1,66 @@
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 import { MunicipioService } from 'app/services/Municipio/municipio.service';
 
 @Component({
-  selector: 'app-edit-municipio',
+  selector: 'app-edit-municipios',
   templateUrl: './edit-municipios.component.html',
   styleUrls: ['./edit-municipios.component.css']
 })
 export class EditMunicipioComponent implements OnInit {
-  municipio: any = {};
+  municipioSeleccionado: any;
 
   constructor(
     private municipioService: MunicipioService,
-    public dialogRef: MatDialogRef<EditMunicipioComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { idmunicipio: number }
+    private dialogRef: MatDialogRef<EditMunicipioComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit(): void {
-    this.municipioService.obtenerMunicipioPorId(this.data.idmunicipio).subscribe(
-      (response) => {
-        this.municipio = response.data;
-      },
-      (error) => {
-        console.error('Error al obtener municipio', error);
-      }
-    );
+    this.municipioSeleccionado = this.data.municipio;
+    console.log('Datos del municipio a editar:', this.municipioSeleccionado);
   }
 
   editarMunicipio(): void {
-    this.municipioService.editarMunicipio(this.data.idmunicipio, this.municipio).subscribe(
-      () => {
-        this.dialogRef.close('Municipio actualizado');
-      },
-      (error) => {
-        console.error('Error al actualizar municipio', error);
-      }
-    );
+    if (this.municipioSeleccionado) {
+      const nuevoMunicipioData = {
+        municipio: this.municipioSeleccionado.municipio,
+        iddepartamento: this.municipioSeleccionado.iddepartamento
+      };
+
+      this.municipioService.editarMunicipio(this.municipioSeleccionado.idmunicipio, nuevoMunicipioData).subscribe(
+        (response) => {
+          console.log('Municipio actualizado:', response);
+          this.dialogRef.close('Municipio actualizado');
+          Swal.fire({
+            icon: 'success',
+            title: 'Municipio actualizado',
+            text: 'El Municipio ha sido actualizado exitosamente'
+          });
+        },
+        (error) => {
+          console.error('Error al actualizar el Municipio:', error);
+          let errorMessage = 'Ocurrió un error al intentar actualizar el Municipio. Por favor, inténtalo de nuevo.';
+          if (error && error.error && error.error.message) {
+            errorMessage = error.error.message;
+          }
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: errorMessage
+          });
+        }
+      );
+    } else {
+      console.error('municipioSeleccionado is undefined');
+    }
   }
+
   close(): void {
-    this.dialogRef.close(); 
+    this.dialogRef.close();
   }
 }
+
+

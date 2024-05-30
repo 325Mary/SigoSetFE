@@ -1,34 +1,40 @@
-<div class="card">
-    <div class="card-header">
-        <input [(ngModel)]="terminoBusqueda" (input)="filtrarMunicipios()" type="text" class="form-control" placeholder="Buscar municipio">
-    </div>
-    <div class="card-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Municipio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let municipio of municipiosFiltrados">
-                    <td>{{ municipio.idmunicipio }}</td>
-                    <td>{{ municipio.municipio }}</td>
-                    <td>
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 80rem;">
+        <div class=" card-header card-header-sena-azul ">
+            <h4 class="card-title">Listado de Municipios</h4>
+        </div>
+        <div class="card-body ">
+            <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
 
-                        <button class="btn btn-warning btn-sm" (click)="abrirModalEditarMunicipio(municipio.idmunicipio)">
-                <i class="fa fa-pencil"></i>
+                <input [(ngModel)]="terminoBusqueda " (input)="filtrarMunicipios() " type="text " class="form-control " placeholder="Buscar municipio ">
+                <table class="table table-striped text-center ">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Municipio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let municipio of municipiosFiltrados ">
+                            <td>{{ municipio.idmunicipio }}</td>
+                            <td>{{ municipio.municipio }}</td>
+                            <td>
+
+                                <button class="btn btn-warning btn-sm " (click)="abrirModalEditarMunicipio(municipio) ">
+                <i class="fa fa-pencil-alt icono "></i>
               </button>
-                        <button class="btn btn-danger btn-sm" (click)="eliminarMunicipio(municipio.idmunicipio)">
-                <i class="fa fa-trash"></i>
+                                <button class="btn btn-danger btn-sm " (click)="eliminarMunicipio(municipio) ">
+                <i class="fa fa-trash icono "></i>
               </button>
-                    </td>
-                </tr>
-                <tr *ngIf="noResultados">
-                    <td colspan="3" class="text-center">No se encontraron resultados</td>
-                </tr>
-            </tbody>
-        </table>
+                            </td>
+                        </tr>
+                        <tr *ngIf="noResultados ">
+                            <td colspan="3 " class="text-center ">No se encontraron resultados</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
