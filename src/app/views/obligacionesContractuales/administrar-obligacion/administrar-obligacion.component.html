@@ -1,34 +1,62 @@
-<div class="card">
-    <div class="card-header">
-        Administrar Obligaciones Contractuales
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card">
+        <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">Administrar obligaciones contractuales</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
+                    (input)="filtrarObligaciones()" [(ngModel)]="terminoBusqueda">
+                <table class="table-responsive">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Obligación Contractual</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="!noResultados else noResultados">
+                            <tr *ngFor="let obligacion of filtrarObligaciones().slice((currentPage-1)*pageSize,currentPage*pageSize)">
+                                <td>{{ i +1 }}</td>
+                                <td>{{ obligacion.obligaciones_contractuales }}</td>
+                                <td>
+                                    <button class="mr-2" (click)="editarObligacion(obligacion)"
+                                        title="Editar Obligación">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="mr-2" (click)="verObligacion(obligacion)" title="Ver Obligación">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="mr-2"
+                                        (click)="eliminarObligacion(obligacion.idobligaciones_contractuales)"
+                                        title="Eliminar Obligación">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </ng-container>
+                        <ng-container *ngIf="noResultados">
+                            <tr>
+                              <td colspan="5" class="text-center">No se encontraron resultados.</td>
+                            </tr>
+                          </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-center mt-4">
+                <!-- Botones o enlaces para cambiar de página -->
+                <nav aria-label="Page navigation">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
+                      <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+        </div>
+
+
     </div>
-    <div class="card-body">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Obligación Contractual</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let obligacion of obligaciones">
-                    <td>{{ obligacion.idobligaciones_contractuales
-                    }}</td>
-                    <td>{{ obligacion.obligaciones_contractuales }}</td>
-                    <td>
-                        <button class="btn btn-sm btn-primary" (click)="editarObligacion(obligacion)">
-                <i class="bi bi-pencil"></i>
-              </button>
-                        <button class="btn btn-sm btn-secondary" (click)="verObligacion(obligacion)">
-                <i class="bi bi-eye"></i>
-              </button>
-                        <button class="btn btn-sm btn-danger" (click)="eliminarObligacion(obligacion.idobligaciones_contractuales)">
-                <i class="bi bi-trash"></i>
-              </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>

@@ -17,6 +17,10 @@
     margin-right: 10px; /* Agrega un margen entre las tarjetas */
     /* Otros estilos de las tarjetas */
 }
+datalist{
+    background-color: red;
+    color: wheat;
+}
 
 .form-section {
     background-color: #ffffff;
