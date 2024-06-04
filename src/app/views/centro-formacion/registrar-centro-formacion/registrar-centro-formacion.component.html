@@ -1,90 +1,79 @@
 <div class="main-content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-sena-azul">
-              <h4 class="card-title">{{ titulo }}</h4>
-            </div>
-            <div class="card-body">
-              <form [formGroup]="centroFormacionForm" (ngSubmit)="guardarOActualizaCentroFormacion()">
-                <div class="row justify-content-center">
-                  <div class="col-md-5 m-1">
-                    <div class="row form-group">
-                      <label>Zona:</label>
-                      <select class="form-select" aria-label="Seleccione una zona" formControlName="idzona" required>
-                        <option selected>Seleccione una zona</option>
-                        <option value="{{ zona.idzona }}" *ngFor="let zona of listaZonas">
-                          {{ zona.Nombre_zona }}
-                        </option>
-                      </select>
-                    </div>
-                    <div class="row form-group">
-                      <label for="centro_formacion">Nombre del Centro de Formación:</label>
-                      <input type="text" class="form-control" id="centro_formacion" formControlName="centro_formacion" placeholder="" required>
-                    </div>
-                    <div class="row form-group">
-                      <label for="telefono_centrof">Telefono del Centro de Formación:</label>
-                      <input type="number" class="form-control" id="telefono_centrof" formControlName="telefono_centrof" placeholder="" required>
-                      <div *ngIf="centroFormacionForm.get('telefono_centrof')?.hasError('pattern') && centroFormacionForm.get('telefono_ordenadorg')?.touched" style="color: red;">
-                        El teléfono debe tener exactamente 10 dígitos.
-                      </div>
-                    </div>
-                    <div class="row form-group">
-                      <label for="email_centrof">Correo Electronico del Centro de Formación:</label>
-                      <input type="email" class="form-control" id="email_centrof" formControlName="email_centrof" placeholder="" required>
-                      <div *ngIf="centroFormacionForm.get('email_centrof')?.hasError('email') && centroFormacionForm.get('email_centrof')?.touched" style="color: red;">
-                        Introduzca un correo electrónico válido.
-                      </div>
-                      <div *ngIf="centroFormacionForm.get('email_centrof')?.hasError('pattern') && centroFormacionForm.get('email_centrof')?.touched" style="color: red;">
-                        El correo electrónico debe contener un '@'.
-                      </div>
-                    </div>
-                    <div class="row form-group">
-                      <label for="dir_centro_formacion">Direccion del Centro de Formación:</label>
-                      <input type="text" class="form-control" id="dir_centro_formacion" formControlName="dir_centro_formacion" placeholder="" required>
-                    </div>
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-sena-azul">
+                      <h4 class="card-title">{{titulo }} </h4>
                   </div>
-                  <div class="col-md-5 m-1">
-                    <div class="row form-group">
-                      <label>Regional:</label>
-                      <select class="form-select" aria-label="Seleccione una regional" formControlName="idRegional" required>
-                        <option selected>Seleccione una regional</option>
-                        <option value="{{ regional.idRegional }}" *ngFor="let regional of listaRegionales">
-                          {{ regional.regional }}
-                        </option>
-                      </select>
-                    </div>
-                    <div class="row form-group">
-                      <label for="ordenador_gasto">Ordenador Gasto:</label>
-                      <input type="text" class="form-control" id="ordenador_gasto" formControlName="ordenador_gasto" placeholder="" required>
-                    </div>
-                    <div class="row form-group">
-                      <label for="telefono_ordenadorg">Telefono del Ordenador Gasto:</label>
-                      <input type="number" class="form-control" id="telefono_ordenadorg" formControlName="telefono_ordenadorg" placeholder="" required>
-                      <div *ngIf="centroFormacionForm.get('telefono_ordenadorg')?.hasError('pattern') && centroFormacionForm.get('telefono_ordenadorg')?.touched" style="color: red;">
-                        El teléfono debe tener exactamente 10 dígitos.
-                      </div>
-                    </div>
-                    <div class="row form-group">
-                      <label for="email_ordenadorg">Correo Electronico del Ordenador Gasto:</label>
-                      <input type="email" class="form-control" id="email_ordenadorg" formControlName="email_ordenadorg" placeholder="" required>
-                      <div *ngIf="centroFormacionForm.get('email_ordenadorg')?.hasError('email') && centroFormacionForm.get('email_ordenadorg')?.touched" style="color: red;">
-                        Introduzca un correo electrónico válido.
-                      </div>
-                      <div *ngIf="centroFormacionForm.get('email_ordenadorg')?.hasError('pattern') && centroFormacionForm.get('email_ordenadorg')?.touched" style="color: red;">
-                        El correo electrónico debe contener un '@'.
-                      </div>
-                    </div>
+                  <div class="card-body">
+                      <form [formGroup]="centroFormacionForm" (ngSubmit)="guardarOActualizaCentroFormacion()">
+                          <div class="row justify-content-center">
+                              <div class="col-md-5 m-1">
+                                <div class="row form-group">
+                                    <label>
+                                        Zona:
+                                    </label>
+                                    <select class="form-select" aria-label="Seleccione una zona" formControlName="idzona">
+                                        <option selected>Seleccione una zona</option>
+                                        <option value="{{ zona.idzona }}" *ngFor="let zona of listaZonas">
+                                            {{zona.Nombre_zona}}
+                                        </option>
+                                
+                                    </select>
+                                </div>
+                                  <div class="row form-group">
+                                      <label for="centro_formacion">Nombre del Centro de Formación:</label>
+                                      <input type="text" class="form-control" id="centro_formacion" formControlName="centro_formacion" placeholder="">
+                                  </div>
+                                  <div class="row form-group">
+                                      <label for="telefono_centrof">Telefono del Centro de Formación:</label>
+                                      <input type="text" class="form-control" id="telefono_centrof" formControlName="telefono_centrof"placeholder="">
+                                  </div>
+                                  
+                              </div>
+                              <div class="col-md-5 m-1">
+                                <div class="row form-group">
+                                    <label>
+                                        Regional:
+                                    </label>
+                                    <select class="form-select" aria-label="Seleccione una regional"
+                                        formControlName="idRegional">
+                                        <option selected>Seleccione una regional</option>
+                                        <option value="{{ regional.idRegional }}" *ngFor="let regional of listaRegionales">
+                                            {{regional.regional}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                                <div class="row form-group">
+                                      <label for="email_centrof">Correo Electronico del Centro de Formación:</label>
+                                      <input type="text" class="form-control" id="email_centrof" formControlName="email_centrof" placeholder="">
+                                  </div>
+                                  <div class="row form-group">
+                                      <label for="dir_centro_formacion">Direccion del Centro de Formación:</label>
+                                      <input type="text" class="form-control" id="dir_centro_formacion" formControlName="dir_centro_formacion" placeholder="">
+                                  </div>
+                                  <!-- <div class="row form-group">
+                                      <label for="ordenador_gasto">Ordenador Gasto:</label>
+                                      <input type="text" class="form-control" id="ordenador_gasto" formControlName="ordenador_gasto" placeholder="">
+                                  </div>
+                                  <div class="row form-group">
+                                      <label for="telefono_ordenadorg">Telefono del Ordenador Gasto:</label>
+                                      <input type="text" class="form-control" id="telefono_ordenadorg"  formControlName="telefono_ordenadorg" placeholder="">
+                                  </div>
+                                  <div class="row form-group">
+                                      <label for="email_ordenadorg">Correo Electronico del Ordenador Gasto:</label>
+                                      <input type="text" class="form-control" id="email_ordenadorg"  formControlName="email_ordenadorg" placeholder="">
+                                  </div> -->
+                              </div>
+                          </div>
+                          <button mat-raised-button type="button" class="btn btn-default pull-right" (click)="cancelar()">Cancelar</button>                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Guardar</button>
+                          <div class="clearfix"></div>
+                      </form>
                   </div>
-                </div>
-                <button mat-raised-button type="submit" class="btn btn-default pull-right">Cancelar</button>
-                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Guardar</button>
-                <div class="clearfix"></div>
-              </form>
-            </div>
+              </div>
           </div>
-        </div>
       </div>
     </div>
   </div>

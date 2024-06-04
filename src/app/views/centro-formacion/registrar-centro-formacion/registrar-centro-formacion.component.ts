@@ -33,27 +33,13 @@ export class RegistrarCentroFormacionComponent implements OnInit {
     private _centroFormacionService: CentroFormacionService
   ) {
     this.centroFormacionForm = this.fb.group({
-      centro_formacion: ['', Validators.required],
-      dir_centro_formacion: ['', Validators.required],
-      telefono_centrof: ['', [
-        Validators.required,
-        Validators.pattern(/^\d{10}$/)
-      ]],
-      email_centrof: ['', [
-        Validators.required,
-        Validators.email,
-        Validators.pattern(/@/)
-      ]],
-      ordenador_gasto: ['', Validators.required],
-      telefono_ordenadorg: ['', [
-        Validators.required,
-        Validators.pattern(/^\d{10}$/)
-      ]],
-      email_ordenadorg: ['', [
-        Validators.required,
-        Validators.email,
-        Validators.pattern(/@/)
-      ]],
+      centro_formacion:  ['', Validators.required],
+      dir_centro_formacion:  ['', Validators.required],
+      telefono_centrof: ['', Validators.required],
+      email_centrof:  ['', Validators.required],
+      // ordenador_gasto: ['', Validators.required],
+      // telefono_ordenadorg: ['', Validators.required],
+      // email_ordenadorg:  ['', Validators.required],
       idRegional: ['', Validators.required],
       idzona: ['', Validators.required],
     });
@@ -78,15 +64,16 @@ export class RegistrarCentroFormacionComponent implements OnInit {
 
   guardarOActualizaCentroFormacion() {
     const centroFormacion: CentroFormacion = {
-      centro_formacion: this.centroFormacionForm.get('centro_formacion')?.value,
-      dir_centro_formacion: this.centroFormacionForm.get('dir_centro_formacion')?.value,
-      telefono_centrof: this.centroFormacionForm.get('telefono_centrof')?.value,
-      email_centrof: this.centroFormacionForm.get('email_centrof')?.value,
-      ordenador_gasto: this.centroFormacionForm.get('ordenador_gasto')?.value,
-      telefono_ordenadorg: this.centroFormacionForm.get('telefono_ordenadorg')?.value,
-      email_ordenadorg: this.centroFormacionForm.get('email_ordenadorg')?.value,
-      idRegional: this.centroFormacionForm.get('idRegional')?.value,
-      idzona: this.centroFormacionForm.get('idzona')?.value,
+      centro_formacion:this.centroFormacionForm.get('centro_formacion')?.value,
+      dir_centro_formacion:this.centroFormacionForm.get('dir_centro_formacion')?.value,
+      telefono_centrof:this.centroFormacionForm.get('telefono_centrof')?.value,
+      email_centrof:this.centroFormacionForm.get('email_centrof')?.value,
+      // ordenador_gasto:this.centroFormacionForm.get('ordenador_gasto')?.value,
+      // telefono_ordenadorg:this.centroFormacionForm.get('telefono_ordenadorg')?.value,
+      // email_ordenadorg:this.centroFormacionForm.get('email_ordenadorg')?.value,
+      idRegional:this.centroFormacionForm.get('idRegional')?.value,
+      idzona:this.centroFormacionForm.get('idzona')?.value,
+    
     };
 
     if (this.id !== null) {
@@ -98,45 +85,56 @@ export class RegistrarCentroFormacionComponent implements OnInit {
 
   editarCentroFormacion(centroFormacion: CentroFormacion) {
     if (this.centroFormacionForm.valid) {
-      this._centroFormacionService.editarCentroFormacion(this.id, centroFormacion).subscribe((data: any) => {
-        if (data.status === 'success') {
-          Swal.fire({
-            title: 'Centro De Formación Actualizado',
-            text: 'Los datos del centro de formación fueron actualizados correctamente',
-            icon: 'success',
-            showConfirmButton: true,
-          });
+      this._centroFormacionService.editarCentroFormacion(this.id, centroFormacion).subscribe(
+        (data: any) => {
+          if (data.status === 'success') {
+            // Show success message with Swal alert
+            Swal.fire({
+              icon: 'success',
+              title: 'Centro de Formación actualizado exitosamente',
+              showConfirmButton: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.route.navigate(['/listaCentroFormacion']);
+              }
+            });
+          }
+        },
+        (error) => {
+          // Handle errors
         }
-        this.route.navigate(['/listaCentroFormacion']);
-      });
+      );
     } else {
       Swal.fire({
         position: 'center',
         icon: 'warning',
         title: 'Campos Incompletos',
         text: 'Por favor llena todos los campos correctamente',
-        showConfirmButton: true,
+        showConfirmButton: true
       });
     }
   }
-
+  
+  
   guardarCentroFormacion(centroFormacion: CentroFormacion) {
     if (this.centroFormacionForm.valid) {
       this._centroFormacionService.registrarCentroFormacion(centroFormacion).subscribe((data: any) => {
         console.log('response', data);
         if (data.status === 'success') {
+          // Show success message with Swal alert
           Swal.fire({
             icon: 'success',
             title: 'El centro de formación fue registrado con éxito',
-            showConfirmButton: true,
+            showConfirmButton: true
           });
-
           this.route.navigate(['/listaCentroFormacion']);
         } else {
+          // Handle registration errors (e.g., already exists)
           Swal.fire({
             title: 'Error',
             text: 'El centro de formación ya está registrado',
             icon: 'error',
+            showConfirmButton: true
           });
         }
       }, error => {
@@ -147,13 +145,13 @@ export class RegistrarCentroFormacionComponent implements OnInit {
         position: 'center',
         icon: 'warning',
         title: 'Campos Incompletos',
-        text: 'Por favor llena todos los campos correctamente',
-        showConfirmButton: true,
+        text: 'Por favor llena todos los campos correctamente 1',
+        showConfirmButton: true
       });
     }
   }
-
-  getlistaZonas() {
+  
+  getlistaZonas () {
     this._zonaService.getZona().subscribe(data => {
       this.listaZonas = data.data;
       console.log(this.listaZonas);
@@ -181,21 +179,26 @@ export class RegistrarCentroFormacionComponent implements OnInit {
     if (this.id !== null) {
       this.titulo = 'Editar';
       this.nombreBoton = 'EDITAR';
-      this._centroFormacionService.getCentroFormacion(this.id).subscribe(data => {
-        console.log('data de aprendiz', data.data);
-        this.centroFormacionForm.setValue({
-          centro_formacion: data.data.centro_formacion,
-          dir_centro_formacion: data.data.dir_centro_formacion,
-          telefono_centrof: data.data.telefono_centrof,
-          email_centrof: data.data.email_centrof,
-          ordenador_gasto: data.data.ordenador_gasto,
-          telefono_ordenadorg: data.data.telefono_ordenadorg,
-          email_ordenadorg: data.data.email_ordenadorg,
-          idRegional: data.data.idRegional,
-          idzona: data.data.idzona,
+      this._centroFormacionService.getCentroFormacion(this.id).subscribe( data => {
+       
+        console.log('data de aprendiz',data.data);
+        this.centroFormacionForm.setValue( {
+          centro_formacion:data.data.centro_formacion,
+          dir_centro_formacion:data.data.dir_centro_formacion,
+          telefono_centrof:data.data.telefono_centrof,
+          email_centrof:data.data.email_centrof,
+          // ordenador_gasto:data.data.ordenador_gasto,
+          // telefono_ordenadorg:data.data.telefono_ordenadorg,
+          // email_ordenadorg:data.data.email_ordenadorg,
+          idRegional:data.data.idRegional,
+          idzona:data.data.idzona,
+        
         });
       });
       this.titulo = 'Editar ' + this.centroFormacionForm.get('centro_formacion')?.value;
     }
-  }
+    }
+    cancelar() {
+      this.route.navigate(['/listaCentroFormacion']);
+    }
 }
