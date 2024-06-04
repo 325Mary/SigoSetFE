@@ -68,6 +68,11 @@
                                                 <i  *ngIf="isLoggedIn &&  isOrdenadorG "title="Generar Reporte" [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
                                                     <span class="fas fa-file-pdf"></span>
                                                 </i>
+                                                <i *ngIf="(isLoggedIn && isSuperAdministrador) " title="Asignar Ordenador de Gasto" 
+                                                (click)="abrirAsignarOrdenadorGasto(item)">
+                                                <span class="fas fa-user"></span>
+                                             </i>
+                                             
                                             </div>
                                         </td>
                                     </tr>

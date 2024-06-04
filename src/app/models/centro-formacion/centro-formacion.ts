@@ -9,4 +9,6 @@ export class CentroFormacion{
     idRegional?:any;
     idzona?:any;
     regional?:any
+    status?: string;
+
 }
