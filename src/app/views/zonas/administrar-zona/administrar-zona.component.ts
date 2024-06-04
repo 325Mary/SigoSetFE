@@ -21,7 +21,7 @@ export class AdministrarZonaComponent {
   mostrarModalVer: boolean = false;
   showModalVer: boolean = false;
   idzona : number | null= null;
-  noResultados: boolean = false; // Inicializar como false
+  noResultados: boolean = false; 
 
 
   constructor(private zonaservice: ZonaService) { }
@@ -63,7 +63,7 @@ export class AdministrarZonaComponent {
   }
   abrirModalEditarZona(zona: any): void {
     this.zonaSeleccionada = zona;
-    this.showModalEditar = true; // Cambia showModal a showModalEditar
+    this.showModalEditar = true; 
   }
   
   

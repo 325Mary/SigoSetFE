@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DepartamentoService } from 'app/services/Departamento/departamento.service';
+import { log } from 'console';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -33,7 +34,8 @@ export class ListarDepartamentosComponent implements OnInit {
     this.departamentoService.obtenerDepartamentos().subscribe(
       response => {
         this.departamentos = response.data[0];
-        console.log('Departamentos listados', this.departamentos);
+        console.log("Dep",this.departamentos);
+        
         this.filtrarDep();
       }, (error) => {
         console.log('Error al listar departamentos', error);

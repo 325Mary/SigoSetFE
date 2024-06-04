@@ -8,7 +8,9 @@
             <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
                 <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
                     (input)="filtrarObligaciones()" [(ngModel)]="terminoBusqueda">
-                <table class="table-responsive">
+            </div>
+            <div class="table-responsive">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -17,9 +19,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngIf="!noResultados else noResultados">
-                            <tr *ngFor="let obligacion of filtrarObligaciones().slice((currentPage-1)*pageSize,currentPage*pageSize)">
-                                <td>{{ i +1 }}</td>
+                        <ng-container  *ngIf="!noResultados; else noResults">
+                            <tr
+                                *ngFor="let obligacion of filtrarObligaciones().slice((currentPage-1)*pageSize,currentPage*pageSize);let i= index">
+                                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                                 <td>{{ obligacion.obligaciones_contractuales }}</td>
                                 <td>
                                     <button class="mr-2" (click)="editarObligacion(obligacion)"
@@ -38,25 +41,28 @@
                             </tr>
 
                         </ng-container>
-                        <ng-container *ngIf="noResultados">
+                        <ng-template #noResults>
                             <tr>
-                              <td colspan="5" class="text-center">No se encontraron resultados.</td>
+                                <td colspan="5" class="text-center">No se encontraron resultados.</td>
                             </tr>
-                          </ng-container>
+                        </ng-template>
                     </tbody>
+
                 </table>
+
             </div>
-            <div class="text-center mt-4">
-                <!-- Botones o enlaces para cambiar de página -->
-                <nav aria-label="Page navigation">
-                  <ul class="pagination justify-content-center">
-                    <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-                      <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
         </div>
-
-
+        <div class="text-center mt-4">
+            <!-- Botones o enlaces para cambiar de página -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
+                        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
+
+
+</div>

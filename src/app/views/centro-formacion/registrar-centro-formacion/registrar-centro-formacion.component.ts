@@ -8,6 +8,7 @@ import { RegionalService } from 'app/services/regional/regional.service';
 import Swal from 'sweetalert2';
 import { AdministrarRegionalComponent } from 'app/views/Regionales/administrar-regional/administrar-regional.component';
 
+
 @Component({
   selector: 'app-registrar-centro-formacion',
   templateUrl: './registrar-centro-formacion.component.html',
@@ -22,8 +23,9 @@ export class RegistrarCentroFormacionComponent implements OnInit {
   datosFormulario: any;
   listaRegionales: any[] = [];
   listaZonas: any[] = [];
+  regionales: any[]
   submitted: boolean = false;
-
+  regional_seleccionado: any;
   constructor(
     private fb: FormBuilder,
     private route: Router,
@@ -58,9 +60,12 @@ export class RegistrarCentroFormacionComponent implements OnInit {
       idzona: ['', Validators.required],
     });
 
+
     this.id = this.aRoute.snapshot.paramMap.get('id');
     console.log('centro id', this.id);
+
   }
+
 
   ngOnInit(): void {
     this.getlistaZonas();
@@ -74,6 +79,18 @@ export class RegistrarCentroFormacionComponent implements OnInit {
 
   changeForm2() {
     this.cambiarFormulario = 0;
+  }
+
+ 
+
+  onRegionalSelected(event: any): void {
+    const selectRegionalForm = event.target.value;
+    const selectRegional = this.listaRegionales.find(regional => regional.regional === selectRegionalForm);
+    if (selectRegional) {
+      this.regional_seleccionado = selectRegional.idRegional;
+      console.log('Correcto id:', this.regional_seleccionado);
+
+    }
   }
 
   guardarOActualizaCentroFormacion() {

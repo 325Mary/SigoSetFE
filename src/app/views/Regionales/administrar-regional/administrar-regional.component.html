@@ -11,6 +11,7 @@
                 <table class="table">
                     <thead class=" text-dark">
                         <tr>
+                            <td>ID</td>
                             <th>Nombre Regional</th>
                             <th>Dirección</th>
                             <th>Acciones</th>
@@ -19,6 +20,9 @@
                     <tbody>
                         <ng-container *ngIf="regionales && regionales.length > 0; else noResultados" style="height: 20rem;">
                             <tr *ngFor="let regional of filtrarRegionales().slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
+                               
+                                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                               
                                 <td>
                                     <ng-container *ngIf="!regional.editando">
                                         {{ regional.regional }}

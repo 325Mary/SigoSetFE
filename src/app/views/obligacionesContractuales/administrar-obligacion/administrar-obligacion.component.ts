@@ -1,21 +1,22 @@
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ObligacionContractualService } from 'app/services/obligacionContractual/obligacion-contractual.service';
-import { EditarObligacionModalComponent } from 'app/views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component';
-import { VerObligacionModalComponent } from 'app/views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component';
+import { ObligacionContractualService } from 'app/services/obligacionContractual/obligacion-contractual.service'; 
+import { EditarObligacionModalComponent } from 'app/views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component';   
+import { VerObligacionModalComponent } from 'app/views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component';  
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-administrar-obligacion',
   templateUrl: './administrar-obligacion.component.html',
   styleUrls: ['./administrar-obligacion.component.css']
 })
-export class AdministrarObligacionComponent implements OnInit {
+export class AdministrarObligacionComponent {
   obligaciones: any[] = [];
-  pageSize: number = 10; // Número de usuarios por página
-  currentPage: number = 1; // Página actual
   terminoBusqueda: string = '';
   noResultados: boolean = false;
+  pageSize: number = 10;
+  currentPage: number = 1;
 
   constructor(private obligacionService: ObligacionContractualService, public dialog: MatDialog) { }
 
@@ -40,7 +41,7 @@ export class AdministrarObligacionComponent implements OnInit {
         console.log('cntractura:', this.obligaciones)
       },
       error => {
-        alert('Error al obtener las obligaciones contractuales.');
+        alert('Error al obtener las obligaciones contractuales.'+ error);
       }
     );
   }
@@ -64,25 +65,46 @@ export class AdministrarObligacionComponent implements OnInit {
       data: { obligacion }
     });
   }
+ 
+  eliminarObligacion(idobligaciones_contractuales: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminarlo',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.obligacionService.eliminarObligacionContractualPorId(idobligaciones_contractuales).subscribe(
+          () => {
+            Swal.fire(
+              '¡Eliminado!',
+              'La Zona ha sido eliminada correctamente.',
+              'success'
+            );
+            this.obtenerObligaciones();
+          },
+          (error) => {
+            Swal.fire(
+              '¡Error!',
+              'Ocurrió un error al intentar eliminar la Zona.',
+              'error'
+            );
+            console.error('Error al eliminar zona:', error);
+          }
+        );
+      }
+    });
+  }
   filtrarObligaciones(): any[] {
-    const obligacionfiltrada = this.obligaciones.filter((obligacion) => {
-      return obligacion.obligacion.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
+    const obligacionfiltrada = this.obligaciones.filter((obligaciones) => {
+      return obligaciones.obligaciones_contractuales.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
     });
     this.noResultados= obligacionfiltrada.length ===0;
     return obligacionfiltrada;
   }
 
-  eliminarObligacion(idobligaciones_contractuales: number): void {
-    if (confirm('¿Estás seguro de eliminar esta obligación?')) {
-      this.obligacionService.eliminarObligacionContractualPorId(idobligaciones_contractuales).subscribe(
-        response => {
-          alert('Obligación contractual eliminada exitosamente.');
-          this.obtenerObligaciones();
-        },
-        error => {
-          alert('Error al eliminar la obligación contractual.');
-        }
-      );
-    }
-  }
+
+
 }

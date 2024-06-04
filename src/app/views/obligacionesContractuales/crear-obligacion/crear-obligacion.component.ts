@@ -2,6 +2,8 @@
 import { Component } from '@angular/core';
 import { ObligacionContractualService } from '../../../services/obligacionContractual/obligacion-contractual.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-crear-obligacion',
@@ -18,15 +20,28 @@ export class CrearObligacionComponent {
   crearObligacion(): void {
     this.obligacionService.crearObligacionContractual(this.nuevaObligacion).subscribe(
       response => {
-        alert('Obligación contractual creada exitosamente.');
-        this.router.navigate(['/administrar-obligacion']);
-        console.log(response);
-        
+        Swal.fire({
+          icon: 'success',
+          title: '¡Éxito!',
+          text: 'Obligación creada exitosamente'
+        }).then((result) => {
+          // Navegar a la ruta deseada después de cerrar el Sweet Alert
+          this.router.navigate(['/administrarObligacionContractual']);
+        });
       },
       error => {
-        alert('Error en la creación de la obligación contractual.');
-        console.log(error);
-        
+      // Obtener el mensaje de error del objeto error
+      let errorMessage = 'Ocurrió un error al crear la Obligacion. Por favor, inténtalo de nuevo más tarde.';
+      if (error && error.error && error.error.message) {
+        errorMessage = error.error.message;
+      }
+
+      // Mostrar Sweet Alert de error con el mensaje específico
+      Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: errorMessage
+      });
       }
     );
   }
