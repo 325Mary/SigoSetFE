@@ -23,7 +23,7 @@
         <tbody>
           <ng-container *ngIf="!noResultados else noResultados">
             <tr *ngFor="let empresa of filtrarEmpresas().slice((currentPage-1)*pageSize,currentPage*pageSize)">
-              <td>{{empresa.idempresa}}</td>
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
               <td>{{ empresa.nombre_empresa }}</td>
               <td>{{empresa.nit_empresa}}</td>
               <td>{{empresa.direccion_empresa}}</td>

@@ -23,7 +23,7 @@
         <tbody>
           <ng-container *ngIf="!noResultados; else noResultados">
             <tr *ngFor="let modulo of filtrarModulos().slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
-              <td>{{ modulo.idmodulo }}</td>
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
               <td>{{ modulo.modulo }}</td>
               <td>{{ modulo.url_modulo }}</td>
               <td><i class="fa" [ngClass]="modulo.icono"></i></td>

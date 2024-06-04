@@ -24,7 +24,7 @@
                                     <ng-container *ngFor="let municipio of municipiosFiltrados.slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
 
                                         <tr>
-                                            <td>{{ municipio.displayId }}</td>
+                                            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                                             <td>{{ municipio.municipio }}</td>
 
                                             <td>
