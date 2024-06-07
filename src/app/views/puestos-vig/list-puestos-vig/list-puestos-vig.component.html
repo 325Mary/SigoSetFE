@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
                 <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarVigilancia()" [(ngModel)]="terminoBusqueda">
-              </div>
+            </div>
             <table class="table">
                 <thead>
                     <tr>
@@ -21,40 +21,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <ng-container *ngIf="!noResultados; else noResultados">
-                    <tr *ngFor="let puesto of filtrarVigilancia().slice((currentPage-1)*pageSize, currentPage*pageSize);let i = index">
-                        <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-                        <td>{{ puesto.descripcion_puesto }}</td>
-                        <td>{{ puesto.tarifa_puesto }}</td>
-                        <td>{{ puesto.ays }}</td>
-                        <td>{{ puesto.iva }}</td>
-                        <td>{{ puesto.total }}</td>
-                        <button (click)="editarPuesto(puesto.idpuesto_vigilancia, puesto)" class="btn btn-link"
-                            title="Editar">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)" class="btn btn-link"
-                            title="Eliminar">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </tr>
+                    <ng-container *ngIf="!noResultados; else noResultadosTemplate">
+                        <tr *ngFor="let puesto of dataSource.data.slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
+                            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                            <td>{{ puesto.descripcion_puesto }}</td>
+                            <td>{{ puesto.tarifa_puesto }}</td>
+                            <td>{{ puesto.ays }}</td>
+                            <td>{{ puesto.iva }}</td>
+                            <td>{{ puesto.total }}</td>
+                            <td>
+                                <button (click)="abrirModalEditar(puesto)" class="btn" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)" class="btn" title="Eliminar">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
                     </ng-container>
-
-                    
+                    <ng-template #noResultadosTemplate>
+                        <tr>
+                            <td colspan="7" class="text-center">No hay resultados</td>
+                        </tr>
+                    </ng-template>
                 </tbody>
             </table>
         </div>
         <div class="text-center mt-4">
-            <!-- Botones o enlaces para cambiar de página -->
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item" *ngFor="let page of getPages()"
-                        [class.active]="currentPage === page">
+                    <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
                         <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-                    </li>                            
+                    </li>
                 </ul>
             </nav>
         </div>
-
     </div>
 </div>
+
+<div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
+    <div class="modal-dialog modal-xl" style="width: 70%;">
+        <div class="modal-content">
+            <app-editar-vhumana 
+                [puestoSeleccionado]="puestoSeleccionado"
+                [mostrarModal]="mostrarModalEditar"
+                (closeModal)="handleCloseModal()">
+            </app-editar-vhumana>
+       
