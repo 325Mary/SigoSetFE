@@ -58,4 +58,20 @@ btn{
     background-color: #0056b3;
   }
   
-  
+  .text-link {
+    color: blue; /* Color del texto del enlace */
+    text-decoration: none; /* Subrayado para indicar que es un enlace */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el enlace */
+    margin-left: 370px;
+    font-size: 12px;
+}
+
+.text-link:hover {
+    color: darkblue; /* Color del enlace al pasar el ratón por encima */
+}
+
+
+
+.text-link-container {
+  margin-top: 2px; /* Ajusta este valor según sea necesario */
+}

@@ -48,10 +48,12 @@
                   <div class="col-md-5 m-1">
                     <div class="row form-group">
                       <label>Regional:</label>
-                      <input  class="form-select" id="regionalesLista" (change)="onRegionalSelected($event)" placeholder="Seleccione una regional" formControlName="idRegional" required/>
-                      <datalist id="regionalesLista">
-                        <option *ngFor=" let regional of regionales" [value]="regional.regional">{{regional.regional}}</option>
-                      </datalist>                                
+                      <select class="form-select" aria-label="Seleccione una regional" formControlName="idRegional" required>
+                        <option selected>Seleccione una regional</option>
+                        <option value="{{ regional.idRegional }}" *ngFor="let regional of listaRegionales">
+                          {{ regional.regional }}
+                        </option>
+                      </select>
                     </div>
                     <div class="row form-group">
                       <label for="ordenador_gasto">Ordenador Gasto:</label>

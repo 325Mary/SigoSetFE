@@ -159,4 +159,107 @@ export class ListaCentrosFormacionComponent implements OnInit {
     }
     this.noResultados = this.centrosFiltrados.length === 0;
   }
+
+  abrirAsignarOrdenadorGasto(item: any): void {
+    this.authService.listarUsuarios().subscribe((response) => {
+      console.log('Respuesta completa de listarUsuarios:', response);
+      if (!Array.isArray(response.data)) {
+        console.error('La respuesta no contiene un array válido en data:', response.data);
+        return;
+      }
+  
+      const usuarios = response.data.flat();
+      console.log('Usuarios aplanados:', usuarios);
+  
+      // Filtrar usuarios por idcentro_formacion
+      const usuariosFiltradosPorCentro = usuarios.filter((usuario: any) => {
+        return Number(usuario.idcentro_formacion) === Number(item.idcentro_formacion);
+      });
+  
+      // Filtrar usuarios por perfil igual a 2
+      const usuariosFiltrados = usuariosFiltradosPorCentro.filter((usuario: any) => {
+        return Number(usuario.idperfil) === 2;
+      });
+  
+      console.log('Usuarios filtrados:', usuariosFiltrados);
+  
+      const selectOptions = {};
+      usuariosFiltrados.forEach((usuario: any) => {
+        selectOptions[usuario.idUsuario] = usuario.nombre_usuario; // Aquí usamos usuario.idUsuario
+      });
+      console.log('Opciones del select:', selectOptions);
+  
+      if (Object.keys(selectOptions).length === 0) {
+        Swal.fire(
+          'No hay usuarios disponibles',
+          'No se encontraron usuarios con el perfil "Ordenador del gasto" para este centro de formación.',
+          'warning'
+        );
+        return;
+      }
+  
+      Swal.fire({
+        title: 'Asignar Ordenador de Gasto',
+        input: 'select',
+        inputOptions: selectOptions,
+        inputPlaceholder: 'Selecciona un usuario',
+        showCancelButton: true,
+        confirmButtonText: 'Asignar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        console.log('Resultado del cuadro de diálogo de Swal:', result);
+        if (result.isConfirmed) {
+          console.log('Then de Swal.fire alcanzado');
+          const selectedUserId = Number(result.value); // Convertir a número
+          console.log('ID de usuario seleccionado:', selectedUserId);
+          const selectedUser = usuariosFiltrados.find((usuario: any) => Number(usuario.idUsuario) === selectedUserId); // Aquí usamos find en lugar de filter
+          console.log('Usuario seleccionado:', selectedUser);
+          if (selectedUser) {
+            // Llama a la función asignarOrdenadorGasto aquí
+            this.asignarOrdenadorGasto(item, selectedUser);
+          }
+        }
+      });
+  
+    });
+  }
+  
+  
+  
+  
+  asignarOrdenadorGasto(item: any, usuario: any): void {
+    const updatedCentroFormacion = {
+      ...item,
+      ordenador_gasto: usuario.nombre_usuario,
+      telefono_ordenadorg: usuario.telefono_usuario,
+      email_ordenadorg: usuario.email_usuario
+    };
+  
+    this._centroFormacionService.editarCentroFormacion(item.idcentro_formacion, updatedCentroFormacion)
+      .subscribe(response => {
+        console.log('Centro de formación actualizado:', response);
+        if (response.status === 'success') {
+          Swal.fire(
+            'Asignación Completa',
+            'El ordenador de gasto ha sido asignado correctamente.',
+            'success'
+          );
+          this.getListaCentrosFormacion(); // Actualizar la lista de centros
+        } else {
+          Swal.fire(
+            'Error',
+            'Hubo un problema al asignar el ordenador de gasto.',
+            'error'
+          );
+        }
+      }, error => {
+        console.error('Error al actualizar el centro de formación:', error);
+        Swal.fire(
+          'Error',
+          'Ocurrió un error al asignar el ordenador de gasto. Por favor, intenta nuevamente.',
+          'error'
+        );
+      });
+  }
+  
 }

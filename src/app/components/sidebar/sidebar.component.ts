@@ -6,12 +6,14 @@ import { LoginService } from '../../services/usuario/login.service';
 import { TokenValidationService } from '../../services/VertificacionUser/token-validation.service';
 
 declare const $: any;
+
 declare interface RouteInfo {
   path: string;
   title: string;
   icon: string;
   class: string;
 }
+
 export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
 ];
@@ -93,7 +95,12 @@ export class SidebarComponent implements OnInit {
           if (!acc[curr.modulo]) {
             acc[curr.modulo] = [];
           }
-          acc[curr.modulo].push(curr);
+
+          // Verificar duplicados de url_modulo
+          if (!acc[curr.modulo].some(route => route.url_modulo === curr.url_modulo)) {
+            acc[curr.modulo].push(curr);
+          }
+
           return acc;
         }, {});
 
