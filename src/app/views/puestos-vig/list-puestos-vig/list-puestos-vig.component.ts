@@ -1,9 +1,8 @@
-import { Component, OnInit, AfterViewInit,ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatTableModule } from '@angular/material/table';
 import Swal from 'sweetalert2';
-import { NavigationStart, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-puestos-vig',
@@ -14,14 +13,16 @@ export class ListPuestosVigComponent implements OnInit {
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
 
   puestos: any[] = [];
-
   puestoData: any;
   errorMessage: string = '';
-  dataSource: MatTableDataSource<any>; // Agrega esta propiedad
+  dataSource: MatTableDataSource<any>;
   terminoBusqueda: string = '';
   noResultados: boolean = false;
   pageSize: number = 10;
   currentPage: number = 1;
+  showModal: boolean = false;
+  mostrarModalEditar: boolean = false;
+  puestoSeleccionado: any = {};
 
   constructor(
     private puestosService: PuestosVigilanciaService,
@@ -30,28 +31,21 @@ export class ListPuestosVigComponent implements OnInit {
     this.dataSource = new MatTableDataSource<any>();
   }
 
-
-
   ngOnInit(): void {
     this.obtenerPuestos();
   }
+
   setPage(pageNumber: number) {
     this.currentPage = pageNumber;
-  }
-
-  // Función para obtener los números de página disponibles
-  getPages(): number[] {
-    const pageCount = Math.ceil(this.puestos.length / this.pageSize);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
 
   obtenerPuestos(): void {
     this.puestosService.obtenerPuestos().subscribe(
       (data) => {
         this.puestos = data.data[0];
-        this.dataSource.data = this.puestos; // Actualiza el dataSource con los datos obtenidos
-        console.log('pv.', this.puestos)
+        this.dataSource.data = this.puestos;
         this.filtrarVigilancia();
+        console.log('pv.', this.puestos);
       },
       (error) => {
         this.errorMessage = 'Error al obtener los puestos';
@@ -114,18 +108,37 @@ export class ListPuestosVigComponent implements OnInit {
     });
   }
 
+  handleCloseModal(): void {
+    this.mostrarModalEditar = false;
+  }
 
-  filtrarVigilancia(): any[] {
+  actualizarLista(): void {
+    this.obtenerPuestos();
+  }
+
+  abrirModalEditar(puesto: any): void {
+    this.puestoSeleccionado = puesto;
+    this.mostrarModalEditar = true;
+    console.log(this.puestoSeleccionado);
+  }
+
+  filtrarVigilancia(): void {
+    const termino = this.terminoBusqueda.toLowerCase();
     const puestosFiltradas = this.puestos.filter((puestovigilancia) => {
       return (
-        puestovigilancia.descripcion_puesto.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        puestovigilancia.tarifa_puesto.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())||
-        puestovigilancia.ays.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
-        puestovigilancia.total.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) 
+        puestovigilancia.descripcion_puesto.toLowerCase().includes(termino) ||
+        puestovigilancia.tarifa_puesto.toLowerCase().includes(termino) ||
+        puestovigilancia.ays.toLowerCase().includes(termino) ||
+        puestovigilancia.total.toLowerCase().includes(termino)
       );
     });
+
     this.noResultados = puestosFiltradas.length === 0;
-    return puestosFiltradas;
+    this.dataSource.data = puestosFiltradas.length > 0 || this.terminoBusqueda === '' ? puestosFiltradas : this.puestos;
+  }
+
+  getPages(): number[] {
+    const pageCount = Math.ceil(this.dataSource.data.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
 }
-
