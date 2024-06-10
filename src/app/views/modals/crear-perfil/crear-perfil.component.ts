@@ -64,6 +64,6 @@ export class CrearPerfilComponent implements OnInit {
 
   close(): void {
     this.closeModal.emit();
-    this.router.navigate(['/dashboard']);
+    // this.router.navigate(['/dashboard']);
   }
 }

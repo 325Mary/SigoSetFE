@@ -34,15 +34,20 @@ export class ListUsersComponent implements OnInit {
           this.usuariosFiltrados = [...this.usuarios];
           console.log('Primer array de usuarios:', this.usuarios);
         } else {
+          this.usuarios = [];
+          this.usuariosFiltrados = [];
           console.error('La respuesta no contiene datos o el primer array está vacío.');
         }
       },
       error => {
+        this.usuarios = [];
+        this.usuariosFiltrados = [];
         console.error('Error al obtener la lista de usuarios:', error);
       }
     );
-    this.obtenerPerfiles()
+    this.obtenerPerfiles();
   }
+  
   obtenerPerfiles() {
     this.perfilService.obtenerPerfiles().subscribe(
       (response: any) => {
@@ -65,9 +70,13 @@ export class ListUsersComponent implements OnInit {
 
   // Función para obtener los números de página disponibles
   getPages(): number[] {
+    if (!this.usuarios) {
+      return [];
+    }
     const pageCount = Math.ceil(this.usuarios.length / this.pageSize);
     return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
+  
 
 // Función para enviar el correo electrónico al usuario con el ID especificado
 enviarCorreo(idUsuario: string) {
@@ -270,6 +279,10 @@ cambiarPerfilUsuario(idUsuario: string, idPerfil: string) {
 
 filtrarUsuarios(): void {
   if (this.terminoBusqueda.trim() !== '') {
+    if (!this.usuarios) {
+      this.noResultados = true;
+      return;
+    }
     this.usuariosFiltrados = this.usuarios.filter((usuario) => {
       return (
         usuario.nombre_usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
@@ -279,10 +292,11 @@ filtrarUsuarios(): void {
     });
     this.noResultados = this.usuariosFiltrados.length === 0;
   } else {
-    this.usuariosFiltrados = [...this.usuarios]; // Mostrar todos los usuarios si el término de búsqueda está vacío
+    this.usuariosFiltrados = this.usuarios ? [...this.usuarios] : []; // Mostrar todos los usuarios si el término de búsqueda está vacío
     this.noResultados = false;
   }
 }
+
 
 
 // Método para limpiar el término de búsqueda

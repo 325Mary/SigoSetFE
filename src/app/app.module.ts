@@ -84,6 +84,11 @@ import { EditarVHumanaComponent } from './views/modals/editar-vhumana/editar-vhu
 import { EditarModuloComponent } from "./views/modulos/editar-modulo/editar-modulo.component";
 import { CrearModulosXperfilComponent } from './views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component';
 import { ListarModulosXperfilComponent } from './views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component';
+import { ListarObligacionesComponent } from './views/Obligaciociones/listar-obligaciones/listar-obligaciones.component';
+import { EditarObligacionesContratoComponent } from './views/modals/editar-obligaciones-contrato/editar-obligaciones-contrato.component';
+import { ObligacionesContratoService } from './services/obligacionesContrato/obligaciones-contrato.service';
+import { VerObligacionesContratoComponent } from './views/modals/ver-obligaciones-contrato/ver-obligaciones-contrato.component';
+import { CrearObligacionesContratoComponent } from './views/modals/crear-obligaciones-contrato/crear-obligaciones-contrato.component';
 import { ListMunicipiosComponent } from './views/list-municipios/list-municipios.component';
 import { VerMunicipioComponent } from './views/modals/ver-municipios/ver-municipios.component'; 
 import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-municipios.component';
@@ -186,6 +191,10 @@ import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-muni
     EditarModuloComponent,
     CrearModulosXperfilComponent,
     ListarModulosXperfilComponent,
+    ListarObligacionesComponent,
+    EditarObligacionesContratoComponent,
+    VerObligacionesContratoComponent,
+    CrearObligacionesContratoComponent,
     ListMunicipiosComponent,
     EditMunicipioComponent,
     VerMunicipioComponent
@@ -201,6 +210,7 @@ import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-muni
     , JwtHelperService,
     PuestosEXcentroService,
     PuestosVXcentroService,
+    ObligacionesContratoService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  ],
   bootstrap: [AppComponent]

@@ -71,6 +71,8 @@ import { VerMunicipioComponent } from 'app/views/modals/ver-municipios/ver-munic
 import { EditMunicipioComponent } from 'app/views/modals/edit-municipios/edit-municipios.component';
 
 import { ListarDepartamentosComponent } from 'app/views/Departamentos/listar-departamentos/listar-departamentos.component';
+import { ListarObligacionesComponent } from 'app/views/Obligaciociones/listar-obligaciones/listar-obligaciones.component';
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -172,6 +174,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listarModulos', component: ListaModuloComponent},
     { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent},
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent},
+    { path: 'listaDeObligacionesPorContrato', component: ListarObligacionesComponent},
      
     
     {path:'ListMunicipios',component:ListMunicipiosComponent},

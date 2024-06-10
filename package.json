@@ -31,6 +31,7 @@
         "@angular/router": "^14.3.0",
         "@auth0/angular-jwt": "^5.2.0",
         "@fortawesome/fontawesome-free": "^5.15.4",
+        "@ng-bootstrap/ng-bootstrap": "^16.0.0",
         "@popperjs/core": "^2.11.8",
         "ajv": "8.11.0",
         "arrive": "2.4.1",

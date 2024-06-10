@@ -34,7 +34,7 @@ export class SedesService {
     return this.httpClient.delete<any>(url);
   }
   
-  obtenerSedesPorCentroFormacion(idCentroFormacion: number): Observable<any> {
+  obtenerSedesPorCentroFormacion(idCentroFormacion: string): Observable<any> {
     const url = `${this.baseUrl}sedeXcentroFormacion/${idCentroFormacion}`;
     return this.httpClient.get<any>(url);
   }
