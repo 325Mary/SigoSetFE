@@ -13,12 +13,9 @@
     box-sizing: border-box; /* Incluir el ancho del borde y el relleno en el ancho total */
 }
 
-
+/* 
 /* Estilos para los botones */
-.btn {
-    background-color: #012349; /* Color de fondo del botón primario */
-    border-radius: 5px;/* Color del borde del botón primario */
-}
+
 
 
 

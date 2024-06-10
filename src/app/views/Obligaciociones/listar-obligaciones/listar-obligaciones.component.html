@@ -1,0 +1,81 @@
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 80rem;">
+      <div class="card-header card-header-sena-azul">
+        <h4 class="card-title">Listado de Obligaciones de Contrato</h4>
+      </div>
+     
+      <div class="card-body">
+        <div class="center-container">
+
+        <button  class="btn btn-muted" (click)="abrirModalCrear()" style="color: black;   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3)">
+          <i class="bi bi-plus"></i> Agregar Obligacion Contrato
+        </button>
+        </div>
+        <table class="table table-bordered text-center">
+            <thead class="thead-light">
+            <tr>
+              <th>ID</th>
+              <th>Contrato con la Empresa </th>
+              <th>Obligación</th>
+              <th>Acciones</th>
+            </tr> 
+          </thead>
+          <tbody>
+            <tr *ngFor="let obligacion of obligaciones">
+              <td>{{ obligacion.idobligaciones_contrato }}</td>
+              <td>{{obligacion.nombre_empresa}}</td>
+              <td>
+              {{obligacion.obligacion_contratista}}
+              <td>
+                  <button (click)="abrirModalVerO(obligacion)">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button (click)="abrirModalEditar(obligacion)">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button  (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+              
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   
+      <div class="modal" [class.show]="mostrarModalObligaciones" tabindex="-1">
+        <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
+            <div class="modal-content">
+                <!-- Contenido del modal -->
+                <app-ver-obligaciones-contrato 
+        [obligacionSeleccionada]="obligacionSeleccionada"
+        [mostrarModal]="mostrarModalObligaciones"
+        (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
+    </app-ver-obligaciones-contrato>
+    
+            </div>
+        </div>
+    </div>
+    <div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
+        <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
+            <div class="modal-content">
+    <app-editar-obligaciones-contrato 
+  [obligacionSeleccionada]="obligacionSeleccionada" 
+  (closeModal)="handleCloseModal()"
+  (actualizarObligacion)="handleActualizarObligacion($event)">
+</app-editar-obligaciones-contrato>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" [class.show]="mostrarModalCrear" tabindex="-1">
+      <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
+          <div class="modal-content">
+  <app-crear-obligaciones-contrato 
+(ObligacionCCreada)="actualizarObC()"
+(closeModal)="handleCloseModal()"
+>
+</app-crear-obligaciones-contrato>
+          </div>
+      </div>
+  </div>

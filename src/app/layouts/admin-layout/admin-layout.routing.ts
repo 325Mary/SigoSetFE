@@ -65,6 +65,7 @@ import { AdministrarZonaComponent } from 'app/views/zonas/administrar-zona/admin
 import { CrearZonaComponent } from 'app/views/zonas/crear-zona/crear-zona.component';
 import { CrearModulosXperfilComponent } from "app/views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component";
 import { ListarModulosXperfilComponent } from "app/views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component";
+import { ListarObligacionesComponent } from 'app/views/Obligaciociones/listar-obligaciones/listar-obligaciones.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -169,6 +170,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listarModulos', component: ListaModuloComponent},
     { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent},
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent},
+    { path: 'listaDeObligacionesPorContrato', component: ListarObligacionesComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

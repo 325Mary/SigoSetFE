@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h5 class="modal-title">Editar Obligación</h5>
+  </div>
+  <div class="modal-body">
+    <form #editForm="ngForm" (ngSubmit)="onSubmit(editForm)">
+      <div class="form-group">
+        <label for="obligacionContratista">Obligación Contratista</label>
+        <input type="text" id="obligacionContratista" class="form-control" [(ngModel)]="obligacionSeleccionada.obligacion_contratista" name="obligacion_contratista" disabled>
+      </div>
+      <div class="form-group">
+        <label for="nombreEmpresa">Nombre Empresa con contrato</label>
+        <input list="empresas" id="nombreEmpresa" class="form-control" [(ngModel)]="obligacionSeleccionada.nombre_empresa" name="nombre_empresa" (input)="onEmpresaChange($event)" required>
+        <datalist id="empresas">
+          <option *ngFor="let contrato of contratos" [value]="contrato.nombre_empresa"></option>
+        </datalist>
+      </div>
+      <input type="hidden" [(ngModel)]="obligacionSeleccionada.idContrato_empresa" name="idContrato_empresa">
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Guardar</button>
+        <button type="button" class="btn btn-muted" (click)="close()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
