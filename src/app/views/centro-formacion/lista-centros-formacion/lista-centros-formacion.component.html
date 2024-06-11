@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="container d-flex justify-content-center mt-3 mb-3" style="width: 90rem;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -7,8 +7,10 @@
                         <h4 class="card-title ">Listado De Centros De Formacion</h4>
                     </div>
                     <div class="card-body">
-                        <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-                            <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarCentros()" [(ngModel)]="terminoBusqueda">
+                        <div class="form-group"
+                            style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                            <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
+                                (input)="filtrarCentros()" [(ngModel)]="terminoBusqueda">
                         </div>
                         <div class="table-responsive">
                             <table class="table">
@@ -20,58 +22,57 @@
                                     <th>Accion</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of listaCentrosFormacion.slice((currentPage-1)*pageSize, currentPage*pageSize)">
-                                        <td>
-                                            {{item.idcentro_formacion}}
-                                        </td>
-                                        <td>
-                                            {{item.centro_formacion}}
-                                        </td>
-                                        <td>
-                                            {{item.telefono_centrof}}
-                                        </td>
-                                        <td>
-                                            {{item.email_centrof}}
-                                        </td>
+                                    <tr *ngFor="let item of centrosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                                        <td>{{(currentPage - 1) * pageSize + i + 1}}</td>
+                                        <td>{{item.centro_formacion}}</td>
+                                        <td>{{item.telefono_centrof}}</td>
+                                        <td>{{item.email_centrof}}</td>
                                         <td>
                                             <div class="comtainer">
-                                                <i  *ngIf="isLoggedIn && isSuperAdministrador"
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador"
                                                     [routerLink]="['/editarCentroFormacion/', item.idcentro_formacion]">
                                                     <span class="fa-solid  fa-edit"></span>
                                                 </i>
-                                                <i *ngIf="isLoggedIn && isSuperAdministrador" 
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador"
                                                     [routerLink]="['/detalleCentroFormacion/', item.idcentro_formacion]">
-                                                    <span class="fa-solid fa-eye "></span>
+                                                    <span class="fa-solid fa-eye"></span>
                                                 </i>
                                                 <!-- <i tooltip="Eliminar centro de formacion  " placement="bottom"
                                                     showDelay="200" class="butonW "
                                                     (click)="eliminarCentroFormacion(item.idcentro_formacion)">
                                                     <span class="fa-solid fa-trash text-danger"></span>
                                                 </i> -->
-                                                <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG" title="listar Puestos por centro" (click)="abrirModalVerPuestos(item)">
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG"
+                                                    title="listar Puestos por centro"
+                                                    (click)="abrirModalVerPuestos(item)">
                                                     <span class="fas fa-shield"></span>
                                                 </i>
-                                                <i *ngIf="isLoggedIn && isSuperAdministrador" title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador"
+                                                    title="Asignar Puestos de vigilancia"
+                                                    [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
                                                     <span class="fas fa-user-secret"></span>
                                                 </i>
-                                                <i  *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG "title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG "
+                                                    title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
                                                     <span class="fas fa-building"></span>
                                                 </i>
-                                                <i  *ngIf="isLoggedIn &&  isOrdenadorG "title="Generar Reporte" [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
+                                                <i *ngIf="isLoggedIn &&  isOrdenadorG " title="Generar Reporte"
+                                                    [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
                                                     <span class="fas fa-file-pdf"></span>
                                                 </i>
-                                                <i *ngIf="(isLoggedIn && isSuperAdministrador) " title="Asignar Ordenador de Gasto" 
-                                                (click)="abrirAsignarOrdenadorGasto(item)">
-                                                <span class="fas fa-user"></span>
-                                             </i>
-                                             
+                                                <i *ngIf="(isLoggedIn && isSuperAdministrador) "
+                                                    title="Asignar Ordenador de Gasto"
+                                                    (click)="abrirAsignarOrdenadorGasto(item)">
+                                                    <span class="fas fa-user"></span>
+                                                </i>
+
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="text-center mt-4">
+                        <!-- <div class="text-center mt-4">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
@@ -79,7 +80,9 @@
                                     </li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> -->
+                        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
                     </div>
                 </div>
             </div>
@@ -91,9 +94,7 @@
 <div class="modal" [class.show]="mostrarModalPuestos" tabindex="-1">
     <div class="modal-dialog modal-xl" style="width: 70%;">
         <div class="modal-content">
-            <app-list-puestos-xc-centro 
-                [centroSeleccionado]="centroSeleccionado"
-                [mostrarModal]="mostrarModalPuestos"
+            <app-list-puestos-xc-centro [centroSeleccionado]="centroSeleccionado" [mostrarModal]="mostrarModalPuestos"
                 (closeModal)="handleCloseModal()">
             </app-list-puestos-xc-centro>
         </div>
@@ -104,9 +105,7 @@
 <div class="modal" [class.show]="mostrarModalSedes" tabindex="-1">
     <div class="modal-dialog modal-xl" style="width: 70%;">
         <div class="modal-content">
-            <app-list-sedes-xcentro 
-                [centroSeleccionado]="centroSeleccionado"
-                [mostrarModal]="mostrarModalSedes"
+            <app-list-sedes-xcentro [centroSeleccionado]="centroSeleccionado" [mostrarModal]="mostrarModalSedes"
                 (closeModal)="handleCloseModal()">
             </app-list-sedes-xcentro>
         </div>

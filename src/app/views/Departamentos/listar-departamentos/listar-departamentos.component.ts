@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DepartamentoService } from 'app/services/Departamento/departamento.service';
-import { log } from 'console';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +16,7 @@ export class ListarDepartamentosComponent implements OnInit {
   departamentoSeleccionado: any = {};
   mostrarModalEditar: boolean = false;
   mostrarModalVer: boolean = false;
-  pageSize: number = 10;
+  pageSize: number = 10; // Valor por defecto de la paginación
   currentPage: number = 1;
 
   constructor(private departamentoService: DepartamentoService) { }
@@ -26,16 +25,10 @@ export class ListarDepartamentosComponent implements OnInit {
     this.listarDepartamentos();
   }
 
-  handleCloseModal(): void {
-    this.closeModal();
-  }
-
   listarDepartamentos(): void {
     this.departamentoService.obtenerDepartamentos().subscribe(
       response => {
         this.departamentos = response.data[0];
-        console.log("Dep",this.departamentos);
-        
         this.filtrarDep();
       }, (error) => {
         console.log('Error al listar departamentos', error);
@@ -56,16 +49,8 @@ export class ListarDepartamentosComponent implements OnInit {
     this.mostrarModalEditar = true;
   }
 
-  abrirModalEditar() {
-    this.mostrarModalEditar = true;
-  }
-
   abrirModalVerDepartamento(departamento: any): void {
     this.departamentoSeleccionado = departamento;
-    this.mostrarModalVer = true;
-  }
-
-  abrirModalVer() {
     this.mostrarModalVer = true;
   }
 
@@ -117,23 +102,10 @@ export class ListarDepartamentosComponent implements OnInit {
       this.departamentosFiltrados = [...this.departamentos];
     }
     this.noResultados = this.departamentosFiltrados.length === 0;
+    this.currentPage = 1; // Reiniciar la paginación al filtrar
   }
 
-  getPaginatedDepartamentos(): any[] {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = this.currentPage * this.pageSize;
-    return this.departamentosFiltrados.slice(startIndex, endIndex);
-  }
-
-  setPage(pageNumber: number): void {
-    this.currentPage = pageNumber;
-  }
-
-  getPages(): number[] {
-    if (!this.departamentosFiltrados) {
-      return [];
-    }
-    const pageCount = Math.ceil(this.departamentosFiltrados.length / this.pageSize);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
+  pageChange(event: number): void {
+    this.currentPage = event;
   }
 }

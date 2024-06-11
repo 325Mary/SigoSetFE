@@ -15,7 +15,7 @@ export class ListUsersComponent implements OnInit {
   showModal: boolean = false;
 
   usuarios: any[];
-  pageSize: number = 10; // Número de usuarios por página
+  pageSize: number; // Número de usuarios por página
   currentPage: number = 1; // Página actual
   usuarioSeleccionado: any []
   perfiles: any[] = [];
@@ -58,16 +58,7 @@ export class ListUsersComponent implements OnInit {
       }
     );
   }
-    // Función para cambiar de página
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
 
-  // Función para obtener los números de página disponibles
-  getPages(): number[] {
-    const pageCount = Math.ceil(this.usuarios.length / this.pageSize);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
-  }
 
 // Función para enviar el correo electrónico al usuario con el ID especificado
 enviarCorreo(idUsuario: string) {

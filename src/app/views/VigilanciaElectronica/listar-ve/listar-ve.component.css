@@ -11,12 +11,14 @@
   .btn {
     background-color: #165598; /* Color de fondo del botón primario */
   }
-  button{
-    background-color: transparent !important; /* Fondo transparente */
-    border-color: transparent !important; /* Borde transparente */
+  
+
+  #boton {
+    border: none;
+    outline: none;
+    background: none;
     padding: 0;
   }
-
 /* 
   .table-responsive {
     overflow-x: auto;

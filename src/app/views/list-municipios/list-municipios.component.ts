@@ -5,22 +5,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { VerMunicipioComponent } from '../modals/ver-municipios/ver-municipios.component';  
 import { EditMunicipioComponent } from '../modals/edit-municipios/edit-municipios.component'; 
 
-
-
 @Component({
   selector: 'app-list-municipios',
   templateUrl: './list-municipios.component.html',
   styleUrls: ['./list-municipios.component.css']
 })
 export class ListMunicipiosComponent implements OnInit {
-  @ViewChild('modalContent') modalContent:ElementRef<any> | null = null;
+  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
   municipios: any[] = [];
   municipiosFiltrados: any[] = [];
   terminoBusqueda: string = '';
   noResultados: boolean = false;
-  municipioSeleccionado: any ={};
-  mostrarModalEditar:boolean=false;
-  mostrarModalVer: boolean=false;
+  municipioSeleccionado: any = {};
+  mostrarModalEditar: boolean = false;
+  mostrarModalVer: boolean = false;
   pageSize: number = 10; 
   currentPage: number = 1;
 
@@ -30,35 +28,13 @@ export class ListMunicipiosComponent implements OnInit {
     this.listarMunicipios();
   }
 
-handleCloseModal():void{
-  this.handleCloseModal();
-}
-
   listarMunicipios() {
     this.municipioService.obtenerMunicipios().subscribe(
       (response) => {
-        // if (response && response.data) {
-        //   this.municipios = response.data[0];
-        //   this.municipiosFiltrados = response.data[0];
-        if (response && response.data) {
-          this.municipios = response.data[0].map((municipio, index) => {
-            return{...municipio, displayId: index + 1 };
-          });
-          this.municipiosFiltrados = this.municipios;
-          // response.data[0];
-
-        } else {
-          this.municipios = [];
-          this.municipiosFiltrados = [];
-          
-        }
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "¡Municipios listados correctamente!",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        // Asigna los municipios correctamente
+        this.municipios = response.data[0];
+        this.filtrarMunicipios();
+        console.log('Municipios Listados', this.municipios);
       },
       (error) => {
         console.log('Error al obtener Municipios', error);
@@ -73,29 +49,12 @@ handleCloseModal():void{
     );
   }
 
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
-
-  getPages(): number[] {
-    const pageCount = Math.ceil(this.municipios.length / this.pageSize);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
-  }
-
-  actualizarMunicipios(): void {
-    this.listarMunicipios();
-  }
-  verMunicipio():void{
-    this.listarMunicipios();
-  }
-
   abrirModalVerMunicipio(idmunicipio: number): void {
     this.dialog.open(VerMunicipioComponent, {
       data: { idmunicipio }
     });
   }
 
- 
   abrirModalEditarMunicipio(municipio: any): void {
     const dialogRef = this.dialog.open(EditMunicipioComponent, { data: { municipio } });
     dialogRef.afterClosed().subscribe(result => {
@@ -105,7 +64,7 @@ handleCloseModal():void{
     });
   }
 
-  eliminarMunicipio(municipio:any): void {
+  eliminarMunicipio(municipio: any): void {
     Swal.fire({
       title: '¿Estás seguro?',
       text: '¡No podrás revertir esto!',
@@ -138,18 +97,21 @@ handleCloseModal():void{
   }
 
   filtrarMunicipios(): void {
-    this.municipiosFiltrados = this.municipios.filter((municipio) => {
-      return municipio && municipio.municipio && municipio.municipio.toLowerCase().includes(this.terminoBusqueda.toLowerCase());
-    });
-    this.noResultados = this.municipiosFiltrados.length === 0;
-    if (this.noResultados) {
-      Swal.fire({
-        position: "top-end",
-        icon: "warning",
-        title: "No se encontraron municipios con el criterio de búsqueda.",
-        showConfirmButton: false,
-        timer: 1500
+    if (this.terminoBusqueda.trim() !== '') {
+      this.municipiosFiltrados = this.municipios.filter((municipio) => {
+        return(
+        municipio.municipio.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
+        );
+        
       });
+    } else {
+      this.municipiosFiltrados = [...this.municipios];
+    }
+    this.noResultados = this.municipiosFiltrados.length === 0;
+    this.currentPage = 1; // Reiniciar la paginación al filtrar
   }
-}
+
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
 }

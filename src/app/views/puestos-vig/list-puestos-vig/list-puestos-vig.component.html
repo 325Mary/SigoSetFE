@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
                     <ng-container *ngIf="!noResultados; else noResultadosTemplate">
-                        <tr *ngFor="let puesto of dataSource.data.slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
+                        <tr *ngFor="let puesto of puestos  | paginate: { itemsPerPage: pageSize, currentPage: currentPage } let i = index">
                             <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                             <td>{{ puesto.descripcion_puesto }}</td>
                             <td>{{ puesto.tarifa_puesto }}</td>
@@ -30,10 +30,10 @@
                             <td>{{ puesto.iva }}</td>
                             <td>{{ puesto.total }}</td>
                             <td>
-                                <button (click)="abrirModalEditar(puesto)" class="btn" title="Editar">
+                                <button (click)="abrirModalEditar(puesto)" id="bpton" title="Editar" class="mr-2">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)" class="btn" title="Eliminar">
+                                <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)" id="bpton" title="Eliminar" class="mr-2">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -46,16 +46,10 @@
                     </ng-template>
                 </tbody>
             </table>
+            <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
         </div>
-        <div class="text-center mt-4">
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-                        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        
     </div>
 </div>
 

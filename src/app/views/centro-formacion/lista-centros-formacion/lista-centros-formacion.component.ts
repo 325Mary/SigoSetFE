@@ -20,7 +20,7 @@ export class ListaCentrosFormacionComponent implements OnInit {
   mostrarModalPuestos: boolean = false;
   mostrarModalSedes: boolean = false;
   centroSeleccionado: any = {};
-  listaCentrosFormacion: CentroFormacion[] = [];
+  listaCentrosFormacion: any[] = []; //Cambie centrosdeformacion por any
   centrosFiltrados: CentroFormacion[] = [];
   puestoVxCentro: any;
   puestoExCentro: any;
@@ -30,11 +30,10 @@ export class ListaCentrosFormacionComponent implements OnInit {
   isSuperAdministrador = false;
   isOrdenadorG = false;
   currentRoute = '';
-  pageSize: number = 10;
   currentPage: number = 1;
   terminoBusqueda: string = '';
   noResultados: boolean = false;
-
+   pageSize: number=10
   constructor(
     private _centroFormacionService: CentroFormacionService, 
     private _puestosEXCentroService: PuestosEXcentroService,
@@ -66,21 +65,23 @@ export class ListaCentrosFormacionComponent implements OnInit {
 
   getListaCentrosFormacion(): void {
     this._centroFormacionService.getCentrosFormacion().subscribe(data => {
+      console.log(data); // Añadir este log para verificar los datos
       this.listaCentrosFormacion = data.data;
       this.filtrarCentros(); // Inicializa los datos filtrados
     }, error => {
       console.error('Error al obtener la lista de centros de formación:', error);
     });
   }
+  
 
-  setPage(pageNumber: number): void {
-    this.currentPage = pageNumber;
-  }
+  // setPage(pageNumber: number): void {
+  //   this.currentPage = pageNumber;
+  // }
 
-  getPages(): number[] {
-    const pageCount = Math.ceil(this.centrosFiltrados.length / this.pageSize);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
-  }
+  // getPages(): number[] {
+  //   const pageCount = Math.ceil(this.centrosFiltrados.length / this.pageSize);
+  //   return Array(pageCount).fill(0).map((x, i) => i + 1);
+  // }
 
   eliminarCentroFormacion(id: any): void {
     Swal.fire({
@@ -158,7 +159,9 @@ export class ListaCentrosFormacionComponent implements OnInit {
       this.centrosFiltrados = [...this.listaCentrosFormacion];
     }
     this.noResultados = this.centrosFiltrados.length === 0;
+    this.currentPage = 1;
   }
+  
 
   abrirAsignarOrdenadorGasto(item: any): void {
     this.authService.listarUsuarios().subscribe((response) => {
@@ -261,5 +264,11 @@ export class ListaCentrosFormacionComponent implements OnInit {
         );
       });
   }
+
+  
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
+  
   
 }

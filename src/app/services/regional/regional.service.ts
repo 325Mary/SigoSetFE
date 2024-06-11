@@ -14,8 +14,8 @@ export class RegionalService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllRegionals(): Observable<AdministrarRegionalComponent[]> {
-    return this.httpClient.get<AdministrarRegionalComponent[]>(`${this.baseUrl}listAllRegional`);
+  getAllRegionals(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}listAllRegional`);
   }
 
   getRegionalById(id: number): Observable<AdministrarRegionalComponent> {

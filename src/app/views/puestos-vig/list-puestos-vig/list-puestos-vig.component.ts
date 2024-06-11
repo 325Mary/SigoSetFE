@@ -141,4 +141,9 @@ export class ListPuestosVigComponent implements OnInit {
     const pageCount = Math.ceil(this.dataSource.data.length / this.pageSize);
     return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
+  
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
+
 }

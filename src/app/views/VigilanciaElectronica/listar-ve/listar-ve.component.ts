@@ -38,13 +38,12 @@ export class ListarVEComponent implements OnInit {
 
   obtenerVigilanciasElectronicas(): void {
     this.vigilanciaService.obtenerVigilaciaElectronica().subscribe(
-      response => {
+      (response) => {
         this.vigilanciasElectronicas = response.data[0];
         console.log('Puestos VE ',this.vigilanciasElectronicas);
-        
         this.filtrarVE(); 
       },
-      error => {
+      (error) => {
         console.error('Error al obtener las vigilancias electrónicas', error);
       }
     );
@@ -99,17 +98,27 @@ export class ListarVEComponent implements OnInit {
     this.mostrarModalCrear = true;
   }
 
-  filtrarVE(): any[] {
-    const puestosFiltrados = this.vigilanciasElectronicas.filter((puestovigilanciaE) => {
-      return (
-        puestovigilanciaE.descripcion.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        puestovigilanciaE.tarifa.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())||
-        puestovigilanciaE.ays.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
-        puestovigilanciaE.total.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) 
-      );
-    });
-    this.noResultados = puestosFiltrados.length === 0;
-    return puestosFiltrados;
+  filtrarVE(): void {
+    if (this.terminoBusqueda.trim() !== '') {
+      this.vigilanciaVEF = this.vigilanciasElectronicas.filter((puestovigilanciaE) => {
+        return (
+          puestovigilanciaE.descripcion.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+          puestovigilanciaE.tarifa.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+          puestovigilanciaE.ays.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+          puestovigilanciaE.total.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
+        );
+      });
+    } else {
+      this.vigilanciaVEF = [...this.vigilanciasElectronicas]; 
+    }
+    this.noResultados = this.vigilanciaVEF.length === 0;
+    this.currentPage = 1;
   }
   
+  
+  
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
+
 }

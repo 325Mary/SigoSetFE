@@ -11,6 +11,7 @@ export class ListarModulosXperfilComponent implements OnInit {
   modulosXPerfil: any[] = [];
   perfiles: string[] = [];
   modulos: string[] = [];
+  modulosXperfilFitrados: any[] = []
   permissionsMatrix: any = {};
   errorMessage: string | null = null;
   pageSize: number = 10;
@@ -40,7 +41,7 @@ export class ListarModulosXperfilComponent implements OnInit {
   transformData(): void {
     const perfilesSet = new Set<string>();
     const modulosSet = new Set<string>();
-    
+
     this.modulosXPerfil.forEach(item => {
       perfilesSet.add(item.perfil);
       modulosSet.add(this.formatUrl(item.url_modulo));
@@ -60,7 +61,7 @@ export class ListarModulosXperfilComponent implements OnInit {
   }
 
   togglePermission(modulo: string, perfil: string, event: any): void {
-    const nuevoPermiso = event.target.checked ? 'si' : 'no'; 
+    const nuevoPermiso = event.target.checked ? 'si' : 'no';
     this.permissionsMatrix[modulo][perfil] = nuevoPermiso;
 
     const idmodulo = this.getModuloId(modulo);
@@ -88,20 +89,30 @@ export class ListarModulosXperfilComponent implements OnInit {
     return found ? found.idperfil : 0;
   }
 
-  filtrarMxP(): any[] {
-    const modulosFiltrados = this.modulos.filter(modulo => 
-      modulo.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
-    );
-    this.noResultados = modulosFiltrados.length === 0;
-    return modulosFiltrados;
+  filtrarMxP(): void {
+    if (this.terminoBusqueda.trim() !== '') {
+      this.modulosXperfilFitrados = this.modulos.filter(modulo =>
+        modulo.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      );
+      this.noResultados = this.modulosXperfilFitrados.length === 0;
+    } else {
+      this.modulosXperfilFitrados = [...this.modulos]
+    }
+
+
   }
 
-  setPage(pageNumber: number): void {
-    this.currentPage = pageNumber;
-  }
 
-  getPages(): number[] {
-    const pageCount = Math.ceil(this.modulos.length / this.pageSize);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
+
+  // setPage(pageNumber: number): void {
+  //   this.currentPage = pageNumber;
+  // }
+
+  // getPages(): number[] {
+  //   const pageCount = Math.ceil(this.modulos.length / this.pageSize);
+  //   return Array(pageCount).fill(0).map((x, i) => i + 1);
+  // }
+  pageChange(event: number): void {
+    this.currentPage = event;
   }
 }

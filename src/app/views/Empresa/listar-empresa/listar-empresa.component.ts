@@ -14,7 +14,7 @@ export class ListarEmpresaComponent implements OnInit {
   showModal: boolean = false;
   showModal1: boolean = false;
 
-  pageSize: number = 10; // Número de empresas por página
+  pageSize: number; // Número de empresas por página
   currentPage: number = 1; // Página actual
   empresaSeleccionada: any = {};
 
@@ -106,19 +106,19 @@ export class ListarEmpresaComponent implements OnInit {
     });
   }
 
-  // Función para cambiar de página
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
+ // Función para cambiar de página
+  // setPage(pageNumber: number) {
+  //   this.currentPage = pageNumber;
+  // }
 
-  // Función para obtener los números de página disponibles
-  getPages(): number[] {
-    if (!this.empresas) {
-      return [];
-    }
-    const pageCount = Math.ceil(this.empresas.length / this.pageSize);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
-  }
+   // Función para obtener los números de página disponibles
+  // getPages(): number[] {
+  //   if (!this.empresas) {
+  //     return [];
+  //   }
+  //   const pageCount = Math.ceil(this.empresas.length / this.pageSize);
+  //   return Array(pageCount).fill(0).map((x, i) => i + 1);
+  // }
 
   filtrarEmpresas(): any[] {
     const empresasFiltradas = this.empresas.filter((empresa) => {

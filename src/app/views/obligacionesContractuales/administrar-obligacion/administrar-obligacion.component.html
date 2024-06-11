@@ -21,21 +21,21 @@
                     <tbody>
                         <ng-container  *ngIf="!noResultados; else noResults">
                             <tr
-                                *ngFor="let obligacion of filtrarObligaciones().slice((currentPage-1)*pageSize,currentPage*pageSize);let i= index">
+                                *ngFor="let obligacion of obligacionfiltrada | paginate: { itemsPerPage: pageSize, currentPage: currentPage };let i= index">
                                 <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                                 <td>{{ obligacion.obligaciones_contractuales }}</td>
                                 <td>
                                     <button class="mr-2" (click)="editarObligacion(obligacion)"
                                         title="Editar Obligación">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit icono"></i>
                                     </button>
                                     <button class="mr-2" (click)="verObligacion(obligacion)" title="Ver Obligación">
-                                        <i class="bi bi-eye"></i>
+                                        <i class="fas fa-eye icono"></i>
                                     </button>
                                     <button class="mr-2"
                                         (click)="eliminarObligacion(obligacion.idobligaciones_contractuales)"
                                         title="Eliminar Obligación">
-                                        <i class="bi bi-trash"></i>
+                                        <i class="fas fa-trash icono"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -52,16 +52,8 @@
 
             </div>
         </div>
-        <div class="text-center mt-4">
-            <!-- Botones o enlaces para cambiar de página -->
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-                        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
     </div>
 
 

@@ -17,27 +17,20 @@ export class AdministrarRegionalComponent implements OnInit {
   pageSize: number = 10; // Número de usuarios por página
   currentPage: number = 1; // Página actual
   terminoBusqueda: string = '';
+  regionalesFiltradas: any[] = [];
   noResultados: boolean = false;
   constructor(private regionalService: RegionalService) { }
 
   ngOnInit(): void {
     this.listarRegionales(); // Llama al método para listar regionales al inicializar el componente
   }
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
 
-  // Función para obtener los números de página disponibles
-  getPages(): number[] {
-    const pageCount = Math.ceil(this.regionales.length / this.pageSize);
-    return Array(pageCount).fill(0).map((x, i) => i + 1);
-  }
   listarRegionales(): void {
     this.regionalService.getAllRegionals().subscribe(
-      (response: any) => {
+      response => {
         this.regionales = response[0];
-        console.log('regionales:', this.regionales)
         this.filtrarRegionales();
+        console.log('regionales:', this.regionales)
       },
       error => {
         console.error('Error al obtener las regionales:', error);
@@ -66,16 +59,24 @@ export class AdministrarRegionalComponent implements OnInit {
       }
     );
   }
-  filtrarRegionales(): any[] {
-    const regionalesfiltradas = this.regionales.filter((regional) => {
+  filtrarRegionales() :void {
+    if (this.terminoBusqueda.trim() !== '') {
+   this.regionalesFiltradas = this.regionales.filter((regional) => {
       return (
         regional.regional.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
         regional.direccion.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) 
       
       );
     });
-    this.noResultados = regionalesfiltradas.length === 0;
-    return regionalesfiltradas;
+    this.noResultados = this.regionalesFiltradas.length === 0;
+    this.currentPage=1
+
+  }else{
+    this.regionalesFiltradas = [...this.regionales]
+  }
+}
+  pageChange(event: number): void {
+    this.currentPage = event;
   }
 
 

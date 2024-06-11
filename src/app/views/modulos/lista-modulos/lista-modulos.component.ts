@@ -12,6 +12,7 @@ export class ListaModuloComponent implements OnInit {
   showModal: boolean = false;
   mostrarModalEditar: boolean = false;
   ModuloSeleccionado: any = {};
+  modulofiltrado:any[]=[]
   modulos: any[] = [];
   terminoBusqueda: string = '';
   noResultados: boolean = false;
@@ -92,18 +93,28 @@ export class ListaModuloComponent implements OnInit {
     this.mostrarModalEditar = false;
   }
 
-  filtrarModulos(): any[] {
-    const terminoBusquedaLower = this.terminoBusqueda.toLowerCase();
-    const modulosFiltrados = this.modulos.filter(modulo => {
+  filtrarModulos(): void{
+    if (this.terminoBusqueda.trim() !== '') {
+        this.modulofiltrado = this.modulos.filter(modulo => {
       return (
-        modulo.modulo.toLowerCase().includes(terminoBusquedaLower) ||
-        modulo.url_modulo.toLowerCase().includes(terminoBusquedaLower) ||
-        modulo.icono.toLowerCase().includes(terminoBusquedaLower) ||
-        modulo.orden.toString().toLowerCase().includes(terminoBusquedaLower) ||
-        modulo.hijos.toString().toLowerCase().includes(terminoBusquedaLower)
+        modulo.modulo.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        modulo.url_modulo.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        modulo.icono.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        modulo.orden.toString().toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        modulo.hijos.toString().toLowerCase().includes(this.terminoBusqueda.toLowerCase())
       );
     });
-    this.noResultados = modulosFiltrados.length === 0;
-    return modulosFiltrados;
+    this.noResultados = this.modulofiltrado.length === 0;
+    this.currentPage = 1
+  
+  }else{
+    this.modulofiltrado=[...this.modulos]
+  }
+
+  
+  
+  }
+  pageChange(event: number): void {
+    this.currentPage = event;
   }
 }

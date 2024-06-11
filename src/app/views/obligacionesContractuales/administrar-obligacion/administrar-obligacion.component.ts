@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class AdministrarObligacionComponent {
   obligaciones: any[] = [];
+  obligacionfiltrada : any[]=[]
   terminoBusqueda: string = '';
   noResultados: boolean = false;
   pageSize: number = 10;
@@ -97,14 +98,21 @@ export class AdministrarObligacionComponent {
       }
     });
   }
-  filtrarObligaciones(): any[] {
-    const obligacionfiltrada = this.obligaciones.filter((obligaciones) => {
+  filtrarObligaciones(): void {
+    if (this.terminoBusqueda.trim() !== '') {
+   this.obligacionfiltrada= this.obligaciones.filter((obligaciones) => {
       return obligaciones.obligaciones_contractuales.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
     });
-    this.noResultados= obligacionfiltrada.length ===0;
-    return obligacionfiltrada;
+    this.noResultados= this.obligacionfiltrada.length === 0;
+    this.currentPage= 1
+   
+  }else{
+    this.obligacionfiltrada =[...this.obligaciones]
+  }
   }
 
 
-
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
 }

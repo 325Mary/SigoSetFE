@@ -8,8 +8,9 @@
         <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarModulos()"
           [(ngModel)]="terminoBusqueda">
       </div>
-      <table class="table table-striped">
-        <thead>
+      <div class="table-responsive">
+      <table class="table">
+        <thead class="text-dark">
           <tr>
             <th>ID</th>
             <th>Módulo</th>
@@ -22,7 +23,7 @@
         </thead>
         <tbody>
           <ng-container *ngIf="!noResultados; else noResultados">
-            <tr *ngFor="let modulo of filtrarModulos().slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
+            <tr *ngFor="let modulo of modulofiltrado | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
               <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
               <td>{{ modulo.modulo }}</td>
               <td>{{ modulo.url_modulo }}</td>
@@ -38,18 +39,16 @@
 
 
           </ng-container>
-
+          <ng-template #noResults>
+            <tr>
+                <td colspan="3" class="text-center">No se encontraron resultados</td>
+            </tr>
+        </ng-template>
         </tbody>
       </table>
-    </div>
-    <div class="text-center mt-4">
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-            <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-          </li>
-        </ul>
-      </nav>
+      <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+      </div>
     </div>
   </div>
 </div>

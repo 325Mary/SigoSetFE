@@ -87,6 +87,7 @@ import { ListarModulosXperfilComponent } from './views/modulos/listar-modulos-xp
 import { ListMunicipiosComponent } from './views/list-municipios/list-municipios.component';
 import { VerMunicipioComponent } from './views/modals/ver-municipios/ver-municipios.component'; 
 import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-municipios.component';
+import {NgxPaginationModule}from 'ngx-pagination'
 
 @NgModule({
   imports: [
@@ -105,6 +106,7 @@ import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-muni
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    NgxPaginationModule,
 
 
     JwtModule.forRoot({

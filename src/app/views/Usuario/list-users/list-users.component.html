@@ -1,91 +1,90 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
-  <div class="card" style="width: 60rem;">
-    <div class="card-header card-header-sena-azul"> <!-- Contenedor del título -->
-      <h3 class="card-title">Listado de Usuarios</h3>
-    </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-sena-azul"> <!-- Contenedor del título -->
+            <h4 class="card-title">Listado de Usuarios</h4>
+          </div>
 
-    <div class="card-body">
-      <div class="table">
-        <table class="table table-bordered text-center">
-          <thead>
+          <div class="card-body">
             <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
               <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
                 (input)="filtrarUsuarios()" [(ngModel)]="terminoBusqueda">
             </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-dark">
 
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Apellido</th>
-              <th>Email</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngIf="!noResultados; else noResults">
-              <ng-container
-                *ngFor="let usuario of usuariosFiltrados.slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
-                <tr>
-                  <td>{{ usuarioIndex + i + 1 }}</td>
-                  <td>{{ usuario.nombre_usuario }}</td>
-                  <td>{{ usuario.apellido_usuario }}</td>
-                  <td>{{ usuario.email_usuario }}</td>
-                  <td>
-                    <button (click)="abrirCambiarPerfil(usuario)" title="Cambiar perfil">
-                      <i class="bi bi-pencil"></i>
-                    </button>
-                    <button (click)="enviarCorreo(usuario.idUsuario)" title="Enviar correo"
-                      *ngIf="usuario.firstLogin !== 0">
-                      <i class="bi bi-envelope  black-icon"></i> <!-- Icono de correo de Bootstrap -->
-                    </button>
-                    <button (click)="abrirModalVerUsuario(usuario)" title="Ver Detalles">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button (click)="cambiarEstado(usuario.idUsuario)" title="Cambiar estado">
-                      <ng-container *ngIf="usuario.estado === 'Y'; else inactivo">
-                        <!-- Icono para usuario activo -->
-                        <i class="bi bi-check-circle-fill text-success "></i>
-                      </ng-container>
-                      <ng-template #inactivo>
-                        <!-- Icono para usuario inactivo -->
-                        <i class="bi bi-x-circle-fill inactivo"></i>
-                      </ng-template>
-                    </button>
-                    <button (click)="eliminarUsuario(usuario.idUsuario)" title="eliminar">
-                      <i class="bi bi-trash  black-icon"></i> <!-- Icono de eliminación -->
-                    </button>
-                  </td>
-                </tr>
-              </ng-container>
-            </ng-container>
-            <ng-template #noResults>
-              <tr>
-                <td colspan="5" class="text-center">No se encontraron resultados.</td>
-              </tr>
-            </ng-template>
-          </tbody>
-        </table>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="!noResultados; else noResults">
+                    <ng-container
+                      *ngFor="let usuario of usuariosFiltrados | paginate: { itemsPerPage: 10, currentPage: pageSize };let i = index">
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ usuario.nombre_usuario }}</td>
+                        <td>{{ usuario.apellido_usuario }}</td>
+                        <td>{{ usuario.email_usuario }}</td>
+                        <td>
+                          <button (click)="abrirCambiarPerfil(usuario)" title="Cambiar perfil">
+                            <span class="fa-solid fa-retweet"></span>
+                          </button>
+                          <button (click)="enviarCorreo(usuario.idUsuario)" title="Enviar correo"
+                            *ngIf="usuario.firstLogin !== 0">
+                            <span class="fa-regular fa-envelope"></span>
+                          </button>
+                          <button (click)="abrirModalVerUsuario(usuario)" title="Ver Detalles">
+                            <span class="fa-solid fa-eye"></span>
+                          </button>
+                          <button (click)="cambiarEstado(usuario.idUsuario)" title="Cambiar estado">
+                            <ng-container *ngIf="usuario.estado === 'Y'; else inactivo">
+                              <!-- Icono para usuario activo -->
+                              <span class="fa-solid fa-circle-check"></span>
+                            </ng-container>
+                            <ng-template #inactivo>
+                              <!-- Icono para usuario inactivo -->
+                              <span class="fa-solid fa-circle-xmark"></span>
+                            </ng-template>
+                          </button>
+                          <button (click)="eliminarUsuario(usuario.idUsuario)" title="eliminar">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </ng-container>
+                  <ng-template #noResults>
+                    <tr>
+                      <td colspan="5" class="text-center">No se encontraron resultados.</td>
+                    </tr>
+                  </ng-template>
+                </tbody>
+              </table>
+            </div>
+
+
+            <pagination-controls (pageChange)="pageSize = $event"previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+          </div>
+        </div>
       </div>
-      <div class="text-center mt-4">
-        <!-- Botones o enlaces para cambiar de página -->
-        <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-              <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-            </li>
-          </ul>
-        </nav>
+
+      <div class="modal" [class.show]="showModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Contenido del modal -->
+            <app-ver-user [usuarioSeleccionado]="usuarioSeleccionado" (closeModal)="handleCloseModal()"></app-ver-user>
+          </div>
+        </div>
       </div>
-
-    </div>
-  </div>
-</div>
-
-<div class="modal" [class.show]="showModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Contenido del modal -->
-      <app-ver-user [usuarioSeleccionado]="usuarioSeleccionado" (closeModal)="handleCloseModal()"></app-ver-user>
     </div>
   </div>
 </div>

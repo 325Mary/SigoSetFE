@@ -4,7 +4,11 @@
   overflow-x: auto;
 }
 
-
+#button{
+  outline: none;
+  background: none;
+  border: none;
+}
 
 .pagination {
   display: flex;
@@ -69,21 +73,7 @@
   border-radius: 3px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6)
 }
-.table {
-  background-color: rgb(255, 255, 255);
-  margin-top: 50px; /* Ajusta el margen superior para dejar espacio al título */
-}
 
-.table th,
-    .table-bordered td {
-        border: none; /* Eliminar el borde de las celdas */
-        background-color: rgb(255, 255, 255);
-      }
-
-      .table thead th {
-        height: 60px; /* Altura deseada para las celdas del encabezado */
-        font-weight: bold; /* Texto en negrita */
-    }
     
 
     /* Estilos personalizados para el icono */
