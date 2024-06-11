@@ -1,54 +1,55 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-sena-azul">
-                        <h4 class="card-title">Listado de Municipios</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-                            <input [(ngModel)]="terminoBusqueda" (input)="filtrarMunicipios()" type="text" class="form-control" placeholder="Buscar municipio...">
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class="text-dark">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Municipio</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <ng-container *ngIf="!noResultados; else noResults">
-                                        <ng-container *ngFor="let municipio of municipiosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
-                                            <tr>
-                                                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-                                                <td>{{ municipio.municipio }}</td>
-                                                <td>
-                                                    <button title="Editar Municipio" (click)="abrirModalEditarMunicipio(municipio)" id="boton"  class="mr-2">
-                                                        <i class="fas fa-edit icono"></i>
-                                                    </button>
-                                                    <button title="Eliminar Municipio" (click)="eliminarMunicipio(municipio)" id="boton"  class="mr-2">
-                                                        <i class="fas fa-trash icono"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </ng-container>
-                                    </ng-container>
-                                    <ng-template #noResults>
-                                        <tr>
-                                            <td colspan="3" class="text-center">No se encontraron resultados</td>
-                                        </tr>
-                                    </ng-template>
-                                </tbody>
-                            </table>
-                            <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                        </div>
-                    </div>
-                </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-sena-azul">
+              <h4 class="card-title">Listado de Municipios</h4>
             </div>
+            <div class="card-body">
+              <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                <input [(ngModel)]="terminoBusqueda" (input)="filtrarMunicipios()" type="text" class="form-control" placeholder="Buscar municipio...">
+              </div>
+  
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="text-dark">
+                    <tr>
+                      <th>ID</th>
+                      <th>Municipio</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngIf="!noResultados; else noResults">
+                      <ng-container *ngFor="let municipio of municipiosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                        <tr>
+                          <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                          <td>{{ municipio.municipio }}</td>
+                          <td>
+                            <button title="Editar Municipio" (click)="abrirModalEditarMunicipio(municipio)" id="boton" class="mr-2">
+                              <i class="fas fa-edit icono"></i>
+                            </button>
+                            <button title="Eliminar Municipio" (click)="eliminarMunicipio(municipio)" id="boton" class="mr-2">
+                              <i class="fas fa-trash icono"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #noResults>
+                      <tr>
+                        <td colspan="3" class="text-center">No se encontraron resultados</td>
+                      </tr>
+                    </ng-template>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  

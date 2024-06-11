@@ -24,7 +24,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <ng-container *ngIf="!noResultados; else noResultados">
+                                    <ng-container *ngIf="!noResultados; else noResults">
                             
                                         <tr
                                             *ngFor="let regional of regionalesFiltradas | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
@@ -65,7 +65,7 @@
                                             </td>
                                         </tr>
                                     </ng-container>
-                                    <ng-template #noRegionales>
+                                    <ng-template #noResults>
                                         <tr>
                                             <td colspan="3">No hay regionales para mostrar</td>
                                         </tr>

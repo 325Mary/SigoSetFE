@@ -24,13 +24,12 @@ export class AdministrarRegionalComponent implements OnInit {
   ngOnInit(): void {
     this.listarRegionales(); // Llama al método para listar regionales al inicializar el componente
   }
-
   listarRegionales(): void {
     this.regionalService.getAllRegionals().subscribe(
       response => {
         this.regionales = response[0];
-        this.filtrarRegionales();
         console.log('regionales:', this.regionales)
+        this.filtrarRegionales();
       },
       error => {
         console.error('Error al obtener las regionales:', error);
@@ -59,7 +58,7 @@ export class AdministrarRegionalComponent implements OnInit {
       }
     );
   }
-  filtrarRegionales() :void {
+  filtrarRegionales(): void {
     if (this.terminoBusqueda.trim() !== '') {
    this.regionalesFiltradas = this.regionales.filter((regional) => {
       return (
@@ -72,7 +71,7 @@ export class AdministrarRegionalComponent implements OnInit {
     this.currentPage=1
 
   }else{
-    this.regionalesFiltradas = [...this.regionales]
+    this.regionalesFiltradas=[...this.regionales]
   }
 }
   pageChange(event: number): void {
