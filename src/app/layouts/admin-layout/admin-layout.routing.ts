@@ -66,7 +66,7 @@ import { CrearZonaComponent } from 'app/views/zonas/crear-zona/crear-zona.compon
 import { CrearModulosXperfilComponent } from "app/views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component";
 import { ListarModulosXperfilComponent } from "app/views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component";
 import { ListarObligacionesComponent } from 'app/views/Obligaciociones/listar-obligaciones/listar-obligaciones.component';
-
+import { EnviarReporteComponent } from "app/views/Reportes/enviar-reporte/enviar-reporte.component";
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -171,6 +171,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent},
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent},
     { path: 'listaDeObligacionesPorContrato', component: ListarObligacionesComponent},
+    { path: 'reporte', component: EnviarReporteComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

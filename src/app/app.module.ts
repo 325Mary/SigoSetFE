@@ -86,6 +86,11 @@ import { EditarObligacionesContratoComponent } from './views/modals/editar-oblig
 import { ObligacionesContratoService } from './services/obligacionesContrato/obligaciones-contrato.service';
 import { VerObligacionesContratoComponent } from './views/modals/ver-obligaciones-contrato/ver-obligaciones-contrato.component';
 import { CrearObligacionesContratoComponent } from './views/modals/crear-obligaciones-contrato/crear-obligaciones-contrato.component';
+import { EnviarReporteComponent } from './views/Reportes/enviar-reporte/enviar-reporte.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from 'environments/environment';
 
 @NgModule({
   imports: [
@@ -104,8 +109,9 @@ import { CrearObligacionesContratoComponent } from './views/modals/crear-obligac
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-
-
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireMessagingModule,   
+    AngularFireDatabaseModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -185,6 +191,8 @@ import { CrearObligacionesContratoComponent } from './views/modals/crear-obligac
     EditarObligacionesContratoComponent,
     VerObligacionesContratoComponent,
     CrearObligacionesContratoComponent,
+    EnviarReporteComponent,
+   
   ],
   providers: [
     LoginService,
