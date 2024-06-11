@@ -72,7 +72,7 @@ import { EditMunicipioComponent } from 'app/views/modals/edit-municipios/edit-mu
 
 import { ListarDepartamentosComponent } from 'app/views/Departamentos/listar-departamentos/listar-departamentos.component';
 import { ListarObligacionesComponent } from 'app/views/Obligaciociones/listar-obligaciones/listar-obligaciones.component';
-
+import { EnviarReporteComponent } from "app/views/Reportes/enviar-reporte/enviar-reporte.component";
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -175,6 +175,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent},
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent},
     { path: 'listaDeObligacionesPorContrato', component: ListarObligacionesComponent},
+    { path: 'reporte', component: EnviarReporteComponent},
      
     
     {path:'ListMunicipios',component:ListMunicipiosComponent},

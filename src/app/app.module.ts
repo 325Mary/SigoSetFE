@@ -89,6 +89,11 @@ import { EditarObligacionesContratoComponent } from './views/modals/editar-oblig
 import { ObligacionesContratoService } from './services/obligacionesContrato/obligaciones-contrato.service';
 import { VerObligacionesContratoComponent } from './views/modals/ver-obligaciones-contrato/ver-obligaciones-contrato.component';
 import { CrearObligacionesContratoComponent } from './views/modals/crear-obligaciones-contrato/crear-obligaciones-contrato.component';
+import { EnviarReporteComponent } from './views/Reportes/enviar-reporte/enviar-reporte.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from 'environments/environment';
 import { ListMunicipiosComponent } from './views/list-municipios/list-municipios.component';
 import { VerMunicipioComponent } from './views/modals/ver-municipios/ver-municipios.component'; 
 import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-municipios.component';
@@ -110,8 +115,9 @@ import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-muni
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-
-
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireMessagingModule,   
+    AngularFireDatabaseModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -195,6 +201,8 @@ import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-muni
     EditarObligacionesContratoComponent,
     VerObligacionesContratoComponent,
     CrearObligacionesContratoComponent,
+    EnviarReporteComponent,
+   
     ListMunicipiosComponent,
     EditMunicipioComponent,
     VerMunicipioComponent

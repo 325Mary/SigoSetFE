@@ -6,6 +6,8 @@ import { TokenValidationService } from '../../../services/VertificacionUser/toke
 import { LoginService } from "../../../services/usuario/login.service";
 import { Subscription } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
+import { ChatService } from "../../../services/reportes/chat.service";
+
 import Swal from 'sweetalert2';
 
 @Component({
