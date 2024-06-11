@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RegionalService } from '../../../services/regional/regional.service';
-import { ViewChild } from '@angular/core';
-import { ElementRef } from '@angular/core';
-
 
 @Component({
   selector: 'app-administrar-regional',
@@ -19,16 +16,18 @@ export class AdministrarRegionalComponent implements OnInit {
   terminoBusqueda: string = '';
   regionalesFiltradas: any[] = [];
   noResultados: boolean = false;
+
   constructor(private regionalService: RegionalService) { }
 
   ngOnInit(): void {
     this.listarRegionales(); // Llama al método para listar regionales al inicializar el componente
   }
+
   listarRegionales(): void {
     this.regionalService.getAllRegionals().subscribe(
       response => {
-        this.regionales = response[0];
-        console.log('regionales:', this.regionales)
+        this.regionales = Array.isArray(response[0]) ? response[0] : [];
+        console.log('regionales:', this.regionales);
         this.filtrarRegionales();
       },
       error => {
@@ -58,25 +57,23 @@ export class AdministrarRegionalComponent implements OnInit {
       }
     );
   }
+
   filtrarRegionales(): void {
     if (this.terminoBusqueda.trim() !== '') {
-   this.regionalesFiltradas = this.regionales.filter((regional) => {
-      return (
-        regional.regional.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        regional.direccion.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) 
-      
-      );
-    });
-    this.noResultados = this.regionalesFiltradas.length === 0;
-    this.currentPage=1
-
-  }else{
-    this.regionalesFiltradas=[...this.regionales]
+      this.regionalesFiltradas = this.regionales.filter((regional) => {
+        return (
+          regional.regional.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+          regional.direccion.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+        );
+      });
+      this.noResultados = this.regionalesFiltradas.length === 0;
+      this.currentPage = 1;
+    } else {
+      this.regionalesFiltradas = [...this.regionales];
+    }
   }
-}
+
   pageChange(event: number): void {
     this.currentPage = event;
   }
-
-
 }

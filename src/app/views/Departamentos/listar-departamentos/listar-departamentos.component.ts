@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DepartamentoService } from 'app/services/Departamento/departamento.service';
+import { error, log } from 'console';
+import { response } from 'express';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -36,28 +38,28 @@ export class ListarDepartamentosComponent implements OnInit {
     );
   }
 
-  actualizarDepartamentos(): void {
-    this.listarDepartamentos();
-  }
+  // actualizarDepartamentos(): void {
+  //   this.listarDepartamentos();
+  // }
 
-  verDepartamneto(): void {
-    this.listarDepartamentos();
-  }
+  // verDepartamneto(): void {
+  //   this.listarDepartamentos();
+  // }
 
-  abrirModalEditarDepartamento(departamento: any): void {
-    this.departamentoSeleccionado = departamento;
-    this.mostrarModalEditar = true;
-  }
+  // abrirModalEditarDepartamento(departamento: any): void {
+  //   this.departamentoSeleccionado = departamento;
+  //   this.mostrarModalEditar = true;
+  // }
 
-  abrirModalVerDepartamento(departamento: any): void {
-    this.departamentoSeleccionado = departamento;
-    this.mostrarModalVer = true;
-  }
+  // abrirModalVerDepartamento(departamento: any): void {
+  //   this.departamentoSeleccionado = departamento;
+  //   this.mostrarModalVer = true;
+  // }
 
-  closeModal(): void {
-    this.mostrarModalEditar = false;
-    this.mostrarModalVer = false;
-  }
+  // closeModal(): void {
+  //   this.mostrarModalEditar = false;
+  //   this.mostrarModalVer = false;
+  // }
 
   EliminarDepartamento(iddepartamento: number): void {
     Swal.fire({
@@ -107,5 +109,23 @@ export class ListarDepartamentosComponent implements OnInit {
 
   pageChange(event: number): void {
     this.currentPage = event;
+  }
+
+  editarMunicipio(index:number):void{
+    this.departamentos[index].editando = true
+  }
+  guardarCambios(index:number):void{
+    const departamenoEditado= this.departamentos[index]
+    this.departamentoService.editarDepartamento(departamenoEditado.iddepartamento,departamenoEditado).subscribe(
+      response=>{
+        console.log('Municipio editado correctamente',response);
+        departamenoEditado.editado = false
+        
+      },
+      error=>{
+        console.log('No se actualizo',error);
+        
+      }
+    )
   }
 }

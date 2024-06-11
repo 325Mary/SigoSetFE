@@ -1,0 +1,64 @@
+<div class="container">
+    <!-- Panel lateral -->
+    <div class="panel-lateral">
+      <button (click)="fetchMessages('recibidos')">Mensajes Recibidos</button>
+      <button (click)="fetchMessages('enviados')">Mensajes Enviados</button>
+      <button (click)="openComposeModal()">Redactar mensaje</button>
+    </div>
+  
+    <!-- Contenido principal -->
+    <div class="main-content">
+      <!-- Lista de conversaciones filtradas -->
+      <div *ngIf="!selectedConversation">
+        <h2>Conversaciones {{ filter }}</h2>
+        <div *ngFor="let conversation of paginatedConversations" (click)="selectConversation(conversation)" class="conversation" [ngClass]="{'unread': conversation.unread}">
+          <p>{{ conversation.receiver }}</p>
+          <span>{{ conversation.timestamp | date: 'short' }}</span>
+        </div>
+        <div class="pagination-controls">
+          <button *ngIf="hasPreviousPage" (click)="goToPreviousPage()"><i class="fas fa-angle-double-up"></i> Anterior</button>
+          <button *ngIf="hasNextPage" (click)="goToNextPage()"><i class="fas fa-angle-double-down"></i> Siguiente</button>
+        </div>
+      </div>
+  
+      <!-- Conversación seleccionada -->
+      <div *ngIf="selectedConversation">
+        <button (click)="backToConversations()" title="Volver"><i class="fa fa-mail-reply-all"></i></button>
+        <h2>Chat con {{ selectedConversation.receiver }}</h2>
+        <button class="btn btn-muted text-center" *ngIf="hasMoreMessages" (click)="loadMoreMessages()" title="Mostrar más"><i class="fas fa-angle-double-up"></i></button>
+  
+        <div *ngFor="let message of visibleMessages">
+          <div [ngClass]="{'sent': message.sender === email, 'received': message.sender !== email}">
+            <p>{{ message.message }}</p>
+            <span>{{ message.timestamp | date: 'short' }}</span>
+          </div>
+        </div>
+        <input [(ngModel)]="newMessage" placeholder="Escribe un mensaje">
+        <button class="btn btn-danger" (click)="sendMessage()">Enviar</button>
+      </div>
+    </div>
+  
+    <!-- Modal para redactar mensaje -->
+    <div class="modal" tabindex="-1" [ngClass]="{'show': showModal}" style="display: block;" *ngIf="showModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Redactar mensaje</h5>
+          </div>
+          <div class="modal-body">
+            <label for="usuarioInput">Selecciona un usuario:</label>
+            <input list="usuariosList" id="usuarioInput" [(ngModel)]="selectedUsuario" class="form-control" placeholder="Escribe para buscar...">
+            <datalist id="usuariosList">
+              <option *ngFor="let usuario of usuarios" [value]="usuario.email_usuario">{{ usuario.email_usuario }}</option>
+            </datalist>
+            <textarea [(ngModel)]="newMessage" class="form-control" placeholder="Escribe tu mensaje" rows="3"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-muted" (click)="closeComposeModal()">Cerrar</button>
+            <button type="button" class="btn btn-danger" (click)="sendMessage()">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

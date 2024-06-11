@@ -8,12 +8,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="idperfil">Perfil:</label>
-                            <select [(ngModel)]="registroData.idperfil" name="idperfil" class="form-control" required
+
+                            <label for="PerfildeUsuarios">Perfil:</label>
+                            <!-- <select [(ngModel)]="registroData.idperfil" name="idperfil" class="form-control" required
                                 title="Perfil">
                                 <option *ngFor="let perfil of perfiles" [value]="perfil.idperfil">{{ perfil.perfil }}
                                 </option>
-                            </select>
+                            </select> -->
+                            <input list="perfilUsuario" id="PerfildeUsuarios"(change)="onPerfilSelected($event)" class="form-control" placeholder="Seleccioneun perfil"/>
+                            <datalist id="perfilUsuario">
+                                <option *ngFor="let perfil of perfiles"[value]="perfil.perfil">{{perfil.perfil}}</option>
+                            </datalist>
                         </div>
                         <div class="form-group">
                             <label for="identificacion">Identificación:</label>
@@ -42,12 +47,12 @@
         
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="idcentro_formacion">ID Centro Formación:</label>
-                        <select [(ngModel)]="registroData.idcentro_formacion" class="form-control" required
-                            title="centro de formacion">
-                            <option *ngFor="let centro of centrosF" [value]="centro.idcentro_formacion">{{
-                                centro.centro_formacion }}</option>
-                        </select>
+
+                        <label for="centrodeFormacion">Centro Formación:</label>
+                       <input list="centrosNombres" id="centrodeFormacion" class="form-control" (change)="onCenterSelect($event)" placeholder="Seleccione un Centro" />
+                        <datalist id="centrosNombres">
+                            <option *ngFor="let centro of centrosF" [value]="centro.centro_formacion">{{centro.centro_formacion}}</option>
+                        </datalist>
                         <div class="text-link-container">
                             <a routerLink="/registrarCentroFormacion" class="text-link">Registrar Nuevo Centro</a>
                         </div>

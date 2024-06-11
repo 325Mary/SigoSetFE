@@ -3,16 +3,13 @@
     <hr>
     <div class="details text-center">
         <div class="detail-group">
-            <p><i class="fas fa-building"></i> <strong>centro de formación:</strong> {{ usuarioSeleccionado.nombre_centro  }}</p>
-            <p><i class="fas fa-id-card"></i><strong>identificacion:</strong>  {{ usuarioSeleccionado.identificacion }}</p>
-            <p><i class="fas fa-phone"></i> <strong>Telefono:</strong> {{ usuarioSeleccionado.telefono_usuario }}</p>
-            <p><i class="fas fa-user"></i><strong>Perfil:</strong>  {{ usuarioSeleccionado.nombre_perfil }}</p>
-
+            <p><i class="fas fa-building"></i> <strong>Centro de formación:</strong> {{ usuarioSeleccionado?.nombre_centro }}</p>
+            <p><i class="fas fa-id-card"></i><strong>Identificación:</strong> {{ usuarioSeleccionado?.identificacion }}</p>
+            <p><i class="fas fa-phone"></i> <strong>Teléfono:</strong> {{ usuarioSeleccionado?.telefono_usuario }}</p>
+            <p><i class="fas fa-user"></i><strong>Perfil:</strong> {{ usuarioSeleccionado?.nombre_perfil }}</p>
         </div>
-       
     </div>
 </div>
-<div class="modal-footer  d-flex justify-content-center align-items-center">
+<div class="modal-footer d-flex justify-content-center align-items-center">
     <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
 </div>
-  

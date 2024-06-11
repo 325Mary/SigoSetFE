@@ -3,12 +3,22 @@
   <div *ngIf="mostrarFormularioHumano" class="form-container-left">
     <form class="form-section">
       <div class="select-vertical">
+
         <label for="empresaVigilanciaHumana">Empresa:</label>
+
         <input list="empresasListHumana" id="empresaVigilanciaHumana" (change)="onEmpresaSelected($event)" placeholder="Seleccione Empresa" />
+        
         <datalist id="empresasListHumana">
           <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{ empresa.nombre_empresa }}</option>
         </datalist>
         
+        <div class="select-vertical">
+          <label for="sede">Seleccione una sede:</label>
+          <input list="sedes" id="sede" name="sede" (change)="onSedeSelected($event)" placeholder="Seleccione una sede">
+          <datalist id="sedes">
+            <option *ngFor="let sede of sedes" [value]="sede.sede_formacion"></option>
+          </datalist>
+        </div>
       </div>
       <div class="select-vertical">
         <label for="puestosVigilancia">Vigilancia Humana:</label>
@@ -52,6 +62,13 @@
           <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{ empresa.nombre_empresa }}</option>
         </datalist>
         
+      </div>
+      <div class="select-vertical">
+        <label for="sede">Seleccione una sede:</label>
+        <input list="sedes" id="sede" name="sede" (change)="onSedeSelected($event)" placeholder="Seleccione una sede">
+        <datalist id="sedes">
+          <option *ngFor="let sede of sedes" [value]="sede.sede_formacion"></option>
+        </datalist>
       </div>
       <div class="select-vertical">
         <label for="vigilanciaElectronica">Vigilancia Electronica:</label>

@@ -24,7 +24,7 @@ export class ListSedesXcentroComponent {
     }
   }
 
-  obtenerSedesPorCentroFormacion(idCentroFormacion: number): void {
+  obtenerSedesPorCentroFormacion(idCentroFormacion: string): void {
     this.sedesService.obtenerSedesPorCentroFormacion(idCentroFormacion)
       .pipe(
         catchError(error => {

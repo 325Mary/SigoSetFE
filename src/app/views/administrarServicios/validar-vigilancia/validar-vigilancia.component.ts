@@ -31,8 +31,8 @@ export class ValidarVigilanciaComponent implements OnInit {
   fechaFin: Date;
   fechaActual: string;
   isGeneratingPDF: boolean = false;
-
-  constructor( private informeS : InformeService,
+  logoImage: string | ArrayBuffer | null = null;
+    constructor( private informeS : InformeService,
     private _puestosEXCentroService: PuestosEXcentroService,
     private _puestosVXCentroService: PuestosVXcentroService,
     private route: ActivatedRoute,
@@ -50,7 +50,7 @@ export class ValidarVigilanciaComponent implements OnInit {
       // Llamar a las funciones para obtener los puestos después de obtener el ID del centro
       this.obtenerPuestosVPorCentro(Number(this.centroId));
       this.obtenerPuestosVEPorCentro(Number(this.centroId));
-      this.obtenerSedesPorCentroFormacion(Number(this.centroId))
+      this.obtenerSedesPorCentroFormacion(String(this.centroId))
       this.obtenerCentroFormacion(String(this.centroId))
     });
     this.fechaActual = this.datePipe.transform(new Date(), 'dd \'de\' MMMM \'de\' yyyy');
@@ -107,7 +107,7 @@ export class ValidarVigilanciaComponent implements OnInit {
     );
   }
   
-  obtenerSedesPorCentroFormacion(centroId: number): void {
+  obtenerSedesPorCentroFormacion(centroId: string): void {
     this.sedesService.obtenerSedesPorCentroFormacion(centroId)
       .pipe(
         catchError(error => {
@@ -150,58 +150,96 @@ export class ValidarVigilanciaComponent implements OnInit {
     );
   }
 
-  
-  async exportToPDF() {
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            this.logoImage = e.target?.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+triggerFileInput(): void {
+  const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+  fileInput.click();
+}
+
+async exportToPDF() {
+  try {
     this.isGeneratingPDF = true;
     const data = document.querySelector('.container') as HTMLElement;
     const pdf = new jsPDF('p', 'mm', 'a4');
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
-  
-    const margin = 10; // Define a constant for the margin
-    const contentWidth = pdfWidth - margin * 2; // Adjust width for margin
-  
-    let y = margin; // Start with the top margin
-  
-    // Function to create a canvas and add it to the PDF
+
+    const margin = 10; // Define una constante para el margen
+    const contentWidth = pdfWidth - margin * 2; // Ajusta el ancho para el margen
+
+    let y = margin; // Comienza con el margen superior
+
+    // Función para crear un canvas y agregarlo al PDF
     const addCanvasToPDF = async (element: HTMLElement, yOffset: number) => {
       const canvas = await html2canvas(element, { scale: 1 });
       const imgData = canvas.toDataURL('image/png');
       const imgProps = pdf.getImageProperties(imgData);
       const imgHeight = (imgProps.height * contentWidth) / imgProps.width;
-  
-      if (yOffset + imgHeight > pdfHeight - margin) { // Adjust for bottom margin
+
+      if (yOffset + imgHeight > pdfHeight - margin) { // Ajuste para el margen inferior
         pdf.addPage();
-        yOffset = margin; // Reset to top margin on new page
+        yOffset = margin; // Reinicia en el margen superior en la nueva página
       }
-  
-      pdf.addImage(imgData, 'PNG', margin, yOffset, contentWidth, imgHeight); // Add image with left margin
+
+      pdf.addImage(imgData, 'PNG', margin, yOffset, contentWidth, imgHeight); // Agrega la imagen con el margen izquierdo
       return yOffset + imgHeight;
     };
-  
-    // Capture each section without duplicating
+
+    // Oculta temporalmente el input de archivo y los botones
+    const fileInput = document.querySelector('input[type="file"]') as HTMLElement;
+    const exportButton = document.querySelector('.export-button') as HTMLElement;
+    const logoButton = document.querySelector('.logo-button') as HTMLElement;
+
+    if (fileInput) fileInput.style.display = 'none';
+    if (exportButton) exportButton.style.display = 'none';
+    if (logoButton) logoButton.style.display = 'none';
+
+    // Captura cada sección sin duplicar
     const sections = data.querySelectorAll('.section');
     for (let i = 0; i < sections.length; i++) {
-      // Ensure each section is processed once
+      // Asegúrate de que cada sección se procese una vez
       if (sections[i].parentElement === data) {
         y = await addCanvasToPDF(sections[i] as HTMLElement, y);
       }
     }
-  
-    // Save PDF
-// Generate file name with current date
-const currentDate = new Date();
-const fileName = `informe_${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)}-${currentDate.getDate()}.pdf`;
 
-// Save PDF with generated file name
-pdf.save(fileName);
+    // Agrega el bloque de firma al PDF
+    const signatureBlock = document.querySelector('.signature-container') as HTMLElement;
+    if (signatureBlock) {
+      y = await addCanvasToPDF(signatureBlock, y);
+    }
 
-    // Set isGeneratingPDF to false to close the overlay
+    const currentDate = new Date();
+    const fileName = `informe_${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)}-${currentDate.getDate()}.pdf`;
+
+    // Guarda el PDF con el nombre de archivo generado
+    pdf.save(fileName);
+
+    // Establece isGeneratingPDF en false para cerrar la superposición
     this.isGeneratingPDF = false;
 
-    // Navigate to a specific route
+    // Muestra el input de archivo y los botones nuevamente
+    if (fileInput) fileInput.style.display = 'block';
+    if (exportButton) exportButton.style.display = 'block';
+    if (logoButton) logoButton.style.display = 'block';
+
+    // Navega a una ruta específica
     this.router.navigate(['/listaCentroFormacion']);
+  } catch (error) {
+    console.error('Error al generar el PDF:', error);
+    this.isGeneratingPDF = false;
+  }
 }
+
 
   
   selectAllCheckboxes(checked: boolean): void {

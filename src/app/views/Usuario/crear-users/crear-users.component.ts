@@ -10,6 +10,7 @@ interface Perfil {
   perfil: string;
 }
 
+
 @Component({
   selector: 'app-crear-users',
   templateUrl: './crear-users.component.html',
@@ -31,6 +32,8 @@ export class CrearUsersComponent {
   mostrarMensaje: boolean = false;
   caracteresTelefono: boolean = false;
   caracteresIdentificacion: boolean = false;
+  perfilSeleccionado:any
+  centroSeleccionado:any
 
   constructor(
     private authService: LoginService,
@@ -100,6 +103,26 @@ export class CrearUsersComponent {
       );
     } else {
       console.error('Formulario no válido');
+    }
+  }
+
+  onPerfilSelected(event:any):void{
+    const selectPerfil= event.target.value;
+    const selectedPerfil = this.perfiles.find(perfil=>perfil.perfil === selectPerfil);
+    if(selectedPerfil){
+      this.perfilSeleccionado= selectedPerfil.idperfil;
+      console.log('Id Perfil seleccionado',this.perfilSeleccionado);
+      
+    }
+  }
+
+  onCenterSelect(event:any):void{
+    const selectCentro = event.target.value;
+    const selectedCenter = this.centrosF.find(centro=>centro.centro_formacion === selectCentro);
+    if(selectedCenter){
+      this.centroSeleccionado = selectedCenter.idcentro_formacion;
+      console.log('Id del Centro',this.centrosF);
+      
     }
   }
 

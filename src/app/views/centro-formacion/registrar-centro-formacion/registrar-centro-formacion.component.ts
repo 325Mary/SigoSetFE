@@ -24,8 +24,11 @@ export class RegistrarCentroFormacionComponent implements OnInit {
   listaRegionales: any[] = [];
   listaZonas: any[] = [];
   regionales: any[]
+  regionalSelected:any
   submitted: boolean = false;
   regional_seleccionado: any;
+  zonaselected:any
+  zona:any[] 
   constructor(
     private fb: FormBuilder,
     private route: Router,
@@ -66,8 +69,40 @@ export class RegistrarCentroFormacionComponent implements OnInit {
   changeForm2() {
     this.cambiarFormulario = 0;
   }
+  getlistaZonas () {
+    this._zonaService.getZona().subscribe(data => {
+      this.listaZonas = data.data;
+      console.log(this.listaZonas);
+    }, error => {
 
- 
+    });
+  }
+  getListaRegionales(): void {
+    this._regionalService.getAllRegionals()
+      .subscribe(
+        (result: AdministrarRegionalComponent[]) => {
+          this.listaRegionales = result;
+          this.listaRegionales = this.listaRegionales[0];
+          console.log('lista Regionales obtenidos:', this.listaRegionales);
+        },
+        (error: any) => {
+          console.error('Error al obtener los listaRegionales:', error);
+        }
+      );
+  }
+
+
+
+  onZonaSelected(event:any):void{
+    const selectedZonaName = event.target.value;
+    const selectedZona = this.listaZonas.find(zona_name => zona_name.Nombre_zona === selectedZonaName);
+    if (selectedZona) {
+      this.zonaselected = selectedZona.idzona;
+      console.log('Id de la zona seleccionada:', this.zonaselected);
+    }
+  }
+
+  
 
   onRegionalSelected(event: any): void {
     const selectRegionalForm = event.target.value;
@@ -168,28 +203,9 @@ export class RegistrarCentroFormacionComponent implements OnInit {
     }
   }
   
-  getlistaZonas () {
-    this._zonaService.getZona().subscribe(data => {
-      this.listaZonas = data.data;
-      console.log(this.listaZonas);
-    }, error => {
+ 
 
-    });
-  }
 
-  getListaRegionales(): void {
-    this._regionalService.getAllRegionals()
-      .subscribe(
-        (result: AdministrarRegionalComponent[]) => {
-          this.listaRegionales = result;
-          this.listaRegionales = this.listaRegionales[0];
-          console.log('listaRegionales obtenidos:', this.listaRegionales);
-        },
-        (error: any) => {
-          console.error('Error al obtener los listaRegionales:', error);
-        }
-      );
-  }
 
   getCentroFormacion() {
     console.log('centro id', this.id);

@@ -5,62 +5,68 @@
     </div>
     <div class="card-body">
       <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarDep()" [(ngModel)]="terminoBusqueda">
+        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarDep()"
+          [(ngModel)]="terminoBusqueda">
       </div>
-      <table class="table table-bordered text-center">
-        <thead class="thead-light">
-          <tr>
-            <th>ID</th>
-            <th>Nombre de Departamentos</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="!noResultados; else noResults">
-            <tr *ngFor="let departamento of departamentosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
-              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-              <td>{{ departamento.departamento }}</td>
-              <td>
-                <button (click)="abrirModalEditarDepartamento(departamento)" id="boton" title="Editar Perfil" class="mr-2">
-                  <i class="fas fa-pencil-alt icono"></i>
-                </button>
-                <button (click)="abrirModalVerDepartamento(departamento)" id="boton" title="Ver Detalles" class="mr-2">
-                  <i class="fas fa-eye icono"></i>
-                </button>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre de Departamentos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="!noResultados; else noResults">
+              <tr
+                *ngFor="let departamento of departamentosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+
+
+                <td>
+                  <ng-container *ngIf="!departamento.editando">
+                    {{departamento.departamento}}
+                  </ng-container>
+                  <ng-container>
+                    <input type="text" [(ngModel)]="departamentos[i].departamento" class="form-control" placeholder=".">
+                  </ng-container>
+                </td>
+
+
+                <td>
+                  <ng-container *ngIf="!departamento.editando">
+                    <!-- Icono de edición -->
+                    <button title="Editar departamento" id="button" (click)="editarMunicipio(i)">
+                      <span class="fa-solid  fa-edit"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="departamento.editando">
+                    <!-- Botón para guardar cambios -->
+                    <button class="btn btn-danger" (click)="guardarCambios(i)">Guardar</button>
+                  </ng-container>
+                </td>
+
+
+
+
+                <!-- <td>
                 <button (click)="EliminarDepartamento(departamento.iddepartamento)" id="boton" title="Boton de eliminar">
                   <i class="fas fa-trash icono"></i>
                 </button>
-              </td>
-            </tr>
-          </ng-container>
-          <ng-template #noResults>
-            <tr>
-              <td colspan="3" class="text-center">No se encontraron resultados.</td>
-            </tr>
-          </ng-template>
-        </tbody>
-      </table>
-      <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-    </div>
-  </div>
-</div>
-
-<div class="modal" [class.show]="mostrarModalEditar">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <app-editar-departamento [departamentoSeleccionado]="departamentoSeleccionado"
-      (closeModal)="closeModal()"
-      (actualizarDepartamento)="actualizarDepartamentos()"></app-editar-departamento>
-    </div>
-  </div>
-</div>
-
-<div class="modal" [class.show]="mostrarModalVer">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <app-ver-departamento [departamentoSeleccionado]="departamentoSeleccionado"
-      (closeModal)="closeModal()"
-      (verZona)="verDepartamneto()"></app-ver-departamento>
+              </td> -->
+              </tr>
+            </ng-container>
+            <ng-template #noResults>
+              <tr>
+                <td colspan="3" class="text-center">No se encontraron resultados.</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+      <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior"
+        nextLabel="Siguiente"></pagination-controls>
     </div>
   </div>
 </div>

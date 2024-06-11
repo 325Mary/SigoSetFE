@@ -1,0 +1,85 @@
+<div class="container d-flex justify-content-center mt-5 mb-2">
+  <div class="card" style="width: 80rem;">
+    <div class="card-header card-header-sena-azul">
+      <h4 class="card-title">Listado de Obligaciones de Contrato</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+        <input [(ngModel)]="terminoBusqueda" (input)="filtrarContratos()" type="text" class="form-control"
+          placeholder="Buscar Obligaciones de contrato...">
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-dark">
+            <tr>
+              <th>ID</th>
+              <th>Contrato con la Empresa </th>
+              <th>Obligación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let obligacion of obligaciones | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td>{{obligacion.nombre_empresa}}</td>
+              <td>
+                {{obligacion.obligacion_contratista}}
+              <td>
+                <button (click)="abrirModalVerO(obligacion)" title="Ver Oblicacion">
+                  <i class="fa fa-eye icono"></i>
+                </button>
+                <button (click)="abrirModalEditar(obligacion)" title="Ver Obligación">
+                  <i class="fa fa-edit icono"></i>
+                </button>
+                <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)" title="Eliminar Obligacion">
+                  <i class="fa fa-trash icono"></i>
+                </button>
+
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior"
+          nextLabel="Siguiente"></pagination-controls>
+      </div>
+      <div class="center-container">
+        <button (click)="abrirModalCrear()"
+          style="color: black;background-color:#002340 ;   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);height: 3vh;">
+          <i class="bi bi-plus"></i> Agregar Obligacion Contrato
+        </button>
+      </div>
+    </div>
+
+    <div class="modal" [class.show]="mostrarModalObligaciones" tabindex="-1">
+      <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
+        <div class="modal-content">
+          <!-- Contenido del modal -->
+          <app-ver-obligaciones-contrato [obligacionSeleccionada]="obligacionSeleccionada"
+            [mostrarModal]="mostrarModalObligaciones" (closeModal)="handleCloseModal()">
+            <!-- Aquí se vincula correctamente al evento closeModal -->
+          </app-ver-obligaciones-contrato>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
+      <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
+        <div class="modal-content">
+          <app-editar-obligaciones-contrato [obligacionSeleccionada]="obligacionSeleccionada"
+            (closeModal)="handleCloseModal()" (actualizarObligacion)="handleActualizarObligacion($event)">
+          </app-editar-obligaciones-contrato>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" [class.show]="mostrarModalCrear" tabindex="-1">
+      <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
+        <div class="modal-content">
+          <app-crear-obligaciones-contrato (ObligacionCCreada)="actualizarObC()" (closeModal)="handleCloseModal()">
+          </app-crear-obligaciones-contrato>
+        </div>
+      </div>
+    </div>
