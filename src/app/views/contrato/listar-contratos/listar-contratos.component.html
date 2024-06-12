@@ -1,4 +1,4 @@
-<div class="container d-flex justify-content-center mt-5 mb-5">>
+<div class="container d-flex justify-content-center mt-5 mb-5">
   <div class="card">
     <div class="card-header card-header-sena-azul"> <!-- Contenedor del título -->
       <h4 class="card-title">Listado de Contratos</h4>
@@ -20,17 +20,17 @@
         </thead>
         <tbody>
           <ng-container *ngIf="contratosFiltrados.length > 0; else noResultados">
-            <tr *ngFor="let contrato of contratosFiltrados.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
+            <tr *ngFor="let contrato of contratosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage };">
               <td>{{ contratoIndex(contrato) }}</td>
               <td>{{ contrato.nombre_empresa }}</td>
               <td>{{ contrato.fecha_inicio | date: 'yyyy-MM-dd' }}</td>
               <td>{{ contrato.fecha_fin | date: 'yyyy-MM-dd' }}</td>
               <td>
                 <button (click)="abrirModalEditar(contrato)" title="Editar contrato">
-                  <i class="bi bi-pencil-square"></i>
+                  <i class="fa fa-edit"></i>
                 </button>
                 <button (click)="eliminarContrato(contrato.idContrato_empresa)" title="Boton de eliminar">
-                  <i class="bi bi-trash"></i>
+                  <i class="fa fa-trash"></i>
                 </button>
               </td>
             </tr>
@@ -42,16 +42,9 @@
           </tr>
         </ng-template>
       </table>
-      <div class="text-center mt-4" id="pagination">
-        <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-            <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-              <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-       <button class="btn btn-danger pull-right" (click)="abrirModalCrear()" title="Crear perfil">
+      <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+       <button class="btn btn-danger" (click)="abrirModalCrear()" title="Crear perfil">
       <i class="bi bi-plus"></i> Agregar contrato
     </button>
     </div>

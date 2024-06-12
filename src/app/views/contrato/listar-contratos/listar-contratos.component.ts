@@ -127,15 +127,6 @@ filtrarContratos(): void {
   }
 }
 
-setPage(pageNumber: number) {
-  this.currentPage = pageNumber;
-}
-
-// Función para obtener los números de página disponibles
-getPages(): number[] {
-  const pageCount = Math.ceil(this.contratosFiltrados.length / this.pageSize);
-  return Array(pageCount).fill(0).map((x, i) => i + 1);
-}
 
 // Función para obtener el índice del contrato en la lista filtrada
 contratoIndex(contrato: any): number {
@@ -161,6 +152,8 @@ private refreshList() {
     }
   );
 }
-
+pageChange(event: number): void {
+  this.currentPage = event;
+}
 }
 

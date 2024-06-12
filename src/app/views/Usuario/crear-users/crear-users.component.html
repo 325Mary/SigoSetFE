@@ -1,57 +1,37 @@
 <div class="container d-flex justify-content-center mt-5 mb-5" style="width: 80rem;">
     <div class="card cont-table">
-        <div class="card-header card-header-sena-azul">
-            <h4 class="card-title">Crear Usuario</h4>
-        </div>
-        <div class="card-body">
-            <form (ngSubmit)="onSubmit()" class="formulario">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-
-                            <label for="PerfildeUsuarios">Perfil:</label>
-                            <!-- <select [(ngModel)]="registroData.idperfil" name="idperfil" class="form-control" required
-                                title="Perfil">
-                                <option *ngFor="let perfil of perfiles" [value]="perfil.idperfil">{{ perfil.perfil }}
-                                </option>
-                            </select> -->
-                            <input list="perfilUsuario" id="PerfildeUsuarios"(change)="onPerfilSelected($event)" class="form-control" placeholder="Seleccioneun perfil"/>
-                            <datalist id="perfilUsuario">
-                                <option *ngFor="let perfil of perfiles"[value]="perfil.perfil">{{perfil.perfil}}</option>
-                            </datalist>
-                        </div>
-                        <div class="form-group">
-                            <label for="identificacion">Identificación:</label>
-                            <input type="text" [(ngModel)]="registroData.identificacion" name="identificacion"
-                                class="form-control" required placeholder="Identificación" maxlength="10"
-                                (input)="onInput($event, 'identificacion')">
-                            <div *ngIf="caracteresIdentificacion" style="color: red;">
-                                La identificación no puede exceder los 10 caracteres.
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="nombre_usuario">Nombre:</label>
-                            <input type="text" [(ngModel)]="registroData.nombre_usuario" name="nombre_usuario"
-                                class="form-control" required placeholder="Nombre de Usuario">
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono_usuario">Teléfono:</label>
-                            <input type="number" [(ngModel)]="registroData.telefono_usuario" name="telefono_usuario"
-                                class="form-control" required placeholder="Teléfono" maxlength="10"
-                                (input)="onInput($event, 'telefono_usuario')">
-                            <div *ngIf="caracteresTelefono" style="color: red;">
-                                El número de teléfono no puede exceder los 10 caracteres.
-                            </div>
-                        </div>
-                    </div>
-        
+    <div class="card-header card-header-sena-azul">
+        <h4 class="card-title">Crear Usuario</h4>
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="onSubmit()" class="formulario">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-
-                        <label for="centrodeFormacion">Centro Formación:</label>
-                       <input list="centrosNombres" id="centrodeFormacion" class="form-control" (change)="onCenterSelect($event)" placeholder="Seleccione un Centro" />
-                        <datalist id="centrosNombres">
-                            <option *ngFor="let centro of centrosF" [value]="centro.centro_formacion">{{centro.centro_formacion}}</option>
+                        <label for="idperfil">Perfil:</label>
+                        <select [(ngModel)]="registroData.idperfil" class="form-control" required title="Perfil">
+                            <option *ngFor="let perfil of perfiles" [value]="perfil.idperfil">{{ perfil.perfil }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="identificacion">Identificación:</label>
+                        <input type="text" [(ngModel)]="registroData.identificacion" class="form-control" required placeholder="Identificacion">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre_usuario">Nombre:</label>
+                        <input type="text" [(ngModel)]="registroData.nombre_usuario" class="form-control" required  placeholder="Nombre de Usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono_usuario">Teléfono:</label>
+                        <input type="tel" [(ngModel)]="registroData.telefono_usuario" class="form-control" required placeholder="Teléfono">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="idcentro_formacion">Centro de Formación:</label>
+                        <input list="centros" [(ngModel)]="selectedCentroFormacion" (change)="updateCentroFormacionId($event)" class="form-control" required placeholder="Seleccione un centro de formación">
+                        <datalist id="centros">
+                            <option *ngFor="let centro of centrosF" [value]="centro.centro_formacion"></option>
                         </datalist>
                         <div class="text-link-container">
                             <a routerLink="/registrarCentroFormacion" class="text-link">Registrar Nuevo Centro</a>
@@ -59,18 +39,15 @@
                     </div>
                     <div class="form-group">
                         <label for="apellido_usuario">Apellido:</label>
-                        <input type="text" [(ngModel)]="registroData.apellido_usuario" class="form-control" required
-                            placeholder=" Apellido usuario">
+                        <input type="text" [(ngModel)]="registroData.apellido_usuario" class="form-control" required placeholder="Apellido de Usuario">
                     </div>
                     <div class="form-group">
                         <label for="email_usuario">Email:</label>
-                        <input type="email" [(ngModel)]="registroData.email_usuario" class="form-control" required
-                            placeholder="example@gmail.com" (input)="verificarEmail()">
-                        <div *ngIf="mostrarMensaje && !validarEmail(registroData.email_usuario)" style="color: red;">El
-                            email debe contener el símbolo '@'.</div>
+                        <input type="email" [(ngModel)]="registroData.email_usuario" class="form-control" required placeholder="example@gmail.com" (input)="verificarEmail()">
+                        <div *ngIf="mostrarMensaje && !validarEmail(registroData.email_usuario)" style="color: red;">El email debe contener el símbolo '@'.</div>
                     </div>
-
-
+                    
+                    
                     <div class="form-group">
                         <label for="estado">Estado:</label>
                         <select [(ngModel)]="registroData.estado" class="form-control" required title="Estado">
@@ -79,13 +56,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-danger" [disabled]="!validarFormulario()">Registrar
-                            Usuario</button>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-danger" [disabled]="!validarFormulario()">Registrar Usuario</button>
                 </div>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+</div>

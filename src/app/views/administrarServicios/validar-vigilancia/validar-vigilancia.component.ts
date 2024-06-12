@@ -32,6 +32,7 @@ export class ValidarVigilanciaComponent implements OnInit {
   fechaActual: string;
   isGeneratingPDF: boolean = false;
   logoImage: string | ArrayBuffer | null = null;
+  opcionesCumple: string[] = ["Sí", "No", "N/A"];
     constructor( private informeS : InformeService,
     private _puestosEXCentroService: PuestosEXcentroService,
     private _puestosVXCentroService: PuestosVXcentroService,

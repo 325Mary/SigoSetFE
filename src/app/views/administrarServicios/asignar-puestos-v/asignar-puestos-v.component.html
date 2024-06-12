@@ -31,17 +31,15 @@
         <div class="descripcion-puesto">
           <span>{{ puesto.descripcion_puesto }}</span>
         </div>
-       
         <div class="cantidad-rectangulo">
-          <button class="<button mat-mini-fab><mat-icon>icon_name</mat-icon></button> btn-sm" (click)="reducirCantidad(puesto)" title="Reducir cantidad">
+          <button class="btn-sm" (click)="reducirCantidad(puesto)" title="Reducir cantidad">
             <i class="fa fa-minus"></i>
           </button>
-          <span class="btn-sm">Cantidad: {{ puesto.cantidad }}</span>
-         
+          <span>Cantidad: {{ puesto.cantidad }}</span>
           <button class="btn-sm" (click)="aumentarCantidad(puesto)" title="Aumentar">
             <i class="fa fa-plus"></i>
           </button>
-          <button class="btn-sm" (click)="eliminarPuesto(puesto)" title="Eliminar">
+          <button class="btn-sm" (click)="eliminarPuesto(puestosSeleccionadosVigilancia, puesto)" title="Eliminar">
             <i class="fa fa-trash"></i>
           </button>
         </div>
@@ -77,19 +75,19 @@
           <option *ngFor="let vigiElect of vigiElectronica" [value]="vigiElect.descripcion">{{ vigiElect.descripcion }}</option>
         </datalist>
       </div>
-      <div *ngFor="let vigiElect of puestosSeleccionadosElectronica" class="puesto-container">
+      <div *ngFor="let vigElect of puestosSeleccionadosElectronica" class="puesto-container">
         <div class="descripcion-puesto">
-          <span>{{ vigiElect.descripcion }}</span>
+          <span>{{ vigElect.descripcion }}</span>
         </div>
         <div class="cantidad-rectangulo">
-          <button class="<button mat-mini-fab><mat-icon>icon_name</mat-icon></button> btn-sm" (click)="reducirCantidad(puesto)" title="Reducir cantidad">
+          <button class="btn-sm" (click)="reducirCantidad(vigElect)" title="Reducir cantidad">
             <i class="fa fa-minus"></i>
           </button>
-          <span>Cantidad: {{ vigiElect.cantidad }}</span>
-          <button class="btn-sm" (click)="aumentarCantidad(vigiElect)" title=",">
+          <span>Cantidad: {{ vigElect.cantidad }}</span>
+          <button class="btn-sm" (click)="aumentarCantidad(vigElect)" title="Aumentar">
             <i class="fa fa-plus"></i>
           </button>
-          <button class="btn-sm" (click)="eliminarPuesto(puesto)" title="Eliminar">
+          <button class="btn-sm" (click)="eliminarPuesto(puestosSeleccionadosElectronica, vigElect)" title="Eliminar">
             <i class="fa fa-trash"></i>
           </button>
         </div>

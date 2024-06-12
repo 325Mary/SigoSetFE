@@ -31,9 +31,9 @@ export class ListMunicipiosComponent implements OnInit {
     this.municipioService.obtenerMunicipios().subscribe(
       response => {
         // Asigna los municipios correctamente
-        this.municipios = Array.isArray(response[0]) ? response[0] : [];
+        this.municipios = response.data[0]
         this.filtrarMunicipios();
-        console.log('Municipios Listados',response);
+        console.log('Municipios Listados',this.municipios);
       },
       error => {
         console.log('Error al obtener Municipios', error);

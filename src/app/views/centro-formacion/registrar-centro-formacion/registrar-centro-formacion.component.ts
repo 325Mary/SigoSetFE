@@ -114,6 +114,22 @@ export class RegistrarCentroFormacionComponent implements OnInit {
     }
   }
 
+  updateZonaId(event: any): void {
+    const zonaNombre = event.target.value;
+    const selectedZona = this.listaZonas.find(zona => zona.Nombre_zona === zonaNombre);
+    if (selectedZona) {
+      this.centroFormacionForm.patchValue({ idzona: selectedZona.idzona });
+    }
+  }
+  
+  updateRegionalId(event: any): void {
+    const regionalNombre = event.target.value;
+    const selectedRegional = this.listaRegionales.find(regional => regional.regional === regionalNombre);
+    if (selectedRegional) {
+      this.centroFormacionForm.patchValue({ idRegional: selectedRegional.idRegional });
+    }
+  }
+  
   guardarOActualizaCentroFormacion() {
     const centroFormacion: CentroFormacion = {
       centro_formacion:this.centroFormacionForm.get('centro_formacion')?.value,

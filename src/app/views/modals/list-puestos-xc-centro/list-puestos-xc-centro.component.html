@@ -1,6 +1,127 @@
-<div class="container mt-4">
-  <h2 class="text-center text-primary mb-4"> Puestos de vigilancia de : {{ centroSeleccionado.centro_formacion }}</h2>
+<div class="container d-flex justify-content-center mt-5 mb-2">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">Puestos de vigilancia de: {{ centroSeleccionado.centro_formacion }}</h4>
+          </div>
+          <div class="card-body">
+            <div class="container mt-4">
+              <div *ngIf="puestoVxCentro && puestoVxCentro.length > 0; else noData">
+                <h3 class="text-center text-dark mb-3">Puestos de vigilancia humana</h3>
+                <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                  <table class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th>Empresa</th>
+                        <th>Descripción del Puesto</th>
+                        <th>Cantidad</th>
+                        <th *ngIf="isLoggedIn && isSuperAdministrador">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let puesto of puestoVxCentro">
+                        <td *ngIf="!puesto.editando">{{ puesto.nombre_empresa }}</td>
+                        <td *ngIf="!puesto.editando">{{ puesto.descripcion_puesto }}</td>
+                        <td *ngIf="!puesto.editando">{{ puesto.cantidad_puestov }}</td>
+                        <td *ngIf="!puesto.editando">
+                          <button *ngIf="isLoggedIn && isSuperAdministrador" type="button" class="btn btn-danger me-3"
+                            (click)="editarPuestoHumano(puesto)">
+                            Editar
+                          </button>
+                        </td>
+                        <td *ngIf="puesto.editando">
+                          <input list="empresasListHumana" (change)="onEmpresaSelected($event, puesto)"
+                            placeholder="Seleccione Empresa" />
+                          <datalist id="empresasListHumana">
+                            <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{
+                              empresa.nombre_empresa }}</option>
+                          </datalist>
+                        </td>
+                        <td *ngIf="puesto.editando">
+                          <input type="text" class="form-control mb-2" [(ngModel)]="puesto.descripcion_puesto" disabled>
+                        </td>
+                        <td *ngIf="puesto.editando">
+                          <input type="number" class="form-control mb-2" [(ngModel)]="puesto.cantidad_puestov">
+                        </td>
+                        <td *ngIf="puesto.editando">
+                          <button type="button" class="btn btn-success"
+                            (click)="guardarCambiosHumano(puesto)">Actualizar</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <ng-template #noData>
+                <p class="text-center text-muted">No hay puestos disponibles para este centro de formación.</p>
+              </ng-template>
 
+              <div *ngIf="puestoExCentro && puestoExCentro.length > 0; else noData">
+                <h3 class="text-center text-dark mb-3">Puestos de vigilancia electrónica</h3>
+                <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+                  <table class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th>Empresa</th>
+                        <th>Descripción del Puesto</th>
+                        <th>Cantidad</th>
+                        <th *ngIf="isLoggedIn && isSuperAdministrador">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let puesto of puestoExCentro">
+                        <td *ngIf="!puesto.editando">{{ puesto.nombre_empresa }}</td>
+                        <td *ngIf="!puesto.editando">{{ puesto.descripcion }}</td>
+                        <td *ngIf="!puesto.editando">{{ puesto.cantidad }}</td>
+                        <td *ngIf="!puesto.editando">
+                          <button *ngIf="isLoggedIn && isSuperAdministrador" type="button" class="btn btn-danger me-3"
+                            (click)="editarPuestoElectronico(puesto)">
+                            Editar
+                          </button>
+                        </td>
+                        <td *ngIf="puesto.editando">
+                          <input list="empresasListElectronica" (change)="onEmpresaSelected($event, puesto)"
+                            placeholder="Seleccione Empresa" />
+                          <datalist id="empresasListElectronica">
+                            <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{
+                              empresa.nombre_empresa }}</option>
+                          </datalist>
+                        </td>
+                        <td *ngIf="puesto.editando">
+                          <input type="text" class="form-control mb-2" [(ngModel)]="puesto.descripcion" disabled>
+                        </td>
+                        <td *ngIf="puesto.editando">
+                          <input type="number" class="form-control mb-2" [(ngModel)]="puesto.cantidad">
+                        </td>
+                        <td *ngIf="puesto.editando">
+                          <button type="button" class="btn btn-success"
+                            (click)="guardarCambiosElectronico(puesto)">Actualizar</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <ng-template #noData>
+                <p class="text-center text-muted">No hay puestos disponibles para este centro de formación.</p>
+              </ng-template>
+
+
+            </div>
+          </div>
+
+        </div>
+        <button type="button" class="btn btn-muted justify-content-center" (click)="close()">Cerrar</button>
+        <button class="btn btn-danger" routerLink="/reporte">enviar reporte</button>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- <div class="container mt-4">
   <div *ngIf="puestoVxCentro && puestoVxCentro.length > 0; else noData">
     <h3 class="text-center text-dark mb-3">Puestos de vigilancia humana</h3>
     <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
@@ -96,4 +217,4 @@
   <button type="button" class="btn btn-muted justify-content-center" (click)="close()">Cerrar</button>
   <button class="btn btn-danger" routerLink="/reporte">enviar reporte</button>
 </div>
-    
+     -->

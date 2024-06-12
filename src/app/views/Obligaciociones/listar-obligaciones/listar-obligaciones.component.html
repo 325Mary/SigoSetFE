@@ -15,7 +15,8 @@
             <tr>
               <th>ID</th>
               <th>Contrato con la Empresa </th>
-              <th>Obligación</th>
+              <th>Obligación Contratista</th>
+              <th>Obligacion Contractual</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -25,15 +26,17 @@
               <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
               <td>{{obligacion.nombre_empresa}}</td>
               <td>
-                {{obligacion.obligacion_contratista}}
+              {{obligacion.obligacion_contratista}}
+              </td>
+              <td>{{obligacion.obligaciones_contractuales}}</td>
               <td>
-                <button (click)="abrirModalVerO(obligacion)" title="Ver Oblicacion">
+                <button (click)="abrirModalVerO(obligacion)" title="Ver Oblicacion" id="button">
                   <i class="fa fa-eye icono"></i>
                 </button>
-                <button (click)="abrirModalEditar(obligacion)" title="Ver Obligación">
+                <button (click)="abrirModalEditar(obligacion)" title="Ver Obligación" id="button">
                   <i class="fa fa-edit icono"></i>
                 </button>
-                <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)" title="Eliminar Obligacion">
+                <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)" title="Eliminar Obligacion" id="button">
                   <i class="fa fa-trash icono"></i>
                 </button>
 
@@ -46,8 +49,7 @@
           nextLabel="Siguiente"></pagination-controls>
       </div>
       <div class="center-container">
-        <button (click)="abrirModalCrear()"
-          style="color: black;background-color:#002340 ;   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);height: 3vh;">
+        <button (click)="abrirModalCrear()" class="btn btn-danger">
           <i class="bi bi-plus"></i> Agregar Obligacion Contrato
         </button>
       </div>

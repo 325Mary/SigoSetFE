@@ -111,16 +111,27 @@ export class EnviarReporteComponent implements OnInit {
     let filtered;
     if (this.filter === 'recibidos') {
       filtered = this.conversations.filter(conversation => {
-        return this.messages.some(message => message.sender === conversation.receiver && message.receiver === this.email);
+        const latestMessage = this.getLatestMessage(conversation.receiver);
+        return latestMessage && latestMessage.receiver === this.email;
       });
     } else {
       filtered = this.conversations.filter(conversation => {
-        return this.messages.some(message => message.sender === this.email && message.receiver === conversation.receiver);
+        const latestMessage = this.getLatestMessage(conversation.receiver);
+        return latestMessage && latestMessage.sender === this.email;
       });
     }
     this.filteredConversations = filtered;
     this.updatePaginatedConversations();
   }
+  
+  private getLatestMessage(conversationPartner: string): any {
+    const conversationMessages = this.messages.filter(message =>
+      (message.sender === this.email && message.receiver === conversationPartner) ||
+      (message.sender === conversationPartner && message.receiver === this.email)
+    );
+    return conversationMessages.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0];
+  }
+  
   
   updatePaginatedConversations(): void {
     const start = (this.currentPage - 1) * this.conversationsPerPage;
@@ -162,6 +173,38 @@ export class EnviarReporteComponent implements OnInit {
     });
     this.updateVisibleMessages();
   }
+  
+  sendMessage(): void {
+    if (this.newMessage.trim() !== '' && (this.selectedConversation || this.selectedUsuario)) {
+      const receiver = this.selectedConversation ? this.selectedConversation.receiver : this.selectedUsuario;
+      const newMessageObj = {
+        sender: this.email,
+        receiver: receiver,
+        message: this.newMessage,
+        timestamp: new Date().toISOString(),
+        status: 'enviado'
+      };
+  
+      this.messages.push(newMessageObj);  // Añadir el mensaje a la lista de mensajes localmente
+      if (this.selectedConversation) {
+        this.selectedMessages.push(newMessageObj);
+        this.updateVisibleMessages();
+      }
+      this.updateConversations();
+  
+      this.chatService.sendMessage(this.email, receiver, this.newMessage)
+        .then(() => {
+          this.newMessage = '';
+          this.closeComposeModal(); // Cierra el modal después de enviar el mensaje
+          this.loadMessages(); // Recarga los mensajes después de enviar uno nuevo
+          this.filterConversations(); // Refiltra las conversaciones para actualizar las listas de recibidos y enviados
+        })
+        .catch(error => {
+          console.error('Error al enviar el mensaje:', error);
+        });
+    }
+  }
+  
 
   filterMessagesForSelectedConversation(): void {
     this.selectedMessages = this.messages.filter(message =>
@@ -187,36 +230,7 @@ export class EnviarReporteComponent implements OnInit {
     this.fetchMessages(this.filter);
   }
 
-  sendMessage(): void {
-    if (this.newMessage.trim() !== '' && (this.selectedConversation || this.selectedUsuario)) {
-      const receiver = this.selectedConversation ? this.selectedConversation.receiver : this.selectedUsuario;
-      const newMessageObj = {
-        sender: this.email,
-        receiver: receiver,
-        message: this.newMessage,
-        timestamp: new Date(),
-        status: 'enviado'
-      };
-
-      this.messages.push(newMessageObj);  // Añadir el mensaje a la lista de mensajes localmente
-      if (this.selectedConversation) {
-        this.selectedMessages.push(newMessageObj);
-        this.updateVisibleMessages();
-      }
-      this.updateConversations();
-
-      this.chatService.sendMessage(this.email, receiver, this.newMessage)
-        .then(() => {
-          this.newMessage = '';
-          this.closeComposeModal(); // Cierra el modal después de enviar el mensaje
-          this.loadMessages(); // Recarga los mensajes después de enviar uno nuevo
-        })
-        .catch(error => {
-          console.error('Error al enviar el mensaje:', error);
-        });
-    }
-  }
-
+ 
   openComposeModal(): void {
     this.showModal = true;
   }

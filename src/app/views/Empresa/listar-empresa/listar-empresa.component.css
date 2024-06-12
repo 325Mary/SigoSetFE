@@ -45,11 +45,6 @@ button{
 
 }
 
-.table {
-  background-color: rgb(255, 255, 255);
-  margin-top: 50px; /* Ajusta el margen superior para dejar espacio al título */
-}
-
 .table-bordered th,
     .table-bordered td {
         border: none; /* Eliminar el borde de las celdas */

@@ -13,37 +13,28 @@
                     </div>
                 </div>
 
-                <div class="fila">
-                    <div class="columna1">
-                        <div class="form-group">
-                            <label for="tarifa">Tarifa:</label>
-                            <input type="number" id="tarifa" name="tarifa" class="form-control"
-                                [(ngModel)]="vigilanciaElectronica.tarifa" (input)="calcularTotal()" style="width: 50%;"
-                                required>
-                        </div>
+                <div class="fila d-flex justify-content-between">
+                    <div class="form-group" style="flex: 1; margin-right: 10px;">
+                        <label for="tarifa">Tarifa:</label>
+                        <input type="number" id="tarifa" name="tarifa" class="form-control"
+                            [(ngModel)]="vigilanciaElectronica.tarifa" (input)="calcularTotal()" required>
                     </div>
-
-                    <div class="columna2">
-                        <div class="form-group">
-                            <label for="ays">Ays:</label>
-                            <input type="number" id="ays" class="form-control" name="ays" style="width: 50%;"
-                                [(ngModel)]="vigilanciaElectronica.ays" (input)="calcularTotal()" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="total">Total:</label>
-                            <input type="text" id="total" class="form-control" name="total" style="width: 50%;"
-                                [(ngModel)]="vigilanciaElectronica.total" readonly>
-                        </div>
-                        <button type="submit" class="btn btn-danger" [disabled]="!validarElectronica()">Crear
-                            Puesto</button>
+                    <div class="form-group" style="flex: 1; margin-right: 10px;">
+                        <label for="ays">Ays:</label>
+                        <input type="number" id="ays" class="form-control" name="ays"
+                            [(ngModel)]="vigilanciaElectronica.ays" (input)="calcularTotal()" required>
                     </div>
-
-
+                    <div class="form-group" style="flex: 1;">
+                        <label for="total">Total:</label>
+                        <input type="text" id="total" class="form-control" name="total"
+                            [(ngModel)]="vigilanciaElectronica.total" readonly>
+                    </div>
                 </div>
-
-
+                <div class="columna2 mt-3">
+                    <button type="submit" class="btn btn-danger" [disabled]="!validarElectronica()">Crear
+                        Puesto</button>
+                </div>
             </form>
-
         </div>
     </div>
 </div>

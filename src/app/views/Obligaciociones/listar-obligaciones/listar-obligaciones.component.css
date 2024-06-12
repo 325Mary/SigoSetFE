@@ -1,5 +1,5 @@
 @import '~bootstrap-icons/font/bootstrap-icons.css';
-button{
+#button{
     background-color: transparent !important; /* Fondo transparente */
     border-color: transparent !important; /* Borde transparente */
     padding: 0;

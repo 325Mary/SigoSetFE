@@ -60,20 +60,12 @@ export class CrearContratoComponent {
   }
   
   
-  camposCompletos(): boolean {
-    return !!(
-        this.nuevoContrato.nombre_empresav &&
-        this.nuevoContrato.nit_empresa &&
-        this.nuevoContrato.direccion_empresav &&
-        this.nuevoContrato.telefono_empresav &&
-        this.nuevoContrato.email_empresav &&
-        this.nuevoContrato.persona_contacto &&
-        this.nuevoContrato.telefono_personac &&
-        this.nuevoContrato.email_personac &&
-        this.nuevoContrato.representante_legal &&
-        this.nuevoContrato.telefono_representantel &&
-        this.nuevoContrato.email_representantel
-    );
+
+seleccionarEmpresa(event: any) {
+  const selectedEmpresa = this.empresas.find((empresa: any) => empresa.nombre_empresa === event.target.value);
+  if (selectedEmpresa) {
+      this.nuevoContrato.idempresa = selectedEmpresa.idempresa;
+  }
 }
 
 cargarEmpresas() {
@@ -92,4 +84,13 @@ cargarEmpresas() {
 close(): void {
   this.closeModal.emit();
 }
+camposCompletos(): boolean {
+  return !!(
+      this.nuevoContrato.nombre_empresa &&
+      this.nuevoContrato.fecha_inicio &&
+      this.nuevoContrato.fecha_fin
+      // Agrega más condiciones para otros campos si es necesario
+  );
+}
+
 }
