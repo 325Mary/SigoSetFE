@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ObligacionesContratoService } from '../../../services/obligacionesContrato/obligaciones-contrato.service';
 import { ContratoService } from '../../../services/contrato/contrato.service';
 import { ObligacionesContratistaService } from '../../../services/obligacionContratista/obligaciones-contratista.service';
+import { ObligacionContractualService } from 'app/services/obligacionContractual/obligacion-contractual.service';
 import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
 
@@ -18,24 +19,29 @@ export class CrearObligacionesContratoComponent {
 
   contratos: any[] = [];
   obligacionesContratista: any[] = [];
+  obligacionesContractuales: any[] = [];
+
   nuevaObligacion: any = {
     idContrato_empresa: null,
-    idobligaciones_contratista: null
+    idobligaciones_contratista: null,
+    idobligaciones_contractuales: null
   };
-  
-  // Variables auxiliares para mostrar los nombres seleccionados
+
   nombreContratoSeleccionado: string = '';
   nombreObligacionSeleccionada: string = '';
+  nombreObligacionContractual: string = '';
 
   constructor(
     private contratoService: ContratoService,
     private obligacionesContratistaService: ObligacionesContratistaService,
-    private obligacionesContratoService: ObligacionesContratoService
+    private obligacionesContratoService: ObligacionesContratoService,
+    private obligacionService: ObligacionContractualService
   ) {}
 
   ngOnInit(): void {
     this.obtenerContratos();
     this.obtenerObligacionesContratista();
+    this.obtenerObligaciones();
   }
 
   close(): void {
@@ -54,13 +60,16 @@ export class CrearObligacionesContratoComponent {
     );
   }
 
-  onEmpresaChange(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const selectedContrato = this.contratos.find(contrato => contrato.nombre_empresa === inputElement.value);
-    if (selectedContrato) {
-      this.nuevaObligacion.idContrato_empresa = selectedContrato.idContrato_empresa;
-      this.nombreContratoSeleccionado = selectedContrato.nombre_empresa; // Mostrar nombre seleccionado
-    }
+  obtenerObligaciones(): void {
+    this.obligacionService.obtenerObligacionesContractuales().subscribe(
+      (data) => {
+        this.obligacionesContractuales = data;
+        console.log('contractuales:', this.obligacionesContractuales);
+      },
+      (error) => {
+        alert('Error al obtener las obligaciones contractuales.' + error);
+      }
+    );
   }
 
   obtenerObligacionesContratista(): void {
@@ -74,12 +83,30 @@ export class CrearObligacionesContratoComponent {
     );
   }
 
+  onEmpresaChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const selectedContrato = this.contratos.find(contrato => contrato.nombre_empresa === inputElement.value);
+    if (selectedContrato) {
+      this.nuevaObligacion.idContrato_empresa = selectedContrato.idContrato_empresa;
+      this.nombreContratoSeleccionado = selectedContrato.nombre_empresa;
+    }
+  }
+
   onObliCoChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     const selectedObliCon = this.obligacionesContratista.find(obligacion => obligacion.obligacion_contratista === inputElement.value);
     if (selectedObliCon) {
       this.nuevaObligacion.idobligaciones_contratista = selectedObliCon.idobligaciones_contratista;
-      this.nombreObligacionSeleccionada = selectedObliCon.obligacion_contratista; // Mostrar nombre seleccionado
+      this.nombreObligacionSeleccionada = selectedObliCon.obligacion_contratista;
+    }
+  }
+
+  onObliContrac(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const selectedObligContrac = this.obligacionesContractuales.find(obligacionContractual => obligacionContractual.obligaciones_contractuales === inputElement.value);
+    if (selectedObligContrac) {
+      this.nuevaObligacion.idobligaciones_contractuales = selectedObligContrac.idobligaciones_contractuales;
+      this.nombreObligacionContractual = selectedObligContrac.obligaciones_contractuales;
     }
   }
 
@@ -95,9 +122,9 @@ export class CrearObligacionesContratoComponent {
             this.ObligacionCCreada.emit();
             this.close();
             form.resetForm();
-            // Resetear las variables auxiliares después de guardar
             this.nombreContratoSeleccionado = '';
             this.nombreObligacionSeleccionada = '';
+            this.nombreObligacionContractual = '';
           });
         },
         (error) => {

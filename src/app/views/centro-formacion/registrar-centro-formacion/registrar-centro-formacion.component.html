@@ -13,17 +13,12 @@
                           <div class="row justify-content-center">
                               <div class="col-md-5 m-1">
                                 <div class="row form-group">
-                                    <label>
-                                        Zona:
-                                    </label>
-                                    <select class="form-select" aria-label="Seleccione una zona" formControlName="idzona">
-                                        <option selected>Seleccione una zona</option>
-                                        <option value="{{ zona.idzona }}" *ngFor="let zona of listaZonas">
-                                            {{zona.Nombre_zona}}
-                                        </option>
-                                
-                                    </select>
-                                </div>
+                                    <label for="zonaNombre">Zona:</label>
+                                    <input list="zonas" id="zonaNombre" name="zonaNombre" class="form-control" (input)="updateZonaId($event)">
+                                    <datalist id="zonas">
+                                      <option *ngFor="let zona of listaZonas" [value]="zona.Nombre_zona"></option>
+                                    </datalist>
+                                  </div>
                                   <div class="row form-group">
                                       <label for="centro_formacion">Nombre del Centro de Formación:</label>
                                       <input type="text" class="form-control" id="centro_formacion" formControlName="centro_formacion" placeholder="">
@@ -36,18 +31,12 @@
                               </div>
                               <div class="col-md-5 m-1">
                                 <div class="row form-group">
-                                    <label>
-                                        Regional:
-                                    </label>
-                                    <select class="form-select" aria-label="Seleccione una regional"
-                                        formControlName="idRegional">
-                                        <option selected>Seleccione una regional</option>
-                                        <option value="{{ regional.idRegional }}" *ngFor="let regional of listaRegionales">
-                                            {{regional.regional}}
-                                        </option>
-
-                                    </select>
-                                </div>
+                                    <label for="regionalNombre">Regional:</label>
+                                    <input list="regionales" id="regionalNombre" name="regionalNombre" class="form-control" (input)="updateRegionalId($event)">
+                                    <datalist id="regionales">
+                                      <option *ngFor="let regional of listaRegionales" [value]="regional.regional"></option>
+                                    </datalist>
+                                  </div>
                                 <div class="row form-group">
                                       <label for="email_centrof">Correo Electronico del Centro de Formación:</label>
                                       <input type="text" class="form-control" id="email_centrof" formControlName="email_centrof" placeholder="">

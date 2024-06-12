@@ -259,4 +259,17 @@ export class AsignarPuestosVComponent implements OnInit {
       this.mostrarFormularioElectronica = true;
     }
   }
+  reducirCantidad(item: any): void {
+    if (item.cantidad > 0) {
+      item.cantidad--;
+    }
+  }
+
+  eliminarPuesto(items: any[], item: any): void {
+    const index = items.indexOf(item);
+    if (index !== -1) {
+      items.splice(index, 1);
+    }
+  }
+
 }

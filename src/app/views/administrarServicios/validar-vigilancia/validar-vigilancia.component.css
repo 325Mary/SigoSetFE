@@ -112,4 +112,10 @@
   .hidden-file-input {
     display: none;
   }
+  .datalist-input {
+    width: 100px; /* Ancho deseado para el input */
+    border: none; /* Añade un borde para diferenciar el input */
+    border-radius: 5px; /* Agrega un radio a los bordes */
+    padding: 5px; /* Ajusta el espaciado interno */
+  }
   

@@ -16,7 +16,8 @@
             <tr>
               <th>ID</th>
               <th>Contrato con la Empresa </th>
-              <th>Obligación</th>
+              <th>Obligación Contratista</th>
+              <th>Obligacion Contractual</th>
               <th>Acciones</th>
             </tr> 
           </thead>
@@ -26,6 +27,8 @@
               <td>{{obligacion.nombre_empresa}}</td>
               <td>
               {{obligacion.obligacion_contratista}}
+              </td>
+              <td>{{obligacion.obligaciones_contractuales}}</td>
               <td>
                   <button (click)="abrirModalVerO(obligacion)">
                     <i class="bi bi-eye"></i>

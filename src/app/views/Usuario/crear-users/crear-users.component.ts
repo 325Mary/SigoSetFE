@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../../services/usuario/login.service';
 import { PerfilService } from '../../../services/usuario/perfil.service';
-import {CentroFormacionService} from '../../../services/centro-formacion/centro-formacion.service'
+import { CentroFormacionService } from '../../../services/centro-formacion/centro-formacion.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -24,17 +24,23 @@ export class CrearUsersComponent {
     apellido_usuario: '',
     telefono_usuario: '',
     email_usuario: '',
-    // password: '',
     estado: ''
   };
   perfiles: Perfil[] = [];
   centrosF: any[] = [];
-  mostrarMensaje: boolean = false; 
-  constructor(private authservice: LoginService, private perfilService: PerfilService, private centroS: CentroFormacionService,  private router: Router,) {}
+  mostrarMensaje: boolean = false;
+  selectedCentroFormacion: string = '';
+
+  constructor(
+    private authservice: LoginService,
+    private perfilService: PerfilService,
+    private centroS: CentroFormacionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.obtenerPerfiles();
-    this.obtenerCentros()
+    this.obtenerCentros();
   }
 
   obtenerPerfiles() {
@@ -52,6 +58,7 @@ export class CrearUsersComponent {
       }
     );
   }
+
   obtenerCentros() {
     this.centroS.getCentrosFormacion().subscribe(
       (response: any) => {
@@ -59,11 +66,11 @@ export class CrearUsersComponent {
         if (response && response.data && response.data.length > 0) {
           this.centrosF = response.data; // Asigna el primer elemento del primer array
         } else {
-          console.error('No se han recuperado centros de formacion');
+          console.error('No se han recuperado centros de formación');
         }
       },
       error => {
-        console.error('Error al recuperar centros de formacion :', error);
+        console.error('Error al recuperar centros de formación:', error);
       }
     );
   }
@@ -78,7 +85,7 @@ export class CrearUsersComponent {
             title: '¡Registro exitoso!',
             text: 'El usuario ha sido registrado correctamente.'
           });
-          this.router.navigateByUrl('/listarUsuarios')
+          this.router.navigateByUrl('/listarUsuarios');
           // Aquí puedes realizar cualquier otra acción necesaria después del registro exitoso
           console.log(response);
         },
@@ -100,18 +107,17 @@ export class CrearUsersComponent {
       console.error('Formulario no válido');
     }
   }
-  
 
   verificarEmail() {
     // Verifica si el campo de email tiene algún valor y si falta el símbolo '@'
     this.mostrarMensaje = this.registroData.email_usuario && !this.validarEmail(this.registroData.email_usuario);
   }
-  
+
   validarEmail(email: string): boolean {
     // Verifica si el email contiene el símbolo '@'
     return email.includes('@');
   }
-  
+
   validarFormulario(): boolean {
     // Realiza la validación del formulario aquí, por ejemplo:
     const emailValido = this.validarEmail(this.registroData.email_usuario);
@@ -126,7 +132,14 @@ export class CrearUsersComponent {
       this.registroData.estado
     );
   }
-  
-  
 
+  updateCentroFormacionId(event: any) {
+    const centroFormacionNombre = event.target.value;
+    const centro = this.centrosF.find(c => c.centro_formacion === centroFormacionNombre);
+    if (centro) {
+      this.registroData.idcentro_formacion = centro.idcentro_formacion;
+    } else {
+      this.registroData.idcentro_formacion = '';
+    }
+  }
 }
