@@ -5,8 +5,7 @@
     </div>
     <div class="card-body">
       <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarDep()"
-          [(ngModel)]="terminoBusqueda">
+        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarDep()" [(ngModel)]="terminoBusqueda">
       </div>
       <div class="table-responsive">
         <table class="table">
@@ -19,42 +18,27 @@
           </thead>
           <tbody>
             <ng-container *ngIf="!noResultados; else noResults">
-              <tr
-                *ngFor="let departamento of departamentosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+              <tr *ngFor="let departamento of departamentosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
                 <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-
-
                 <td>
                   <ng-container *ngIf="!departamento.editando">
                     {{departamento.departamento}}
                   </ng-container>
-                  <ng-container>
-                    <input type="text" [(ngModel)]="departamentos[i].departamento" class="form-control" placeholder=".">
+                  <ng-container *ngIf="departamento.editando">
+                    <input type="text" [(ngModel)]="departamento.departamento" class="form-control" placeholder=".">
                   </ng-container>
                 </td>
-
-
                 <td>
                   <ng-container *ngIf="!departamento.editando">
-                    <!-- Icono de edición -->
-                    <button title="Editar departamento" id="button" (click)="editarMunicipio(i)">
-                      <span class="fa-solid  fa-edit"></span>
+                    <button title="Editar departamento" id="button" (click)="editarDepartamento(i)">
+                      <span class="fa-solid fa-edit"></span>
                     </button>
+
                   </ng-container>
                   <ng-container *ngIf="departamento.editando">
-                    <!-- Botón para guardar cambios -->
                     <button class="btn btn-danger" (click)="guardarCambios(i)">Guardar</button>
                   </ng-container>
-                </td>
-
-
-
-
-                <!-- <td>
-                <button (click)="EliminarDepartamento(departamento.iddepartamento)" id="boton" title="Boton de eliminar">
-                  <i class="fas fa-trash icono"></i>
-                </button>
-              </td> -->
+                </td>          
               </tr>
             </ng-container>
             <ng-template #noResults>
@@ -65,8 +49,7 @@
           </tbody>
         </table>
       </div>
-      <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior"
-        nextLabel="Siguiente"></pagination-controls>
+      <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
     </div>
   </div>
 </div>

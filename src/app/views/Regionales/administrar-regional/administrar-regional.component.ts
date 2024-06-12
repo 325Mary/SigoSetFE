@@ -48,12 +48,10 @@ export class AdministrarRegionalComponent implements OnInit {
     this.regionalService.updateRegional(regionalEditado.idRegional, regionalEditado).subscribe(
       response => {
         console.log('Regional actualizada exitosamente:', response);
-        // Cambiar a la vista de lectura
         regionalEditado.editando = false;
       },
       error => {
         console.error('Error al actualizar la regional:', error);
-        // Manejar el error, por ejemplo, mostrar un mensaje al usuario
       }
     );
   }

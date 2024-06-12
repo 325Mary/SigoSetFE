@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { ListMunicipiosComponent } from 'app/views/list-municipios/list-municipios.component';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,8 @@ export class MunicipioService {
     return this.httpClient.post(`${this.baseUrl}crearMunicipio`, municipioData);
   }
 
-  editarMunicipio(idmunicipio: number, nuevoMunicipioData: any): Observable<any> {
-    const url = `${this.baseUrl}editarMunicipio/${idmunicipio}`;
-    return this.httpClient.put<any>(url, nuevoMunicipioData);
+  editarMunicipio(idmunicipio: number, municipioData: ListMunicipiosComponent): Observable<any> {
+    return this.httpClient.put<any>(`${this.baseUrl}editarMunicipio/${idmunicipio}`, municipioData);
   }
 
   eliminarMunicipio(idmunicipio: number): Observable<any> {

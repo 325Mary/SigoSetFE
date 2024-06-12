@@ -1,7 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DepartamentoService } from 'app/services/Departamento/departamento.service';
-import { error, log } from 'console';
-import { response } from 'express';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,11 +13,9 @@ export class ListarDepartamentosComponent implements OnInit {
   departamentosFiltrados: any[] = [];
   terminoBusqueda: string = '';
   noResultados: boolean = false;
-  departamentoSeleccionado: any = {};
-  mostrarModalEditar: boolean = false;
-  mostrarModalVer: boolean = false;
-  pageSize: number = 10; // Valor por defecto de la paginación
+  pageSize: number = 10;
   currentPage: number = 1;
+  errorMessage: string = '';
 
   constructor(private departamentoService: DepartamentoService) { }
 
@@ -30,36 +26,36 @@ export class ListarDepartamentosComponent implements OnInit {
   listarDepartamentos(): void {
     this.departamentoService.obtenerDepartamentos().subscribe(
       response => {
-        this.departamentos = response.data[0];
+        this.departamentos = response.data[0]
+        console.log('des:', this.departamentos);
         this.filtrarDep();
-      }, (error) => {
-        console.log('Error al listar departamentos', error);
+      },
+      error => {
+        console.error('Error al obtener los Departamentos:', error);
+        this.errorMessage = 'Error al obtener las regionales. Por favor, inténtalo de nuevo más tarde.';
       }
     );
   }
 
-  // actualizarDepartamentos(): void {
-  //   this.listarDepartamentos();
-  // }
 
-  // verDepartamneto(): void {
-  //   this.listarDepartamentos();
-  // }
 
-  // abrirModalEditarDepartamento(departamento: any): void {
-  //   this.departamentoSeleccionado = departamento;
-  //   this.mostrarModalEditar = true;
-  // }
 
-  // abrirModalVerDepartamento(departamento: any): void {
-  //   this.departamentoSeleccionado = departamento;
-  //   this.mostrarModalVer = true;
-  // }
+  editarDepartamento(index: number): void {
+    this.departamentos[index].editando = true;
+  }
 
-  // closeModal(): void {
-  //   this.mostrarModalEditar = false;
-  //   this.mostrarModalVer = false;
-  // }
+  guardarCambios(index: number): void {
+    const departamentoEditado = this.departamentos[index];
+    this.departamentoService.editarDepartamento(departamentoEditado.iddepartamento, departamentoEditado).subscribe(
+      response => {
+        console.log('Departamento editado correctamente', response);
+        departamentoEditado.editando = false;
+      },
+      error => {
+        console.log('No se pudo actualizar el departamento', error);
+      }
+    );
+  }
 
   EliminarDepartamento(iddepartamento: number): void {
     Swal.fire({
@@ -69,7 +65,7 @@ export class ListarDepartamentosComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminarlo',
       cancelButtonText: 'Cancelar'
-    }).then((result) => {
+    }).then(result => {
       if (result.isConfirmed) {
         this.departamentoService.eliminarDepartamento(iddepartamento).subscribe(
           () => {
@@ -80,7 +76,7 @@ export class ListarDepartamentosComponent implements OnInit {
             );
             this.listarDepartamentos();
           },
-          (error) => {
+          error => {
             Swal.fire(
               '¡Error!',
               'Ocurrió un error al intentar eliminar el Departamento.',
@@ -92,40 +88,25 @@ export class ListarDepartamentosComponent implements OnInit {
       }
     });
   }
-
+  
   filtrarDep(): void {
     if (this.terminoBusqueda.trim() !== '') {
-      this.departamentosFiltrados = this.departamentos.filter((departamento) => {
-        return (
-          departamento.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
-        );
-      });
+      this.departamentosFiltrados = this.departamentos.filter((departamento) =>{
+        return(
+             departamento.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+        )
+    });
+      this.noResultados = this.departamentosFiltrados.length === 0;
+      this.currentPage = 1; // Reiniciar la paginación al filtrar
+
     } else {
       this.departamentosFiltrados = [...this.departamentos];
     }
-    this.noResultados = this.departamentosFiltrados.length === 0;
-    this.currentPage = 1; // Reiniciar la paginación al filtrar
+
   }
+
 
   pageChange(event: number): void {
     this.currentPage = event;
-  }
-
-  editarMunicipio(index:number):void{
-    this.departamentos[index].editando = true
-  }
-  guardarCambios(index:number):void{
-    const departamenoEditado= this.departamentos[index]
-    this.departamentoService.editarDepartamento(departamenoEditado.iddepartamento,departamenoEditado).subscribe(
-      response=>{
-        console.log('Municipio editado correctamente',response);
-        departamenoEditado.editado = false
-        
-      },
-      error=>{
-        console.log('No se actualizo',error);
-        
-      }
-    )
   }
 }

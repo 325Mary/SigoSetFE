@@ -2,8 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MunicipioService } from 'app/services/Municipio/municipio.service';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
-import { VerMunicipioComponent } from '../modals/ver-municipios/ver-municipios.component';  
-import { EditMunicipioComponent } from '../modals/edit-municipios/edit-municipios.component'; 
+
 
 @Component({
   selector: 'app-list-municipios',
@@ -30,13 +29,13 @@ export class ListMunicipiosComponent implements OnInit {
 
   listarMunicipios() {
     this.municipioService.obtenerMunicipios().subscribe(
-      (response) => {
+      response => {
         // Asigna los municipios correctamente
-        this.municipios = response.data[0];
+        this.municipios = Array.isArray(response[0]) ? response[0] : [];
         this.filtrarMunicipios();
-        console.log('Municipios Listados', this.municipios);
+        console.log('Municipios Listados',response);
       },
-      (error) => {
+      error => {
         console.log('Error al obtener Municipios', error);
         Swal.fire({
           position: "top-end",
@@ -49,21 +48,25 @@ export class ListMunicipiosComponent implements OnInit {
     );
   }
 
-  abrirModalVerMunicipio(idmunicipio: number): void {
-    this.dialog.open(VerMunicipioComponent, {
-      data: { idmunicipio }
-    });
+  editarMunicipio(index: number): void {
+    // Cambiar la propiedad 'editando' del objeto regional en la lista
+    this.municipios[index].editando = true;
   }
 
-  abrirModalEditarMunicipio(municipio: any): void {
-    const dialogRef = this.dialog.open(EditMunicipioComponent, { data: { municipio } });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'Municipio actualizado') {
-        this.listarMunicipios();
+  guardarCambios(index: number): void {
+    // Enviar los datos actualizados al servidor
+    const MunicipioEditado = this.municipios[index];
+    this.municipioService.editarMunicipio(MunicipioEditado.iddepartamento, MunicipioEditado).subscribe(
+      response => {
+        console.log('Municipio actualizado exitosamente:', response);
+        MunicipioEditado.editando = false;
+      },
+      error => {
+        console.error('Error al actualizar el Municipio:', error);
       }
-    });
+    );
   }
-
+  
   eliminarMunicipio(municipio: any): void {
     Swal.fire({
       title: '¿Estás seguro?',

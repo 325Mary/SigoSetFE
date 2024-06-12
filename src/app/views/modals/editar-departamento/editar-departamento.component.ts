@@ -14,33 +14,33 @@ export class EditarDepartamentoComponent {
 
   constructor(private departamentoService: DepartamentoService) { }
 
-  actuDepartamento(): void {
-    const depEditado = { departamento: this.departamentoSeleccionado.departamento };
-    this.departamentoService.editarDepartamento(this.departamentoSeleccionado.iddepartamento, depEditado).subscribe(
-      response => {
-        console.log('Departamento actualizado', response);
-        this.closeModal.emit();
-        this.actualizarDepartamento.emit();
-        Swal.fire({
-          icon: 'success',
-          title: 'Departamento actualizado!',
-          text: 'El Departamento ha sido actualizado correctamente.'
-        });
-      },
-      error => {
-        console.error('Error al actualizar el Departamento:', error);
-        let errorMessage = 'Ocurrió un error al intentar actualizar el Departamento. Por favor, inténtalo de nuevo.';
-        if (error && error.error && error.error.message) {
-          errorMessage = error.error.message;
-        }
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: errorMessage
-        });
-      }
-    );
-  }
+  // actuDepartamento(): void {
+  //   const depEditado = { departamento: this.departamentoSeleccionado.departamento };
+  //   this.departamentoService.editarDepartamento(this.departamentoSeleccionado.iddepartamento, depEditado).subscribe(
+  //     response => {
+  //       console.log('Departamento actualizado', response);
+  //       this.closeModal.emit();
+  //       this.actualizarDepartamento.emit();
+  //       Swal.fire({
+  //         icon: 'success',
+  //         title: 'Departamento actualizado!',
+  //         text: 'El Departamento ha sido actualizado correctamente.'
+  //       });
+  //     },
+  //     error => {
+  //       console.error('Error al actualizar el Departamento:', error);
+  //       let errorMessage = 'Ocurrió un error al intentar actualizar el Departamento. Por favor, inténtalo de nuevo.';
+  //       if (error && error.error && error.error.message) {
+  //         errorMessage = error.error.message;
+  //       }
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Error',
+  //         text: errorMessage
+  //       });
+  //     }
+  //   );
+  // }
 
   close(): void {
     this.closeModal.emit(); // Llama a closeModal.emit() para cerrar la modal

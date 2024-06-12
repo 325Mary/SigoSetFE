@@ -23,40 +23,7 @@ export class EditMunicipioComponent implements OnInit {
     console.log('Datos del municipio a editar:', this.municipioSeleccionado);
   }
 
-  editarMunicipio(): void {
-    if (this.municipioSeleccionado) {
-      const nuevoMunicipioData = {
-        municipio: this.municipioSeleccionado.municipio,
-        iddepartamento: this.municipioSeleccionado.iddepartamento
-      };
 
-      this.municipioService.editarMunicipio(this.municipioSeleccionado.idmunicipio, nuevoMunicipioData).subscribe(
-        (response) => {
-          console.log('Municipio actualizado:', response);
-          this.dialogRef.close('Municipio actualizado');
-          Swal.fire({
-            icon: 'success',
-            title: 'Municipio actualizado',
-            text: 'El Municipio ha sido actualizado exitosamente'
-          });
-        },
-        (error) => {
-          console.error('Error al actualizar el Municipio:', error);
-          let errorMessage = 'Ocurrió un error al intentar actualizar el Municipio. Por favor, inténtalo de nuevo.';
-          if (error && error.error && error.error.message) {
-            errorMessage = error.error.message;
-          }
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: errorMessage
-          });
-        }
-      );
-    } else {
-      console.error('municipioSeleccionado is undefined');
-    }
-  }
 
   close(): void {
     this.dialogRef.close();

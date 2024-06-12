@@ -25,15 +25,25 @@
                       <ng-container *ngFor="let municipio of municipiosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
                         <tr>
                           <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-                          <td>{{ municipio.municipio }}</td>
                           <td>
-                            <button title="Editar Municipio" (click)="abrirModalEditarMunicipio(municipio)" id="boton" class="mr-2">
-                              <i class="fas fa-edit icono"></i>
-                            </button>
-                            <button title="Eliminar Municipio" (click)="eliminarMunicipio(municipio)" id="boton" class="mr-2">
-                              <i class="fas fa-trash icono"></i>
-                            </button>
+                            <ng-container *ngIf="!municipio.editando">
+                              {{ municipio.municipio }}
+                            </ng-container>
+                            <ng-container *ngIf="municipio.editando">
+                              <input type="text" [(ngModel)]="municipios[i].municipio" class="form-control" placeholder=".">
+                            </ng-container>
                           </td>
+                          <td>
+                            <ng-container *ngIf="!municipio.editando">
+                              <button title="Editar municipio" id="button" (click)="editarMunicipio(i)">
+                                <span class="fa-solid fa-edit"></span>
+                              </button>
+                            </ng-container>
+                            <ng-container *ngIf="municipio.editando">
+                              <button class="btn btn-danger" (click)="guardarCambios(i)">Guardar</button>
+                            </ng-container>
+                          </td>
+
                         </tr>
                       </ng-container>
                     </ng-container>

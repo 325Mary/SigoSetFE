@@ -153,6 +153,7 @@ export class CrearUsersComponent {
       this.registroData.nombre_usuario &&
       this.registroData.apellido_usuario &&
       this.registroData.telefono_usuario &&
+      this.registroData.perfil&&
       emailValido &&
       this.registroData.estado
     );
