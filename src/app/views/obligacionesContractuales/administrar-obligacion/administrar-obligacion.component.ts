@@ -38,9 +38,10 @@ export class AdministrarObligacionComponent {
         this.obligaciones = data;
         console.log('cntractura:', this.obligaciones)
         this.filtrarObligacion();
+        
       },
       error => {
-        alert('Error al obtener las obligaciones contractuales.'+ error);
+        // alert('Error al obtener las obligaciones contractuales.'+ error);
       }
     );
   }

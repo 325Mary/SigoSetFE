@@ -4,6 +4,7 @@
   <div class="modal-body text-center">
     <div *ngIf="obligacionSeleccionada">
         <p><i class="fas fa-tasks"></i> <strong>Obligación Contratista:</strong> {{ obligacionSeleccionada.obligacion_contratista }}</p>
+        <p><i class="fas fa-tasks"></i> <strong>Obligación Contractual:</strong> {{ obligacionSeleccionada.obligaciones_contractuales }}</p>
       <p><i class="fas fa-building"></i> <strong>Nombre Empresa:</strong> {{ obligacionSeleccionada.nombre_empresa }}</p>
       <p><i class="fas fa-calendar-alt"></i> <strong>Fecha Inicio:</strong> {{ obligacionSeleccionada.fecha_inicio | date:'yyyy-MM-dd' }}</p>
       <p><i class="fas fa-calendar-alt"></i> <strong>Fecha Fin:</strong> {{ obligacionSeleccionada.fecha_fin | date:'yyyy-MM-dd' }}</p>

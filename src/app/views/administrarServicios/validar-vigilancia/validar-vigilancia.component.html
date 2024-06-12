@@ -98,68 +98,42 @@
         <thead class="thead-light">
          
           <tr>
-            <th>OBLIGACIONES GENERALES DEL CONTRATISTA</th>
+            <th style=" max-width: 200px;  word-wrap: break-word;">OBLIGACIONES GENERALES DEL CONTRATISTA</th>
             <th>Cumple</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let obligacion of obligacionesXcentro; let i = index">
             <td>{{ i + 1 }}. {{ obligacion.obligacion_contratista }}</td>
-            <select [(ngModel)]="obligacion.cumple">
-              <option value="Sí">Sí</option>
-              <option value="No">No</option>
-              <option value="N/A">N/A</option>
-            </select>
+            <input type="text" [(ngModel)]="obligacion.cumple" [id]="'opcionesCumpleContratista' + i" list="opcionesCumpleContratista" class="datalist-input">
+            <datalist id="opcionesCumpleContratista">
+              <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
+            </datalist>
                     </tr>
         </tbody>
       </table>
     </div>
     
-  <div class="section">
-  <h2 >OBLIGACIONES DEL CONTRATISTA REFERENTES A MEDIOS TECNOLÓGICOS Y AL CCTV</h2>
-  <table class="table table-bordered section">
-      <thead class="thead-light">
+    <div class="section">
+      <table class="table table-bordered section">
+        <thead class="thead-light">
+         
           <tr>
-              <th>Obligación</th>
-              <th>Cumple</th>
+            <th style=" max-width: 200px; word-wrap: break-word;">OBLIGACIONES GENERALES DEL Contractuales</th>
+            <th>Cumple</th>
           </tr>
-      </thead>
-      <tbody>
-          <tr>
-              <td>Guardar total confidencialidad y reserva respecto a la información que se obtenga producto de la prestación del servicio.</td>
-              <td><input type="checkbox" checked></td>
-          </tr>
-          <tr>
-              <td>Reportar de manera inmediata cualquier novedad o anomalía al Supervisor del Contrato.</td>
-              <td><input type="checkbox" checked></td>
-          </tr>
-          <tr>
-              <td>Operar y poner en funcionamiento la totalidad de los equipos tecnológicos con que se cuenta actualmente para la ejecución del contrato y los nuevos que se requieran.</td>
-              <td><input type="checkbox"></td>
-          </tr>
-          <tr>
-              <td>Realizar bajo su costo el mantenimiento preventivo y correctivo, propendiendo por el perfecto estado de funcionamiento y operatividad del CCTV y los medios tecnológicos.</td>
-              <td><input type="checkbox"></td>
-          </tr>
-          <tr>
-              <td>Realizar a través del sistema de circuito cerrado de televisión instalado, la grabación simultánea y permanente de cada cámara FIJA durante las 24 horas del día, la cual debe estar bajo custodia del contratista por un (1) año.</td>
-              <td><input type="checkbox"></td>
-          </tr>
-          <tr>
-              <td>Con el fin de ejercer un mayor control en la prestación del servicio, el contratista efectuará monitoreo en línea a las alarmas que instale.</td>
-              <td><input type="checkbox"></td>
-          </tr>
-          <tr>
-              <td>Atender oportunamente dentro de los plazos establecidos por la Entidad (para ciudades capitales 5 días y para sedes en municipios 8 días) el llamado de solicitud de asistencia que realice la supervisión de contrato o los técnicos operadores de turno del CCTV, en cuanto a fallas que presenten los equipos instalados.</td>
-              <td><input type="checkbox"></td>
-          </tr>
-          <tr>
-              <td>Otras (Si existen actividades contractuales diferentes a las anteriores, relaciónelas aquí).</td>
-              <td></td>
-          </tr>
-      </tbody>
-  </table>
-</div>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obligacion of obligacionesXcentro; let i = index">
+            <td>{{ i + 1 }}. {{ obligacion.obligaciones_contractuales }}</td>
+            <input type="text" [(ngModel)]="obligacion.cumple2" [id]="'opcionesCumpleContractuales' + i" list="opcionesCumpleContractuales" class="datalist-input">
+            <datalist id="opcionesCumpleContractuales">
+              <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
+            </datalist>
+                    </tr>
+        </tbody>
+      </table>
+    </div>
   <p class="section"><strong>ANEXOS:</strong> Actas de reunión, memorandos enviados y recibidos, comunicaciones vía correo electrónico.</p>
   <p class="section">  Se expide en {{ obtenerNombreSede() }}, a la fecha de  {{ fechaActual }}</p>
   <p class="section">DIRECTOR/A (E) {{centroFormacion.regional || 'N/A'}}</p>

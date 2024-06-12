@@ -30,7 +30,8 @@ export class CrearUsersComponent {
   centrosF: any[] = [];
   mostrarMensaje: boolean = false;
   caracteresTelefono: boolean = false;
-  caracteresIdentificacion: boolean = false;
+  caracteresIdentificacion: boolean = false; 
+  selectedCentroFormacion: string = '';
 
   constructor(
     private authService: LoginService,
@@ -60,6 +61,7 @@ export class CrearUsersComponent {
     );
   }
 
+
   obtenerCentros() {
     this.centroS.getCentrosFormacion().subscribe(
       (response: any) => {
@@ -67,11 +69,11 @@ export class CrearUsersComponent {
         if (response && response.data && response.data.length > 0) {
           this.centrosF = response.data;
         } else {
-          console.error('No se han recuperado centros de formacion');
+          console.error('No se han recuperado centros de formación');
         }
       },
       error => {
-        console.error('Error al recuperar centros de formacion :', error);
+        console.error('Error al recuperar centros de formación:', error);
       }
     );
   }
@@ -85,7 +87,7 @@ export class CrearUsersComponent {
             title: '¡Registro exitoso!',
             text: 'El usuario ha sido registrado correctamente.'
           }).then((response)=>{
-            this.router.navigate(['/listarUsuarios'])
+            this.router.navigate(['/listarUsuarios']);
           })
         },
         error => {
@@ -106,6 +108,7 @@ export class CrearUsersComponent {
   verificarEmail() {
     this.mostrarMensaje = this.registroData.email_usuario && !this.validarEmail(this.registroData.email_usuario);
   }
+
 
   validarEmail(email: string): boolean {
     return email.includes('@');
@@ -151,6 +154,16 @@ export class CrearUsersComponent {
       } else if (campo === 'identificacion') {
         this.caracteresIdentificacion = false;
       }
+    }
+  }
+
+  updateCentroFormacionId(event: any) {
+    const centroFormacionNombre = event.target.value;
+    const centro = this.centrosF.find(c => c.centro_formacion === centroFormacionNombre);
+    if (centro) {
+      this.registroData.idcentro_formacion = centro.idcentro_formacion;
+    } else {
+      this.registroData.idcentro_formacion = '';
     }
   }
 }
