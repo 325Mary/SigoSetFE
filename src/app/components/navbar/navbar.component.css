@@ -7,11 +7,13 @@
 }
 
 .login{
-  color: white; /* Color del texto del enlace */
+  color: rgb(255, 255, 255); /* Color del texto del enlace */
   margin: 10px; /* Espacio entre el enlace y el borde derecho */
-  border: 1px solid #0e0e0e; /* Cambiar border-radius por border */
   padding: 10px 29px; /* Añadir relleno al enlace */
   font-size: 18px; /* Aumentar tamaño de la letra */
+  border: 1px solid white;
+  font-weight: 600;
+  background-color: transparent;
   border-radius: 3px;
 } 
 .a_iniciar {
@@ -31,13 +33,13 @@
 }
 
 .btn{
-  color: rgba(0, 49, 77, 1); /* Color del texto del enlace */
+  color: rgb(255, 255, 255); /* Color del texto del enlace */
   margin: 10px; /* Espacio entre el enlace y el borde derecho */
   border: 1px solid white;
   padding: 10px 15px; /* Añadir relleno al enlace */
   font-size: 18px; /* Aumentar tamaño de la letra */
   border-radius: 10px;
-  background-color: rgb(255, 255, 255);
+  background-color: transparent;
 }
 .a_iniciar:hover{
 background-color: white;

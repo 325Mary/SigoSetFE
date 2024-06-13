@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../../services/usuario/login.service';
 import { PerfilService } from '../../../services/usuario/perfil.service';
 import { CentroFormacionService } from '../../../services/centro-formacion/centro-formacion.service';
@@ -10,13 +10,12 @@ interface Perfil {
   perfil: string;
 }
 
-
 @Component({
   selector: 'app-crear-users',
   templateUrl: './crear-users.component.html',
   styleUrls: ['./crear-users.component.css']
 })
-export class CrearUsersComponent {
+export class CrearUsersComponent implements OnInit {
   registroData: any = {
     idperfil: '',
     idcentro_formacion: '',
@@ -29,11 +28,13 @@ export class CrearUsersComponent {
   };
   perfiles: Perfil[] = [];
   centrosF: any[] = [];
-  mostrarMensaje: boolean = false;
+  mostrarMensajeId: boolean = false;
+  mostrarMensajeTelefono: boolean = false;
+  mostrarMensajeEmail: boolean = false;
   caracteresTelefono: boolean = false;
-  caracteresIdentificacion: boolean = false; 
-  perfilSeleccionado:any
-  centroSeleccionado:any
+  caracteresIdentificacion: boolean = false;
+  perfilSeleccionado: any;
+  centroSeleccionado: any;
   selectedCentroFormacion: string = '';
 
   constructor(
@@ -64,7 +65,6 @@ export class CrearUsersComponent {
     );
   }
 
-
   obtenerCentros() {
     this.centroS.getCentrosFormacion().subscribe(
       (response: any) => {
@@ -89,9 +89,9 @@ export class CrearUsersComponent {
             icon: 'success',
             title: '¡Registro exitoso!',
             text: 'El usuario ha sido registrado correctamente.'
-          }).then((response)=>{
+          }).then((response) => {
             this.router.navigate(['/listarUsuarios']);
-          })
+          });
         },
         error => {
           const errorBack = error.error ? error.error.message : 'Error desconocido';
@@ -108,38 +108,36 @@ export class CrearUsersComponent {
     }
   }
 
-  onPerfilSelected(event:any):void{
-    const selectPerfil= event.target.value;
-    const selectedPerfil = this.perfiles.find(perfil=>perfil.perfil === selectPerfil);
-    if(selectedPerfil){
-      this.perfilSeleccionado= selectedPerfil.idperfil;
-      console.log('Id Perfil seleccionado',this.perfilSeleccionado);
-      
+  onPerfilSelected(event: any): void {
+    const selectPerfil = event.target.value;
+    const selectedPerfil = this.perfiles.find(perfil => perfil.perfil === selectPerfil);
+    if (selectedPerfil) {
+      this.perfilSeleccionado = selectedPerfil.idperfil;
+      console.log('Id Perfil seleccionado', this.perfilSeleccionado);
     }
   }
 
-  onCenterSelect(event:any):void{
+  onCenterSelect(event: any): void {
     const selectCentro = event.target.value;
-    const selectedCenter = this.centrosF.find(centro=>centro.centro_formacion === selectCentro);
-    if(selectedCenter){
+    const selectedCenter = this.centrosF.find(centro => centro.centro_formacion === selectCentro);
+    if (selectedCenter) {
       this.centroSeleccionado = selectedCenter.idcentro_formacion;
-      console.log('Id del Centro',this.centrosF);
-      
+      console.log('Id del Centro', this.centrosF);
     }
   }
 
   verificarEmail() {
-    this.mostrarMensaje = this.registroData.email_usuario && !this.validarEmail(this.registroData.email_usuario);
+    this.mostrarMensajeEmail = this.registroData.email_usuario && !this.validarEmail(this.registroData.email_usuario);
   }
-
 
   validarEmail(email: string): boolean {
     return email.includes('@');
   }
 
+  // Verificar Telefono
   verificarTelefono() {
-    this.mostrarMensaje = this.registroData.telefono_usuario && !this.validarTelefono(this.registroData.telefono_usuario);
-    this.caracteresTelefono = this.registroData.telefono_usuario.length > 10;
+    this.mostrarMensajeTelefono = this.registroData.telefono_usuario && !this.validarTelefono(this.registroData.telefono_usuario);
+    this.caracteresTelefono = this.registroData.telefono_usuario.length >= 10;
   }
 
   validarTelefono(telefono_usuario: string): boolean {
@@ -147,8 +145,22 @@ export class CrearUsersComponent {
     return telefonoRegex.test(telefono_usuario);
   }
 
+  // Verficar ID
+  verificarId() {
+    this.mostrarMensajeId = this.registroData.identificacion && !this.validarId(this.registroData.identificacion);
+    this.caracteresIdentificacion = this.registroData.identificacion.length >= 10;
+  }
+
+  validarId(identificacion: string): boolean {
+    const idRegex = /^\d{10}$/;
+    return idRegex.test(identificacion);
+  }
+
+  // Validar todo el formulario
   validarFormulario(): boolean {
     const emailValido = this.validarEmail(this.registroData.email_usuario);
+    const telefonoValidado = this.validarTelefono(this.registroData.telefono_usuario);
+    const idValidado = this.validarId(this.registroData.identificacion);
     return (
       this.registroData.idperfil &&
       this.registroData.idcentro_formacion &&
@@ -156,8 +168,9 @@ export class CrearUsersComponent {
       this.registroData.nombre_usuario &&
       this.registroData.apellido_usuario &&
       this.registroData.telefono_usuario &&
-      this.registroData.perfil&&
       emailValido &&
+      telefonoValidado &&
+      idValidado &&
       this.registroData.estado
     );
   }

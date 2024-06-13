@@ -1,9 +1,9 @@
-
 <nav class="nav">
   <img src="assets/img/image (12).png" alt="Símbolo del SENA" class="image_logo">
-  <a *ngIf="!isLoggedIn" routerLink="/login"  class="login">Login</a>
+  <a *ngIf="!isLoggedIn" routerLink="/login" class="login">Login</a>
   <div *ngIf="isLoggedIn" class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
       {{ username }}
       <br>
       {{perfil}}
@@ -14,6 +14,4 @@
       <a class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a>
     </div>
   </div>
-    </nav>
-
-
+</nav>

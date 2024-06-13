@@ -16,7 +16,7 @@
                             <label for="nit">NIT:</label>
                             <input type="number" id="nit" name="nit" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.nit_empresa" required maxlength="10" (input)="onInput($event, 'nit')">
                             <div *ngIf="errores.nit" style="color: red;">
-                                El NIT no puede exceder los 10 caracteres.
+                                El NIT debe ser de 10 caracteres.
                             </div>
                         </div>
                         <div class="form-group">

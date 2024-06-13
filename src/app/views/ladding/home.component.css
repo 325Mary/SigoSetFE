@@ -47,3 +47,10 @@
   transition:ease-in-out;
 
 }
+.imagen_sigoset {
+  transition: transform 0.3s ease-in-out; /* Duración y tipo de transición */
+}
+
+.imagen_sigoset:hover {
+  transform: scale(1.1); /* Aumenta el tamaño al 110% */
+}
