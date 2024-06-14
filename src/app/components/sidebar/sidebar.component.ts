@@ -95,25 +95,27 @@ export class SidebarComponent implements OnInit {
           if (!acc[curr.modulo]) {
             acc[curr.modulo] = [];
           }
-
+  
           // Verificar duplicados de url_modulo
           if (!acc[curr.modulo].some(route => route.url_modulo === curr.url_modulo)) {
             acc[curr.modulo].push(curr);
           }
-
+  
           return acc;
         }, {});
-
+  
+        // Filtrar módulos para incluir solo aquellos con rutas que tienen permiso 'si'
         this.moduleRoutes = Object.keys(groupedModules).map(module => ({
           module,
-          routes: groupedModules[module]
-        }));
+          routes: groupedModules[module].filter(route => route.permiso === 'si')
+        })).filter(moduleRoute => moduleRoute.routes.length > 0);
       },
       error => {
         console.error('Error al obtener los módulos por perfil:', error);
       }
     );
   }
+  
 
   toggleCollapse(module: string) {
     if (this.collapsedModules.has(module)) {

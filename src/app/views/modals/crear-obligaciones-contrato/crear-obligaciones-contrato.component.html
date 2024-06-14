@@ -32,18 +32,20 @@
           </datalist>
       </div>
       <div class="form-group">
-          <label for="obligacionesContractuales">Obligación Contractual</label>
-          <input
-              list="obligacionesContractuales"
-              id="obligacionesContractuales"
-              class="form-control"
-              [(ngModel)]="nombreObligacionContractual"
-              name="nombreObligacionContractual"
-              (input)="onObliContrac($event)"
-              required>
-          <datalist id="obligacionesContractuales">
-              <option *ngFor="let obligacionContractual of obligacionesContractuales" [value]="obligacionContractual.obligaciones_contractuales">{{ obligacionContractual.obligaciones_contractuales }}</option>
-          </datalist>
+        <label for="obligacionesContractuales">Obligación Contractual</label>
+        <input
+          list="obligacionesContractuales"
+          id="obligacionesContractuales"
+          class="form-control"
+          [(ngModel)]="nombreObligacionContractual"
+          name="nombreObligacionContractual"
+          (input)="onObliContrac($event)"
+          required>
+        <datalist id="obligacionesContractuales">
+          <option *ngFor="let obligacionContractual of obligacionesContractuales" [value]="obligacionContractual.obligaciones_contractuales">
+            {{ obligacionContractual.obligaciones_contractuales }}
+          </option>
+        </datalist>
       </div>
       <div class="modal-footer">
           <button type="submit" class="btn btn-danger">Guardar</button>
