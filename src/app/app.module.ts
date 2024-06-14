@@ -91,6 +91,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'environments/environment';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -112,6 +113,7 @@ import { environment } from 'environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireMessagingModule,   
     AngularFireDatabaseModule,
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
