@@ -94,6 +94,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'environments/environment';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ListMunicipiosComponent } from './views/list-municipios/list-municipios.component';
 import { VerMunicipioComponent } from './views/modals/ver-municipios/ver-municipios.component'; 
 import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-municipios.component';
@@ -118,6 +119,7 @@ import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-muni
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireMessagingModule,   
     AngularFireDatabaseModule,
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

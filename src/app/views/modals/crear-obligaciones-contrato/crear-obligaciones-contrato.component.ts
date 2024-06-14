@@ -21,15 +21,21 @@ export class CrearObligacionesContratoComponent {
   obligacionesContratista: any[] = [];
   obligacionesContractuales: any[] = [];
 
-  nuevaObligacion: any = {
+  nuevaObligacionContractual: any = {
     idContrato_empresa: null,
-    idobligaciones_contratista: null,
     idobligaciones_contractuales: null
   };
 
-  nombreContratoSeleccionado: string = '';
-  nombreObligacionSeleccionada: string = '';
+  nuevaObligacionContratista: any = {
+    idContrato_empresa: null,
+    idobligaciones_contratista: null
+  };
+
+  nombreContratoSeleccionadoContractual: string = '';
   nombreObligacionContractual: string = '';
+
+  nombreContratoSeleccionadoContratista: string = '';
+  nombreObligacionSeleccionada: string = '';
 
   constructor(
     private contratoService: ContratoService,
@@ -62,8 +68,8 @@ export class CrearObligacionesContratoComponent {
 
   obtenerObligaciones(): void {
     this.obligacionService.obtenerObligacionesContractuales().subscribe(
-      (data) => {
-        this.obligacionesContractuales = data;
+      (response) => {
+        this.obligacionesContractuales = response;
         console.log('contractuales:', this.obligacionesContractuales);
       },
       (error) => {
@@ -83,56 +89,92 @@ export class CrearObligacionesContratoComponent {
     );
   }
 
-  onEmpresaChange(event: Event): void {
+  onEmpresaChangeContractual(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    const selectedContrato = this.contratos.find(contrato => contrato.nombre_empresa === inputElement.value);
+    const selectedContrato = this.contratos.find(contrato => contrato.nombre_empresa.trim() === inputElement.value.trim());
     if (selectedContrato) {
-      this.nuevaObligacion.idContrato_empresa = selectedContrato.idContrato_empresa;
-      this.nombreContratoSeleccionado = selectedContrato.nombre_empresa;
-    }
-  }
-
-  onObliCoChange(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const selectedObliCon = this.obligacionesContratista.find(obligacion => obligacion.obligacion_contratista === inputElement.value);
-    if (selectedObliCon) {
-      this.nuevaObligacion.idobligaciones_contratista = selectedObliCon.idobligaciones_contratista;
-      this.nombreObligacionSeleccionada = selectedObliCon.obligacion_contratista;
+      this.nuevaObligacionContractual.idContrato_empresa = selectedContrato.idContrato_empresa;
+      this.nombreContratoSeleccionadoContractual = selectedContrato.nombre_empresa;
     }
   }
 
   onObliContrac(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    const selectedObligContrac = this.obligacionesContractuales.find(obligacionContractual => obligacionContractual.obligaciones_contractuales === inputElement.value);
+    const selectedObligContrac = this.obligacionesContractuales.find(obligacionContractual => obligacionContractual.obligaciones_contractuales.trim() === inputElement.value.trim());
     if (selectedObligContrac) {
-      this.nuevaObligacion.idobligaciones_contractuales = selectedObligContrac.idobligaciones_contractuales;
+      this.nuevaObligacionContractual.idobligaciones_contractuales = selectedObligContrac.idobligaciones_contractuales;
       this.nombreObligacionContractual = selectedObligContrac.obligaciones_contractuales;
     }
   }
 
-  onSubmit(form: NgForm): void {
+  onEmpresaChangeContratista(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const selectedContrato = this.contratos.find(contrato => contrato.nombre_empresa.trim() === inputElement.value.trim());
+    if (selectedContrato) {
+      this.nuevaObligacionContratista.idContrato_empresa = selectedContrato.idContrato_empresa;
+      this.nombreContratoSeleccionadoContratista = selectedContrato.nombre_empresa;
+    }
+  }
+
+  onObliCoChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const selectedObliCon = this.obligacionesContratista.find(obligacion => obligacion.obligacion_contratista.trim() === inputElement.value.trim());
+    if (selectedObliCon) {
+      this.nuevaObligacionContratista.idobligaciones_contratista = selectedObliCon.idobligaciones_contratista;
+      this.nombreObligacionSeleccionada = selectedObliCon.obligacion_contratista;
+    }
+  }
+
+  onSubmitContractual(form: NgForm): void {
     if (form.valid) {
-      this.obligacionesContratoService.crearObligacionContrato(this.nuevaObligacion).subscribe(
+      this.obligacionesContratoService.crearObligacionContrato(this.nuevaObligacionContractual).subscribe(
         (response) => {
           Swal.fire({
             icon: 'success',
             title: 'Creación exitosa',
-            text: 'La obligación ha sido creada correctamente.',
+            text: 'La obligación contractual ha sido creada correctamente.',
           }).then(() => {
             this.ObligacionCCreada.emit();
             this.close();
             form.resetForm();
-            this.nombreContratoSeleccionado = '';
-            this.nombreObligacionSeleccionada = '';
+            this.nombreContratoSeleccionadoContractual = '';
             this.nombreObligacionContractual = '';
           });
         },
         (error) => {
-          console.error('Error al crear la obligación:', error);
+          console.error('Error al crear la obligación contractual:', error);
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'Hubo un error al crear la obligación. Ya se encuentra registrada',
+            text: 'Hubo un error al crear la obligación contractual. Ya se encuentra registrada',
+          });
+        }
+      );
+    }
+  }
+
+  onSubmitContratista(form: NgForm): void {
+    if (form.valid) {
+      this.obligacionesContratoService.crearObligacionContrato(this.nuevaObligacionContratista).subscribe(
+        (response) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Creación exitosa',
+            text: 'La obligación del contratista ha sido creada correctamente.',
+          }).then(() => {
+            this.ObligacionCCreada.emit();
+            this.close();
+            form.resetForm();
+            this.nombreContratoSeleccionadoContratista = '';
+            this.nombreObligacionSeleccionada = '';
+          });
+        },
+        (error) => {
+          console.error('Error al crear la obligación del contratista:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Hubo un error al crear la obligación del contratista. Ya se encuentra registrada',
           });
         }
       );

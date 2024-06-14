@@ -1,25 +1,70 @@
 <div class="modal-header">
-  <h5 class="modal-title">Crear Obligación de Contrato</h5>
-</div>
-<div class="modal-body">
-  <form #createForm="ngForm" (ngSubmit)="onSubmit(createForm)">
-      <div class="form-group">
-          <label for="contrato">Contrato</label>
-          <input
-              list="contratos"
-              id="contrato"
+    <h5 class="modal-title">Crear Obligación de Contrato</h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <!-- Columna de la izquierda: Obligaciones Contractuales -->
+      <div class="col-md-6">
+        <form #createFormContractuales="ngForm" (ngSubmit)="onSubmitContractual(createFormContractuales)">
+          <div class="form-group">
+            <label for="contratoContractual">Contrato</label>
+            <input
+              list="contratosContractual"
+              id="contratoContractual"
               class="form-control"
-              [(ngModel)]="nombreContratoSeleccionado"
-              name="nombreContratoSeleccionado"
-              (input)="onEmpresaChange($event)"
+              [(ngModel)]="nombreContratoSeleccionadoContractual"
+              name="nombreContratoSeleccionadoContractual"
+              (input)="onEmpresaChangeContractual($event)"
               required>
-          <datalist id="contratos">
+            <datalist id="contratosContractual">
               <option *ngFor="let contrato of contratos" [value]="contrato.nombre_empresa">{{ contrato.nombre_empresa }}</option>
-          </datalist>
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="obligacionContractuales">Obligación Contractual</label>
+            <input
+              list="obligacionesContractuales"
+              id="obligacionContractuales"
+              class="form-control"
+              [(ngModel)]="nombreObligacionContractual"
+              name="nombreObligacionContractual"
+              (input)="onObliContrac($event)"
+              required>
+            <datalist id="obligacionesContractuales">
+              <option *ngFor="let obligacionContractual of obligacionesContractuales" [value]="obligacionContractual.obligaciones_contractuales">{{ obligacionContractual.obligaciones_contractuales }}</option>
+            </datalist>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger">Guardar</button>
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-          <label for="obligacionContratista">Obligación Contratista</label>
-          <input
+  
+      <!-- Línea divisoria -->
+      <div class="col-md-1 d-flex justify-content-center align-items-center">
+        <div style="border-left: 1px solid #ccc; height: 100%;"></div>
+      </div>
+  
+      <!-- Columna de la derecha: Obligaciones del Contratista -->
+      <div class="col-md-5">
+        <form #createFormContratista="ngForm" (ngSubmit)="onSubmitContratista(createFormContratista)">
+          <div class="form-group">
+            <label for="contratoContratista">Contrato</label>
+            <input
+              list="contratosContratista"
+              id="contratoContratista"
+              class="form-control"
+              [(ngModel)]="nombreContratoSeleccionadoContratista"
+              name="nombreContratoSeleccionadoContratista"
+              (input)="onEmpresaChangeContratista($event)"
+              required>
+            <datalist id="contratosContratista">
+              <option *ngFor="let contrato of contratos" [value]="contrato.nombre_empresa">{{ contrato.nombre_empresa }}</option>
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="obligacionContratista">Obligación Contratista</label>
+            <input
               list="obligacionesContratista"
               id="obligacionContratista"
               class="form-control"
@@ -27,29 +72,18 @@
               name="nombreObligacionSeleccionada"
               (input)="onObliCoChange($event)"
               required>
-          <datalist id="obligacionesContratista">
+            <datalist id="obligacionesContratista">
               <option *ngFor="let obligacion of obligacionesContratista" [value]="obligacion.obligacion_contratista">{{ obligacion.obligacion_contratista }}</option>
-          </datalist>
+            </datalist>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-danger">Guardar</button>
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="obligacionesContractuales">Obligación Contractual</label>
-        <input
-          list="obligacionesContractuales"
-          id="obligacionesContractuales"
-          class="form-control"
-          [(ngModel)]="nombreObligacionContractual"
-          name="nombreObligacionContractual"
-          (input)="onObliContrac($event)"
-          required>
-        <datalist id="obligacionesContractuales">
-          <option *ngFor="let obligacionContractual of obligacionesContractuales" [value]="obligacionContractual.obligaciones_contractuales">
-            {{ obligacionContractual.obligaciones_contractuales }}
-          </option>
-        </datalist>
-      </div>
-      <div class="modal-footer">
-          <button type="submit" class="btn btn-danger">Guardar</button>
-          <button type="button" class="btn btn-muted" (click)="close()">Cancelar</button>
-      </div>
-  </form>
-</div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-muted" (click)="close()">Cancelar</button>
+    </div>
+  </div>
+  
