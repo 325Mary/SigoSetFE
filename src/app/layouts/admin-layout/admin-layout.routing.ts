@@ -66,6 +66,7 @@ import { CrearZonaComponent } from 'app/views/zonas/crear-zona/crear-zona.compon
 import { CrearModulosXperfilComponent } from "app/views/modulos/crear-modulos-xperfil/crear-modulos-xperfil.component";
 import { ListarModulosXperfilComponent } from "app/views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component";
 
+
 import { ListMunicipiosComponent } from 'app/views/list-municipios/list-municipios.component'; 
 import { VerMunicipioComponent } from 'app/views/modals/ver-municipios/ver-municipios.component';
 import { EditMunicipioComponent } from 'app/views/modals/edit-municipios/edit-municipios.component';
@@ -73,6 +74,10 @@ import { EditMunicipioComponent } from 'app/views/modals/edit-municipios/edit-mu
 import { ListarDepartamentosComponent } from 'app/views/Departamentos/listar-departamentos/listar-departamentos.component';
 import { ListarObligacionesComponent } from 'app/views/Obligaciociones/listar-obligaciones/listar-obligaciones.component';
 import { EnviarReporteComponent } from "app/views/Reportes/enviar-reporte/enviar-reporte.component";
+
+import { CrearObligacionContratistaComponent } from 'app/views/obligacionesContratista/crear-obligacion/crear-obligacion.component';
+import { ListarObligacionContratistaComponent } from 'app/views/obligacionesContratista/listar-obligacion/listar-obligacion.component';
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -128,6 +133,9 @@ export const AdminLayoutRoutes: Routes = [
     {path: 'list-zonas',component:AdministrarZonaComponent},
     {path: 'crear-zonas',component:CrearZonaComponent},
 
+
+    {path:'crearObliContratista',component:CrearObligacionContratistaComponent},
+    {path:'listaObliContratista',component:ListarObligacionContratistaComponent},
 
     { path: 'login', component: LoginComponent},
     { path: 'restablecerPassword', component: RestablecerPasswordComponent},

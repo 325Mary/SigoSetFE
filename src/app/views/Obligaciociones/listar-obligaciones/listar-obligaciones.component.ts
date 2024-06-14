@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ObligacionesContratoService } from '../../../services/obligacionesContrato/obligaciones-contrato.service';
 import Swal from 'sweetalert2';
 
@@ -8,14 +8,16 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listar-obligaciones.component.css']
 })
 export class ListarObligacionesComponent implements OnInit {
-  @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
-  showModal: boolean = false;
+  contratistas: any[] = [];
+  contractuales: any[] = [];
+  contratistasFiltrados: any[] = [];
+  contractualesFiltrados: any[] = [];
+  searchTextContratistas: string = '';
+  searchTextContractuales: string = '';
+  contratistasPage: number = 1; // Página actual para contratistas
+  contractualesPage: number = 1; // Página actual para contractuales
   obligacionSeleccionada: any = {};
-  mostrarModalObligaciones: boolean = false; 
-  obligaciones: any[] = [];
-  obligacionesFiltradas: any[]=[]
-  editObligacionId: number | null = null;
-  nuevaObligacion: string = '';
+  mostrarModalObligaciones: boolean = false;
   mostrarModalEditar: boolean = false;
   mostrarModalCrear: boolean = false;
   pageSize: number = 10; 
@@ -23,9 +25,7 @@ export class ListarObligacionesComponent implements OnInit {
   terminoBusqueda: string = '';
   noResultados: boolean = false;
 
-  constructor(
-    private obligacionesContratoService: ObligacionesContratoService
-  ) {}
+  constructor(private obligacionesContratoService: ObligacionesContratoService) {}
 
   ngOnInit(): void {
     this.obtenerObligaciones();
@@ -33,10 +33,11 @@ export class ListarObligacionesComponent implements OnInit {
 
   obtenerObligaciones() {
     this.obligacionesContratoService.obtenerObligacionesContrato().subscribe(
-      (response) => {
-        this.obligaciones = response.data
-        
-        console.log('obligaciones', this.obligaciones);
+      (response: any) => {
+        this.contratistas = response.data.filter((item: any) => item.obligacion_contratista !== null);
+        this.contractuales = response.data.filter((item: any) => item.obligaciones_contractuales !== null);
+        this.filtrarContratistas();
+        this.filtrarContractuales();
       },
       (error) => {
         console.error('Error al obtener obligaciones:', error);
@@ -44,7 +45,21 @@ export class ListarObligacionesComponent implements OnInit {
     );
   }
 
- 
+  filtrarContratistas() {
+    const filterValue = this.searchTextContratistas.toLowerCase().trim();
+    this.contratistasFiltrados = this.contratistas.filter((obligacion: any) =>
+      obligacion.nombre_empresa.toLowerCase().includes(filterValue) ||
+      obligacion.obligacion_contratista.toLowerCase().includes(filterValue)
+    );
+  }
+  
+  filtrarContractuales() {
+    const filterValue = this.searchTextContractuales.toLowerCase().trim();
+    this.contractualesFiltrados = this.contractuales.filter((obligacion: any) =>
+      obligacion.nombre_empresa.toLowerCase().includes(filterValue) ||
+      obligacion.obligaciones_contractuales.toLowerCase().includes(filterValue)
+    );
+  }
 
   confirmarEliminacion(idobligaciones_contrato: number) {
     Swal.fire({
@@ -74,50 +89,45 @@ export class ListarObligacionesComponent implements OnInit {
     );
   }
 
-
   closeModal(): void {
-    this.showModal = false;
     this.mostrarModalObligaciones = false;
     this.mostrarModalEditar = false;
-
+    this.mostrarModalCrear = false;
   }
+
   abrirModalVerO(obligacion: any): void {
     this.obligacionSeleccionada = obligacion;
     this.mostrarModalObligaciones = true;
   }
 
   handleCloseModal(): void {
-    this.obligacionSeleccionada = false;
+    this.obligacionSeleccionada = {};
     this.mostrarModalObligaciones = false;
     this.mostrarModalEditar = false;
-    this.mostrarModalCrear =false
+    this.mostrarModalCrear = false;
   }
+
   abrirModalEditar(obligacion: any): void {
     this.obligacionSeleccionada = obligacion;
     this.mostrarModalEditar = true;
   }
 
-  abrirModalCrear():void{
-    this.mostrarModalCrear =true
+  abrirModalCrear(): void {
+    this.mostrarModalCrear = true;
   }
-
 
   handleActualizarObligacion(obligacion: any): void {
     this.obtenerObligaciones();
     this.handleCloseModal();
   }
 
-  actualizarObC():void{
+  actualizarObC(): void {
     this.obtenerObligaciones();
-
   }
-  filtrarContratos():void{
-    if(this.terminoBusqueda.trim() !==''){
-
-
-    }
+  cambiarPaginaContratistas(event: any): void {
+    this.contractualesPage = event;
   }
-  pageChange(event: number): void {
-    this.currentPage = event;
+  cambiarPaginaContractuales(event: any): void {
+    this.contractualesPage = event;
   }
 }

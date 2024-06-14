@@ -1,0 +1,38 @@
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ObligacionContractualService } from 'app/services/obligacionContractual/obligacion-contractual.service';  
+
+
+@Component({
+  selector: 'app-editar-obli-contratista',
+  templateUrl: './editar-obli-contratista.component.html',
+  styleUrls: ['./editar-obli-contratista.component.css']
+})
+export class EditarObliContratistaComponent {
+
+  constructor(   public dialogRef: MatDialogRef<EditarObliContratistaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private obligacionService: ObligacionContractualService) 
+    { }
+
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+  ngOnInit(): void {
+  }
+  guardar(): void {
+    console.log('Datos antes de guardar:', this.data.obligacion); // Depuración
+    const nuevaObligacion = { obligacionesContratista: this.data.obligacion.obligacionesContratista };
+    this.obligacionService.actualizarObligacionContractualPorId(this.data.obligacion.obligacionesContratista, nuevaObligacion).subscribe(
+      response => {
+        this.dialogRef.close(true);
+        console.log('Respuesta del servidor:', response);
+      },
+      error => {
+        alert('Error al actualizar la obligación contractual.');
+        console.error('Error en la actualización:', error);
+      }
+    );
+  }
+
+}

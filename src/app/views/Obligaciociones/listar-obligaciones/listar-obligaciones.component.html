@@ -1,87 +1,132 @@
-<div class="container d-flex justify-content-center mt-5 mb-2">
-  <div class="card" style="width: 80rem;">
+<div class="container mt-5 mb-2">
+  <div class="card">
     <div class="card-header card-header-sena-azul">
       <h4 class="card-title">Listado de Obligaciones de Contrato</h4>
     </div>
 
     <div class="card-body">
-      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-        <input [(ngModel)]="terminoBusqueda" (input)="filtrarContratos()" type="text" class="form-control"
-          placeholder="Buscar Obligaciones de contrato...">
-      </div>
-      <div class="table-responsive">
-        <table class="table">
-          <thead class="text-dark">
-            <tr>
-              <th>ID</th>
-              <th>Contrato con la Empresa </th>
-              <th>Obligación Contratista</th>
-              <th>Obligacion Contractual</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let obligacion of obligaciones | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
-              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-              <td>{{obligacion.nombre_empresa}}</td>
-              <td>
-              {{obligacion.obligacion_contratista}}
-              </td>
-              <td>{{obligacion.obligaciones_contractuales}}</td>
-              <td>
-                <button (click)="abrirModalVerO(obligacion)" title="Ver Oblicacion" id="button">
-                  <i class="fa fa-eye icono"></i>
-                </button>
-                <button (click)="abrirModalEditar(obligacion)" title="Ver Obligación" id="button">
-                  <i class="fa fa-edit icono"></i>
-                </button>
-                <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)" title="Eliminar Obligacion" id="button">
-                  <i class="fa fa-trash icono"></i>
-                </button>
-
-              </td>
-            </tr>
-          </tbody>
-
-        </table>
-        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior"
-          nextLabel="Siguiente"></pagination-controls>
-      </div>
       <div class="center-container">
-        <button (click)="abrirModalCrear()" class="btn btn-danger">
+        <button class="btn btn-muted" (click)="abrirModalCrear()" style="color: black; box-shadow: 0 4px 8px rgba(9, 3, 32, 0.3)">
           <i class="bi bi-plus"></i> Agregar Obligacion Contrato
         </button>
       </div>
-    </div>
 
-    <div class="modal" [class.show]="mostrarModalObligaciones" tabindex="-1">
-      <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
-        <div class="modal-content">
-          <!-- Contenido del modal -->
-          <app-ver-obligaciones-contrato [obligacionSeleccionada]="obligacionSeleccionada"
-            [mostrarModal]="mostrarModalObligaciones" (closeModal)="handleCloseModal()">
-            <!-- Aquí se vincula correctamente al evento closeModal -->
-          </app-ver-obligaciones-contrato>
+      <!-- Contenedor para Obligaciones de Contratistas -->
+      <div class="card mt-4">
+        <div class="card-header  card-header-sena-azul">
+          <h5 class="card-title">Obligaciones de Contratistas</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-group" style="margin: 20px 10px;">
+            <input type="text" class="form-control mb-2" placeholder="Buscar contratistas por empresa..." [(ngModel)]="searchTextContratistas" (input)="filtrarContratistas()">
+          </div>
+          <div class="table-responsive">
+            <table class="table" *ngIf="contratistasFiltrados.length > 0">
+              <thead class="text-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>Contrato con la Empresa</th>
+                  <th>Obligación Contratista</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let obligacion of contratistasFiltrados | paginate: { itemsPerPage: 5, currentPage: contratistasPage, id: 'contratistas-pagination' }; let i = index">
+                  <td>{{ (contratistasPage - 1) * 5 + i + 1 }}</td>
+                  <td>{{ obligacion.nombre_empresa }}</td>
+                  <td>{{ obligacion.obligacion_contratista }}</td>
+                  <td>
+                    <button (click)="abrirModalVerO(obligacion)" id="button" title="Ver Obligación">
+                      <i class="fa fa-eye icono"></i>
+                    </button>
+                    <button (click)="abrirModalEditar(obligacion)" id="button" title="Editar Obligación">
+                      <i class="fa fa-edit icono"></i>
+                    </button>
+                    <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)" id="button" title="Eliminar Obligación">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <pagination-controls (pageChange)="cambiarPaginaContratistas($event)" id="contratistas-pagination"></pagination-controls>
+          <div class="alert alert-muted" role="alert" *ngIf="contratistasFiltrados.length === 0">
+            No se encontraron obligaciones de contratistas.
+          </div>
+        </div>
+      </div>
 
+      <!-- Contenedor para Obligaciones Contractuales -->
+      <div class="card mt-4">
+        <div class="card-header  card-header-sena-azul">
+          <h5 class="card-title">Obligaciones Contractuales</h5>
+        </div>
+        <div class="card-body">
+          <div class="form-group" style="margin: 20px 10px;">
+            <input type="text" class="form-control mb-2" placeholder="Buscar contractuales por empresa..." [(ngModel)]="searchTextContractuales" (input)="filtrarContractuales()">
+          </div>
+          <div class="table-responsive">
+            <table class="table" *ngIf="contractualesFiltrados.length > 0">
+              <thead class="text-dark">
+                <tr>
+                  <th>ID</th>
+                  <th>Contrato con la Empresa</th>
+                  <th>Obligación Contractual</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let obligacion of contractualesFiltrados | paginate: { itemsPerPage: 5, currentPage: contractualesPage, id: 'contractuales-pagination' }; let i = index">
+                  <td>{{ (contractualesPage - 1) * 5 + i + 1 }}</td>
+                  <td>{{ obligacion.nombre_empresa }}</td>
+                  <td>{{ obligacion.obligaciones_contractuales }}</td>
+                  <td>
+                    <button (click)="abrirModalVerO(obligacion)" id="button" title="Ver Obligación">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <button (click)="abrirModalEditar(obligacion)" id="button" title="Editar Obligación">
+                      <i class="fa fa-edit icono"></i>
+                    </button>
+                    <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)" id="button" title="Eliminar Obligación">
+                      <i class="fa fa-trash icono"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <pagination-controls (pageChange)="cambiarPaginaContractuales($event)" id="contractuales-pagination"></pagination-controls>
+          <div class="alert alert-muted" role="alert" *ngIf="contractualesFiltrados.length === 0">
+            No se encontraron obligaciones contractuales.
+          </div>
         </div>
       </div>
     </div>
-    <div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
-      <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
-        <div class="modal-content">
-          <app-editar-obligaciones-contrato [obligacionSeleccionada]="obligacionSeleccionada"
-            (closeModal)="handleCloseModal()" (actualizarObligacion)="handleActualizarObligacion($event)">
-          </app-editar-obligaciones-contrato>
-        </div>
-      </div>
-    </div>
+  </div>
+</div>
 
-    <div class="modal" [class.show]="mostrarModalCrear" tabindex="-1">
-      <div class="modal-dialog "> <!-- Aquí puedes usar modal-lg o modal-xl -->
-        <div class="modal-content">
-          <app-crear-obligaciones-contrato (ObligacionCCreada)="actualizarObC()" (closeModal)="handleCloseModal()">
-          </app-crear-obligaciones-contrato>
-        </div>
-      </div>
+<!-- Modales -->
+<div class="modal" [class.show]="mostrarModalObligaciones" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-ver-obligaciones-contrato [obligacionSeleccionada]="obligacionSeleccionada" [mostrarModal]="mostrarModalObligaciones" (closeModal)="handleCloseModal()"></app-ver-obligaciones-contrato>
     </div>
+  </div>
+</div>
+
+<div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-editar-obligaciones-contrato [obligacionSeleccionada]="obligacionSeleccionada" (closeModal)="handleCloseModal()" (actualizarObligacion)="handleActualizarObligacion($event)"></app-editar-obligaciones-contrato>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.show]="mostrarModalCrear" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <app-crear-obligaciones-contrato (ObligacionCCreada)="actualizarObC()" (closeModal)="handleCloseModal()"></app-crear-obligaciones-contrato>
+    </div>
+  </div>
+</div>

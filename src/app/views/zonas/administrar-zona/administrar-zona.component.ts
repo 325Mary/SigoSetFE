@@ -77,24 +77,10 @@ export class AdministrarZonaComponent {
       (response) => {
         this.zona = response.data; 
         console.log('Zona ', this.zona);
-        this.filtrarZona(); 
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "!Zonas listadas correctamente¡",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        this.filtrarZona();        
       },
       (error) => {
-        console.log('Error al obtener Zonas', error);
-        Swal.fire({
-          position: "top-end",
-          icon: "warning",
-          title: "!No se pueden listar las Zonas",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        console.log('Error al obtener Zonas', error);       
       }
     )
   }

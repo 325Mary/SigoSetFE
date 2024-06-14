@@ -97,11 +97,17 @@ import { environment } from 'environments/environment';
 import { ListMunicipiosComponent } from './views/list-municipios/list-municipios.component';
 import { VerMunicipioComponent } from './views/modals/ver-municipios/ver-municipios.component'; 
 import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-municipios.component';
-import {NgxPaginationModule}from 'ngx-pagination'
+import {NgxPaginationModule}from 'ngx-pagination';
+
+
+import { ListarObligacionContratistaComponent } from './views/obligacionesContratista/listar-obligacion/listar-obligacion.component';
+import { EditarObliContratistaComponent } from './views/modals/editar-obli-contratista/editar-obli-contratista.component';
+import { VerObliContratistaComponent } from './views/modals/ver-obli-contratista/ver-obli-contratista.component'
+import { CrearObligacionContratistaComponent } from './views/obligacionesContratista/crear-obligacion/crear-obligacion.component';
 
 @NgModule({
   imports: [
-     AppRoutingModule,
+   AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -120,6 +126,7 @@ import {NgxPaginationModule}from 'ngx-pagination'
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireMessagingModule,   
     AngularFireDatabaseModule,
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -160,6 +167,7 @@ import {NgxPaginationModule}from 'ngx-pagination'
     ListUsersComponent,
     LoginComponent,
     PersonalizacionComponent,
+    CrearObligacionContratistaComponent,
     RestablecerPasswordComponent,
     CrearContratoComponent,
     CrearModulosComponent,
@@ -204,10 +212,12 @@ import {NgxPaginationModule}from 'ngx-pagination'
     VerObligacionesContratoComponent,
     CrearObligacionesContratoComponent,
     EnviarReporteComponent,
-   
     ListMunicipiosComponent,
     EditMunicipioComponent,
-    VerMunicipioComponent
+    VerMunicipioComponent,
+    ListarObligacionContratistaComponent,
+    EditarObliContratistaComponent,
+    VerObliContratistaComponent
 
     
     
@@ -216,8 +226,8 @@ import {NgxPaginationModule}from 'ngx-pagination'
   ],
   providers: [
     LoginService,
-    CentroFormacionService
-    , JwtHelperService,
+    CentroFormacionService,
+    JwtHelperService,
     PuestosEXcentroService,
     PuestosVXcentroService,
     ObligacionesContratoService,

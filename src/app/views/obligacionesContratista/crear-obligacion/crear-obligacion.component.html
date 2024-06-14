@@ -1,0 +1,19 @@
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card">
+        <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">
+                Crear Obligación Contratista
+            </h4>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="crearObligacion()">
+                <div class="form-group">
+                  <label for="obligacion_contratista">Obligación Contratista:</label>
+                  <input type="text" id="obligacion_contratista" [(ngModel)]="nuevaObligacioncontratista.obligacion_contratista" name="obligacion_contratista" required class="form-control">
+                </div>
+                <button type="submit" class="btn btn-danger">Crear Obligación</button>
+              </form>
+        </div>
+    </div>
+
+</div>
