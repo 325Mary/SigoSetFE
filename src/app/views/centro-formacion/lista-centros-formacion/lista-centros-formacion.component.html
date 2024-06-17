@@ -4,83 +4,67 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-sena-azul">
-                        <h4 class="card-title ">Listado De Centros De Formacion</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
+                        <h4 class="card-title">Listado De Centros De Formacion</h4>
+                        <p class="card-category">Here is a subtitle for this table</p>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-dark">
-                                    <th>
-                                        ID
-                                    </th>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        Telefono
-                                    </th>
-                                    <th>
-                                        Correo Electronico
-                                    </th>
-                                    <th>
-                                        Accion
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of listaCentrosFormacion.slice((currentPage-1)*pageSize, currentPage*pageSize)">
-                                        <td>
-                                            {{item.idcentro_formacion}}
-                                        </td>
-                                        <td>
-                                            {{item.centro_formacion}}
-                                        </td>
-                                        <td>
-                                            {{item.telefono_centrof}}
-                                        </td>
-                                        <td>
-                                            {{item.email_centrof}}
-                                        </td>
-                                        <td>
-                                            <div class="comtainer">
-                                                <i  *ngIf="isLoggedIn && isSuperAdministrador"
-                                                    [routerLink]="['/editarCentroFormacion/', item.idcentro_formacion]">
-                                                    <span class="fa-solid  fa-edit"></span>
-                                                </i>
-                                                <i *ngIf="isLoggedIn && isSuperAdministrador" 
-                                                    [routerLink]="['/detalleCentroFormacion/', item.idcentro_formacion]">
-                                                    <span class="fa-solid fa-eye "></span>
-                                                </i>
-                                                <!-- <i tooltip="Eliminar centro de formacion  " placement="bottom"
-                                                    showDelay="200" class="butonW "
-                                                    (click)="eliminarCentroFormacion(item.idcentro_formacion)">
-                                                    <span class="fa-solid fa-trash text-danger"></span>
-                                                </i> -->
-                                                <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG" title="listar Puestos por centro" (click)="abrirModalVerPuestos(item)">
-                                                    <span class="fas fa-shield"></span>
-                                                </i>
-                                                <i *ngIf="isLoggedIn && isSuperAdministrador" title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
-                                                    <span class="fas fa-user-secret"></span>
-                                                </i>
-                                                <i  *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG "title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
-                                                    <span class="fas fa-building"></span>
-                                                </i>
-                                                <i  *ngIf="isLoggedIn &&  isOrdenadorG "title="Generar Reporte" [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
-                                                    <span class="fas fa-file-pdf"></span>
-                                                </i>
-                                                <i *ngIf="(isLoggedIn && isSuperAdministrador) " title="Asignar Ordenador de Gasto" 
-                                                (click)="abrirAsignarOrdenadorGasto(item)">
-                                                <span class="fas fa-user"></span>
-                                             </i>
-                                             
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div *ngIf="listaCentrosFormacion.length > 0; else noCentros">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-dark">
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Telefono</th>
+                                        <th>Correo Electronico</th>
+                                        <th>Accion</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of listaCentrosFormacion.slice((currentPage-1)*pageSize, currentPage*pageSize)">
+                                            <td>{{item.idcentro_formacion}}</td>
+                                            <td>{{item.centro_formacion}}</td>
+                                            <td>{{item.telefono_centrof}}</td>
+                                            <td>{{item.email_centrof}}</td>
+                                            <td>
+                                                <div class="comtainer">
+                                                    <i *ngIf="isLoggedIn && isSuperAdministrador"
+                                                       [routerLink]="['/editarCentroFormacion/', item.idcentro_formacion]">
+                                                       <span class="fa-solid fa-edit"></span>
+                                                    </i>
+                                                    <i *ngIf="isLoggedIn && isSuperAdministrador" 
+                                                       [routerLink]="['/detalleCentroFormacion/', item.idcentro_formacion]">
+                                                       <span class="fa-solid fa-eye"></span>
+                                                    </i>
+                                                    <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG" 
+                                                       title="listar Puestos por centro" (click)="abrirModalVerPuestos(item)">
+                                                       <span class="fas fa-shield"></span>
+                                                    </i>
+                                                    <i *ngIf="isLoggedIn && isSuperAdministrador" 
+                                                       title="Asignar Puestos de vigilancia" [routerLink]="['/asignarpuestosPorCentro', item.idcentro_formacion]">
+                                                       <span class="fas fa-user-secret"></span>
+                                                    </i>
+                                                    <i *ngIf="isLoggedIn && isSuperAdministrador || isOrdenadorG" 
+                                                       title="listar sedes por centro" (click)="abrirModalVerSedes(item)">
+                                                       <span class="fas fa-building"></span>
+                                                    </i>
+                                                    <i *ngIf="isLoggedIn && isOrdenadorG" 
+                                                       title="Generar Reporte" [routerLink]="['/validarVigilancia', item.idcentro_formacion]">
+                                                       <span class="fas fa-file-pdf"></span>
+                                                    </i>
+                                                    <i *ngIf="isLoggedIn && isSuperAdministrador" 
+                                                       title="Asignar Ordenador de Gasto" (click)="abrirAsignarOrdenadorGasto(item)">
+                                                       <span class="fas fa-user"></span>
+                                                    </i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-
-                        <div class="text-center mt-4">
+                        <ng-template #noCentros>
+                            <p class="text-center">No hay centros para listar</p>
+                        </ng-template>
+                        <div class="text-center mt-4" *ngIf="listaCentrosFormacion.length > 0">
                             <!-- Botones o enlaces para cambiar de página -->
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
@@ -94,38 +78,34 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-
-
-<!-- Modal -->
+<!-- Modal Puestos -->
 <div class="modal" [class.show]="mostrarModalPuestos" tabindex="-1">
-    <div class="modal-dialog modal-xl" style="width: 70%;"> <!-- Aquí puedes usar modal-lg o modal-xl -->
+    <div class="modal-dialog modal-xl" style="width: 70%;">
         <div class="modal-content">
             <!-- Contenido del modal -->
             <app-list-puestos-xc-centro 
-    [centroSeleccionado]="centroSeleccionado"
-    [mostrarModal]="mostrarModalPuestos"
-    (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
-</app-list-puestos-xc-centro>
-
+                [centroSeleccionado]="centroSeleccionado"
+                [mostrarModal]="mostrarModalPuestos"
+                (closeModal)="handleCloseModal()">
+            </app-list-puestos-xc-centro>
         </div>
     </div>
 </div>
 
+<!-- Modal Sedes -->
 <div class="modal" [class.show]="mostrarModalSedes" tabindex="-1">
-    <div class="modal-dialog modal-xl" style="width: 70%;"> <!-- Aquí puedes usar modal-lg o modal-xl -->
+    <div class="modal-dialog modal-xl" style="width: 70%;">
         <div class="modal-content">
             <!-- Contenido del modal -->
             <app-list-sedes-xcentro 
-    [centroSeleccionado]="centroSeleccionado"
-    [mostrarModal]="mostrarModalSedes"
-    (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
-</app-list-sedes-xcentro>
-
+                [centroSeleccionado]="centroSeleccionado"
+                [mostrarModal]="mostrarModalSedes"
+                (closeModal)="handleCloseModal()">
+            </app-list-sedes-xcentro>
         </div>
     </div>
 </div>

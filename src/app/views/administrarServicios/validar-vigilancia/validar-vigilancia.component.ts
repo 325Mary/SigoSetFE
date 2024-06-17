@@ -7,10 +7,12 @@ import { PuestosVXcentroService } from '../../../services/PuestosXcentro/puestos
 import { ActivatedRoute, Router } from '@angular/router'; 
 import { SedesService } from '../../../services/sedes/sedes.service';
 import { CentroFormacionService } from "../../../services/centro-formacion/centro-formacion.service";
+import { CentificacionCentroService } from '../../../services/certificacionCentro/centificacion-centro.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CentroFormacion } from 'app/models/centro-formacion/centro-formacion';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -33,6 +35,10 @@ export class ValidarVigilanciaComponent implements OnInit {
   isGeneratingPDF: boolean = false;
   logoImage: string | ArrayBuffer | null = null;
   opcionesCumple: string[] = ["Sí", "No", "N/A"];
+  obligacionesContratista: any[] = [];
+  obligacionesContractuales: any[] = [];
+  fechasSeleccionadas: boolean = false;
+
     constructor( private informeS : InformeService,
     private _puestosEXCentroService: PuestosEXcentroService,
     private _puestosVXCentroService: PuestosVXcentroService,
@@ -40,6 +46,7 @@ export class ValidarVigilanciaComponent implements OnInit {
     private router: Router,
     private sedesService: SedesService,
     private centroFormacionService: CentroFormacionService ,
+    private certificacionCentroService: CentificacionCentroService,
     private datePipe: DatePipe,
 
   ) { }
@@ -94,12 +101,12 @@ export class ValidarVigilanciaComponent implements OnInit {
   }
   
   obtenerObligacionesPorEmpresa(idempresa: number): void {
-    // Llamar a la función obtenerObliXcentro con el idempresa obtenido
     this.informeS.obtenerObliXcentro(idempresa).subscribe(
       (obligacionesResponse) => {
         console.log('Respuesta de obtenerObliXcentro:', obligacionesResponse);
-        // Aquí puedes hacer lo que necesites con la respuesta, por ejemplo, asignarla a una variable
-        this.obligacionesXcentro = obligacionesResponse;
+        // Filtrar y asignar las obligaciones a los arrays correspondientes
+        this.obligacionesContratista = obligacionesResponse.filter(obligacion => obligacion.idobligaciones_contratista !== null);
+        this.obligacionesContractuales = obligacionesResponse.filter(obligacion => obligacion.idobligaciones_contractuales !== null);
       },
       (error) => {
         console.error('Error al obtener las obligaciones:', error);
@@ -107,6 +114,8 @@ export class ValidarVigilanciaComponent implements OnInit {
       }
     );
   }
+  
+  
   
   obtenerSedesPorCentroFormacion(centroId: string): void {
     this.sedesService.obtenerSedesPorCentroFormacion(centroId)
@@ -250,5 +259,41 @@ async exportToPDF() {
     });
   }
   
-
+  validarFechas(): void {
+    if (this.fechaInicio && this.fechaFin) {
+      // Convertir las fechas a objetos Date para comparar
+      const fechaInicioObj = new Date(this.fechaInicio);
+      const fechaFinObj = new Date(this.fechaFin);
+  
+      // Verificar si la fecha inicial es mayor que la fecha final
+      if (fechaInicioObj > fechaFinObj) {
+        // Mostrar mensaje de error o manejar la lógica según tu necesidad
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'La fecha inicial no puede ser mayor que la fecha final.'
+        });
+        console.error('La fecha inicial no puede ser mayor que la fecha final');
+        return;
+      }
+  
+      // Guardar la información en el servidor
+      const certificacionData = {
+        idcentro_formacion: this.centroId,
+        fecha_inicio: this.fechaInicio,
+        fecha_fin: this.fechaFin
+      };
+  
+      this.certificacionCentroService.crearCertificacionCentro(certificacionData).subscribe(
+        response => {
+          console.log('Certificación guardada con éxito', response);
+          this.fechasSeleccionadas = true; // Marcar las fechas como válidas después de guardar
+        },
+        error => {
+          console.error('Error al guardar la certificación', error);
+        }
+      );
+    }
+  }
+  
 }

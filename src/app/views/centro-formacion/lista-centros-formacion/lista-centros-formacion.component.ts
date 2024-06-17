@@ -72,7 +72,11 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
 
   getListaCentrosFormacion() {
     this._centroFormacionService.getCentrosFormacion().subscribe(data => {
-      this.listaCentrosFormacion = data.data;
+      if (Array.isArray(data.data)) {
+        this.listaCentrosFormacion = data.data;
+      } else {
+        this.listaCentrosFormacion = [data.data];
+      }
       console.log(this.listaCentrosFormacion);
       console.log(data.message);
       this.cdr.detectChanges(); // Ensure change detection is triggered
@@ -80,6 +84,7 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
       console.error('Error fetching centros de formacion:', error);
     });
   }
+  
 
   // Función para cambiar de página
   setPage(pageNumber: number) {
