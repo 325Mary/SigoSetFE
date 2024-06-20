@@ -21,6 +21,7 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
   showModal: boolean = false;
   mostrarModalPuestos: boolean = false; 
   mostrarModalSedes: boolean = false;
+  mostrarModalAsignarSedes: boolean = false;
   centroSeleccionado: any = {};
   listaCentrosFormacion: CentroFormacion[] = [];
   puestoVxCentro: any;
@@ -158,9 +159,14 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
     this.mostrarModalSedes = true;
   }
 
+  abrirModalAsignarSede(item: any): void {
+    this.centroSeleccionado = item;
+    this.mostrarModalAsignarSedes= true
+  }
   handleCloseModal(): void {
     this.mostrarModalPuestos = false;
     this.mostrarModalSedes = false;
+    this.mostrarModalAsignarSedes =false
   }
 
   actualizarLista(): void {
