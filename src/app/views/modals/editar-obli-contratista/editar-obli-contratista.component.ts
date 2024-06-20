@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ObligacionContractualService } from 'app/services/obligacionContractual/obligacion-contractual.service';  
+import { ObligacionesContratistaService } from 'app/services/obligacionContratista/obligaciones-contratista.service'
 
 
 @Component({
@@ -12,7 +12,7 @@ export class EditarObliContratistaComponent {
 
   constructor(   public dialogRef: MatDialogRef<EditarObliContratistaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private obligacionService: ObligacionContractualService) 
+    private obligacionService: ObligacionesContratistaService) 
     { }
 
     onNoClick(): void {
@@ -22,8 +22,8 @@ export class EditarObliContratistaComponent {
   }
   guardar(): void {
     console.log('Datos antes de guardar:', this.data.obligacion); // Depuración
-    const nuevaObligacion = { obligacionesContratista: this.data.obligacion.obligacionesContratista };
-    this.obligacionService.actualizarObligacionContractualPorId(this.data.obligacion.obligacionesContratista, nuevaObligacion).subscribe(
+    const nuevaObligacion = { obligacion_contratista: this.data.obligacion.obligacion_contratista };
+    this.obligacionService.EditarObligacionContratista(this.data.obligacion.idobligaciones_contratista, nuevaObligacion).subscribe(
       response => {
         this.dialogRef.close(true);
         console.log('Respuesta del servidor:', response);

@@ -9,22 +9,22 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 
-import {LoginComponent} from '../../views/Usuario/login/login.component'
-import {RestablecerPasswordComponent} from '../../views/Usuario/restablecer-password/restablecer-password.component'
+import { LoginComponent } from '../../views/Usuario/login/login.component'
+import { RestablecerPasswordComponent } from '../../views/Usuario/restablecer-password/restablecer-password.component'
 import { CambiarPasswordComponent } from "../../views/Usuario/cambiar-password/cambiar-password.component";
-import {PersonalizacionComponent} from '../../views/Usuario/personalizacion/personalizacion.component';
-import {NotFoundComponent} from '../../components/not-found/not-found.component'
+import { PersonalizacionComponent } from '../../views/Usuario/personalizacion/personalizacion.component';
+import { NotFoundComponent } from '../../components/not-found/not-found.component'
 
 
-import { CrearUsersComponent} from "../../views//Usuario/crear-users/crear-users.component";
+import { CrearUsersComponent } from "../../views//Usuario/crear-users/crear-users.component";
 import { ListUsersComponent } from "../../views/Usuario/list-users/list-users.component";
-import {EditUserComponent} from "../../views/Usuario/edit-user/edit-user.component";
+import { EditUserComponent } from "../../views/Usuario/edit-user/edit-user.component";
 
-import {CrearPerfilComponent} from  '../../views/modals/crear-perfil/crear-perfil.component'
-import {ListarPerfilesComponent} from '../../views/Perfiles/listar-perfiles/listar-perfiles.component';
+import { CrearPerfilComponent } from '../../views/modals/crear-perfil/crear-perfil.component'
+import { ListarPerfilesComponent } from '../../views/Perfiles/listar-perfiles/listar-perfiles.component';
 
-import {ListarEmpresaComponent} from '../../views/Empresa/listar-empresa/listar-empresa.component';
-import {CrearEmpresaComponent} from '../../views/Empresa/crear-empresa/crear-empresa.component'
+import { ListarEmpresaComponent } from '../../views/Empresa/listar-empresa/listar-empresa.component';
+import { CrearEmpresaComponent } from '../../views/Empresa/crear-empresa/crear-empresa.component'
 
 import { CrearRegionalComponent } from 'app/views/Regionales/crear-regional/crear-regional.component';
 import { AdministrarRegionalComponent } from 'app/views/Regionales/administrar-regional/administrar-regional.component';
@@ -41,23 +41,23 @@ import { DetalleCentroFormacionComponent } from 'app/views/centro-formacion/deta
 import { CrearModulosComponent } from 'app/views/modulos/crear-modulos/crear-modulos.component';
 import { EditarModuloComponent } from 'app/views/modulos/editar-modulo/editar-modulo.component';
 import { DetalleModuloComponent } from 'app/views/modulos/detalle-modulo/detalle-modulo.component';
-import{ListaModuloComponent} from 'app/views/modulos/lista-modulos/lista-modulos.component'
+import { ListaModuloComponent } from 'app/views/modulos/lista-modulos/lista-modulos.component'
 
 import { Component } from '@angular/core';
 
 //import { RegionalComponent } from 'app/components/regional/regional.component';
-import {ListarContratosComponent} from 'app/views/contrato/listar-contratos/listar-contratos.component';
-import {AdministrarCentroComponent} from 'app/views/administrarServicios/administrar-centro/administrar-centro.component'
-import {SesionCaucadaComponent} from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
-import {AsignarPuestosVComponent} from 'app/views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component'
+import { ListarContratosComponent } from 'app/views/contrato/listar-contratos/listar-contratos.component';
+import { AdministrarCentroComponent } from 'app/views/administrarServicios/administrar-centro/administrar-centro.component'
+import { SesionCaucadaComponent } from 'app/views/Usuario/sesion-caucada/sesion-caucada.component'
+import { AsignarPuestosVComponent } from 'app/views/administrarServicios/asignar-puestos-v/asignar-puestos-v.component'
 
 import { CrearObligacionComponent } from 'app/views/obligacionesContractuales/crear-obligacion/crear-obligacion.component';
 import { AdministrarObligacionComponent } from 'app/views/obligacionesContractuales/administrar-obligacion/administrar-obligacion.component';
-import { VerObligacionModalComponent } from 'app/views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component'; 
-import { EditarObligacionModalComponent } from 'app/views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component'; 
+import { VerObligacionModalComponent } from 'app/views/modals/verObligacionesContractuales/ver-obligacion/ver-obligacion.component';
+import { EditarObligacionModalComponent } from 'app/views/modals/editarObligacionesContractuales/editar-obligacion/editar-obligacion.component';
 
 import { ValidarVigilanciaComponent } from "app/views/administrarServicios/validar-vigilancia/validar-vigilancia.component";
-import {  CrearVEComponent} from "app/views/VigilanciaElectronica/crear-ve/crear-ve.component";
+import { CrearVEComponent } from "app/views/VigilanciaElectronica/crear-ve/crear-ve.component";
 import { ListarVEComponent } from "app/views/VigilanciaElectronica/listar-ve/listar-ve.component";
 
 import { CrearContratoComponent } from 'app/views/modals/crear-contrato/crear-contrato.component';
@@ -67,7 +67,7 @@ import { CrearModulosXperfilComponent } from "app/views/modulos/crear-modulos-xp
 import { ListarModulosXperfilComponent } from "app/views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component";
 
 
-import { ListMunicipiosComponent } from 'app/views/list-municipios/list-municipios.component'; 
+import { ListMunicipiosComponent } from 'app/views/list-municipios/list-municipios.component';
 import { VerMunicipioComponent } from 'app/views/modals/ver-municipios/ver-municipios.component';
 import { EditMunicipioComponent } from 'app/views/modals/edit-municipios/edit-municipios.component';
 
@@ -77,6 +77,9 @@ import { EnviarReporteComponent } from "app/views/Reportes/enviar-reporte/enviar
 
 import { CrearObligacionContratistaComponent } from 'app/views/obligacionesContratista/crear-obligacion/crear-obligacion.component';
 import { ListarObligacionContratistaComponent } from 'app/views/obligacionesContratista/listar-obligacion/listar-obligacion.component';
+
+import { RegistrarSedeComponent } from 'app/views/sedes/registrar-sede/registrar-sede.component';
+import { ListarSedesComponent } from 'app/views/sedes/listar-sedes/listar-sedes.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -121,75 +124,78 @@ export const AdminLayoutRoutes: Routes = [
     //         component: UpgradeComponent
     //     }]
     // }
-    { path: 'dashboard',      component: DashboardComponent },
-    {path:'',component :HomeComponent},
-    { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: '', component: HomeComponent },
+    { path: 'user-profile', component: UserProfileComponent },
 
-    {path: 'list-departamentos',component:ListarDepartamentosComponent},
+    { path:'registrarSededeFormacion',component:RegistrarSedeComponent },
+    {path:'ListarSedesdeFormacion',component:ListarSedesComponent},
 
-    {path:'list-regional',component:AdministrarRegionalComponent},
-    {path:'create-regional',component:CrearRegionalComponent},
-  
-    {path: 'list-zonas',component:AdministrarZonaComponent},
-    {path: 'crear-zonas',component:CrearZonaComponent},
+    { path: 'list-departamentos', component: ListarDepartamentosComponent },
+
+    { path: 'list-regional', component: AdministrarRegionalComponent },
+    { path: 'create-regional', component: CrearRegionalComponent },
+
+    { path: 'list-zonas', component: AdministrarZonaComponent },
+    { path: 'crear-zonas', component: CrearZonaComponent },
 
 
-    {path:'crearObliContratista',component:CrearObligacionContratistaComponent},
-    {path:'listaObliContratista',component:ListarObligacionContratistaComponent},
+    { path: 'crearObliContratista', component: CrearObligacionContratistaComponent },
+    { path: 'listaObliContratista', component: ListarObligacionContratistaComponent },
 
-    { path: 'login', component: LoginComponent},
-    { path: 'restablecerPassword', component: RestablecerPasswordComponent},
-    { path: 'cambiarPassword/:userId', component:CambiarPasswordComponent},
-    { path: 'perfil', component: PersonalizacionComponent},
-    { path: 'crearUsuario', component: CrearUsersComponent},
-    { path: 'listarUsuarios', component: ListUsersComponent},
-    { path: 'editarUsuario/:userId', component: EditUserComponent},
-    { path: 'crearPerfil', component: CrearPerfilComponent},
-    { path: 'AdministrarPerfiles', component: ListarPerfilesComponent},
-    { path: 'ListEmpresas', component: ListarEmpresaComponent},
-    { path: 'crearEmpresa', component: CrearEmpresaComponent},
+    { path: 'login', component: LoginComponent },
+    { path: 'restablecerPassword', component: RestablecerPasswordComponent },
+    { path: 'cambiarPassword/:userId', component: CambiarPasswordComponent },
+    { path: 'perfil', component: PersonalizacionComponent },
+    { path: 'crearUsuario', component: CrearUsersComponent },
+    { path: 'listarUsuarios', component: ListUsersComponent },
+    { path: 'editarUsuario/:userId', component: EditUserComponent },
+    { path: 'crearPerfil', component: CrearPerfilComponent },
+    { path: 'AdministrarPerfiles', component: ListarPerfilesComponent },
+    { path: 'ListEmpresas', component: ListarEmpresaComponent },
+    { path: 'crearEmpresa', component: CrearEmpresaComponent },
 
-    {path:'PuestosVigilancia',component:PuestosVigilanciaComponent},
-    {path:'listarPuestosVig',component:ListPuestosVigComponent},
-    { path: 'cambiarPassword', component:CambiarPasswordComponent},
+    { path: 'PuestosVigilancia', component: PuestosVigilanciaComponent },
+    { path: 'listarPuestosVig', component: ListPuestosVigComponent },
+    { path: 'cambiarPassword', component: CambiarPasswordComponent },
 
-    { path: 'listaCentroFormacion', component:ListaCentrosFormacionComponent},
-    { path: 'registrarCentroFormacion', component:RegistrarCentroFormacionComponent},
-    { path: 'editarCentroFormacion/:id', component:RegistrarCentroFormacionComponent},
-    { path: 'detalleCentroFormacion/:id', component:DetalleCentroFormacionComponent},
-    { path: 'listContratos', component: ListarContratosComponent},
-    { path: 'AdministrarCentros', component: AdministrarCentroComponent},
-    { path: 'sesionCaducada', component: SesionCaucadaComponent},
+    { path: 'listaCentroFormacion', component: ListaCentrosFormacionComponent },
+    { path: 'registrarCentroFormacion', component: RegistrarCentroFormacionComponent },
+    { path: 'editarCentroFormacion/:id', component: RegistrarCentroFormacionComponent },
+    { path: 'detalleCentroFormacion/:id', component: DetalleCentroFormacionComponent },
+    { path: 'listContratos', component: ListarContratosComponent },
+    { path: 'AdministrarCentros', component: AdministrarCentroComponent },
+    { path: 'sesionCaducada', component: SesionCaucadaComponent },
 
-    { path: 'asignarpuestosPorCentro/:idcentro_formacion', component: AsignarPuestosVComponent},
-    
+    { path: 'asignarpuestosPorCentro/:idcentro_formacion', component: AsignarPuestosVComponent },
+
     { path: 'crearModulo', component: CrearModulosComponent },
-    {path: 'listarModulos', component: ListaModuloComponent},
-    {path: 'editarModulo',component: EditarModuloComponent},
-    {path: 'detalleModulo',component:DetalleModuloComponent},
-
-    
-   
-    {path:'crearObligacionContractual',component:CrearObligacionComponent},
-    {path:'administrarObligacionContractual',component:AdministrarObligacionComponent},
-    {path:'verObligacionContractual',component:VerObligacionModalComponent},
-    {path:'editarObligacionContractual',component:EditarObligacionModalComponent},
+    { path: 'listarModulos', component: ListaModuloComponent },
+    { path: 'editarModulo', component: EditarModuloComponent },
+    { path: 'detalleModulo', component: DetalleModuloComponent },
 
 
-    { path: 'validarVigilancia/:idcentro_formacion', component:ValidarVigilanciaComponent},
-    { path: 'crearVigilanciaElectronica', component:CrearVEComponent},
-    { path: 'listarVigilanciaElectronica', component:ListarVEComponent},
-    { path: 'listarModulos', component: ListaModuloComponent},
-    { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent},
-    { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent},
-    { path: 'listaDeObligacionesPorContrato', component: ListarObligacionesComponent},
-    { path: 'reporte', component: EnviarReporteComponent},
-     
-    
-    {path:'ListMunicipios',component:ListMunicipiosComponent},
-    {path:'VerMunicipios',component:VerMunicipioComponent},
-    {path:'EditMunicipios',component:EditMunicipioComponent},
-    
-    { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
+
+    { path: 'crearObligacionContractual', component: CrearObligacionComponent },
+    { path: 'administrarObligacionContractual', component: AdministrarObligacionComponent },
+    { path: 'verObligacionContractual', component: VerObligacionModalComponent },
+    { path: 'editarObligacionContractual', component: EditarObligacionModalComponent },
+
+
+    { path: 'validarVigilancia/:idcentro_formacion', component: ValidarVigilanciaComponent },
+    { path: 'crearVigilanciaElectronica', component: CrearVEComponent },
+    { path: 'listarVigilanciaElectronica', component: ListarVEComponent },
+    { path: 'listarModulos', component: ListaModuloComponent },
+    { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent },
+    { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent },
+    { path: 'listaDeObligacionesPorContrato', component: ListarObligacionesComponent },
+    { path: 'reporte', component: EnviarReporteComponent },
+
+
+    { path: 'ListMunicipios', component: ListMunicipiosComponent },
+    { path: 'VerMunicipios', component: VerMunicipioComponent },
+    { path: 'EditMunicipios', component: EditMunicipioComponent },
+
+    { path: '**', component: NotFoundComponent },// dejar SIEMPRE de ultima
 
 ];

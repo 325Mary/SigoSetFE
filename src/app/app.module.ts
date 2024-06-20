@@ -104,6 +104,7 @@ import { ListarObligacionContratistaComponent } from './views/obligacionesContra
 import { EditarObliContratistaComponent } from './views/modals/editar-obli-contratista/editar-obli-contratista.component';
 import { VerObliContratistaComponent } from './views/modals/ver-obli-contratista/ver-obli-contratista.component'
 import { CrearObligacionContratistaComponent } from './views/obligacionesContratista/crear-obligacion/crear-obligacion.component';
+import { RegistrarSedeComponent } from './views/sedes/registrar-sede/registrar-sede.component';
 
 @NgModule({
   imports: [
@@ -217,7 +218,8 @@ import { CrearObligacionContratistaComponent } from './views/obligacionesContrat
     VerMunicipioComponent,
     ListarObligacionContratistaComponent,
     EditarObliContratistaComponent,
-    VerObliContratistaComponent
+    VerObliContratistaComponent,
+    RegistrarSedeComponent,
 
     
     

@@ -164,7 +164,6 @@ export class CrearUsersComponent implements OnInit {
     return (
       this.registroData.idperfil &&
       this.registroData.idcentro_formacion &&
-      this.registroData.identificacion &&
       this.registroData.nombre_usuario &&
       this.registroData.apellido_usuario &&
       this.registroData.telefono_usuario &&

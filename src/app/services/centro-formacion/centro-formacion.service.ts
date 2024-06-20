@@ -49,6 +49,7 @@ export class CentroFormacionService {
     )
   }
 
+  
   getCentroFormacion(id:string): Observable<ResponseI>{
     let direccion = this.baseUrl+ this.myApiUrlCentroFormacion
     return this.http.get<ResponseI>(`${direccion}${id}`)

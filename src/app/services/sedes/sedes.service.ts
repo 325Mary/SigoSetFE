@@ -8,14 +8,12 @@ import { environment } from '../../../environments/environment';
 })
 export class SedesService {
 
- 
   private baseUrl = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) {}
 
   obtenerSedes(): Observable<any> {
     const url = `${this.baseUrl}sedesFormacion`;
-
     return this.httpClient.get<any>(url);
   }
 
@@ -30,10 +28,10 @@ export class SedesService {
   }
 
   eliminarSede(idSedeFormacion: number): Observable<any> {
-    const url = `${this.baseUrl}sedeFormacion/${idSedeFormacion}`; 
+    const url = `${this.baseUrl}sedeFormacion/${idSedeFormacion}`;
     return this.httpClient.delete<any>(url);
   }
-  
+
   obtenerSedesPorCentroFormacion(idCentroFormacion: string): Observable<any> {
     const url = `${this.baseUrl}sedeXcentroFormacion/${idCentroFormacion}`;
     return this.httpClient.get<any>(url);

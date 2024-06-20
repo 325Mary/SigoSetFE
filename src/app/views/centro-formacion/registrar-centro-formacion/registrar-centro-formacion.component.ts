@@ -7,6 +7,7 @@ import { ZonaService } from 'app/services/zona/zona.service';
 import { RegionalService } from 'app/services/regional/regional.service';
 import Swal from 'sweetalert2';
 import { AdministrarRegionalComponent } from 'app/views/Regionales/administrar-regional/administrar-regional.component';
+import { LOADIPHLPAPI } from 'dns';
 
 @Component({
   selector: 'app-registrar-centro-formacion',
@@ -45,24 +46,26 @@ export class RegistrarCentroFormacionComponent implements OnInit {
     private _zonaService: ZonaService,
     private _regionalService: RegionalService,
     private _centroFormacionService: CentroFormacionService
-) {
+  ) {
     this.centroFormacionForm = this.fb.group({
-        centro_formacion: ['', Validators.required],
-        dir_centro_formacion: ['', Validators.required],
-        telefono_centrof: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-        email_centrof: ['', [Validators.required, Validators.email]],
-        idRegional: ['', Validators.required],
-        idzona: ['', Validators.required],
+      idzona: ['', Validators.required],
+      idRegional: ['', Validators.required],
+      centro_formacion: ['', Validators.required],
+      dir_centro_formacion: ['', Validators.required],
+      telefono_centrof: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      email_centrof: ['', [Validators.required, Validators.email]],
+
     });
 
     this.id = this.aRoute.snapshot.paramMap.get('id');
     console.log('centro id', this.id);
-}
+  }
 
   ngOnInit(): void {
     this.getlistaZonas();
     this.getListaRegionales();
     this.getCentroFormacion();
+
     this.telefonoForm = this.fb.group({
       telefono_centrof: ['', [Validators.required, Validators.maxLength(10)]]
     });
@@ -82,6 +85,7 @@ export class RegistrarCentroFormacionComponent implements OnInit {
   changeForm2() {
     this.cambiarFormulario = 0;
   }
+
   getlistaZonas() {
     this._zonaService.getZona().subscribe(data => {
       this.listaZonas = data.data;
@@ -141,30 +145,80 @@ export class RegistrarCentroFormacionComponent implements OnInit {
 
   guardarOActualizaCentroFormacion() {
     if (this.centroFormacionForm.valid) {
-        const centroFormacion: CentroFormacion = {
-            centro_formacion: this.centroFormacionForm.get('centro_formacion')?.value,
-            dir_centro_formacion: this.centroFormacionForm.get('dir_centro_formacion')?.value,
-            telefono_centrof: this.centroFormacionForm.get('telefono_centrof')?.value,
-            email_centrof: this.centroFormacionForm.get('email_centrof')?.value,
-            idRegional: this.centroFormacionForm.get('idRegional')?.value,
-            idzona: this.centroFormacionForm.get('idzona')?.value,
-        };
+      const centroFormacion: CentroFormacion = {
+        idzona: this.centroFormacionForm.get('idzona')?.value,
+        idRegional: this.centroFormacionForm.get('idRegional')?.value,
+        centro_formacion: this.centroFormacionForm.get('centro_formacion')?.value,
+        dir_centro_formacion: this.centroFormacionForm.get('dir_centro_formacion')?.value,
+        telefono_centrof: this.centroFormacionForm.get('telefono_centrof')?.value,
+        email_centrof: this.centroFormacionForm.get('email_centrof')?.value,
+      };
 
-        if (this.id !== null) {
-            this.editarCentroFormacion(centroFormacion);
-        } else {
-            this.guardarCentroFormacion(centroFormacion);
-        }
+      if (this.id !== null) {
+        this.editarCentroFormacion(centroFormacion);
+      } else {
+        this.guardarCentroFormacion(centroFormacion);
+      }
     } else {
-        Swal.fire({
-            position: 'center',
-            icon: 'warning',
-            title: 'Campos Incompletos',
-            text: 'Por favor llena todos los campos correctamente',
-            showConfirmButton: true
-        });
+      this.marcarCamposInvalidos(this.centroFormacionForm);
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Campos Incompletos',
+        text: 'Por favor llena todos los campos correctamente',
+        showConfirmButton: true
+      });
     }
+  }
+  
+  marcarCamposInvalidos(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(key => {
+        const control = formGroup.get(key);
+        if (control?.invalid) {
+            console.log(`Campo inválido: ${key}`, control.errors);
+        }
+    });
 }
+
+
+
+  guardarCentroFormacion(centroFormacion: CentroFormacion) {
+    if (this.centroFormacionForm.valid) {
+      this._centroFormacionService.registrarCentroFormacion(centroFormacion).subscribe(
+        (data: any) => {
+          if (data.status === 'success') {
+            Swal.fire({
+              icon: 'success',
+              title: 'El centro de formación fue registrado con éxito',
+              showConfirmButton: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.route.navigate(['/listaCentroFormacion']);
+              }
+            });
+          } else {
+            Swal.fire({
+              title: 'Error',
+              text: 'El centro de formación ya está registrado',
+              icon: 'error',
+              showConfirmButton: true
+            });
+          }
+        },
+        error => {
+          this.centroFormacionForm.reset();
+        }
+      );
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Campos Incompletos',
+        text: 'Por favor llena todos los campos correctamente',
+        showConfirmButton: true
+      });
+    }
+  }
 
   editarCentroFormacion(centroFormacion: CentroFormacion) {
     if (this.centroFormacionForm.valid) {
@@ -182,7 +236,7 @@ export class RegistrarCentroFormacionComponent implements OnInit {
             });
           }
         },
-        (error) => {
+        error => {
           // Handle errors
         }
       );
@@ -197,42 +251,6 @@ export class RegistrarCentroFormacionComponent implements OnInit {
     }
   }
 
-  guardarCentroFormacion(centroFormacion: CentroFormacion) {
-    if (this.centroFormacionForm.valid) {
-      this._centroFormacionService.registrarCentroFormacion(centroFormacion).subscribe((data: any) => {
-        console.log('response', data);
-        if (data.status === 'success') {
-          // Show success message with Swal alert
-          Swal.fire({
-            icon: 'success',
-            title: 'El centro de formación fue registrado con éxito',
-            showConfirmButton: true
-          });
-          this.route.navigate(['/listaCentroFormacion']);
-        } else {
-          // Handle registration errors (e.g., already exists)
-          Swal.fire({
-            title: 'Error',
-            text: 'El centro de formación ya está registrado',
-            icon: 'error',
-            showConfirmButton: true
-          });
-        }
-      }, error => {
-        this.centroFormacionForm.reset();
-      });
-    } else {
-      Swal.fire({
-        position: 'center',
-        icon: 'warning',
-        title: 'Campos Incompletos',
-        text: 'Por favor llena todos los campos correctamente 1',
-        showConfirmButton: true
-      });
-    }
-  }
-
-
   getCentroFormacion() {
     console.log('centro id', this.id);
     if (this.id !== null) {
@@ -242,12 +260,12 @@ export class RegistrarCentroFormacionComponent implements OnInit {
 
         console.log('data de aprendiz', data.data);
         this.centroFormacionForm.setValue({
+          idzona: data.data.idzona,
+          idRegional: data.data.idRegional,
           centro_formacion: data.data.centro_formacion,
           dir_centro_formacion: data.data.dir_centro_formacion,
           telefono_centrof: data.data.telefono_centrof,
           email_centrof: data.data.email_centrof,
-          idRegional: data.data.idRegional,
-          idzona: data.data.idzona,
         });
       });
       this.titulo = 'Editar ' + this.centroFormacionForm.get('centro_formacion')?.value;

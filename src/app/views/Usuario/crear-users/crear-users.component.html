@@ -15,7 +15,7 @@
               </div>
               <div class="form-group">
                 <label for="identificacion">Identificación:</label>
-                <input type="number" [(ngModel)]="registroData.identificacion" class="form-control" required placeholder="Identificación" (input)="verificarId()">
+                <input type="text" [(ngModel)]="registroData.identificacion" class="form-control" required placeholder="Identificación" (input)="verificarId()">
                 <div *ngIf="mostrarMensajeId && !validarId(registroData.identificacion)" style="color: red;">La identificación debe tener solo 10 dígitos.</div>
               </div>
               <div class="form-group">
