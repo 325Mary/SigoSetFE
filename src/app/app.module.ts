@@ -92,7 +92,10 @@ import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { VerValidarVigilanciaComponent } from './views/administrarServicios/ver-validar-vigilancia/ver-validar-vigilancia.component';
+import { ListarValidarVigilanciaComponent } from './views/administrarServicios/listar-validar-vigilancia/listar-validar-vigilancia.component';
+import {DetalleContratoService} from "./services/detalleContrato/detalle-contrato.service";
+import { AsignarSedePorcentroComponent } from './views/modals/asignar-sede-porcentro/asignar-sede-porcentro.component';
 @NgModule({
   imports: [
      AppRoutingModule,
@@ -194,6 +197,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     VerObligacionesContratoComponent,
     CrearObligacionesContratoComponent,
     EnviarReporteComponent,
+    VerValidarVigilanciaComponent,
+    ListarValidarVigilanciaComponent,
+    AsignarSedePorcentroComponent,
    
   ],
   providers: [
@@ -203,6 +209,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PuestosEXcentroService,
     PuestosVXcentroService,
     ObligacionesContratoService,
+    DetalleContratoService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  ],
   bootstrap: [AppComponent]

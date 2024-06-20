@@ -31,7 +31,6 @@
 }
 
 .btn{
-  color: rgba(0, 49, 77, 1); /* Color del texto del enlace */
   margin: 10px; /* Espacio entre el enlace y el borde derecho */
   border: 1px solid white;
   padding: 10px 15px; /* Añadir relleno al enlace */

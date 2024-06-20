@@ -67,6 +67,8 @@ import { CrearModulosXperfilComponent } from "app/views/modulos/crear-modulos-xp
 import { ListarModulosXperfilComponent } from "app/views/modulos/listar-modulos-xperfil/listar-modulos-xperfil.component";
 import { ListarObligacionesComponent } from 'app/views/Obligaciociones/listar-obligaciones/listar-obligaciones.component';
 import { EnviarReporteComponent } from "app/views/Reportes/enviar-reporte/enviar-reporte.component";
+import { VerValidarVigilanciaComponent } from "app/views/administrarServicios/ver-validar-vigilancia/ver-validar-vigilancia.component";
+import { ListarValidarVigilanciaComponent } from "app/views/administrarServicios/listar-validar-vigilancia/listar-validar-vigilancia.component";
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -172,6 +174,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent},
     { path: 'listaDeObligacionesPorContrato', component: ListarObligacionesComponent},
     { path: 'reporte', component: EnviarReporteComponent},
+    { path: 'ListaInformes', component: ListarValidarVigilanciaComponent},
+    { path: 'verInforme/:nombreDetalleContrato', component: VerValidarVigilanciaComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];
