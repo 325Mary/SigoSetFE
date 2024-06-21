@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ObligacionesContratistaService } from 'app/services/obligacionContratista/obligaciones-contratista.service'
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-obli-contratista',
@@ -27,6 +27,11 @@ export class EditarObliContratistaComponent {
       response => {
         this.dialogRef.close(true);
         console.log('Respuesta del servidor:', response);
+        Swal.fire({
+          title: "Accion completada!",
+          text: "Obligación Editada Correctamente!",
+          icon: "success"
+        });
       },
       error => {
         alert('Error al actualizar la obligación contractual.');

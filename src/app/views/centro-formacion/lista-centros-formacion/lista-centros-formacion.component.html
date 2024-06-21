@@ -22,7 +22,8 @@
                                     <th>Accion</th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of centrosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                                    <tr
+                                        *ngFor="let item of listaCentrosFormacion | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
                                         <td>{{(currentPage - 1) * pageSize + i + 1}}</td>
                                         <td>{{item.centro_formacion}}</td>
                                         <td>{{item.telefono_centrof}}</td>
@@ -72,16 +73,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- <div class="text-center mt-4">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-                                        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div> -->
-                        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior"
+                            nextLabel="Siguiente"></pagination-controls>
 
                     </div>
                 </div>

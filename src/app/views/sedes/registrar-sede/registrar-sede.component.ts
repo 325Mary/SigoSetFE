@@ -15,12 +15,13 @@ export class RegistrarSedeComponent implements OnInit {
   errorMessage: string = '';
   mostrarMensajeEmail: boolean = false;
 
-  sedesData: any = {
-    sedeformacion: '',
+  sedeData: any = {
+    sede_formacion: '',
     idmunicipio: '',
     dir_sede_formacion: '',
     telefono_sedef: '',
-    email_sedef: ''
+    email_sedef: '',
+    idcentro_formacion: null
   };
   mostrarMensajeTelefono: boolean = false;
   caracteresTelefono: boolean = false;
@@ -49,43 +50,45 @@ export class RegistrarSedeComponent implements OnInit {
   obtenerMunicipios() {
     this.municipioService.obtenerMunicipios().subscribe(
       (response: any) => {
-        console.log('Municipios ',response);
+        console.log('Municipios recibidos: ', response[0]);
         if (response && response.data && response.data.length > 0) {
-          this.listMunicipios = response.data[0];
+          this.listMunicipios = response.data[0]; // Asumimos que `data` es una lista de municipios
         } else {
-          console.error('No se han recuperado centros de formación');
+          console.error('No se han recuperado municipios');
         }
       },
       error => {
-        console.error('Error al recuperar centros de formación:', error);
+        console.error('Error al recuperar municipios:', error);
       }
     );
   }
+  
 
 
   onSubmit() {
     if (this.validarSedes()) {
-      this.sedesServices.creaSede(this.sedesData).subscribe(
+      console.log('Datos de la sede antes de enviar:', this.sedeData);
+      this.sedesServices.creaSede(this.sedeData).subscribe(
         (response) => {
-          this.sedesData = { sedeformacion: '', dir_sede_formacion: '',idmunicipio:'',
-             telefono_sedef: '', email_sedef: '' };
+          this.sedeData = { idcentro_formacion:'',sede_formacion: '', dir_sede_formacion: '', idmunicipio: '', telefono_sedef: '', email_sedef: '' };
           this.errorMessage = null;
           Swal.fire({
             icon: 'success',
             title: 'Sede creada!',
-            text: 'La Sede ha sido creado correctamente.'
+            text: 'La Sede ha sido creada correctamente.'
           }).then(() => {
             this.router.navigate(['/ListarSedesdeFormacion']);
           });
         },
         (error) => {
-          console.error('Error creando sede electrónica', error);
+          console.error('Error creando sede ', error);
           this.errorMessage = 'Error creando la sede. Por favor, intenta nuevamente.';
           Swal.fire('¡Error!', 'Error creando la sede. Por favor, intenta nuevamente.', 'error');
         }
       );
     }
   }
+  
 
   crearSede(sedesData: any): void {
     this.sedesServices.creaSede(sedesData).subscribe(
@@ -123,8 +126,8 @@ export class RegistrarSedeComponent implements OnInit {
 
 
   verificarTelefono() {
-    this.mostrarMensajeTelefono = this.sedesData.telefono_sedef && !this.validarTelefono(this.sedesData.telefono_sedef);
-    this.caracteresTelefono = this.sedesData.telefono_sedef.length > 10;
+    this.mostrarMensajeTelefono = this.sedeData.telefono_sedef && !this.validarTelefono(this.sedeData.telefono_sedef);
+    this.caracteresTelefono = this.sedeData.telefono_sedef.length > 10;
   }
 
   validarTelefono(telefono_sedef: string): boolean {
@@ -133,7 +136,7 @@ export class RegistrarSedeComponent implements OnInit {
   }
 
   verificarEmail() {
-    this.mostrarMensajeEmail = this.sedesData.email_sedef && !this.validarEmail(this.sedesData.email_sedef);
+    this.mostrarMensajeEmail = this.sedeData.email_sedef && !this.validarEmail(this.sedeData.email_sedef);
   }
 
   validarEmail(email: string): boolean {
@@ -156,19 +159,19 @@ export class RegistrarSedeComponent implements OnInit {
   validarSedes(): boolean {
     const camposFaltantes = [];
   
-    if (!this.sedesData.sedeformacion) {
+    if (!this.sedeData.sede_formacion) {
       camposFaltantes.push('Nombre de la sede');
     }
-    if (!this.sedesData.idmunicipio) {
+    if (!this.sedeData.idmunicipio) {
       camposFaltantes.push('Municipio');
     }
-    if (!this.sedesData.dir_sede_formacion) {
+    if (!this.sedeData.dir_sede_formacion) {
       camposFaltantes.push('Dirección de la sede');
     }
-    if (!this.validarEmail(this.sedesData.email_sedef)) {
+    if (!this.validarEmail(this.sedeData.email_sedef)) {
       camposFaltantes.push('Email');
     }
-    if (!this.validarTelefono(this.sedesData.telefono_sedef)) {
+    if (!this.validarTelefono(this.sedeData.telefono_sedef)) {
       camposFaltantes.push('Teléfono');
     }
   
@@ -179,14 +182,20 @@ export class RegistrarSedeComponent implements OnInit {
   
     return true;
   }
+
+
+
   onMunicipioSelected(event: any): void {
     const selectMunicipio = event.target.value;
     const selectedMunicipio = this.listMunicipios.find(m => m.municipio === selectMunicipio);
     if (selectedMunicipio) {
-      this.municipioseleccionado = selectedMunicipio.idmunicipio; 
-      console.log('Id municipio seleccionado', this.listMunicipios);
+      this.sedeData.idmunicipio = selectedMunicipio.idmunicipio; // Asignar el ID del municipio
+      console.log('Municipio seleccionado:', selectedMunicipio);
+      console.log('Id municipio seleccionado:', this.sedeData.idmunicipio);
+    } else {
+      console.error('Municipio no encontrado:', selectMunicipio);
     }
   }
-
+  
   
 }

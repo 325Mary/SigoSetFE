@@ -74,14 +74,6 @@ export class ListaCentrosFormacionComponent implements OnInit {
   }
   
 
-  // setPage(pageNumber: number): void {
-  //   this.currentPage = pageNumber;
-  // }
-
-  // getPages(): number[] {
-  //   const pageCount = Math.ceil(this.centrosFiltrados.length / this.pageSize);
-  //   return Array(pageCount).fill(0).map((x, i) => i + 1);
-  // }
 
   eliminarCentroFormacion(id: any): void {
     Swal.fire({

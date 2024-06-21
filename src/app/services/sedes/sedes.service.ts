@@ -22,13 +22,19 @@ export class SedesService {
     return this.httpClient.post<any>(url, sedeData);
   }
 
+  ObtenerSede(idSedeFormacion: number): Observable<any> {
+    const url = `${this.baseUrl}sedeFormacion/${idSedeFormacion}`;
+    return this.httpClient.get(url); // Debes retornar el resultado de la llamada HTTP
+  }
+
+
   editarSede(idSedeFormacion: number, nuevaSedeData: any): Observable<any> {
     const url = `${this.baseUrl}sedeFormacion/${idSedeFormacion}`;
     return this.httpClient.put<any>(url, nuevaSedeData);
   }
 
-  eliminarSede(idSedeFormacion: number): Observable<any> {
-    const url = `${this.baseUrl}sedeFormacion/${idSedeFormacion}`;
+  eliminarSede(idsede_formacion: number): Observable<any> {
+    const url = `${this.baseUrl}sedeFormacion/${idsede_formacion}`;
     return this.httpClient.delete<any>(url);
   }
 

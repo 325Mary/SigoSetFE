@@ -1,0 +1,35 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h3>Editar Sede</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #form="ngForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Sede de Formación</mat-label>
+          <input matInput [(ngModel)]="data.sede.sede_formacion" name="sede_formacion">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Dirección de Formación</mat-label>
+          <input matInput [(ngModel)]="data.sede.dir_sede_formacion" name="dir_sede_formacion">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Teléfono de la Sede de Formación</mat-label>
+          <input matInput [(ngModel)]="data.sede.telefono_sedef" name="telefono_sedef">
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Email de la Sede de Formación</mat-label>
+          <input matInput [(ngModel)]="data.sede.email_sedef" name="email_sedef">
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button (click)="onNoClick()">Cancelar</button>
+      <button mat-button (click)="guardar()">Guardar</button>
+    </mat-card-actions>
+  </mat-card>
+  

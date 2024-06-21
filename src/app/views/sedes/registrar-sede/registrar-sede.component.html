@@ -14,33 +14,34 @@
                 <option *ngFor="let municipio of listMunicipios" [value]="municipio.municipio"></option>
               </datalist>
             </div>
+            
 
             <div class="form-group">
               <label for="Nombre_sede">Sede de Formacion:</label>
-              <input type="text" [(ngModel)]="sedesData.sedeformacion" class="form-control" required placeholder="Nombre de Sede">
+              <input type="text" [(ngModel)]="sedeData.sede_formacion" class="form-control" required placeholder="Nombre de Sede">
             </div>
             <div class="form-group">
               <label for="telefono_usuario">Teléfono Sede:</label>
-              <input type="number" [(ngModel)]="sedesData.telefono_sedef" class="form-control" required placeholder="Teléfono" (input)="verificarTelefono()">
-              <div *ngIf="mostrarMensajeTelefono && !validarTelefono(sedesData.telefono_sedef)" style="color: red;">El teléfono debe tener solo 10 dígitos.</div>
+              <input type="number" [(ngModel)]="sedeData.telefono_sedef" class="form-control" required placeholder="Teléfono" (input)="verificarTelefono()">
+              <div *ngIf="mostrarMensajeTelefono && !validarTelefono(sedeData.telefono_sedef)" style="color: red;">El teléfono debe tener solo 10 dígitos.</div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="direccion_sede">Direccion de Sede de Formacion :</label>
-              <input type="text" [(ngModel)]="sedesData.dir_sede_formacion" class="form-control" required placeholder="Direccion de Sede">
+              <input type="text" [(ngModel)]="sedeData.dir_sede_formacion" class="form-control" required placeholder="Direccion de Sede">
             </div>
             <div class="form-group">
               <label for="email_sede">Email de Sede:</label>
-              <input type="email" [(ngModel)]="sedesData.email_sedef" class="form-control" required placeholder="example@gmail.com" (input)="verificarEmail()">
-              <div *ngIf="mostrarMensajeEmail && !validarEmail(sedesData.email_sedef)" style="color: red;">El email debe contener el símbolo '@'.</div>
+              <input type="email" [(ngModel)]="sedeData.email_sedef" class="form-control" required placeholder="example@gmail.com" (input)="verificarEmail()">
+              <div *ngIf="mostrarMensajeEmail && !validarEmail(sedeData.email_sedef)" style="color: red;">El email debe contener el símbolo '@'.</div>
             </div>
 
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 d-flex justify-content-center">
-            <button type="submit" class="btn btn-danger" [disabled]="!validarSedes()">Registrar Usuario</button>
+            <button type="submit" class="btn btn-danger" [disabled]="!validarSedes()">Registrar Sede</button>
           </div>
         </div>
       </form>

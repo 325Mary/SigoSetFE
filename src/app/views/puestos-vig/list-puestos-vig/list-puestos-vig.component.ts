@@ -75,7 +75,7 @@ export class ListPuestosVigComponent implements OnInit {
     );
   }
 
-  eliminarPuesto(id: number): void {
+  eliminarPuesto(idpuesto_vigilancia: number): void {
     Swal.fire({
       title: '¿Estás seguro?',
       text: '¡No podrás revertir esto!',
@@ -86,7 +86,7 @@ export class ListPuestosVigComponent implements OnInit {
       confirmButtonText: 'Sí, eliminarlo'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.puestosService.eliminarPuesto(id).subscribe(
+        this.puestosService.eliminarPuesto(idpuesto_vigilancia).subscribe(
           (data) => {
             this.obtenerPuestos();
             Swal.fire(

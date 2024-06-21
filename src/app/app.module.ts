@@ -105,7 +105,9 @@ import { EditarObliContratistaComponent } from './views/modals/editar-obli-contr
 import { VerObliContratistaComponent } from './views/modals/ver-obli-contratista/ver-obli-contratista.component'
 import { CrearObligacionContratistaComponent } from './views/obligacionesContratista/crear-obligacion/crear-obligacion.component';
 import { RegistrarSedeComponent } from './views/sedes/registrar-sede/registrar-sede.component';
-
+import { ListarSedesComponent } from './views/sedes/listar-sedes/listar-sedes.component';
+import { EditarSedeComponent } from './views/modals/editar-sede/editar-sede.component';
+import { VerSedeComponent } from './views/modals/ver-sede/ver-sede.component';
 @NgModule({
   imports: [
    AppRoutingModule,
@@ -181,7 +183,7 @@ import { RegistrarSedeComponent } from './views/sedes/registrar-sede/registrar-s
     CrearContratoComponent,
     AdministrarCentroComponent,
     SesionCaucadaComponent,
-
+    ListarSedesComponent,
     CrearPuestoComponent,    
     InformesComponent,
     ValidarOblVComponent,
@@ -220,6 +222,8 @@ import { RegistrarSedeComponent } from './views/sedes/registrar-sede/registrar-s
     EditarObliContratistaComponent,
     VerObliContratistaComponent,
     RegistrarSedeComponent,
+    EditarSedeComponent,
+    VerSedeComponent
 
     
     

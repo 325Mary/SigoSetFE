@@ -68,7 +68,7 @@ export class ListarVEComponent implements OnInit {
     this.mostrarModalEditar = true;
   }
 
-  eliminarVigilancia(id: number): void {
+  eliminarVigilancia(idvigilancia_electronica: number): void {
     Swal.fire({
       title: '¿Eliminar vigilancia electrónica?',
       text: '¿Estás seguro de que deseas eliminar esta vigilancia electrónica?',
@@ -80,7 +80,7 @@ export class ListarVEComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.vigilanciaService.eliminarVigilaciaElectronica(id).subscribe(
+        this.vigilanciaService.eliminarVigilaciaElectronica(idvigilancia_electronica).subscribe(
           () => {
             this.obtenerVigilanciasElectronicas();
             Swal.fire('Eliminado', 'La vigilancia electrónica ha sido eliminada', 'success');

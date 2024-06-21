@@ -81,7 +81,7 @@ export class AdministrarObligacionComponent {
           () => {
             Swal.fire(
               '¡Eliminado!',
-              'La Zona ha sido eliminada correctamente.',
+              'La Obligacion ha sido eliminada correctamente.',
               'success'
             );
             this.obtenerObligaciones();
@@ -89,10 +89,10 @@ export class AdministrarObligacionComponent {
           (error) => {
             Swal.fire(
               '¡Error!',
-              'Ocurrió un error al intentar eliminar la Zona.',
+              'Ocurrió un error al intentar eliminar la Obligación.',
               'error'
             );
-            console.error('Error al eliminar zona:', error);
+            console.error('Error al eliminar Obligacion:', error);
           }
         );
       }
