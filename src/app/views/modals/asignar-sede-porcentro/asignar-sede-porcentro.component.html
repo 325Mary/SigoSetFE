@@ -14,7 +14,7 @@
       <li *ngFor="let sede of sedesSeleccionadas" class="list-group-item">
         <div class="d-flex justify-content-between align-items-center">
           {{ sede.sede_formacion }}
-          <span style="cursor: pointer;" (click)="eliminarSedeSeleccionada(sede)"><i class="bi bi-trash"></i></span>
+          <span style="cursor: pointer; margin-left: 20px;" (click)="eliminarSedeSeleccionada(sede)"><i class="bi bi-trash"></i></span>
         </div>
       </li>
     </ul>

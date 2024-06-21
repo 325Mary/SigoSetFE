@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-sena-azul">
-                        <h4 class="card-title">Listado Detalle de Contrato</h4>
+                        <h4 class="card-title">Listado de informes</h4>
                     </div>
                     <div class="card-body">
                             <div class="table-responsive">
@@ -12,14 +12,14 @@
                                     <thead class="text-dark">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nombre del Detalle de Contrato</th>
+                                        <th style="text-align: center;">Nombre del Detalle de Contrato</th>
                                         <th>Acciones</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr *ngFor="let grupo of detallesContratosAgrupados; let i = index">
                                         <td>{{ i + 1 }}</td>
-                                        <td>{{ grupo.nombreDetalleContrato }}</td>
+                                        <td style="text-align: center;">{{ grupo.nombreDetalleContrato }}</td>
                                         <td>
                                         <!-- Aquí puedes agregar los botones de acción -->
                                         <button [routerLink]="['/verInforme', grupo.nombreDetalleContrato]" title="Ver ">
