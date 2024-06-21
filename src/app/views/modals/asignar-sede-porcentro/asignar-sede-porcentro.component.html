@@ -1,0 +1,27 @@
+<div class="container">
+    <h3>Seleccionar Sedes</h3>
+    <input list="sedesList" class="form-control" placeholder="Buscar y seleccionar una sede" (input)="selectSede($event)">
+    <datalist id="sedesList">
+      <option *ngFor="let sede of sedes" [value]="sede.sede_formacion">
+        <!-- Aquí podrías añadir más detalles de la sede si los necesitas -->
+      </option>
+    </datalist>
+  </div>
+  
+  <div *ngIf="sedesSeleccionadas.length > 0" class="container mt-3">
+    <h3>Sedes Seleccionadas</h3>
+    <ul class="list-group">
+      <li *ngFor="let sede of sedesSeleccionadas" class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+          {{ sede.sede_formacion }}
+          <span style="cursor: pointer; margin-left: 20px;" (click)="eliminarSedeSeleccionada(sede)"><i class="bi bi-trash"></i></span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="container mt-3">
+    <button type="button" class="btn btn-danger mr-2" (click)="asignarSedes()">Asignar</button>
+    <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+  </div>
+  

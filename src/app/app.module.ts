@@ -107,7 +107,10 @@ import { CrearObligacionContratistaComponent } from './views/obligacionesContrat
 import { RegistrarSedeComponent } from './views/sedes/registrar-sede/registrar-sede.component';
 import { ListarSedesComponent } from './views/sedes/listar-sedes/listar-sedes.component';
 import { EditarSedeComponent } from './views/modals/editar-sede/editar-sede.component';
-import { VerSedeComponent } from './views/modals/ver-sede/ver-sede.component';
+import { VerSedeComponent } from './views/modals/ver-sede/ver-sede.component';import { VerValidarVigilanciaComponent } from './views/administrarServicios/ver-validar-vigilancia/ver-validar-vigilancia.component';
+import { ListarValidarVigilanciaComponent } from './views/administrarServicios/listar-validar-vigilancia/listar-validar-vigilancia.component';
+import {DetalleContratoService} from "./services/detalleContrato/detalle-contrato.service";
+import { AsignarSedePorcentroComponent } from './views/modals/asignar-sede-porcentro/asignar-sede-porcentro.component';
 @NgModule({
   imports: [
    AppRoutingModule,
@@ -215,6 +218,9 @@ import { VerSedeComponent } from './views/modals/ver-sede/ver-sede.component';
     VerObligacionesContratoComponent,
     CrearObligacionesContratoComponent,
     EnviarReporteComponent,
+    VerValidarVigilanciaComponent,
+    ListarValidarVigilanciaComponent,
+    AsignarSedePorcentroComponent,
     ListMunicipiosComponent,
     EditMunicipioComponent,
     VerMunicipioComponent,
@@ -237,6 +243,7 @@ import { VerSedeComponent } from './views/modals/ver-sede/ver-sede.component';
     PuestosEXcentroService,
     PuestosVXcentroService,
     ObligacionesContratoService,
+    DetalleContratoService,
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  ],
   bootstrap: [AppComponent]

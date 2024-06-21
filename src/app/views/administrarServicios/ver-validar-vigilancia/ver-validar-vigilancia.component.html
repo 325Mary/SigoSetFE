@@ -1,6 +1,8 @@
-<div class="container" style="width: 100%; height: auto;" *ngIf="fechasSeleccionadas">
+<div class="container" style="width: 100%; height: auto;">
+  <!-- Cabecera con logo y detalles -->
   <div class="section">
     <table>
+      <!-- Logo y detalles -->
       <tr>
         <td class="header-left">
           <img src="../../../../assets/img/logoValidacion.PNG" alt="Logo" width="80" height="80">
@@ -23,16 +25,20 @@
     </table>
   </div>
 
+  <!-- Sección principal del informe -->
+  <div *ngIf="detalles.length > 0">
   <h4 class="section" style="text-align: center; margin-top: 20px;">
-    LA/EL SUSCRIT@ {{ centroFormacion.ordenador_gasto || 'N/A' }},
-    DIRECTOR/A (E) {{ centroFormacion.regional || 'N/A' }}
+    LA/EL SUSCRIT@ {{ detalles[0].ordenador_gasto_centro || 'N/A' }},
+    DIRECTOR/A (E) {{ detalles[0].regional || 'N/A' }}
   </h4>
+  </div>
   <h2 class="section">CERTIFICA</h2>
   <p class="section">
-    Que el contratista {{ obtenerNombreEmpresa() }}, prestó el servicio de vigilancia durante el periodo comprendido entre
-    {{ fechaInicio | date }} y {{ fechaFin | date }} en la sede de {{ obtenerNombreSede() }}, con los siguientes puestos de vigilancia así:
+    Que el contratista {{ detalles[0].nombre_empresa || 'N/A' }}, prestó el servicio de vigilancia durante el periodo comprendido entre
+    {{ detalles[0].fecha_inicio | date:'dd/MM/yyyy' || 'N/A' }} y {{ detalles[0].fecha_fin | date:'dd/MM/yyyy' || 'N/A' }} en la sede de {{ obtenerNombreSede() }}, con los siguientes puestos de vigilancia así:
   </p>
 
+  <!-- Certificación Vigilancia Humana -->
   <h3 class="section">CERTIFICACIÓN VIGILANCIA HUMANA</h3>
   <table class="table table-bordered section">
     <thead class="thead-light">
@@ -43,21 +49,23 @@
       </tr>
     </thead>
     <tbody>
-      <!-- Iterar sobre los datos de puestoVxCentro -->
+      <!-- Iteración sobre los puestos de vigilancia humana -->
       <tr *ngFor="let puesto of puestoVxCentro">
         <td>{{ puesto.descripcion_puesto }}</td>
         <td>{{ puesto.cantidad_puestov }}</td>
-        <td>{{ getSedeCiudadDireccion(puesto.sede_id) }}</td>
+        <td>{{ puesto.sede_formacion }}</td>
       </tr>
     </tbody>
   </table>
 
+  <!-- Observaciones al servicio de vigilancia humana -->
   <div class="section">
     <label>OBSERVACIONES AL SERVICIO:
       <input type="text" class="form-control">
     </label>
   </div>
 
+  <!-- Certificación Vigilancia Electrónica -->
   <h3 class="section">CERTIFICACIÓN VIGILANCIA ELECTRÓNICA</h3>
   <table class="table table-bordered section">
     <thead class="thead-light">
@@ -68,20 +76,23 @@
       </tr>
     </thead>
     <tbody>
+      <!-- Iteración sobre los puestos de vigilancia electrónica -->
       <tr *ngFor="let puesto of puestoExCentro">
         <td>{{ puesto.descripcion }}</td>
         <td>{{ puesto.cantidad }}</td>
-        <td>{{ getSedeCiudadDireccion(puesto.sede_id) }}</td>
+        <td>{{ puesto.sede_formacion }}</td>
       </tr>
     </tbody>
   </table>
 
+  <!-- Observaciones al servicio de vigilancia electrónica -->
   <div class="section">
     <label>OBSERVACIONES AL SERVICIO:
       <input type="text" class="form-control">
     </label>
   </div>
 
+  <!-- Obligaciones generales del contratista -->
   <div class="section">
     <table class="table table-bordered section">
       <thead class="thead-light">
@@ -91,20 +102,18 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Iteración sobre las obligaciones del contratista -->
         <tr *ngFor="let obligacion of obligacionesContratista; let i = index">
           <td>{{ i + 1 }}. {{ obligacion.obligacion_contratista }}</td>
           <td>
-            <input type="text" [(ngModel)]="obligacion.cumple" [id]="'opcionesCumpleContratista' + i" list="opcionesCumpleContratista"
-              class="datalist-input">
-            <datalist id="opcionesCumpleContratista">
-              <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
-            </datalist>
+            {{obligacion.cumple}}
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Obligaciones generales contractuales -->
   <div class="section">
     <table class="table table-bordered section">
       <thead class="thead-light">
@@ -114,10 +123,11 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Iteración sobre las obligaciones contractuales -->
         <tr *ngFor="let obligacion of obligacionesContractuales; let i = index">
           <td>{{ i + 1 }}. {{ obligacion.obligaciones_contractuales }}</td>
           <td>
-            <input type="text" [(ngModel)]="obligacion.cumple2" [id]="'opcionesCumpleContractuales' + i" list="opcionesCumpleContractuales"
+            <input type="text" [(ngModel)]="obligacion.cumple" [id]="'opcionesCumpleContractuales' + i" list="opcionesCumpleContractuales"
               class="datalist-input">
             <datalist id="opcionesCumpleContractuales">
               <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
@@ -128,9 +138,10 @@
     </table>
   </div>
 
+  <!-- Anexos y firma -->
   <p class="section"><strong>ANEXOS:</strong> Actas de reunión, memorandos enviados y recibidos, comunicaciones vía correo electrónico.</p>
   <p class="section">Se expide en {{ obtenerNombreSede() }}, a la fecha de {{ fechaActual }}</p>
-  <p class="section">DIRECTOR/A (E) {{ centroFormacion.regional || 'N/A' }}</p>
+  <p class="section">DIRECTOR/A (E) {{ detalles[0].regional || 'N/A' }}</p>
 
   <div class="signature-container" style="text-align: center; margin-top: 20px;">
     <div class="signature-block" style="display: flex; align-items: center; justify-content: center;">
@@ -140,24 +151,20 @@
         <img *ngIf="logoImage" [src]="logoImage" alt="Uploaded Logo" width="80" height="80" style="margin-top: 10px;">
       </div>
       <div class="signature-details">
-        <p class="section">Firmado digitalmente por {{ centroFormacion.ordenador_gasto || 'N/A' }}</p>
+        <p class="section">Firmado digitalmente por {{ detalles[0].ordenador_gasto_centro || 'N/A' }}</p>
         <p class="section">Versión de sigoset 2024</p>
-        <p class="signature section">{{ centroFormacion.ordenador_gasto || 'N/A' }}</p>
+        <p class="signature section">{{ detalles[0].ordenador_gasto_centro || 'N/A' }}</p>
       </div>
     </div>
-    <button  class="btn btn-muted" (click)="guardarInforme()">Guardar informe</button>
+    
   </div>
+  <div style="text-align: center;">
+    <button class="btn btn-danger" (click)="exportToPDF()">Exportar a PDF</button>
+    <button class="btn btn-muted" routerLink="/ListaInformes">Volver</button>
+  </div>
+</div>
 
-<!-- <div class="overlay" *ngIf="isGeneratingPDF">
+<!-- Overlay de carga -->
+<div class="overlay" *ngIf="isGeneratingPDF">
   <div class="loading-text">Generando PDF...</div>
-</div> -->
 </div>
-
-<div *ngIf="!fechasSeleccionadas" style="text-align: center; margin-top: 20px;">
-  <label>Seleccione las fechas de inicio y fin:</label>
-  <input type="date" [(ngModel)]="fechaInicio" />
-  <input type="date" [(ngModel)]="fechaFin" />
-  <button class="btn btn-muted" (click)="validarFechas()">Continuar</button>
- 
-</div>
-

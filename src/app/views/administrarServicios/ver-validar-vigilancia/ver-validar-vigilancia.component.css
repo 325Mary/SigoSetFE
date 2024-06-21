@@ -1,0 +1,121 @@
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  th, td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  h1, h2, h3 {
+    text-align: center;
+  }
+  .mb-0 {
+    margin-bottom: 0;
+  }
+  
+  .header-container {
+    border: 1px solid black;
+    padding: 10px;
+  }
+    
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+    
+  td {
+    border: 1px solid black;
+    padding: 5px;
+  }
+    
+  .header-left, .header-right {
+    vertical-align: middle;
+  }
+    
+  .header-left {
+    width: 90%;
+  }
+    
+  .header-left img {
+    display: block;
+    margin: 0 auto;
+  }
+    
+  .header-right {
+    text-align: left;
+    padding-left: 15px;
+  }
+    
+  .header-center {
+    text-align: center;
+    padding-top: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .hide-image {
+    display: none;
+  }
+    
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
+    z-index: 9999; /* Asegura que esté por encima de otros elementos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loading-text {
+    font-size: 24px; /* Tamaño grande de fuente */
+    color: white; /* Texto blanco */
+  }
+  
+  
+  .signature-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .signature-block {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-container {
+    margin-right: 20px;
+  }
+  
+  .signature-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .hidden-file-input {
+    display: none;
+  }
+  .datalist-input {
+    width: 100px; /* Ancho deseado para el input */
+    border: none; /* Añade un borde para diferenciar el input */
+    border-radius: 5px; /* Agrega un radio a los bordes */
+    padding: 5px; /* Ajusta el espaciado interno */
+  }
+  

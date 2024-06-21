@@ -1,0 +1,44 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-sena-azul">
+                        <h4 class="card-title">Listado de informes</h4>
+                    </div>
+                    <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="text-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th style="text-align: center;">Nombre del Detalle de Contrato</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let grupo of detallesContratosAgrupados; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td style="text-align: center;">{{ grupo.nombreDetalleContrato }}</td>
+                                        <td>
+                                        <!-- Aquí puedes agregar los botones de acción -->
+                                        <button [routerLink]="['/verInforme', grupo.nombreDetalleContrato]" title="Ver ">
+                                            <i class="bi bi-eye"></i>
+                                          </button>
+                                        <button (click)="editar(grupo.nombreDetalleContrato)" title="editar">                                                      
+                                            <span class="fa-solid fa-edit"></span>
+                                        </button>
+                                        <button (click)="eliminar(grupo.nombreDetalleContrato)" title=eliminar>
+                                            <span class="bi bi-trash"></span>
+                                        </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

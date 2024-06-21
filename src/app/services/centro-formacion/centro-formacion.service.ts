@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { catchError, map } from 'rxjs';
 import { ResponseI } from '../../models/response.interface';
 import { Observable, throwError } from 'rxjs'
 import {CentroFormacion} from '../../models/centro-formacion/centro-formacion'
 import { environment } from '../../../environments/environment';
+import {  TokenValidationService} from "../../services/VertificacionUser/token-validation.service";
+import { Console } from 'console';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,22 +15,42 @@ export class CentroFormacionService {
   private baseUrl: string;
   private myApiUrlCentrosFormacion: string;
   private myApiUrlCentroFormacion: string;
-
-  constructor(private http: HttpClient) {
+  private getHeaders(): HttpHeaders {
+    const token = this.tokenValidationService.getToken(); // Obtén el token de autenticación
+    console.log(token)
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${token}` // Agrega el token al encabezado de autorización
+    });
+  }
+  constructor(private http: HttpClient, private tokenValidationService: TokenValidationService) {
     this.baseUrl = environment.apiUrl;
     this.myApiUrlCentrosFormacion = 'centrosFormacion';
     this.myApiUrlCentroFormacion = 'centroFormacion/';
+    
    }
-  getCentrosFormacion(): Observable<ResponseI>{
-    let direccion = this.baseUrl+ this.myApiUrlCentrosFormacion
-    return this.http.get<ResponseI>(direccion)
-    .pipe(
+   getCentrosFormacion(): Observable<ResponseI> {
+    const direccion = `${this.baseUrl}${this.myApiUrlCentrosFormacion}`;
+    return this.http.get<ResponseI>(direccion, { headers: this.getHeaders() }).pipe(
+      map(response => {
+        if (Array.isArray(response.data)) {
+          return response;
+        } else {
+          response.data = [response.data];
+          return response;
+        }
+      }),
       catchError(err => {
-        // console.log("Error en el servidor");
-      return throwError(err);
+        console.error('Error al obtener centros de formación:', err);
+        return throwError(err);
       })
-    )
+    );
   }
+  
+  
+  
+  
+  
 
   eliminarCentroFormacion(id:string): Observable<ResponseI>{
     let direccion = this.baseUrl+ this.myApiUrlCentroFormacion

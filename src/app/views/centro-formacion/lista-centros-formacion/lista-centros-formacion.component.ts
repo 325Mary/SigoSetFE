@@ -19,6 +19,7 @@ export class ListaCentrosFormacionComponent implements OnInit {
   showModal: boolean = false;
   mostrarModalPuestos: boolean = false;
   mostrarModalSedes: boolean = false;
+  mostrarModalAsignarSedes: boolean = false;
   centroSeleccionado: any = {};
   listaCentrosFormacion: any[] = []; //Cambie centrosdeformacion por any
   centrosFiltrados: CentroFormacion[] = [];
@@ -66,13 +67,23 @@ export class ListaCentrosFormacionComponent implements OnInit {
   getListaCentrosFormacion(): void {
     this._centroFormacionService.getCentrosFormacion().subscribe(data => {
       console.log(data); // Añadir este log para verificar los datos
-      this.listaCentrosFormacion = data.data;
+      if (Array.isArray(data.data)) {
+        this.listaCentrosFormacion = data.data;
+      } else {
+        this.listaCentrosFormacion = [data.data];
+      }
       this.filtrarCentros(); // Inicializa los datos filtrados
     }, error => {
       console.error('Error al obtener la lista de centros de formación:', error);
     });
   }
   
+  
+
+  // Función para cambiar de página
+  setPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
 
 
   eliminarCentroFormacion(id: any): void {
@@ -114,9 +125,18 @@ export class ListaCentrosFormacionComponent implements OnInit {
     this.mostrarModalSedes = true;
   }
 
+  abrirModalAsignarSede(item: any): void {
+    this.centroSeleccionado = item;
+    this.mostrarModalAsignarSedes= true
+  }
   handleCloseModal(): void {
     this.mostrarModalPuestos = false;
     this.mostrarModalSedes = false;
+    this.mostrarModalAsignarSedes =false
+  }
+  
+  actualizarLista(): void {
+    this.getListaCentrosFormacion();
   }
 
   async checkAuthentication(): Promise<void> {
