@@ -41,4 +41,5 @@ export class DetalleContratoService {
     return this.httpClient.delete<any>(url);
   }
   
+  
 }

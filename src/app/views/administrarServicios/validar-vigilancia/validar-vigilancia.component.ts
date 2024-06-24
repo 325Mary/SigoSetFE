@@ -40,6 +40,9 @@ export class ValidarVigilanciaComponent implements OnInit {
   obligacionesContractuales: any[] = [];
   fechasSeleccionadas: boolean = false;
   idcertificacion_centrof: number | null = null;
+  observaciones1: string = '';
+  observaciones2: string = '';
+  todosSeleccionados: boolean;
 
   constructor(
     private informeS: InformeService,
@@ -66,6 +69,25 @@ export class ValidarVigilanciaComponent implements OnInit {
     });
     this.fechaActual = this.datePipe.transform(new Date(), 'dd \'de\' MMMM \'de\' yyyy');
   }
+  validarTodosSeleccionados(): void {
+    // Verifica que todas las opciones de los datalists estén seleccionadas
+    this.todosSeleccionados = true;
+  
+    // Verifica los datalists de obligaciones del contratista
+    this.obligacionesContratista.forEach(obligacion => {
+      if (!obligacion.cumple) {
+        this.todosSeleccionados = false;
+      }
+    });
+  
+    // Verifica los datalists de obligaciones contractuales
+    this.obligacionesContractuales.forEach(obligacion => {
+      if (!obligacion.cumple2) {
+        this.todosSeleccionados = false;
+      }
+    });
+  }
+  
 
   obtenerPuestosVPorCentro(centroId: number): void {
     this._puestosVXCentroService.obtenerPuestosVxCentro(centroId).subscribe(
@@ -115,6 +137,7 @@ export class ValidarVigilanciaComponent implements OnInit {
       }
     );
   }
+
 
   obtenerSedesPorCentroFormacion(centroId: string): void {
     this.sedesService.obtenerSedesPorCentroFormacion(centroId)
@@ -294,65 +317,83 @@ export class ValidarVigilanciaComponent implements OnInit {
       }
     }
     
-
+   
+    
     
     guardarInforme(): void {
       if (this.idcertificacion_centrof) {
-        // Guardar detalles para obligaciones contratistas
-        this.obligacionesContratista.forEach((obligacion, index) => {
-          const idobligaciones_contrato = obligacion.idobligaciones_contrato; // Asegúrate de tener el id adecuado aquí
-          const cumple = obligacion.cumple; // Obtener el valor de cumple asociado a esta obligación
-          
-          // Objeto que contiene los datos del detalle del contrato
-          const detalleContratoData = {
-            idcertificacion_centrof: this.idcertificacion_centrof,
-            idobligaciones_contrato: idobligaciones_contrato,
-            cumple: cumple,
-            nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`
-
-          };
-  
-          // Llama a tu servicio para crear el detalle del contrato
-          this.detalleContratoService.crearDetalleContrato(detalleContratoData).subscribe(
+        // Definir variables auxiliares para almacenar los detalles de contrato
+        let detallesContrato: any[] = [];
+    
+        // Iterar sobre las obligaciones del contratista y los puestos de vigilancia humana
+        this.obligacionesContratista.forEach((obligacion) => {
+          this.puestoVxCentro.forEach((puestoVigilancia) => {
+            detallesContrato.push({
+              idcertificacion_centrof: this.idcertificacion_centrof,
+              idobligaciones_contrato: obligacion.idobligaciones_contrato,
+              cumple: obligacion.cumple,
+              nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
+              descripcionVHumana: puestoVigilancia.descripcionVHumana || '',
+              cantidad_puestov: puestoVigilancia.cantidad_puestov || 0,
+              direccionSedeVHumana: puestoVigilancia.direccionSedeVHumana || '',
+              total: puestoVigilancia.total || 0,
+              descripcion: '',
+              cantidad: 0,
+              direccionSedeVElectronica: '',
+              totalE: 0,
+              observaciones1: this.observaciones1 || '',
+              observaciones2: '',
+              fechaCreacion: this.fechaActual || ''
+            });
+          });
+        });
+    
+        // Iterar sobre las obligaciones contractuales y los puestos de vigilancia electrónica
+        this.obligacionesContractuales.forEach((obligacion) => {
+          this.puestoExCentro.forEach((puestoElectronico) => {
+            detallesContrato.push({
+              idcertificacion_centrof: this.idcertificacion_centrof,
+              idobligaciones_contrato: obligacion.idobligaciones_contrato,
+              cumple: obligacion.cumple2,
+              nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
+              descripcionVHumana: '',
+              cantidad_puestov: 0,
+              direccionSedeVHumana: '',
+              total: 0,
+              descripcion: puestoElectronico.descripcion || '',
+              cantidad: puestoElectronico.cantidad || 0,
+              direccionSedeVElectronica: puestoElectronico.direccionSedeVElectronica || '',
+              totalE: puestoElectronico.totalE || 0,
+              observaciones1: '',
+              observaciones2: this.observaciones2 || '',
+              fechaCreacion: this.fechaActual || ''
+            });
+          });
+        });
+    
+        // Llama a tu servicio para crear los detalles de contrato en una sola operación
+        detallesContrato.forEach(detalle => {
+          this.detalleContratoService.crearDetalleContrato(detalle).subscribe(
             (response) => {
               console.log('Respuesta de crear detalle contrato:', response);
               // Aquí puedes manejar la respuesta si es necesario
             },
             (error) => {
               console.error('Error al crear detalle contrato:', error);
-              // Manejar el error si es necesario
-            }
+              Swal.fire({
+                icon: 'error',
+                title: 'Error al guardar',
+                text: 'Ocurrió un error al guardar el informe. Por favor, intenta nuevamente más tarde.',
+              });            }
           );
         });
-  
-        // Guardar detalles para obligaciones contractuales
-        this.obligacionesContractuales.forEach((obligacion, index) => {
-          const idobligaciones_contrato = obligacion.idobligaciones_contrato; // Asegúrate de tener el id adecuado aquí
-          const cumple = obligacion.cumple2; // Obtener el valor de cumple asociado a esta obligación
-          
-          // Objeto que contiene los datos del detalle del contrato
-          const detalleContratoData = {
-            idcertificacion_centrof: this.idcertificacion_centrof,
-            idobligaciones_contrato: idobligaciones_contrato,
-            cumple: cumple,
-            nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`
-
-          };
-  
-          // Llama a tu servicio para crear el detalle del contrato
-          this.detalleContratoService.crearDetalleContrato(detalleContratoData).subscribe(
-            (response) => {
-              console.log('Respuesta de crear detalle contrato:', response);
-              // Aquí puedes manejar la respuesta si es necesario
-            },
-            (error) => {
-              console.error('Error al crear detalle contrato:', error);
-              // Manejar el error si es necesario
-            }
-          );
-        });
-  
-        // Otra lógica adicional si es necesaria
+        Swal.fire({
+          icon: 'success',
+          title: '¡Informe guardado!',
+          text: 'El informe se ha guardado correctamente.',
+        }).then(() => {
+          this.router.navigate(['/ListaInformes']);
+        })
       } else {
         console.error('Error: idcertificacion_centrof no está definido.');
         // Manejar el caso en que idcertificacion_centrof no esté definido
@@ -360,5 +401,21 @@ export class ValidarVigilanciaComponent implements OnInit {
     }
     
     
+    eliminarPuestoVigilancia(puesto: any): void {
+      this.puestoVxCentro = this.puestoVxCentro.filter(item => item !== puesto);
+    }
+    
+    eliminarPuestoElectronico(puesto: any): void {
+      this.puestoExCentro = this.puestoExCentro.filter(item => item !== puesto);
+    }
+    eliminarObligacionContratista(index: number): void {
+      this.obligacionesContratista.splice(index, 1); 
+      this.validarTodosSeleccionados(); 
+    }
+    
+    eliminarObligacionContractual(index: number): void {
+      this.obligacionesContractuales.splice(index, 1); 
+      this.validarTodosSeleccionados(); 
+    }    
   }
   

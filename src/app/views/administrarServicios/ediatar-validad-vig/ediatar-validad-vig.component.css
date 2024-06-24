@@ -119,8 +119,8 @@
     padding: 5px; /* Ajusta el espaciado interno */
   }
   @import '~bootstrap-icons/font/bootstrap-icons.css';
-.btn-icon{
-  background-color: transparent !important; 
-  border-color: transparent !important;
-  padding: 0;
-}
+  .btn-icon{
+    background-color: transparent !important; 
+    border-color: transparent !important;
+    padding: 0;
+  }

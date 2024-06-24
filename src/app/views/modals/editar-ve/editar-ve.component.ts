@@ -61,9 +61,9 @@ export class EditarVEComponent  {
     if (this.vigiElSeleccionada.tarifa && this.vigiElSeleccionada.ays) {
       const tarifa = parseFloat(this.vigiElSeleccionada.tarifa);
       const ays = parseFloat(this.vigiElSeleccionada.ays);
-      this.vigiElSeleccionada.total = (tarifa + ays) / 2;
+      this.vigiElSeleccionada.totalE = (tarifa + ays) / 2;
     } else {
-      this.vigiElSeleccionada.total = null;
+      this.vigiElSeleccionada.totalE = null;
     }
   }
 

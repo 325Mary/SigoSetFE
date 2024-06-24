@@ -69,6 +69,8 @@ import { ListarObligacionesComponent } from 'app/views/Obligaciociones/listar-ob
 import { EnviarReporteComponent } from "app/views/Reportes/enviar-reporte/enviar-reporte.component";
 import { VerValidarVigilanciaComponent } from "app/views/administrarServicios/ver-validar-vigilancia/ver-validar-vigilancia.component";
 import { ListarValidarVigilanciaComponent } from "app/views/administrarServicios/listar-validar-vigilancia/listar-validar-vigilancia.component";
+import { EdiatarValidadVigComponent } from "app/views/administrarServicios/ediatar-validad-vig/ediatar-validad-vig.component";
+
 export const AdminLayoutRoutes: Routes = [
     // {
     //   path: '',
@@ -176,6 +178,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'reporte', component: EnviarReporteComponent},
     { path: 'ListaInformes', component: ListarValidarVigilanciaComponent},
     { path: 'verInforme/:nombreDetalleContrato', component: VerValidarVigilanciaComponent},
+    { path: 'editarInforme/:nombreDetalleContrato', component: EdiatarValidadVigComponent},
       { path: '**', component: NotFoundComponent},// dejar SIEMPRE de ultima
 
 ];

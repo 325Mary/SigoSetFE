@@ -13,7 +13,7 @@
       <th>Descripción</th>
       <th>Tarifa</th>
       <th>Ays</th>
-      <th>IVA</th>
+      <!-- <th>IVA</th> -->
       <th>Total</th>
       <th>Accciones</th>
     </tr>
@@ -24,8 +24,8 @@
       <td>{{ vigilancia.descripcion }}</td>
       <td>{{ vigilancia.tarifa | number: '1.0-0' }}</td>
       <td>{{ vigilancia.ays | number: '1.0-0' }}</td>
-      <td>{{ vigilancia.iva | number: '1.0-0' }}</td>
-      <td>{{ vigilancia.total | number: '1.0-0' }}</td>
+      <!-- <td>{{ vigilancia.iva | number: '1.0-0' }}</td> -->
+      <td>{{ vigilancia.totalE | number: '1.0-0' }}</td>
       <td>
         <button (click)="abrirModalEditar(vigilancia)" title="Editar vigilancia Electrónica">
             <i class="bi bi-pencil-square"></i>
