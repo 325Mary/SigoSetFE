@@ -35,7 +35,7 @@
   <h2 class="section">CERTIFICA</h2>
   <p class="section">
     Que el contratista {{ detalles[0].nombre_empresa || 'N/A' }}, prestó el servicio de vigilancia durante el periodo comprendido entre
-    {{ detalles[0].fecha_inicio | date:'dd/MM/yyyy' || 'N/A' }} y {{ detalles[0].fecha_fin | date:'dd/MM/yyyy' || 'N/A' }} en la sede de {{ obtenerNombreSede() }}, con los siguientes puestos de vigilancia así:
+    {{ detalles[0].fecha_inicio | date }} y {{ detalles[0].fecha_fin | date }} en la sede de {{ obtenerNombreSede() }}, con los siguientes puestos de vigilancia así:
   </p>
 
   <!-- Certificación Vigilancia Humana -->
@@ -50,10 +50,10 @@
     </thead>
     <tbody>
       <!-- Iteración sobre los puestos de vigilancia humana -->
-      <tr *ngFor="let puesto of puestoVxCentro">
-        <td>{{ puesto.descripcion_puesto }}</td>
+      <tr *ngFor="let puesto of puestosVh">
+        <td>{{ puesto.descripcionVHumana }}</td>
         <td>{{ puesto.cantidad_puestov }}</td>
-        <td>{{ puesto.sede_formacion }}</td>
+        <td>{{ puesto.direccionSedeVHumana }}</td>
       </tr>
     </tbody>
   </table>
@@ -61,7 +61,7 @@
   <!-- Observaciones al servicio de vigilancia humana -->
   <div class="section">
     <label>OBSERVACIONES AL SERVICIO:
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" [(ngModel)]="detalles[0].observaciones1">
     </label>
   </div>
 
@@ -77,10 +77,10 @@
     </thead>
     <tbody>
       <!-- Iteración sobre los puestos de vigilancia electrónica -->
-      <tr *ngFor="let puesto of puestoExCentro">
+      <tr *ngFor="let puesto of puestosVE">
         <td>{{ puesto.descripcion }}</td>
         <td>{{ puesto.cantidad }}</td>
-        <td>{{ puesto.sede_formacion }}</td>
+        <td>{{ puesto.direccionSedeVElectronica }}</td>
       </tr>
     </tbody>
   </table>
@@ -88,7 +88,7 @@
   <!-- Observaciones al servicio de vigilancia electrónica -->
   <div class="section">
     <label>OBSERVACIONES AL SERVICIO:
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" [(ngModel)]="detalles[0].observaciones2">
     </label>
   </div>
 
@@ -127,11 +127,8 @@
         <tr *ngFor="let obligacion of obligacionesContractuales; let i = index">
           <td>{{ i + 1 }}. {{ obligacion.obligaciones_contractuales }}</td>
           <td>
-            <input type="text" [(ngModel)]="obligacion.cumple" [id]="'opcionesCumpleContractuales' + i" list="opcionesCumpleContractuales"
-              class="datalist-input">
-            <datalist id="opcionesCumpleContractuales">
-              <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
-            </datalist>
+            {{obligacion.cumple}}
+
           </td>
         </tr>
       </tbody>
@@ -140,7 +137,7 @@
 
   <!-- Anexos y firma -->
   <p class="section"><strong>ANEXOS:</strong> Actas de reunión, memorandos enviados y recibidos, comunicaciones vía correo electrónico.</p>
-  <p class="section">Se expide en {{ obtenerNombreSede() }}, a la fecha de {{ fechaActual }}</p>
+  <p class="section">Se expide en {{ obtenerNombreSede() }}, a la fecha de {{ detalles[0].fechaCreacion }}</p>
   <p class="section">DIRECTOR/A (E) {{ detalles[0].regional || 'N/A' }}</p>
 
   <div class="signature-container" style="text-align: center; margin-top: 20px;">

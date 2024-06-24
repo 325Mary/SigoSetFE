@@ -45,17 +45,20 @@
     <tbody>
       <!-- Iterar sobre los datos de puestoVxCentro -->
       <tr *ngFor="let puesto of puestoVxCentro">
-        <td>{{ puesto.descripcion_puesto }}</td>
+        <td>{{ puesto.descripcionVHumana }}</td>
         <td>{{ puesto.cantidad_puestov }}</td>
-        <td>{{ getSedeCiudadDireccion(puesto.sede_id) }}</td>
+        <td>{{ puesto.direccionSedeVHumana}}</td>
+        <td>
+          <button class="btn-icon "  (click)="eliminarPuestoVigilancia(puesto)"><span class="fas fa-trash"></span></button>
+        </td>
       </tr>
     </tbody>
   </table>
 
   <div class="section">
     <label>OBSERVACIONES AL SERVICIO:
-      <input type="text" class="form-control">
-    </label>
+      <input type="text" class="form-control" [(ngModel)]="observaciones1">
+        </label>
   </div>
 
   <h3 class="section">CERTIFICACIÓN VIGILANCIA ELECTRÓNICA</h3>
@@ -71,15 +74,18 @@
       <tr *ngFor="let puesto of puestoExCentro">
         <td>{{ puesto.descripcion }}</td>
         <td>{{ puesto.cantidad }}</td>
-        <td>{{ getSedeCiudadDireccion(puesto.sede_id) }}</td>
+        <td>{{ puesto.direccionSedeVElectronica }}</td>
+        <td>
+          <button class="btn-icon"  (click)="eliminarPuestoElectronico(puesto)"><span class="fas fa-trash"></span></button>
+        </td>
       </tr>
     </tbody>
   </table>
 
   <div class="section">
     <label>OBSERVACIONES AL SERVICIO:
-      <input type="text" class="form-control">
-    </label>
+      <input type="text" class="form-control" [(ngModel)]="observaciones2">
+        </label>
   </div>
 
   <div class="section">
@@ -95,10 +101,15 @@
           <td>{{ i + 1 }}. {{ obligacion.obligacion_contratista }}</td>
           <td>
             <input type="text" [(ngModel)]="obligacion.cumple" [id]="'opcionesCumpleContratista' + i" list="opcionesCumpleContratista"
-              class="datalist-input">
+              class="datalist-input" (change)="validarTodosSeleccionados()">
             <datalist id="opcionesCumpleContratista">
               <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
             </datalist>
+          </td>
+          <td>
+          <button class="btn-icon" (click)="eliminarObligacionContratista(i)">
+            <span class="fas fa-trash"></span> 
+          </button>
           </td>
         </tr>
       </tbody>
@@ -118,10 +129,15 @@
           <td>{{ i + 1 }}. {{ obligacion.obligaciones_contractuales }}</td>
           <td>
             <input type="text" [(ngModel)]="obligacion.cumple2" [id]="'opcionesCumpleContractuales' + i" list="opcionesCumpleContractuales"
-              class="datalist-input">
+              class="datalist-input" (change)="validarTodosSeleccionados()">
             <datalist id="opcionesCumpleContractuales">
               <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
             </datalist>
+          </td>
+          <td>
+            <button class="btn-icon"  (click)="eliminarObligacionContractual(i)">
+              <span class="fas fa-trash"></span> 
+            </button>
           </td>
         </tr>
       </tbody>
@@ -145,7 +161,7 @@
         <p class="signature section">{{ centroFormacion.ordenador_gasto || 'N/A' }}</p>
       </div>
     </div>
-    <button  class="btn btn-muted" (click)="guardarInforme()">Guardar informe</button>
+    <button class="btn btn-danger" (click)="guardarInforme()" [disabled]="!todosSeleccionados">Guardar informe</button>
   </div>
 
 <!-- <div class="overlay" *ngIf="isGeneratingPDF">
@@ -154,10 +170,12 @@
 </div>
 
 <div *ngIf="!fechasSeleccionadas" style="text-align: center; margin-top: 20px;">
-  <label>Seleccione las fechas de inicio y fin:</label>
+  <label>Seleccione 
+    <br>las fechas de inicio y fin:
+    <br>(Certificacion de centro)</label>
   <input type="date" [(ngModel)]="fechaInicio" />
   <input type="date" [(ngModel)]="fechaFin" />
-  <button class="btn btn-muted" (click)="validarFechas()">Continuar</button>
+  <button class="btn btn-muted"(click)="validarFechas()">Continuar</button>
  
 </div>
 

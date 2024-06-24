@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-sena-azul">
-                        <h4 class="card-title">Listado de informes</h4>
+                        <h4 class="card-title" style="align-items: center;">Listado de informes</h4>
                     </div>
                     <div class="card-body">
                             <div class="table-responsive">
@@ -12,7 +12,7 @@
                                     <thead class="text-dark">
                                     <tr>
                                         <th>ID</th>
-                                        <th style="text-align: center;">Nombre del Detalle de Contrato</th>
+                                        <th style="text-align: center;">Nombre del informe</th>
                                         <th>Acciones</th>
                                     </tr>
                                     </thead>
@@ -25,7 +25,7 @@
                                         <button [routerLink]="['/verInforme', grupo.nombreDetalleContrato]" title="Ver ">
                                             <i class="bi bi-eye"></i>
                                           </button>
-                                        <button (click)="editar(grupo.nombreDetalleContrato)" title="editar">                                                      
+                                        <button [routerLink]="['/editarInforme', grupo.nombreDetalleContrato]"  title="editar">                                                      
                                             <span class="fa-solid fa-edit"></span>
                                         </button>
                                         <button (click)="eliminar(grupo.nombreDetalleContrato)" title=eliminar>

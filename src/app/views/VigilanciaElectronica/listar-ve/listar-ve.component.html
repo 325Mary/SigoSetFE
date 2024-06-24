@@ -7,45 +7,40 @@
       <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
         <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarVE()" [(ngModel)]="terminoBusqueda">
       </div>
-      <table class="table table-bordered text-center">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Descripción</th>
-            <th>Tarifa</th>
-            <th>Ays</th>
-            <th>Total</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngIf="!noResultados; else noResults">
-            <tr *ngFor="let vigilancia of vigilanciaVEF | paginate: { itemsPerPage: pageSize, currentPage: currentPage };  let i = index">
-              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
-              <td>{{ vigilancia.descripcion }}</td>
-              <td>{{ vigilancia.tarifa}}</td>
-              <td>{{ vigilancia.ays}}</td>
-              <td>{{ vigilancia.total}}</td>
-              <td>
-                <button (click)="abrirModalEditar(vigilancia)" title="Editar vigilancia Electrónica"  id="boton"  class="mr-2">
-                  <i class="fas fa-edit icono"></i>
-                </button>
-                <button (click)="eliminarVigilancia(vigilancia.idvigilancia_electronica)" title="Eliminar vigilancia Electrónica"  id="boton"  class="mr-2">
-                  <i class="fas fa-trash icono"></i>
-                </button>
-              </td>
-            </tr>
-          </ng-container>
-          <ng-template #noResults>
-            <tr>
-              <td colspan="7" class="text-center">No se encontraron resultados.</td>
-            </tr>
-          </ng-template>
-        </tbody>
-      </table>
+<div class="card-body">
 
-    </div>
-         <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>Tarifa</th>
+      <th>Ays</th>
+      <!-- <th>IVA</th> -->
+      <th>Total</th>
+      <th>Accciones</th>
+    </tr>
+  </thead>
+  <tbody>
+     <tr *ngFor="let vigilancia of vigilanciasElectronicas; let i = index">
+    <td>{{ i + 1 }}</td>
+      <td>{{ vigilancia.descripcion }}</td>
+      <td>{{ vigilancia.tarifa | number: '1.0-0' }}</td>
+      <td>{{ vigilancia.ays | number: '1.0-0' }}</td>
+      <!-- <td>{{ vigilancia.iva | number: '1.0-0' }}</td> -->
+      <td>{{ vigilancia.totalE | number: '1.0-0' }}</td>
+      <td>
+        <button (click)="abrirModalEditar(vigilancia)" title="Editar vigilancia Electrónica">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button  (click)="eliminarVigilancia(vigilancia.idvigilancia_electronica)">
+            <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
   </div>
 </div>

@@ -16,11 +16,11 @@ import Swal from 'sweetalert2';
 import { Console } from 'console'
 
 @Component({
-  selector: 'app-ver-validar-vigilancia',
-  templateUrl: './ver-validar-vigilancia.component.html',
-  styleUrls: ['./ver-validar-vigilancia.component.css']
+  selector: 'app-ediatar-validad-vig',
+  templateUrl: './ediatar-validad-vig.component.html',
+  styleUrls: ['./ediatar-validad-vig.component.css']
 })
-export class VerValidarVigilanciaComponent implements OnInit {
+export class EdiatarValidadVigComponent {
   nombreDetalleContrato: string;
   detalleContratoId: string;
   obligacionesXcentro: any[] = []
@@ -43,7 +43,7 @@ export class VerValidarVigilanciaComponent implements OnInit {
   idcertificacion_centrof: number | null = null;
   idcentro_formacion: number
   detalles: any[] = [];
-
+  detallesOriginales: any[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -72,9 +72,7 @@ export class VerValidarVigilanciaComponent implements OnInit {
           if (response.data && response.data.length > 0) {
             this.idcentro_formacion = response.data[0].idcentro_formacion;
             
-            // Llamar métodos para obtener puestos
-            this.obtenerPuestosVPorCentro(this.idcentro_formacion);
-            this.obtenerPuestosVEPorCentro(this.idcentro_formacion);
+           
             // this.obtenerCentroFormacion(String(this.idcentro_formacion));
             this.filtrarObligaciones()
             this.filtrarPuestos()
@@ -87,44 +85,7 @@ export class VerValidarVigilanciaComponent implements OnInit {
     this.obtenerNombreSede();
     this.fechaActual = new Date().toLocaleDateString();
   }
-  obtenerPuestosVPorCentro(idcentro_formacion: number): void {
-    this._puestosVXCentroService.obtenerPuestosVxCentro(idcentro_formacion).subscribe(
-      (response) => {
-        this.puestoVxCentro = response.data;
-        const idempresa = response.data[0].idempresa;
-        // console.log('vxcentro:', response.data);
-  
-      },
-      (error) => {
-        // Manejar el error en caso de que ocurra
-      }
-    );
-  }
-  
-  // obtenerCentroFormacion(idcentro_formacion: string): void {
-  //   this.centroFormacionService.getCentroFormacion(idcentro_formacion).subscribe(
-  //     (response) => {
-  //       console.log('Centro de formación:', response.data);
-  //       this.centroFormacion = response.data;
-  //     },
-  //     (error) => {
-  //       console.error('Error al obtener el centro de formación:', error);
-  //     }
-  //   );
-  // }
-  obtenerPuestosVEPorCentro(idcentro_formacion: number): void {
-    this._puestosEXCentroService.obtenerPuestosExCentro(idcentro_formacion).subscribe(
-      (response) => {
-        this.puestoExCentro = response.data;
-        const idempresa = response.data[0].idempresa;
-        // console.log('vexcentro:', response.data);
-  
-      },
-      (error) => {
-        // Manejar el error en caso de que ocurra
-      }
-    );
-  }
+ 
   
   
   onFileSelected(event: Event): void {
@@ -209,79 +170,22 @@ export class VerValidarVigilanciaComponent implements OnInit {
   
 
   
-  async exportToPDF() {
-    try {
-      this.isGeneratingPDF = true;
-      const data = document.querySelector('.container') as HTMLElement;
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-  
-      const margin = 10; // Define una constante para el margen
-      const contentWidth = pdfWidth - margin * 2; // Ajusta el ancho para el margen
-  
-      let y = margin; // Comienza con el margen superior
-  
-      // Función para crear un canvas y agregarlo al PDF
-      const addCanvasToPDF = async (element: HTMLElement, yOffset: number) => {
-        const canvas = await html2canvas(element, { scale: 1 });
-        const imgData = canvas.toDataURL('image/png');
-        const imgProps = pdf.getImageProperties(imgData);
-        const imgHeight = (imgProps.height * contentWidth) / imgProps.width;
-  
-        if (yOffset + imgHeight > pdfHeight - margin) { // Ajuste para el margen inferior
-          pdf.addPage();
-          yOffset = margin; // Reinicia en el margen superior en la nueva página
-        }
-  
-        pdf.addImage(imgData, 'PNG', margin, yOffset, contentWidth, imgHeight); // Agrega la imagen con el margen izquierdo
-        return yOffset + imgHeight;
-      };
-  
-      // Oculta temporalmente el input de archivo y los botones
-      const fileInput = document.querySelector('input[type="file"]') as HTMLElement;
-      const exportButton = document.querySelector('.export-button') as HTMLElement;
-      const logoButton = document.querySelector('.logo-button') as HTMLElement;
-  
-      if (fileInput) fileInput.style.display = 'none';
-      if (exportButton) exportButton.style.display = 'none';
-      if (logoButton) logoButton.style.display = 'none';
-  
-      // Captura cada sección sin duplicar
-      const sections = data.querySelectorAll('.section');
-      for (let i = 0; i < sections.length; i++) {
-        // Asegúrate de que cada sección se procese una vez
-        if (sections[i].parentElement === data) {
-          y = await addCanvasToPDF(sections[i] as HTMLElement, y);
-        }
-      }
-  
-      // Agrega el bloque de firma al PDF
-      const signatureBlock = document.querySelector('.signature-container') as HTMLElement;
-      if (signatureBlock) {
-        y = await addCanvasToPDF(signatureBlock, y);
-      }
-  
-      const currentDate = new Date();
-      const fileName = `informe_${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)}-${currentDate.getDate()}.pdf`;
-  
-      // Guarda el PDF con el nombre de archivo generado
-      pdf.save(fileName);
-  
-      // Establece isGeneratingPDF en false para cerrar la superposición
-      this.isGeneratingPDF = false;
-  
-      // Muestra el input de archivo y los botones nuevamente
-      if (fileInput) fileInput.style.display = 'block';
-      if (exportButton) exportButton.style.display = 'block';
-      if (logoButton) logoButton.style.display = 'block';
-  
-      // Navega a una ruta específica
-      this.router.navigate(['/ListaInformes']);
-    } catch (error) {
-      console.error('Error al generar el PDF:', error);
-      this.isGeneratingPDF = false;
-    }
+  eliminarPuestoVigilanciaHumana(index: number): void {
+    this.puestosVh.splice(index, 1); 
   }
-
+  
+  eliminarPuestoVigilanciaElectronica(index: number): void {
+    this.puestosVE.splice(index, 1); 
+  }
+  
+  eliminarObligacionContratista(index: number): void {
+    this.obligacionesContratista.splice(index, 1); 
+  }
+  
+  eliminarObligacionContractual(index: number): void {
+    this.obligacionesContractuales.splice(index, 1); 
+  }
+  
+ 
+  
 }

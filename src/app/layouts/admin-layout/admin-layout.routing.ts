@@ -76,6 +76,8 @@ import { ListarObligacionesComponent } from 'app/views/Obligaciociones/listar-ob
 import { EnviarReporteComponent } from "app/views/Reportes/enviar-reporte/enviar-reporte.component";
 import { VerValidarVigilanciaComponent } from "app/views/administrarServicios/ver-validar-vigilancia/ver-validar-vigilancia.component";
 import { ListarValidarVigilanciaComponent } from "app/views/administrarServicios/listar-validar-vigilancia/listar-validar-vigilancia.component";
+import { EdiatarValidadVigComponent } from "app/views/administrarServicios/ediatar-validad-vig/ediatar-validad-vig.component";
+
 
 import { CrearObligacionContratistaComponent } from 'app/views/obligacionesContratista/crear-obligacion/crear-obligacion.component';
 import { ListarObligacionContratistaComponent } from 'app/views/obligacionesContratista/listar-obligacion/listar-obligacion.component';
@@ -194,6 +196,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'reporte', component: EnviarReporteComponent },
     { path: 'ListaInformes', component: ListarValidarVigilanciaComponent},
     { path: 'verInforme/:nombreDetalleContrato', component: VerValidarVigilanciaComponent},
+    { path: 'editarInforme/:nombreDetalleContrato', component: EdiatarValidadVigComponent},
 
 
     { path: 'ListMunicipios', component: ListMunicipiosComponent },

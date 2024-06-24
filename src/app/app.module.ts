@@ -111,6 +111,7 @@ import { VerSedeComponent } from './views/modals/ver-sede/ver-sede.component';im
 import { ListarValidarVigilanciaComponent } from './views/administrarServicios/listar-validar-vigilancia/listar-validar-vigilancia.component';
 import {DetalleContratoService} from "./services/detalleContrato/detalle-contrato.service";
 import { AsignarSedePorcentroComponent } from './views/modals/asignar-sede-porcentro/asignar-sede-porcentro.component';
+import { EdiatarValidadVigComponent } from './views/administrarServicios/ediatar-validad-vig/ediatar-validad-vig.component';
 @NgModule({
   imports: [
    AppRoutingModule,
@@ -221,6 +222,7 @@ import { AsignarSedePorcentroComponent } from './views/modals/asignar-sede-porce
     VerValidarVigilanciaComponent,
     ListarValidarVigilanciaComponent,
     AsignarSedePorcentroComponent,
+    EdiatarValidadVigComponent,
     ListMunicipiosComponent,
     EditMunicipioComponent,
     VerMunicipioComponent,
