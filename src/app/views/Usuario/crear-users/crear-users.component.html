@@ -33,7 +33,7 @@
                 <label for="idcentro_formacion">Centro de Formación:</label>
                 <input list="centros" [(ngModel)]="selectedCentroFormacion" (change)="updateCentroFormacionId($event)" class="form-control" required placeholder="Seleccione un centro de formación">
                 <datalist id="centros">
-                  <option *ngFor="let centro of centrosF" [value]="centro.centro_formacion"></option>
+                  <option *ngFor="let centro of centrosF " [value]="centro.centro_formacion"></option>
                 </datalist>
                 <div class="text-link-container">
                   <a routerLink="/registrarCentroFormacion" class="text-link">Registrar Nuevo Centro</a>

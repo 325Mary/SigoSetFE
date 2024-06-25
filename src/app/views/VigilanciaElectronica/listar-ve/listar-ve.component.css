@@ -74,17 +74,6 @@
   
    
 
-  .table-responsive {
-    overflow-x: auto;
-  }
-  
-  
-  
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-  }
   
   .page-link {
     color: #cdcdcd;
@@ -134,26 +123,6 @@
     }
   }
   
-  .table-responsive {
-    position: relative;
-  }
-  
-  .titulo-container {
-    width: calc(100% - 60px); /* El ancho es igual al 100% del contenedor menos 40px */
-    position: absolute;
-    top: 0;
-    margin-left: 15px; /* Mismo margen que el margen izquierdo de la tabla */
-    background-color: rgb(17, 17, 71) !important;
-    color: white;
-    text-align: center;
-    z-index: 1; /* Asegura que el título esté sobre la tabla */
-    border-radius: 3px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6)
-  }
-  .table {
-    background-color: rgb(255, 255, 255);
-    margin-top: 50px; /* Ajusta el margen superior para dejar espacio al título */
-  }
   
   .table th,
       .table-bordered td {

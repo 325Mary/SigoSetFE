@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { RegionalService } from '../../../services/regional/regional.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-administrar-regional',
   templateUrl: './administrar-regional.component.html',
@@ -38,21 +38,31 @@ export class AdministrarRegionalComponent implements OnInit {
   }
 
   editarRegional(index: number): void {
-    // Cambiar la propiedad 'editando' del objeto regional en la lista
     this.regionales[index].editando = true;
   }
 
   guardarCambios(index: number): void {
-    // Enviar los datos actualizados al servidor
     const regionalEditado = this.regionales[index];
     this.regionalService.updateRegional(regionalEditado.idRegional, regionalEditado).subscribe(
       response => {
         console.log('Regional actualizada exitosamente:', response);
         regionalEditado.editando = false;
+        Swal.fire({
+          title: "Accion completada!",
+          text: "Regional Editada Correctamente!",
+          icon: "success"
+        });
+
+     
       },
+     
+
       error => {
-        console.error('Error al actualizar la regional:', error);
-      }
+        Swal.fire({
+          title: "!Accion incompleta!",
+          text: "!No se pudo editar la regional!",
+          icon: "warning"
+        });      }
     );
   }
 

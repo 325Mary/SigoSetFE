@@ -24,7 +24,7 @@ export class SedesService {
 
   ObtenerSede(idSedeFormacion: number): Observable<any> {
     const url = `${this.baseUrl}sedeFormacion/${idSedeFormacion}`;
-    return this.httpClient.get(url); // Debes retornar el resultado de la llamada HTTP
+    return this.httpClient.get(url); 
   }
 
 

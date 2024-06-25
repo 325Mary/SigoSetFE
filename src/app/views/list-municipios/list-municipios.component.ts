@@ -60,9 +60,18 @@ export class ListMunicipiosComponent implements OnInit {
       response => {
         console.log('Municipio actualizado exitosamente:', response);
         MunicipioEditado.editando = false;
+        Swal.fire({
+          title: "Accion completada!",
+          text: "!Municipio Editado Correctamente!",
+          icon: "success"
+        });
       },
       error => {
-        console.error('Error al actualizar el Municipio:', error);
+        Swal.fire({
+          title: "Accion Erronea!",
+          text: "!Departamento No editado!",
+          icon: "warning"
+        });
       }
     );
   }

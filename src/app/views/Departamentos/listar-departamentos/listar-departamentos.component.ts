@@ -26,19 +26,16 @@ export class ListarDepartamentosComponent implements OnInit {
   listarDepartamentos(): void {
     this.departamentoService.obtenerDepartamentos().subscribe(
       response => {
-        this.departamentos = response.data[0]
-        console.log('des:', this.departamentos);
+        this.departamentos = response.data[0]; // Asegúrate de que response.data[0] contiene los departamentos
+        console.log('Departamentos:', this.departamentos);
         this.filtrarDep();
       },
       error => {
         console.error('Error al obtener los Departamentos:', error);
-        this.errorMessage = 'Error al obtener las regionales. Por favor, inténtalo de nuevo más tarde.';
+        this.errorMessage = 'Error al obtener los departamentos. Por favor, inténtalo de nuevo más tarde.';
       }
     );
   }
-
-
-
 
   editarDepartamento(index: number): void {
     this.departamentos[index].editando = true;
@@ -50,14 +47,26 @@ export class ListarDepartamentosComponent implements OnInit {
       response => {
         console.log('Departamento editado correctamente', response);
         departamentoEditado.editando = false;
+        this.filtrarDep(); // Actualiza la lista filtrada después de guardar
+        Swal.fire({
+          title: "Accion completada!",
+          text: "!Departamento Editada Correctamente!",
+          icon: "success"
+        });
+
       },
       error => {
-        console.log('No se pudo actualizar el departamento', error);
+        Swal.fire({
+          title: "!Accion incompleta!",
+          text: "!No se pudo editar la zona!",
+          icon: "warning"
+        });
+
       }
     );
   }
 
-  EliminarDepartamento(iddepartamento: number): void {
+  eliminarDepartamento(iddepartamento: number): void {
     Swal.fire({
       title: '¿Estás seguro?',
       text: '¡No podrás revertir esto!',
@@ -88,23 +97,18 @@ export class ListarDepartamentosComponent implements OnInit {
       }
     });
   }
-  
+
   filtrarDep(): void {
     if (this.terminoBusqueda.trim() !== '') {
-      this.departamentosFiltrados = this.departamentos.filter((departamento) =>{
-        return(
-             departamento.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
-        )
-    });
+      this.departamentosFiltrados = this.departamentos.filter(departamento => 
+        departamento.departamento.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      );
       this.noResultados = this.departamentosFiltrados.length === 0;
       this.currentPage = 1; // Reiniciar la paginación al filtrar
-
     } else {
       this.departamentosFiltrados = [...this.departamentos];
     }
-
   }
-
 
   pageChange(event: number): void {
     this.currentPage = event;

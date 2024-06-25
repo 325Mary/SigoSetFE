@@ -39,7 +39,7 @@ export class ListarObligacionContratistaComponent  {
   }
   editarObligacion(obligacion: any): void {
     const dialogRef = this.dialog.open(EditarObliContratistaComponent, {
-      width: '400px',
+      width: '600px',
       data: { obligacion }
     });
 
@@ -51,7 +51,7 @@ export class ListarObligacionContratistaComponent  {
   }
   verObligacion(obligacion: any): void {
     this.dialog.open(VerObliContratistaComponent, {
-      width: '400px',
+      width: '600px',
       data: { obligacion }
     });
   }

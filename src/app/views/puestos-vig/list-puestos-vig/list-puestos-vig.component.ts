@@ -23,6 +23,7 @@ export class ListPuestosVigComponent implements OnInit {
   showModal: boolean = false;
   mostrarModalEditar: boolean = false;
   puestoSeleccionado: any = {};
+  puestoFiltrado: any[] = []
 
   constructor(
     private puestosService: PuestosVigilanciaService,
@@ -123,25 +124,30 @@ export class ListPuestosVigComponent implements OnInit {
   }
 
   filtrarVigilancia(): void {
-    const termino = this.terminoBusqueda.toLowerCase();
-    const puestosFiltradas = this.puestos.filter((puestovigilancia) => {
-      return (
-        puestovigilancia.descripcion_puesto.toLowerCase().includes(termino) ||
-        puestovigilancia.tarifa_puesto.toLowerCase().includes(termino) ||
-        puestovigilancia.ays.toLowerCase().includes(termino) ||
-        puestovigilancia.total.toLowerCase().includes(termino)
-      );
-    });
+    if (this.terminoBusqueda.trim() != ''){
+       this.puestoFiltrado = this.puestos.filter(puesto =>
+        puesto.descripcion_puesto.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+        puesto.tarifa_puesto.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+        puesto.ays.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+        puesto.total.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
 
-    this.noResultados = puestosFiltradas.length === 0;
-    this.dataSource.data = puestosFiltradas.length > 0 || this.terminoBusqueda === '' ? puestosFiltradas : this.puestos;
-  }
+      )
+      this.noResultados = this.puestoFiltrado.length === 0;
+      this.currentPage = 1; // Reiniciar la paginación al filtrar
+    }else{
+      this.puestoFiltrado = [...this.puestos]
+    }
+     
+  };
+  
+
+
 
   getPages(): number[] {
     const pageCount = Math.ceil(this.dataSource.data.length / this.pageSize);
     return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
-  
+
   pageChange(event: number): void {
     this.currentPage = event;
   }

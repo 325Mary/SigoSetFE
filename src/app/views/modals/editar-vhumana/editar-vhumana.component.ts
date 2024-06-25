@@ -23,6 +23,7 @@ export class EditarVHumanaComponent {
       iva: this.puestoSeleccionado.iva,
       total: this.puestoSeleccionado.total
     };
+  console.log();
   
     this.vigilanciaHumana.editarPuesto(this.puestoSeleccionado.idpuesto_vigilancia, datosActualizados).subscribe(
       () => {

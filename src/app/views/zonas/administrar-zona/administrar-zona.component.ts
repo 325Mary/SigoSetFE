@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ZonaService } from 'app/services/zona/zona.service'; 
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { EditarZonaComponent } from 'app/views/modals/editar-zona/editar-zona.component';
 
 @Component({
   selector: 'app-administrar-zona',
@@ -24,53 +26,12 @@ export class AdministrarZonaComponent {
   noResultados: boolean = false; 
 
 
-  constructor(private zonaservice: ZonaService) { }
+  constructor(private zonaservice: ZonaService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.obtenerZonas();
   }
-  actualizarZona(): void {
-    this.obtenerZonas();
-  }
-  verZona():void{
-    this.obtenerZonas();
-  }
-
-  handleCloseModal(): void {
-    this.closeModal();
-  }
-
-  closeModal(): void {
-    this.showModalVer = false;
-    this.mostrarModalCrear = false;
-    this.mostrarModalEditar = false;
-    this.showModalEditar = false
-  }
-  
  
-  abrirModalVerZona(zona: any): void {
-    this.zonaSeleccionada = zona;
-    this.showModalVer = true;
-    console.log('Modal abieto');
-    
-  }
-
-
-  abrirModalEditar() {
-    this.mostrarModalEditar = true;
-    this.showModalVer = true;
-
-  }
-  abrirModalEditarZona(zona: any): void {
-    this.zonaSeleccionada = zona;
-    this.showModalEditar = true; 
-  }
-  
-  
-
-  abrirModalVer() {
-    this.mostrarModalVer = true;
-  }
 
   obtenerZonas() {
     this.zonaservice.getZona().subscribe(
@@ -84,6 +45,20 @@ export class AdministrarZonaComponent {
       }
     )
   }
+
+  editarZona(zona: any): void {
+    const dialogRef = this.dialog.open(EditarZonaComponent, {
+      width: '400px',
+      data: { zona }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.obtenerZonas();
+      }
+    });
+  }
+
+
 
 
   EliminarZona(idzona: number): void {

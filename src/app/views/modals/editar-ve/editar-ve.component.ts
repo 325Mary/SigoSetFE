@@ -22,7 +22,8 @@ export class EditarVEComponent  {
     const datosActualizados = {
       descripcion: this.vigiElSeleccionada.descripcion,
       tarifa: this.vigiElSeleccionada.tarifa,
-      ays: this.vigiElSeleccionada.ays
+      ays: this.vigiElSeleccionada.ays,
+      total:this.vigiElSeleccionada.total
     };
 
     // Llama al servicio para editar la vigilancia electrónica
@@ -61,9 +62,9 @@ export class EditarVEComponent  {
     if (this.vigiElSeleccionada.tarifa && this.vigiElSeleccionada.ays) {
       const tarifa = parseFloat(this.vigiElSeleccionada.tarifa);
       const ays = parseFloat(this.vigiElSeleccionada.ays);
-      this.vigiElSeleccionada.totalE = (tarifa + ays) / 2;
+      this.vigiElSeleccionada.total = (tarifa + ays) / 2;
     } else {
-      this.vigiElSeleccionada.totalE = null;
+      this.vigiElSeleccionada.total = null;
     }
   }
 

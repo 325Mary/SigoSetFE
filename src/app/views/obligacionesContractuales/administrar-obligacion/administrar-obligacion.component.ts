@@ -49,7 +49,7 @@ export class AdministrarObligacionComponent {
 
   editarObligacion(obligacion: any): void {
     const dialogRef = this.dialog.open(EditarObligacionModalComponent, {
-      width: '400px',
+      width: '600px',
       data: { obligacion }
     });
 
@@ -62,7 +62,7 @@ export class AdministrarObligacionComponent {
 
   verObligacion(obligacion: any): void {
     this.dialog.open(VerObligacionModalComponent, {
-      width: '400px',
+      width: '600px',
       data: { obligacion }
     });
   }
