@@ -13,7 +13,7 @@ export class CrearVEComponent {
     descripcion: '',
     tarifa: '',
     ays: '',
-    total: null
+    totalE: null
   };
   errorMessage: string | null = null;
 
@@ -25,9 +25,9 @@ export class CrearVEComponent {
     if (this.vigilanciaElectronica.tarifa && this.vigilanciaElectronica.ays) {
       const tarifa = parseFloat(this.vigilanciaElectronica.tarifa);
       const ays = parseFloat(this.vigilanciaElectronica.ays);
-      this.vigilanciaElectronica.total = (tarifa + ays) / 2;
+      this.vigilanciaElectronica.totalE = (tarifa + ays) / 2;
     } else {
-      this.vigilanciaElectronica.total = null;
+      this.vigilanciaElectronica.totalE = null;
     }
   }
 
@@ -45,7 +45,7 @@ export class CrearVEComponent {
       .subscribe(
         response => {
           console.log('Vigilancia Electrónica creada exitosamente', response);
-          this.vigilanciaElectronica = { descripcion: '', tarifa: '', ays: '', total: null };
+          this.vigilanciaElectronica = { descripcion: '', tarifa: '', ays: '', totalE: null };
           this.errorMessage = null;
           // Mostrar alerta de éxito
           Swal.fire('¡Éxito!', 'Vigilancia Electrónica creada exitosamente', 'success');

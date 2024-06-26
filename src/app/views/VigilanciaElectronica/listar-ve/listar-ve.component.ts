@@ -105,7 +105,7 @@ export class ListarVEComponent implements OnInit {
           puestovigilanciaE.descripcion.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
           puestovigilanciaE.tarifa.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
           puestovigilanciaE.ays.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
-          puestovigilanciaE.total.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
+          puestovigilanciaE.totalE.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
         );
       });
     } else {
