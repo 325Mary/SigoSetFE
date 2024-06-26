@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {ContratoService} from '../../../services/contrato/contrato.service'
+import { ContratoService } from '../../../services/contrato/contrato.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -8,152 +8,131 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listar-contratos.component.css']
 })
 export class ListarContratosComponent {
-
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
-  contratos: any[];
-  showModal: boolean = false;
-  showModal1: boolean = false;
-  pageSize: number = 6; 
-  currentPage: number = 1; // Página actual
+  contratos: any[] = [];
+  contratosFiltrados: any[] = [];
+  pageSize: number = 6;
+  currentPage: number = 1;
   contratoSeleccionado: any = {};
-  mostrarModalCrear: boolean = false; 
+  mostrarModalCrear: boolean = false;
   mostrarModalEditar: boolean = false;
-  idContratoAEditar: number | null = null;
   terminoBusqueda: string = '';
   noResultados: boolean = false;
-  usuarioIndex: number = 0; // Contador para mostrar un ID autoincrementable
-  contratosFiltrados: any[] = []; // Array para almacenar  filtrados
-  fechaInicioEdit: string;
-  fechaFinEdit: string;
-  
-constructor(private contratoService :ContratoService ){}
 
-ngOnInit(): void {
-  this.obtenerContratos();
-}
+  constructor(private contratoService: ContratoService) {}
 
-obtenerContratos() {
-  this.contratoService.obtenerContratos().subscribe(
-    (response) => {
-      this.contratos = response.data[0];
-      this.contratosFiltrados = [...this.contratos];
-      console.log('contratos',this.contratos)
-    },
-    (error) => {
-      console.error('Error al obtener contratos:', error);
-    }
-  );
-}
-abrirModalCrear(): void {
-  this.mostrarModalCrear = true; 
-}
-
-actualizarContratos(): void {
-  this.obtenerContratos(); 
-}
-closeModal(): void {
-  this.showModal = false;
-  this.mostrarModalCrear = false;
-  this.mostrarModalEditar = false;
-  this.refreshList()
-}
-
-handleCloseModal(): void {
-  this.closeModal();
-}
-
-
-
-abrirModalEditar(contrato: any): void {
-  this.contratoSeleccionado = contrato;
-
-  // Asignar las fechas del contrato seleccionado a las variables de fecha para mostrarlas en los campos de entrada
-  this.fechaInicioEdit = this.contratoSeleccionado.fecha_inicio;
-  this.fechaFinEdit = this.contratoSeleccionado.fecha_fin;
-
-  this.mostrarModalEditar = true;
-}
-
-
-
-eliminarContrato(idContrato_empresa: number): void {
-  Swal.fire({
-    title: '¿Estás seguro?',
-    text: '¡No podrás revertir esto!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Sí, eliminarlo',
-    cancelButtonText: 'Cancelar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-
-      this.contratoService.eliminarContrato(idContrato_empresa).subscribe(
-        () => {
-          Swal.fire(
-            '¡Eliminado!',
-            'La Contrato ha sido eliminada correctamente.',
-            'success'
-          );
-          this.obtenerContratos();
-          this.refreshList()
-        },
-        (error) => {
-          // Mostrar un mensaje de error si ocurre algún problema durante la eliminación
-          Swal.fire(
-            '¡Error!',
-            'Ocurrió un error al intentar eliminar la Contrato.',
-            'error'
-          );
-          console.error('Error al eliminar Contrato:', error);
-        }
-      );
-    }
-  });
-}
-
-filtrarContratos(): void {
-  if (this.terminoBusqueda.trim() !== '') {
-    this.contratosFiltrados = this.contratos.filter((contrato) => {
-      return (
-        contrato.nombre_empresa.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        contrato.fecha_inicio.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        contrato.fecha_fin.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
-      );
-    });
-    this.noResultados = this.contratosFiltrados.length === 0;
-  } else {
-    this.contratosFiltrados = [...this.contratos];
-    this.noResultados = false; // Resetear el indicador de resultados vacíos
+  ngOnInit(): void {
+    this.obtenerContratos();
   }
-}
 
-
-// Función para obtener el índice del contrato en la lista filtrada
-contratoIndex(contrato: any): number {
-  return this.contratosFiltrados.indexOf(contrato) + 1;
-}
-
-
-private refreshList() {
-  // Vuelve a cargar la lista de usuarios después de eliminar uno
-  this.contratoService.obtenerContratos().subscribe(
-    response => {
-      if (response.data && response.data.length > 0) {
+  obtenerContratos() {
+    this.contratoService.obtenerContratos().subscribe(
+      (response) => {
         this.contratos = response.data[0];
         this.contratosFiltrados = [...this.contratos];
-        console.log('Lista de usuarios actualizada:', this.contratos);
-        this.usuarioIndex = (this.currentPage - 1) * this.pageSize;
-      } else {
-        console.error('La respuesta no contiene datos o el primer array está vacío.');
+      },
+      (error) => {
+        console.error('Error al obtener contratos:', error);
       }
-    },
-    error => {
-      console.error('Error al obtener la lista de usuarios:', error);
-    }
-  );
-}
-pageChange(event: number): void {
-  this.currentPage = event;
-}
-}
+    );
+  }
 
+  abrirModalCrear(): void {
+    this.mostrarModalCrear = true;
+  }
+
+  actualizarContratos(): void {
+    this.obtenerContratos();
+  }
+
+  closeModal(): void {
+    this.mostrarModalCrear = false;
+    this.mostrarModalEditar = false;
+    this.refreshList();
+  }
+
+  handleCloseModal(): void {
+    this.closeModal();
+  }
+
+  abrirModalEditar(contrato: any): void {
+    this.contratoSeleccionado = contrato;
+    this.mostrarModalEditar = true;
+  }
+
+  eliminarContrato(idContrato_empresa: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminarlo',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.contratoService.eliminarContrato(idContrato_empresa).subscribe(
+          () => {
+            Swal.fire(
+              '¡Eliminado!',
+              'El contrato ha sido eliminado correctamente.',
+              'success'
+            );
+            this.obtenerContratos();
+            this.refreshList();
+          },
+          (error) => {
+            Swal.fire(
+              '¡Error!',
+              'Ocurrió un error al intentar eliminar el contrato.',
+              'error'
+            );
+            console.error('Error al eliminar contrato:', error);
+          }
+        );
+      }
+    });
+  }
+
+  filtrarContratos(): void {
+    const termino = this.terminoBusqueda.trim().toLowerCase();
+    if (termino) {
+      this.contratosFiltrados = this.contratos.filter((contrato) => {
+        return (
+          (contrato.nombre_empresa && contrato.nombre_empresa.toLowerCase().includes(termino)) ||
+          (contrato.descripcion_contrato && contrato.descripcion_contrato.toLowerCase().includes(termino)) ||
+          (contrato.fecha_inicio && contrato.fecha_inicio.toLowerCase().includes(termino)) ||
+          (contrato.fecha_fin && contrato.fecha_fin.toLowerCase().includes(termino))
+        );
+      });
+      this.noResultados = this.contratosFiltrados.length === 0;
+    } else {
+      this.contratosFiltrados = [...this.contratos];
+      this.noResultados = false;
+    }
+  }
+  
+
+  contratoIndex(contrato: any): number {
+    return this.contratosFiltrados.indexOf(contrato) + 1;
+  }
+
+  private refreshList() {
+    this.contratoService.obtenerContratos().subscribe(
+      (response) => {
+        if (response.data && response.data.length > 0) {
+          this.contratos = response.data[0];
+          this.contratosFiltrados = [...this.contratos];
+        } else {
+          console.error('La respuesta no contiene datos o el primer array está vacío.');
+        }
+      },
+      (error) => {
+        console.error('Error al obtener la lista de contratos:', error);
+      }
+    );
+  }
+
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
+}

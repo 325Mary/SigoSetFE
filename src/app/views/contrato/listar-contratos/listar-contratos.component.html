@@ -1,18 +1,20 @@
+<!-- list of contracts -->
 <div class="container d-flex justify-content-center mt-5 mb-5">
   <div class="card">
     <div class="card-header card-header-sena-azul"> <!-- Contenedor del título -->
       <h4 class="card-title">Listado de Contratos</h4>
     </div>
     <div class="card-body">
+      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." 
+               (input)="filtrarContratos()" [(ngModel)]="terminoBusqueda">
+      </div>
       <table class="table table-bordered text-center">
         <thead>
-          <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
-            <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
-              (input)="filtrarContratos()" [(ngModel)]="terminoBusqueda">
-          </div>
           <tr>
             <th>ID</th>
             <th>Nombre Empresa</th>
+            <th>Descripcion</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Acciones</th>
@@ -23,13 +25,14 @@
             <tr *ngFor="let contrato of contratosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage };">
               <td>{{ contratoIndex(contrato) }}</td>
               <td>{{ contrato.nombre_empresa }}</td>
+              <td>{{ contrato.descripcion_contrato }}</td>
               <td>{{ contrato.fecha_inicio | date: 'yyyy-MM-dd' }}</td>
               <td>{{ contrato.fecha_fin | date: 'yyyy-MM-dd' }}</td>
               <td>
                 <button (click)="abrirModalEditar(contrato)" title="Editar contrato">
                   <i class="fa fa-edit"></i>
                 </button>
-                <button (click)="eliminarContrato(contrato.idContrato_empresa)" title="Boton de eliminar">
+                <button (click)="eliminarContrato(contrato.idContrato_empresa)" title="Eliminar contrato">
                   <i class="fa fa-trash"></i>
                 </button>
               </td>
@@ -38,47 +41,32 @@
         </tbody>
         <ng-template #noResultados>
           <tr>
-            <td colspan="5" class="text-center">No se encontraron resultados.</td>
+            <td colspan="6" class="text-center">No se encontraron resultados.</td>
           </tr>
         </ng-template>
       </table>
       <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-
-       <button class="btn btn-danger" (click)="abrirModalCrear()" title="Crear perfil">
-      <i class="bi bi-plus"></i> Agregar contrato
-    </button>
-    </div>
-   
-  </div>
-
-  
-</div>
-
-<!-- Paginación -->
-
-
-
-
-
-
-
-<!-- Modal -->
-<div class="modal" [class.show]="mostrarModalEditar">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Contenido del modal -->
-      <app-editar-contrato [contratoSeleccionado]="contratoSeleccionado" (closeModal)="handleCloseModal()"
-        (actualizarContratos)="actualizarContratos()"></app-editar-contrato>
+      <button class="btn btn-danger" (click)="abrirModalCrear()" title="Crear perfil">
+        <i class="bi bi-plus"></i> Agregar contrato
+      </button>
     </div>
   </div>
 </div>
 
+<!-- Modal de creación -->
 <div class="modal" [class.show]="mostrarModalCrear">
   <div class="modal-dialog">
     <div class="modal-content">
-      <!-- Contenido del modal -->
-      <app-crear-contrato (contratoCreado)="actualizarContratos()"
-        (closeModal)="handleCloseModal()"></app-crear-contrato>
+      <app-crear-contrato (contratoCreado)="actualizarContratos()" (closeModal)="handleCloseModal()"></app-crear-contrato>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de edición -->
+<div class="modal" [class.show]="mostrarModalEditar">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-editar-contrato [contratoSeleccionado]="contratoSeleccionado" (closeModal)="handleCloseModal()" (actualizarContratos)="actualizarContratos()"></app-editar-contrato>
     </div>
   </div>
 </div>

@@ -88,8 +88,8 @@ camposCompletos(): boolean {
   return !!(
       this.nuevoContrato.nombre_empresa &&
       this.nuevoContrato.fecha_inicio &&
+      this.nuevoContrato.descripcion_contrato &&
       this.nuevoContrato.fecha_fin
-      // Agrega más condiciones para otros campos si es necesario
   );
 }
 

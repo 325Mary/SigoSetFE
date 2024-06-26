@@ -29,8 +29,10 @@
   </h4>
   <h2 class="section">CERTIFICA</h2>
   <p class="section">
-    Que el contratista {{ obtenerNombreEmpresa() }}, prestó el servicio de vigilancia durante el periodo comprendido entre
-    {{ fechaInicio | date }} y {{ fechaFin | date }} en la sede de {{ obtenerNombreSede() }}, con los siguientes puestos de vigilancia así:
+    Que el contratista {{ obtenerNombreEmpresa() }}, prestó el servicio de vigilancia durante el periodo comprendido
+    entre
+    {{ fechaInicio | date }} y {{ fechaFin | date }} en la sede de {{ obtenerNombreSede() }}, con los siguientes puestos
+    de vigilancia así:
   </p>
 
   <h3 class="section">CERTIFICACIÓN VIGILANCIA HUMANA</h3>
@@ -49,7 +51,8 @@
         <td>{{ puesto.cantidad_puestov }}</td>
         <td>{{ puesto.direccionSedeVHumana}}</td>
         <td>
-          <button class="btn-icon "  (click)="eliminarPuestoVigilancia(puesto)"><span class="fas fa-trash"></span></button>
+          <button class="btn-icon " (click)="eliminarPuestoVigilancia(puesto)"><span
+              class="fas fa-trash"></span></button>
         </td>
       </tr>
     </tbody>
@@ -58,7 +61,7 @@
   <div class="section">
     <label>OBSERVACIONES AL SERVICIO:
       <input type="text" class="form-control" [(ngModel)]="observaciones1">
-        </label>
+    </label>
   </div>
 
   <h3 class="section">CERTIFICACIÓN VIGILANCIA ELECTRÓNICA</h3>
@@ -76,7 +79,8 @@
         <td>{{ puesto.cantidad }}</td>
         <td>{{ puesto.direccionSedeVElectronica }}</td>
         <td>
-          <button class="btn-icon"  (click)="eliminarPuestoElectronico(puesto)"><span class="fas fa-trash"></span></button>
+          <button class="btn-icon" (click)="eliminarPuestoElectronico(puesto)"><span
+              class="fas fa-trash"></span></button>
         </td>
       </tr>
     </tbody>
@@ -85,7 +89,7 @@
   <div class="section">
     <label>OBSERVACIONES AL SERVICIO:
       <input type="text" class="form-control" [(ngModel)]="observaciones2">
-        </label>
+    </label>
   </div>
 
   <div class="section">
@@ -100,16 +104,16 @@
         <tr *ngFor="let obligacion of obligacionesContratista; let i = index">
           <td>{{ i + 1 }}. {{ obligacion.obligacion_contratista }}</td>
           <td>
-            <input type="text" [(ngModel)]="obligacion.cumple" [id]="'opcionesCumpleContratista' + i" list="opcionesCumpleContratista"
-              class="datalist-input" (change)="validarTodosSeleccionados()">
+            <input type="text" [(ngModel)]="obligacion.cumple" [id]="'opcionesCumpleContratista' + i"
+              list="opcionesCumpleContratista" class="datalist-input" (change)="validarTodosSeleccionados()">
             <datalist id="opcionesCumpleContratista">
               <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
             </datalist>
           </td>
           <td>
-          <button class="btn-icon" (click)="eliminarObligacionContratista(i)">
-            <span class="fas fa-trash"></span> 
-          </button>
+            <button class="btn-icon" (click)="eliminarObligacionContratista(i)">
+              <span class="fas fa-trash"></span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -128,15 +132,15 @@
         <tr *ngFor="let obligacion of obligacionesContractuales; let i = index">
           <td>{{ i + 1 }}. {{ obligacion.obligaciones_contractuales }}</td>
           <td>
-            <input type="text" [(ngModel)]="obligacion.cumple2" [id]="'opcionesCumpleContractuales' + i" list="opcionesCumpleContractuales"
-              class="datalist-input" (change)="validarTodosSeleccionados()">
+            <input type="text" [(ngModel)]="obligacion.cumple2" [id]="'opcionesCumpleContractuales' + i"
+              list="opcionesCumpleContractuales" class="datalist-input" (change)="validarTodosSeleccionados()">
             <datalist id="opcionesCumpleContractuales">
               <option *ngFor="let opcion of opcionesCumple" [value]="opcion"></option>
             </datalist>
           </td>
           <td>
-            <button class="btn-icon"  (click)="eliminarObligacionContractual(i)">
-              <span class="fas fa-trash"></span> 
+            <button class="btn-icon" (click)="eliminarObligacionContractual(i)">
+              <span class="fas fa-trash"></span>
             </button>
           </td>
         </tr>
@@ -144,7 +148,8 @@
     </table>
   </div>
 
-  <p class="section"><strong>ANEXOS:</strong> Actas de reunión, memorandos enviados y recibidos, comunicaciones vía correo electrónico.</p>
+  <p class="section"><strong>ANEXOS:</strong> Actas de reunión, memorandos enviados y recibidos, comunicaciones vía
+    correo electrónico.</p>
   <p class="section">Se expide en {{ obtenerNombreSede() }}, a la fecha de {{ fechaActual }}</p>
   <p class="section">DIRECTOR/A (E) {{ centroFormacion.regional || 'N/A' }}</p>
 
@@ -164,18 +169,33 @@
     <button class="btn btn-danger" (click)="guardarInforme()" [disabled]="!todosSeleccionados">Guardar informe</button>
   </div>
 
-<!-- <div class="overlay" *ngIf="isGeneratingPDF">
+  <!-- <div class="overlay" *ngIf="isGeneratingPDF">
   <div class="loading-text">Generando PDF...</div>
 </div> -->
 </div>
-
-<div *ngIf="!fechasSeleccionadas" style="text-align: center; margin-top: 20px;">
-  <label>Seleccione 
-    <br>las fechas de inicio y fin:
-    <br>(Certificacion de centro)</label>
-  <input type="date" [(ngModel)]="fechaInicio" />
-  <input type="date" [(ngModel)]="fechaFin" />
-  <button class="btn btn-muted"(click)="validarFechas()">Continuar</button>
- 
+<div class="container d-flex justify-content-center align-items-center mt-5 mb-2">
+  <div class="card" style="width: 80rem;">
+    <div class="card-header card-header-sena-azul">
+      <h4 class="card-title">Generar Reporte</h4>
+    </div>
+    <div class="card-body d-flex justify-content-center align-items-center">
+      <div *ngIf="!fechasSeleccionadas" class="d-flex align-items-center">
+        <div class="mr-4">
+          <label>Seleccione las fechas de inicio y fin: <br>(Certificación de centro)</label>
+        </div>
+        <div class="form-group mr-3">
+          <label for="fechaInicio">Fecha de Inicio</label>
+          <input type="date" id="fechaInicio" class="form-control custom-date-input" [(ngModel)]="fechaInicio" />
+        </div>
+        <div class="form-group mr-3">
+          <label for="fechaFin">Fecha de Fin</label>
+          <input type="date" id="fechaFin" class="form-control custom-date-input" [(ngModel)]="fechaFin" />
+        </div>
+        <div>
+          <button class="btn btn-danger" (click)="validarFechas()">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

@@ -174,7 +174,6 @@ export class ListaCentrosFormacionComponent implements OnInit {
     this.currentPage = 1;
   }
   
-
   abrirAsignarOrdenadorGasto(item: any): void {
     this.authService.listarUsuarios().subscribe((response) => {
       console.log('Respuesta completa de listarUsuarios:', response);
@@ -198,13 +197,7 @@ export class ListaCentrosFormacionComponent implements OnInit {
   
       console.log('Usuarios filtrados:', usuariosFiltrados);
   
-      const selectOptions = {};
-      usuariosFiltrados.forEach((usuario: any) => {
-        selectOptions[usuario.idUsuario] = usuario.nombre_usuario; // Aquí usamos usuario.idUsuario
-      });
-      console.log('Opciones del select:', selectOptions);
-  
-      if (Object.keys(selectOptions).length === 0) {
+      if (usuariosFiltrados.length === 0) {
         Swal.fire(
           'No hay usuarios disponibles',
           'No se encontraron usuarios con el perfil "Ordenador del gasto" para este centro de formación.',
@@ -213,31 +206,46 @@ export class ListaCentrosFormacionComponent implements OnInit {
         return;
       }
   
+      // Crear opciones para el datalist
+      let optionsHtml = '';
+      usuariosFiltrados.forEach((usuario: any) => {
+        optionsHtml += `<option value="${usuario.nombre_usuario}" data-id="${usuario.idUsuario}">${usuario.nombre_usuario}</option>`;
+      });
+  
       Swal.fire({
         title: 'Asignar Ordenador de Gasto',
-        input: 'select',
-        inputOptions: selectOptions,
-        inputPlaceholder: 'Selecciona un usuario',
+        html: `
+          <input list="usuarios" id="usuarioInput" class="swal2-input" placeholder="Selecciona un usuario">
+          <datalist id="usuarios">
+            ${optionsHtml}
+          </datalist>
+        `,
+        preConfirm: () => {
+          const usuarioInput = (document.getElementById('usuarioInput') as HTMLInputElement).value;
+          const usuarioOption = Array.from(document.querySelectorAll('#usuarios option')).find(
+            option => option.getAttribute('value') === usuarioInput
+          );
+          const userId = usuarioOption ? usuarioOption.getAttribute('data-id') : null;
+          return userId;
+        },
         showCancelButton: true,
         confirmButtonText: 'Asignar',
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         console.log('Resultado del cuadro de diálogo de Swal:', result);
-        if (result.isConfirmed) {
-          console.log('Then de Swal.fire alcanzado');
-          const selectedUserId = Number(result.value); // Convertir a número
+        if (result.isConfirmed && result.value) {
+          const selectedUserId = Number(result.value);
           console.log('ID de usuario seleccionado:', selectedUserId);
-          const selectedUser = usuariosFiltrados.find((usuario: any) => Number(usuario.idUsuario) === selectedUserId); // Aquí usamos find en lugar de filter
+          const selectedUser = usuariosFiltrados.find((usuario: any) => Number(usuario.idUsuario) === selectedUserId);
           console.log('Usuario seleccionado:', selectedUser);
           if (selectedUser) {
-            // Llama a la función asignarOrdenadorGasto aquí
             this.asignarOrdenadorGasto(item, selectedUser);
           }
         }
       });
-  
     });
   }
+  
   
   
   
