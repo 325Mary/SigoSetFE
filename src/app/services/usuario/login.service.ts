@@ -23,7 +23,8 @@ export class LoginService {
     return this.httpClient.post<any>(url, formValue).pipe(
       map(response => {
         if (response.token) {
-          localStorage.setItem('token', response.token); // Aquí agregamos el token al localStorage
+          localStorage.setItem('token', response.token); 
+          localStorage.setItem('idperfil', response.token)
         }
         localStorage.setItem('userId', response.userId);
         console.log('token:', localStorage)
@@ -37,7 +38,7 @@ export class LoginService {
     );
   }
   
-
+ 
   enviarCodigoRestablecimiento(email_usuario: string) {
     return this.httpClient.post<any>(`${this.baseUrl}solicitarRestablecimiento`, { email_usuario });
   }

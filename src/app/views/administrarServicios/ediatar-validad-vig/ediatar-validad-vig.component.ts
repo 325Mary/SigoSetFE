@@ -44,6 +44,8 @@ export class EdiatarValidadVigComponent {
   idcentro_formacion: number
   detalles: any[] = [];
   detallesOriginales: any[] = [];
+  camposModificados: { [key: number]: any } = {};
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -186,6 +188,31 @@ export class EdiatarValidadVigComponent {
     this.obligacionesContractuales.splice(index, 1); 
   }
   
- 
+  onFieldChange(idDetalleContrato: number, field: string, value: any): void {
+    if (!this.camposModificados[idDetalleContrato]) {
+      this.camposModificados[idDetalleContrato] = {};
+    }
+    this.camposModificados[idDetalleContrato][field] = value;
+  }
+
+  guardarCambios(): void {
+    const updates = Object.keys(this.camposModificados).map(idDetalleContrato => {
+      const detalleModificado = this.camposModificados[idDetalleContrato];
+      return this.detalleContratoService.editarDetalleContrato(Number(idDetalleContrato), detalleModificado)
+        .pipe(
+          catchError(error => {
+            console.error(`Error al editar detalle contrato ${idDetalleContrato}:`, error);
+            return of(null); // Continue even if one update fails
+          })
+        );
+    });
+
+    Promise.all(updates).then(() => {
+      Swal.fire('Guardado', 'Los cambios han sido guardados exitosamente', 'success');
+    }).catch(error => {
+      Swal.fire('Error', 'Hubo un problema al guardar los cambios', 'error');
+    });
+  }
+
   
 }
