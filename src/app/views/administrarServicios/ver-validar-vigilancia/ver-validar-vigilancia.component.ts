@@ -155,58 +155,41 @@ console.log(this.firmaUsuarioUrl);
   filtrarObligaciones(): void {
     console.log('Filtrando obligaciones...');
     
-    // Filtrar y mostrar solo una entrada única para obligaciones del contratista
-    const uniqueObligacionesContratista = [];
-    this.detalles.forEach(detalle => {
-      if (detalle.obligacion_contratista !== null && uniqueObligacionesContratista.findIndex(item => item.obligacion_contratista === detalle.obligacion_contratista) === -1) {
-        uniqueObligacionesContratista.push(detalle);
-      }
-    });
-    this.obligacionesContratista = uniqueObligacionesContratista;
+    // Asignar todos los detalles de obligaciones del contratista
+    this.obligacionesContratista = this.detalles
+      .filter(detalle => detalle.obligacion_contratista !== null);
     
-    // Filtrar y mostrar solo una entrada única para obligaciones contractuales
-    const uniqueObligacionesContractuales = [];
-    this.detalles.forEach(detalle => {
-      if (detalle.obligaciones_contractuales !== null && uniqueObligacionesContractuales.findIndex(item => item.obligaciones_contractuales === detalle.obligaciones_contractuales) === -1) {
-        uniqueObligacionesContractuales.push(detalle);
-      }
-    });
-    this.obligacionesContractuales = uniqueObligacionesContractuales;
-  
+    // Asignar todos los detalles de obligaciones contractuales
+    this.obligacionesContractuales = this.detalles
+      .filter(detalle => detalle.obligaciones_contractuales !== null);
+    
     console.log('Obligaciones del contratista:', this.obligacionesContratista);
     console.log('Obligaciones contractuales:', this.obligacionesContractuales);
   }
   
   
+  
   filtrarPuestos(): void {
     console.log('Filtrando puestos...');
     
-    // Filtrar y mostrar solo una entrada única para puestos de vigilancia humana (this.puestosVh)
-    const uniquePuestosVh = [];
-    this.detalles.forEach(detalle => {
-      if (detalle.descripcionVHumana !== null && uniquePuestosVh.findIndex(item => item.descripcionVHumana === detalle.descripcionVHumana) === -1) {
-        uniquePuestosVh.push({
-          descripcionVHumana: detalle.descripcionVHumana,
-          cantidad_puestov: detalle.cantidad_puestov,
-          direccionSedeVHumana: detalle.direccionSedeVHumana
-        });
-      }
-    });
-    this.puestosVh = uniquePuestosVh;
-  
-    // Filtrar y mostrar solo una entrada única para puestos de vigilancia electrónica (this.puestosVE)
-    const uniquePuestosVE = [];
-    this.detalles.forEach(detalle => {
-      if (detalle.descripcion !== null && uniquePuestosVE.findIndex(item => item.descripcion === detalle.descripcion) === -1) {
-        uniquePuestosVE.push({
-          descripcion: detalle.descripcion,
-          cantidad: detalle.cantidad,
-          direccionSedeVElectronica: detalle.direccionSedeVElectronica
-        });
-      }
-    });
-    this.puestosVE = uniquePuestosVE;
-  
+    // Asignar todos los detalles de puestos de vigilancia humana
+    this.puestosVh = this.detalles
+      .filter(detalle => detalle.descripcionVHumana !== null)
+      .map(detalle => ({
+        descripcionVHumana: detalle.descripcionVHumana,
+        cantidad_puestov: detalle.cantidad_puestov,
+        direccionSedeVHumana: detalle.direccionSedeVHumana
+      }));
+    
+    // Asignar todos los detalles de puestos de vigilancia electrónica
+    this.puestosVE = this.detalles
+      .filter(detalle => detalle.descripcion !== null)
+      .map(detalle => ({
+        descripcion: detalle.descripcion,
+        cantidad: detalle.cantidad,
+        direccionSedeVElectronica: detalle.direccionSedeVElectronica
+      }));
+    
     console.log('Obligaciones del pvh:', this.puestosVh);
     console.log('Obligaciones pve:', this.puestosVE);
   }
