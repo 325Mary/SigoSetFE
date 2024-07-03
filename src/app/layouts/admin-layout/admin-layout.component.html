@@ -1,51 +1,40 @@
+<!-- Botón de menú hamburguesa para pantallas pequeñas -->
+<div class="pos-f-t" *ngIf="isLoggedIn && isSmallScreen()" style="background-color: transparent;">
+  <nav class="navbar navbar-light" style="background-color: transparent;">
+    <button class="navbar-toggler" style="background-color: rgb(255, 255, 255);" type="button" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+  <div [ngClass]="{ 'collapse show': sidebarOpen, 'collapse': !sidebarOpen }" id="navbarToggleExternalContent">
+    <div class="sidebar-content">
+      <app-sidebar></app-sidebar>
+    </div>
+  </div>
+</div>
 
-
- <div class="wrapper" [ngClass]="{ 'sidebar-visible': isLoggedIn }">
+<div class="wrapper" [ngClass]="{ 'sidebar-visible': isLoggedIn }">
   <!-- Contenido principal -->
-
   <div class="content" [ngClass]="{ 'content-with-sidebar': isLoggedIn }">
+    <app-navbar></app-navbar> <!-- Mover el navbar dentro del contenido principal -->
     <router-outlet></router-outlet>
-    <app-navbar></app-navbar> 
 
+    <!-- Botón para mostrar el sidebar en pantallas pequeñas -->
+    <button class="sidebar-toggle" *ngIf="!isLoggedIn && isSmallScreen()" (click)="toggleSidebar()">
+      <i class="bi bi-list"></i> <!-- Icono para abrir el sidebar -->
+    </button>
   </div>
 
   <!-- Sidebar (solo se muestra cuando está loggedIn) -->
-  <div *ngIf="isLoggedIn" class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg"  #sidebar>
+  <div *ngIf="isLoggedIn || sidebarOpen" class="sidebar sidebar-open" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg" #sidebar>
     <app-sidebar></app-sidebar>
+    <button class="sidebar-close" (click)="toggleSidebar()">
+      <i class="bi bi-x"></i> <!-- Icono para cerrar el sidebar -->
+    </button>
     <div class="sidebar-background"></div>
   </div>
 
   <!-- Espacio ocupado por el sidebar cuando no está visible -->
   <div *ngIf="!isLoggedIn && !isHomepage()" class="full-width-content"></div>
-
-
-  <div *ngIf="!isLoggedIn && !isHomepage()" class="full-width-content"></div>
-
-
-
- <!-- <div class="fixed-plugin">
-      <div class="dropdown show-dropdown open show">
-          <a href="#" data-toggle="dropdown" aria-expanded="true">
-              <i class="fa fa-cog fa-2x"> </i>
-          </a>
-          <ul class="dropdown-menu show" x-placement="bottom-start"
-              style="position: absolute; top: 41px; left: -231px; will-change: top, left;">
-              <li class="header-title"> Cambiar Colores </li>
-              <li class="adjustments-line">
-                  <a href="javascript:void(0)" class="switch-trigger active-color">
-                      <div class="ml-auto mr-auto">
-                          <span class="badge filter badge-green" data-color="green"></span>
-                          <span class="badge filter badge-orange" data-color="orange"></span>
-                          <span class="badge filter badge-black active" data-color="danger"></span>
-                      </div>
-                      <div class="clearfix"></div>
-                      <div class="ripple-container"></div>
-                  </a>
-              </li>
-          </ul>
-      </div>
-  </div>  -->
-
 </div>
 
 <app-footer></app-footer>

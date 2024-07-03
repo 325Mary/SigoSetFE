@@ -1,43 +1,145 @@
-/* Ajusta la posición del sidebar y el navbar */
-.sidebar {
-  position: fixed; /* Cambia la posición a fija para que se mantenga visible al hacer scroll */
-  top: 0;
-  left: 0;
-  bottom: 0; /* Hace que el sidebar ocupe toda la altura disponible */
-  width: 250px;
-   z-index: 1000;
-}
-
-app-navbar {
-  position: fixed; /* Cambia la posición a fija para que se mantenga visible al hacer scroll */
+/* Botón de menú hamburguesa */
+.pos-f-t {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
-}
-app-footer {
-  position: fixed; /* Cambia la posición a fija para que se mantenga visible al hacer scroll */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
+  z-index: 1030; /* Asegura que el navbar esté siempre en la parte superior */
 }
 
-/* Estilos aplicados solo cuando isLoggedIn es true */
-.content.content-with-sidebar {
-  padding-top: 60px; /* Ajusta el espaciado superior para dejar espacio para el navbar */
-  margin-left: 250px; /* Deja espacio para el sidebar */
-  margin-top: 60px; /* Compensa el espacio del navbar */
+.navbar {
+  padding: 0.5rem 1rem; /* Espaciado dentro del navbar */
 }
 
-@media screen and (max-width:1200px) {
-  .content.content-with-sidebar {
-  margin-left: 0; /* Deja espacio para el sidebar */
-}
+.navbar-toggler {
+  border: none; /* Quitar el borde del botón */
+  outline: none; /* Quitar el borde al hacer clic */
+  padding: 0.25rem 0.5rem; /* Ajustar el tamaño del botón */
+  border-radius: 0.25rem; /* Bordes redondeados para el botón */
 }
 
-
-/* Estilos aplicados solo cuando isLoggedIn es false */
-.full-width-content {
-  margin-left: 0; /* Ajusta el margen izquierdo cuando el sidebar no está visible */
+.navbar-toggler-icon {
+  width: 1.5rem;
+  height: 1.5rem;
 }
+
+/* Estilo del sidebar en pantallas grandes */
+@media (min-width: 768px) {
+  .collapse {
+    position: absolute;
+    top: 50px; /* Ajustar según sea necesario */
+    left: 0;
+    width: 200px; /* Ancho reducido del sidebar */
+    height: calc(100vh - 50px); /* Ajustar la altura para que ocupe todo el viewport */
+    overflow-y: auto; /* Agregar desplazamiento vertical si el contenido es largo */
+    transition: transform 0.3s ease; /* Añade una transición suave para la animación */
+    transform: translateX(-100%); /* Mueve el sidebar fuera de la vista por defecto */
+  }
+  
+  .collapse.show {
+    transform: translateX(0); /* Mueve el sidebar a la vista */
+  }
+}
+
+/* Estilo del sidebar en pantallas pequeñas */
+@media (max-width: 767px) {
+  .collapse {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 80%; /* Hacer el sidebar más pequeño */
+    max-width: 300px; /* Máximo ancho del sidebar */
+    height: 100%;
+    overflow-y: auto; /* Agregar desplazamiento vertical si el contenido es largo */
+    transition: transform 0.3s ease; /* Añade una transición suave para la animación */
+    transform: translateY(-100%); /* Mueve el sidebar fuera de la vista por defecto */
+  }
+  
+  .collapse.show {
+    transform: translateY(0); /* Mueve el sidebar a la vista */
+  }
+}
+
+/* Estilos específicos para el contenido del sidebar */
+.sidebar-content {
+  background-color: rgb(255, 255, 255); /* Fondo blanco */
+  color: black; /* Color de texto negro */
+  padding: 1rem; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  margin-top: -20px;
+  width: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+  max-height: 100vh; /* Ajustar altura máxima para que no se desborde */
+  overflow-y: auto; /* Agregar desplazamiento vertical si el contenido es largo */
+}
+
+/* Estilos para los enlaces dentro del app-sidebar */
+.sidebar-content a {
+  color: #343a40; /* Color de texto por defecto */
+  text-decoration: none; /* Quitar el subrayado del enlace */
+  display: block; /* Asegura que los enlaces ocupen todo el ancho disponible */
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+
+/* Estilo cuando el enlace está activo */
+.sidebar-content a.active {
+  background-color: #007bff; /* Color de fondo azul elegante */
+  color: #fff; /* Color de texto blanco */
+}
+
+/* Estilo para los enlaces cuando el ratón pasa sobre ellos */
+.sidebar-content a:hover {
+  background-color: #e9ecef; /* Fondo gris claro */
+  color: #007bff; /* Color del texto azul */
+}
+
+/* Estilo de los elementos de lista */
+.sidebar-content ul {
+  list-style: none; /* Quitar puntos de lista */
+  padding: 0; /* Quitar el padding por defecto */
+  margin: 0; /* Quitar el margen por defecto */
+}
+
+.sidebar-content li {
+  margin-bottom: 0.5rem; /* Espaciado entre ítems de lista */
+}
+
+/* Estilo para el botón de cierre del sidebar */
+.sidebar-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.2); /* Fondo ligeramente oscuro */
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1040; /* Asegura que el botón esté por encima del contenido */
+}
+
+.sidebar-close:hover {
+  background: rgba(0, 0, 0, 0.4); /* Fondo oscuro al pasar el ratón */
+}
+
+/* Estilo para el botón del sidebar en pantallas pequeñas */
+.sidebar-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background-color: #007bff; /* Color de fondo azul */
+  border: none;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1040; /* Asegura que el botón esté por encima del contenido */
+}
+
+/* Estilo para el icono dentro del botón del sidebar en pantallas pequeñas */
+.sidebar-toggle i {
+  font-size: 1.5rem;
+}
+

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef,HostListener  } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
   username: string = '';
   perfil: string = '';
+  sidebarOpen = false; 
 
   constructor(location: Location, private element: ElementRef, private router: Router, private loginService: LoginService, private tokenValidationService: TokenValidationService) {}
 
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit {
       }
     });
 
+    
     this.loginService.loginStatusChanged.subscribe(status => {
       this.isLoggedIn = status;
       localStorage.setItem('isLoggedIn', JSON.stringify(status));
@@ -46,6 +48,23 @@ export class NavbarComponent implements OnInit {
 
     if (this.isLoggedIn) {
       this.validateToken();
+    }
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  // Método para verificar si la pantalla es pequeña
+  isSmallScreen(): boolean {
+    return window.innerWidth <= 768;
+  }
+
+  // Listener para ajustar el estado del sidebar en función del tamaño de pantalla
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    if (this.isSmallScreen()) {
+      this.sidebarOpen = false;
     }
   }
 

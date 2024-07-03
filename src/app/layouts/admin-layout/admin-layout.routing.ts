@@ -180,8 +180,8 @@ export const AdminLayoutRoutes: Routes = [
 
 
 
-    { path: 'crearObligacionContractual', component: CrearObligacionComponent },
-    { path: 'administrarObligacionContractual', component: AdministrarObligacionComponent },
+    { path: 'crearObligacion', component: CrearObligacionComponent },
+    { path: 'administrarObligacion', component: AdministrarObligacionComponent },
     { path: 'verObligacionContractual', component: VerObligacionModalComponent },
     { path: 'editarObligacionContractual', component: EditarObligacionModalComponent },
 
@@ -192,7 +192,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listarModulos', component: ListaModuloComponent },
     { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent },
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent },
-    { path: 'listaDeObligacionesPorContrato', component: ListarObligacionesComponent },
+    { path: 'listaDeObligaciones', component: ListarObligacionesComponent },
     { path: 'reporte', component: EnviarReporteComponent },
     { path: 'ListaInformes', component: ListarValidarVigilanciaComponent},
     { path: 'verInforme/:nombreDetalleContrato', component: VerValidarVigilanciaComponent},

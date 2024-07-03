@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef,HostListener  } from '@angular/core';
 import { Location, PopStateEvent } from '@angular/common';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
@@ -18,8 +18,10 @@ export class AdminLayoutComponent implements OnInit {
   isLoggedIn: boolean = false;
   elemMainPanel: ElementRef | undefined;
   elemSidebar: ElementRef | undefined;
+  sidebarOpen = false; // Estado del sidebar
 
-  constructor(public location: Location, private router: Router, private loginService: LoginService, private tokenValidationService: TokenValidationService) {}
+
+  constructor(public location: Location, private router: Router, private loginService: LoginService, private tokenValidationService: TokenValidationService) {   this.updateSidebar();}
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
@@ -48,7 +50,31 @@ export class AdminLayoutComponent implements OnInit {
       this.validateToken();
     }
   }
+  
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.updateSidebar();
+  }
 
+  // Función para comprobar si la pantalla es pequeña
+  isSmallScreen(): boolean {
+    return window.innerWidth < 768;
+  }
+
+  // Actualiza el estado del sidebar según el tamaño de pantalla
+  updateSidebar() {
+    if (this.isSmallScreen()) {
+      this.sidebarOpen = false; // Cierra el sidebar en pantallas pequeñas
+    }
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  navigateTo(path: string) {
+    this.router.navigate([path]);
+  }
   private validateToken(): void {
     const storedToken = this.tokenValidationService.getToken();
 
