@@ -143,9 +143,7 @@
   <div class="signature-container" style="text-align: center; margin-top: 20px;">
     <div class="signature-block" style="display: flex; align-items: center; justify-content: center;">
       <div class="logo-container" style="margin-right: 20px;">
-        <button class="logo-button" (click)="triggerFileInput()">Seleccionar firma</button>
-        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" class="hidden-file-input">
-        <img *ngIf="logoImage" [src]="logoImage" alt="Uploaded Logo" width="80" height="80" style="margin-top: 10px;">
+        <img [src]="firmaUsuarioUrl" alt="Firma del usuario" class="firma-preview" width="80" height="80" style="margin-top: 10px;">
       </div>
       <div class="signature-details">
         <p class="section">Firmado digitalmente por {{ detalles[0].ordenador_gasto_centro || 'N/A' }}</p>

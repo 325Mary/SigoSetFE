@@ -43,6 +43,7 @@ export class VerValidarVigilanciaComponent implements OnInit {
   idcertificacion_centrof: number | null = null;
   idcentro_formacion: number
   detalles: any[] = [];
+  firmaUsuarioUrl: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,6 +67,9 @@ export class VerValidarVigilanciaComponent implements OnInit {
         .subscribe(response => {
           // Aquí maneja la respuesta del servicio
           this.detalles = response.data;
+          this.firmaUsuarioUrl = `http://localhost:3000/uploads/${response.data[0].firma_usuario}`;
+console.log(this.firmaUsuarioUrl);
+
           console.log('Detalles del contrato por nombre:', this.detalles);
           
           // Asignar los datos obtenidos
@@ -151,64 +155,48 @@ export class VerValidarVigilanciaComponent implements OnInit {
   filtrarObligaciones(): void {
     console.log('Filtrando obligaciones...');
     
-    // Filtrar y mostrar solo una entrada única para obligaciones del contratista
-    const uniqueObligacionesContratista = [];
-    this.detalles.forEach(detalle => {
-      if (detalle.obligacion_contratista !== null && uniqueObligacionesContratista.findIndex(item => item.obligacion_contratista === detalle.obligacion_contratista) === -1) {
-        uniqueObligacionesContratista.push(detalle);
-      }
-    });
-    this.obligacionesContratista = uniqueObligacionesContratista;
+    // Asignar todos los detalles de obligaciones del contratista
+    this.obligacionesContratista = this.detalles
+      .filter(detalle => detalle.obligacion_contratista !== null);
     
-    // Filtrar y mostrar solo una entrada única para obligaciones contractuales
-    const uniqueObligacionesContractuales = [];
-    this.detalles.forEach(detalle => {
-      if (detalle.obligaciones_contractuales !== null && uniqueObligacionesContractuales.findIndex(item => item.obligaciones_contractuales === detalle.obligaciones_contractuales) === -1) {
-        uniqueObligacionesContractuales.push(detalle);
-      }
-    });
-    this.obligacionesContractuales = uniqueObligacionesContractuales;
-  
+    // Asignar todos los detalles de obligaciones contractuales
+    this.obligacionesContractuales = this.detalles
+      .filter(detalle => detalle.obligaciones_contractuales !== null);
+    
     console.log('Obligaciones del contratista:', this.obligacionesContratista);
     console.log('Obligaciones contractuales:', this.obligacionesContractuales);
   }
   
   
+  
   filtrarPuestos(): void {
     console.log('Filtrando puestos...');
     
-    // Filtrar y mostrar solo una entrada única para puestos de vigilancia humana (this.puestosVh)
-    const uniquePuestosVh = [];
-    this.detalles.forEach(detalle => {
-      if (detalle.descripcionVHumana !== null && uniquePuestosVh.findIndex(item => item.descripcionVHumana === detalle.descripcionVHumana) === -1) {
-        uniquePuestosVh.push({
-          descripcionVHumana: detalle.descripcionVHumana,
-          cantidad_puestov: detalle.cantidad_puestov,
-          direccionSedeVHumana: detalle.direccionSedeVHumana
-        });
-      }
-    });
-    this.puestosVh = uniquePuestosVh;
-  
-    // Filtrar y mostrar solo una entrada única para puestos de vigilancia electrónica (this.puestosVE)
-    const uniquePuestosVE = [];
-    this.detalles.forEach(detalle => {
-      if (detalle.descripcion !== null && uniquePuestosVE.findIndex(item => item.descripcion === detalle.descripcion) === -1) {
-        uniquePuestosVE.push({
-          descripcion: detalle.descripcion,
-          cantidad: detalle.cantidad,
-          direccionSedeVElectronica: detalle.direccionSedeVElectronica
-        });
-      }
-    });
-    this.puestosVE = uniquePuestosVE;
-  
+    // Asignar todos los detalles de puestos de vigilancia humana
+    this.puestosVh = this.detalles
+      .filter(detalle => detalle.descripcionVHumana !== null)
+      .map(detalle => ({
+        descripcionVHumana: detalle.descripcionVHumana,
+        cantidad_puestov: detalle.cantidad_puestov,
+        direccionSedeVHumana: detalle.direccionSedeVHumana
+      }));
+    
+    // Asignar todos los detalles de puestos de vigilancia electrónica
+    this.puestosVE = this.detalles
+      .filter(detalle => detalle.descripcion !== null)
+      .map(detalle => ({
+        descripcion: detalle.descripcion,
+        cantidad: detalle.cantidad,
+        direccionSedeVElectronica: detalle.direccionSedeVElectronica
+      }));
+    
     console.log('Obligaciones del pvh:', this.puestosVh);
     console.log('Obligaciones pve:', this.puestosVE);
   }
   
 
   
+ 
   async exportToPDF() {
     try {
       this.isGeneratingPDF = true;
@@ -217,28 +205,26 @@ export class VerValidarVigilanciaComponent implements OnInit {
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
   
-      const margin = 10; // Define una constante para el margen
-      const contentWidth = pdfWidth - margin * 2; // Ajusta el ancho para el margen
+      const margin = 10;
+      const contentWidth = pdfWidth - margin * 2;
   
-      let y = margin; // Comienza con el margen superior
+      let y = margin;
   
-      // Función para crear un canvas y agregarlo al PDF
       const addCanvasToPDF = async (element: HTMLElement, yOffset: number) => {
         const canvas = await html2canvas(element, { scale: 1 });
         const imgData = canvas.toDataURL('image/png');
         const imgProps = pdf.getImageProperties(imgData);
         const imgHeight = (imgProps.height * contentWidth) / imgProps.width;
   
-        if (yOffset + imgHeight > pdfHeight - margin) { // Ajuste para el margen inferior
+        if (yOffset + imgHeight > pdfHeight - margin) {
           pdf.addPage();
-          yOffset = margin; // Reinicia en el margen superior en la nueva página
+          yOffset = margin;
         }
   
-        pdf.addImage(imgData, 'PNG', margin, yOffset, contentWidth, imgHeight); // Agrega la imagen con el margen izquierdo
+        pdf.addImage(imgData, 'PNG', margin, yOffset, contentWidth, imgHeight);
         return yOffset + imgHeight;
       };
   
-      // Oculta temporalmente el input de archivo y los botones
       const fileInput = document.querySelector('input[type="file"]') as HTMLElement;
       const exportButton = document.querySelector('.export-button') as HTMLElement;
       const logoButton = document.querySelector('.logo-button') as HTMLElement;
@@ -247,41 +233,58 @@ export class VerValidarVigilanciaComponent implements OnInit {
       if (exportButton) exportButton.style.display = 'none';
       if (logoButton) logoButton.style.display = 'none';
   
-      // Captura cada sección sin duplicar
       const sections = data.querySelectorAll('.section');
       for (let i = 0; i < sections.length; i++) {
-        // Asegúrate de que cada sección se procese una vez
         if (sections[i].parentElement === data) {
           y = await addCanvasToPDF(sections[i] as HTMLElement, y);
         }
       }
   
-      // Agrega el bloque de firma al PDF
       const signatureBlock = document.querySelector('.signature-container') as HTMLElement;
-      if (signatureBlock) {
-        y = await addCanvasToPDF(signatureBlock, y);
+      const firmaPreview = document.querySelector('.firma-preview') as HTMLImageElement;
+  
+      if (signatureBlock && firmaPreview) {
+        const img = new Image();
+        img.src = firmaPreview.src;
+  
+        // Renderizar firma y descripción juntas en un solo bloque
+        const canvasSignature = await html2canvas(signatureBlock, { scale: 1 });
+        const signatureImgData = canvasSignature.toDataURL('image/png');
+        const signatureImgProps = pdf.getImageProperties(signatureImgData);
+        const signatureImgHeight = (signatureImgProps.height * contentWidth) / signatureImgProps.width;
+  
+        if (y + signatureImgHeight > pdfHeight - margin) {
+          pdf.addPage();
+          y = margin;
+        }
+  
+        // Agregar el bloque de descripción
+        pdf.addImage(signatureImgData, 'PNG', margin, y, contentWidth, signatureImgHeight);
+        
+        // Añadir firma junto al bloque de descripción
+        pdf.addImage(img.src, 'PNG', margin + contentWidth / 4, y, 30, 0);
+  
+        // Actualizar posición vertical
+        y += Math.max(signatureImgHeight, 10); // Ajusta el espacio después de la firma
+  
+        const currentDate = new Date();
+        const fileName = `informe_${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)}-${currentDate.getDate()}.pdf`;
+  
+        pdf.save(fileName);
+  
+        if (fileInput) fileInput.style.display = 'block';
+        if (exportButton) exportButton.style.display = 'block';
+        if (logoButton) logoButton.style.display = 'block';
+  
+        this.isGeneratingPDF = false;
+  
+        this.router.navigate(['/ListaInformes']);
       }
-  
-      const currentDate = new Date();
-      const fileName = `informe_${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)}-${currentDate.getDate()}.pdf`;
-  
-      // Guarda el PDF con el nombre de archivo generado
-      pdf.save(fileName);
-  
-      // Establece isGeneratingPDF en false para cerrar la superposición
-      this.isGeneratingPDF = false;
-  
-      // Muestra el input de archivo y los botones nuevamente
-      if (fileInput) fileInput.style.display = 'block';
-      if (exportButton) exportButton.style.display = 'block';
-      if (logoButton) logoButton.style.display = 'block';
-  
-      // Navega a una ruta específica
-      this.router.navigate(['/ListaInformes']);
     } catch (error) {
       console.error('Error al generar el PDF:', error);
       this.isGeneratingPDF = false;
     }
   }
-
+  
 }
+ 

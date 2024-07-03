@@ -11,96 +11,78 @@
         </button>
       </div>
 
-      <!-- Contenedor para Obligaciones de Contratistas -->
-      <div class="card mt-4">
-        <div class="card-header  card-header-sena-azul">
-          <h5 class="card-title">Obligaciones de Contratistas</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-group" style="margin: 20px 10px;">
-            <input type="text" class="form-control mb-2" placeholder="Buscar contratistas por empresa..." [(ngModel)]="searchTextContratistas" (input)="filtrarContratistas()">
-          </div>
-          <div class="table-responsive">
-            <table class="table" *ngIf="contratistasFiltrados.length > 0">
-              <thead class="text-dark">
-                <tr>
-                  <th>ID</th>
-                  <th>Contrato con la Empresa</th>
-                  <th>Obligación Contratista</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let obligacion of contratistasFiltrados | paginate: { itemsPerPage: 5, currentPage: contratistasPage, id: 'contratistas-pagination' }; let i = index">
-                  <td>{{ (contratistasPage - 1) * 5 + i + 1 }}</td>
-                  <td>{{ obligacion.nombre_empresa }}</td>
-                  <td>{{ obligacion.obligacion_contratista }}</td>
-                  <td>
-                    <button (click)="abrirModalVerO(obligacion)" id="button" title="Ver Obligación">
-                      <i class="fa fa-eye icono"></i>
-                    </button>
-                    <button (click)="abrirModalEditar(obligacion)" id="button" title="Editar Obligación">
-                      <i class="fa fa-edit icono"></i>
-                    </button>
-                    <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)" id="button" title="Eliminar Obligación">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <pagination-controls (pageChange)="cambiarPaginaContratistas($event)" id="contratistas-pagination"></pagination-controls>
-          <div class="alert alert-muted" role="alert" *ngIf="contratistasFiltrados.length === 0">
-            No se encontraron obligaciones de contratistas.
-          </div>
-        </div>
+      <!-- Filtro y tabla para mostrar obligaciones de contratistas -->
+      <input type="text" class="form-control mb-2" placeholder="Buscar contratistas por empresa..." [(ngModel)]="searchTextContratistas" (input)="filtrarContratistas()">
+      <table class="table table-bordered text-center" *ngIf="contratistasFiltrados.length > 0">
+        <thead class="thead-light">
+          <tr>
+            <th>ID</th>
+            <th>Contrato con la Empresa</th>
+            <th>Descripcion de contrato</th>
+            <th>Obligación Contratista</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obligacion of contratistasFiltrados | paginate: { itemsPerPage: 5, currentPage: contratistasPage, id: 'contratistas-pagination' } ; let i = index">
+            <td>{{ (contratistasPage - 1) * 5 + i + 1 }}</td>
+            <td>{{ obligacion.nombre_empresa }}</td>
+            <td>{{obligacion.descripcion_contrato}}</td>
+            <td>{{ obligacion.obligacion_contratista }}</td>
+            <td>
+              <button (click)="abrirModalVerO(obligacion)">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button (click)="abrirModalEditar(obligacion)">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="cambiarPaginaContratistas($event)" id="contratistas-pagination"></pagination-controls>
+      <div class="alert alert-muted" role="alert" *ngIf="contratistasFiltrados.length === 0">
+        No se encontraron obligaciones de contratistas.
       </div>
 
-      <!-- Contenedor para Obligaciones Contractuales -->
-      <div class="card mt-4">
-        <div class="card-header  card-header-sena-azul">
-          <h5 class="card-title">Obligaciones Contractuales</h5>
-        </div>
-        <div class="card-body">
-          <div class="form-group" style="margin: 20px 10px;">
-            <input type="text" class="form-control mb-2" placeholder="Buscar contractuales por empresa..." [(ngModel)]="searchTextContractuales" (input)="filtrarContractuales()">
-          </div>
-          <div class="table-responsive">
-            <table class="table" *ngIf="contractualesFiltrados.length > 0">
-              <thead class="text-dark">
-                <tr>
-                  <th>ID</th>
-                  <th>Contrato con la Empresa</th>
-                  <th>Obligación Contractual</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let obligacion of contractualesFiltrados | paginate: { itemsPerPage: 5, currentPage: contractualesPage, id: 'contractuales-pagination' }; let i = index">
-                  <td>{{ (contractualesPage - 1) * 5 + i + 1 }}</td>
-                  <td>{{ obligacion.nombre_empresa }}</td>
-                  <td>{{ obligacion.obligaciones_contractuales }}</td>
-                  <td>
-                    <button (click)="abrirModalVerO(obligacion)" id="button" title="Ver Obligación">
-                      <i class="fa fa-eye"></i>
-                    </button>
-                    <button (click)="abrirModalEditar(obligacion)" id="button" title="Editar Obligación">
-                      <i class="fa fa-edit icono"></i>
-                    </button>
-                    <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)" id="button" title="Eliminar Obligación">
-                      <i class="fa fa-trash icono"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <pagination-controls (pageChange)="cambiarPaginaContractuales($event)" id="contractuales-pagination"></pagination-controls>
-          <div class="alert alert-muted" role="alert" *ngIf="contractualesFiltrados.length === 0">
-            No se encontraron obligaciones contractuales.
-          </div>
-        </div>
+      <!-- Filtro y tabla para mostrar obligaciones contractuales -->
+      <input type="text" class="form-control mb-2" placeholder="Buscar contractuales por empresa..." [(ngModel)]="searchTextContractuales" (input)="filtrarContractuales()">
+      <table class="table table-bordered text-center" *ngIf="contractualesFiltrados.length > 0">
+        <thead class="thead-light">
+          <tr>
+            <th>ID</th>
+            <th>Contrato con la Empresa</th>
+            <th>Descripcion de contrato</th>
+            <th>Obligación Contractual</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obligacion of contractualesFiltrados | paginate: { itemsPerPage: 5, currentPage: contractualesPage, id: 'contractuales-pagination' }; let i = index">
+            <td>{{ (contractualesPage - 1) * 5 + i + 1 }}</td>
+            <td>{{ obligacion.nombre_empresa }}</td>
+            <td>{{obligacion.descripcion_contrato}}</td>
+            <td>{{ obligacion.obligaciones_contractuales }}</td>
+            <td>
+              <button (click)="abrirModalVerO(obligacion)">
+                <i class="bi bi-eye"></i>
+              </button>
+              <button (click)="abrirModalEditar(obligacion)">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button (click)="confirmarEliminacion(obligacion.idobligaciones_contrato)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="cambiarPaginaContractuales($event)" id="contractuales-pagination"></pagination-controls>
+      <div class="alert alert-muted" role="alert" *ngIf="contractualesFiltrados.length === 0">
+        No se encontraron obligaciones contractuales.
       </div>
     </div>
   </div>

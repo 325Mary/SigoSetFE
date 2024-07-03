@@ -211,4 +211,52 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
       this.isOrdenadorG = idperfil === 2;
     }
   }
+
+  eliminarPuestoHumano(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esta acción.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminarlo',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._puestosVXCentroService.eliminarPuestoVxCentro(id).subscribe(
+          () => {
+            this.puestoVxCentro = this.puestoVxCentro.filter(puesto => puesto.idpuestosvxcentrof !== id);
+            Swal.fire('Eliminado', 'El puesto ha sido eliminado.', 'success');
+          },
+          (error) => {
+            console.error('Error eliminando puesto humano:', error);
+            Swal.fire('Error', 'Hubo un error al eliminar el puesto.', 'error');
+          }
+        );
+      }
+    });
+  }
+
+  eliminarPuestoElectronico(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esta acción.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminarlo',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._puestosEXCentroService.eliminarPuestoVExCentro(id).subscribe(
+          () => {
+            this.puestoExCentro = this.puestoExCentro.filter(puesto => puesto.idpuntosvelectronica !== id);
+            Swal.fire('Eliminado', 'El puesto ha sido eliminado.', 'success');
+          },
+          (error) => {
+            console.error('Error eliminando puesto electrónico:', error);
+            Swal.fire('Error', 'Hubo un error al eliminar el puesto.', 'error');
+          }
+        );
+      }
+    });
+  }
 }

@@ -1,20 +1,29 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import {  TokenValidationService} from "../../services/VertificacionUser/token-validation.service";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmpresaService {
   private baseUrl = environment.apiUrl;
-
-  constructor(private httpClient: HttpClient) {}
+  private getHeaders(): HttpHeaders {
+    const token = this.tokenValidationService.getToken(); // Obtén el token de autenticación
+    console.log(token)
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `${token}` // Agrega el token al encabezado de autorización
+    });
+  }
+  constructor(private httpClient: HttpClient, private tokenValidationService: TokenValidationService) {}
 
   obtenerEmpresas(): Observable<any> {
     const url = `${this.baseUrl}listEmpresa`;
-    return this.httpClient.get<any>(url);
+    return this.httpClient.get<any>(url, { headers: this.getHeaders() });
   }
 
   crearEmpresa(empresaData: any): Observable<any> {
