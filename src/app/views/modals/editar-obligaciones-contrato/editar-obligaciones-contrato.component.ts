@@ -46,7 +46,7 @@ export class EditarObligacionesContratoComponent  {
 
   onEmpresaChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    const selectedContrato = this.contratos.find(contrato => contrato.nombre_empresa === inputElement.value);
+    const selectedContrato = this.contratos.find(contrato => contrato.descripcion_contrato === inputElement.value);
     if (selectedContrato) {
       this.obligacionSeleccionada.idContrato_empresa = selectedContrato.idContrato_empresa;
     }

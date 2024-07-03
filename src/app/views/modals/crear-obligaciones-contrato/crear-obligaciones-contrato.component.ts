@@ -91,10 +91,10 @@ export class CrearObligacionesContratoComponent {
 
   onEmpresaChangeContractual(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    const selectedContrato = this.contratos.find(contrato => contrato.nombre_empresa.trim() === inputElement.value.trim());
+    const selectedContrato = this.contratos.find(contrato => contrato.descripcion_contrato.trim() === inputElement.value.trim());
     if (selectedContrato) {
       this.nuevaObligacionContractual.idContrato_empresa = selectedContrato.idContrato_empresa;
-      this.nombreContratoSeleccionadoContractual = selectedContrato.nombre_empresa;
+      this.nombreContratoSeleccionadoContractual = selectedContrato.descripcion_contrato;
     }
   }
 
@@ -109,10 +109,10 @@ export class CrearObligacionesContratoComponent {
 
   onEmpresaChangeContratista(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    const selectedContrato = this.contratos.find(contrato => contrato.nombre_empresa.trim() === inputElement.value.trim());
+    const selectedContrato = this.contratos.find(contrato => contrato.descripcion_contrato.trim() === inputElement.value.trim());
     if (selectedContrato) {
       this.nuevaObligacionContratista.idContrato_empresa = selectedContrato.idContrato_empresa;
-      this.nombreContratoSeleccionadoContratista = selectedContrato.nombre_empresa;
+      this.nombreContratoSeleccionadoContratista = selectedContrato.descripcion_contrato;
     }
   }
 

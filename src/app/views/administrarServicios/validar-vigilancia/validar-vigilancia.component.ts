@@ -12,6 +12,8 @@ import { DetalleContratoService } from "../../../services/detalleContrato/detall
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CentroFormacion } from 'app/models/centro-formacion/centro-formacion';
+import { LoginService } from '../../../services/usuario/login.service';
+
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Console } from 'console';
@@ -43,7 +45,11 @@ export class ValidarVigilanciaComponent implements OnInit {
   observaciones1: string = '';
   observaciones2: string = '';
   todosSeleccionados: boolean;
-
+  userData: any; 
+  firmaUsuarioFile: File | null = null;
+  firmaUsuarioUrl: string | null = null;
+  userId: string;
+  
   constructor(
     private informeS: InformeService,
     private _puestosEXCentroService: PuestosEXcentroService,
@@ -55,13 +61,17 @@ export class ValidarVigilanciaComponent implements OnInit {
     private certificacionCentroService: CentificacionCentroService,
     private detalleContratoService: DetalleContratoService,
     private datePipe: DatePipe,
+    private signInUpService: LoginService,
   ) { }
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userId'); 
+    console.log(this.userId)
+    this.getUserData();
     this.route.params.subscribe(params => {
-      // Obtener el ID del centro de los parámetros de ruta
+      
       this.centroId = params['idcentro_formacion'];
-      // Llamar a las funciones para obtener los puestos después de obtener el ID del centro
+     
       this.obtenerPuestosVPorCentro(Number(this.centroId));
       this.obtenerPuestosVEPorCentro(Number(this.centroId));
       this.obtenerSedesPorCentroFormacion(String(this.centroId));
@@ -69,18 +79,16 @@ export class ValidarVigilanciaComponent implements OnInit {
     });
     this.fechaActual = this.datePipe.transform(new Date(), 'dd \'de\' MMMM \'de\' yyyy');
   }
+
   validarTodosSeleccionados(): void {
-    // Verifica que todas las opciones de los datalists estén seleccionadas
     this.todosSeleccionados = true;
   
-    // Verifica los datalists de obligaciones del contratista
     this.obligacionesContratista.forEach(obligacion => {
       if (!obligacion.cumple) {
         this.todosSeleccionados = false;
       }
     });
   
-    // Verifica los datalists de obligaciones contractuales
     this.obligacionesContractuales.forEach(obligacion => {
       if (!obligacion.cumple2) {
         this.todosSeleccionados = false;
@@ -88,6 +96,26 @@ export class ValidarVigilanciaComponent implements OnInit {
     });
   }
   
+  getUserData() {
+    this.signInUpService.getUserById(this.userId).subscribe(
+      (userData) => {
+        this.userData = userData;
+        console.log('UserData:', this.userData);
+
+        if (this.userData.user.firma_usuario) {
+          this.firmaUsuarioUrl = `http://localhost:3000/uploads/${this.userData.user.firma_usuario}`;
+        }
+      },
+      (error) => {
+        console.error('Error al obtener los datos del usuario:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.message 
+        });
+      }
+    );
+  }
 
   obtenerPuestosVPorCentro(centroId: number): void {
     this._puestosVXCentroService.obtenerPuestosVxCentro(centroId).subscribe(
@@ -97,11 +125,9 @@ export class ValidarVigilanciaComponent implements OnInit {
         console.log('vxcentro:', response.data);
         console.log('empresa:', idempresa);
 
-        // Llamar al método para obtener las obligaciones del centro
         this.obtenerObligacionesPorEmpresa(idempresa);
       },
       (error) => {
-        // Manejar el error en caso de que ocurra
       }
     );
   }
@@ -114,11 +140,9 @@ export class ValidarVigilanciaComponent implements OnInit {
         console.log('vexcentro:', response.data);
         console.log('empresa:', idempresa);
 
-        // Llamar al método para obtener las obligaciones del centro
         this.obtenerObligacionesPorEmpresa(idempresa);
       },
       (error) => {
-        // Manejar el error en caso de que ocurra
       }
     );
   }
@@ -127,13 +151,11 @@ export class ValidarVigilanciaComponent implements OnInit {
     this.informeS.obtenerObliXcentro(idempresa).subscribe(
       (obligacionesResponse) => {
         console.log('Respuesta de obtenerObliXcentro:', obligacionesResponse);
-        // Filtrar y asignar las obligaciones a los arrays correspondientes
         this.obligacionesContratista = obligacionesResponse.filter(obligacion => obligacion.idobligaciones_contratista !== null);
         this.obligacionesContractuales = obligacionesResponse.filter(obligacion => obligacion.idobligaciones_contractuales !== null);
       },
       (error) => {
         console.error('Error al obtener las obligaciones:', error);
-        // Aquí puedes manejar el error de acuerdo a tus necesidades
       }
     );
   }
@@ -154,19 +176,17 @@ export class ValidarVigilanciaComponent implements OnInit {
   }
 
   getSedeCiudadDireccion(sedeId: number): string {
-    const sede = this.sedes.find(s => s.id === sedeId); // Ajusta según el nombre del campo identificador
+    const sede = this.sedes.find(s => s.id === sedeId); 
     return sede ? ` ${sede.dir_sede_formacion}` : 'N/A';
   }
 
   obtenerNombreEmpresa(): string {
-    // Suponiendo que la información de la empresa está disponible en los arreglos puestoVxCentro y puestoExCentro
     const empresa = this.puestoVxCentro.length > 0 ? this.puestoVxCentro[0].nombre_empresa :
       this.puestoExCentro.length > 0 ? this.puestoExCentro[0].nombre_empresa : 'N/A';
     return empresa;
   }
 
   obtenerNombreSede(): string {
-    // Suponiendo que la información de la sede está disponible en el arreglo de sedes
     const sede = this.sedes.length > 0 ? this.sedes[0].sede_formacion : 'N/A';
     return sede;
   }
@@ -199,89 +219,10 @@ export class ValidarVigilanciaComponent implements OnInit {
     fileInput.click();
   }
 
-  async exportToPDF() {
-    try {
-      this.isGeneratingPDF = true;
-      const data = document.querySelector('.container') as HTMLElement;
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-  
-      const margin = 10; // Define una constante para el margen
-      const contentWidth = pdfWidth - margin * 2; // Ajusta el ancho para el margen
-  
-      let y = margin; // Comienza con el margen superior
-  
-      // Función para crear un canvas y agregarlo al PDF
-      const addCanvasToPDF = async (element: HTMLElement, yOffset: number) => {
-        const canvas = await html2canvas(element, { scale: 1 });
-        const imgData = canvas.toDataURL('image/png');
-        const imgProps = pdf.getImageProperties(imgData);
-        const imgHeight = (imgProps.height * contentWidth) / imgProps.width;
-  
-        if (yOffset + imgHeight > pdfHeight - margin) { // Ajuste para el margen inferior
-          pdf.addPage();
-          yOffset = margin; // Reinicia en el margen superior en la nueva página
-        }
-  
-        pdf.addImage(imgData, 'PNG', margin, yOffset, contentWidth, imgHeight); // Agrega la imagen con el margen izquierdo
-        return yOffset + imgHeight;
-      };
-  
-      // Oculta temporalmente el input de archivo y los botones
-      const fileInput = document.querySelector('input[type="file"]') as HTMLElement;
-      const exportButton = document.querySelector('.export-button') as HTMLElement;
-      const logoButton = document.querySelector('.logo-button') as HTMLElement;
-  
-      if (fileInput) fileInput.style.display = 'none';
-      if (exportButton) exportButton.style.display = 'none';
-      if (logoButton) logoButton.style.display = 'none';
-  
-      // Captura cada sección sin duplicar
-      const sections = data.querySelectorAll('.section');
-      for (let i = 0; i < sections.length; i++) {
-        // Asegúrate de que cada sección se procese una vez
-        if (sections[i].parentElement === data) {
-          y = await addCanvasToPDF(sections[i] as HTMLElement, y);
-        }
-      }
-  
-      // Agrega el bloque de firma al PDF
-      const signatureBlock = document.querySelector('.signature-container') as HTMLElement;
-      if (signatureBlock) {
-        y = await addCanvasToPDF(signatureBlock, y);
-      }
-  
-      const currentDate = new Date();
-      const fileName = `informe_${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)}-${currentDate.getDate()}.pdf`;
-  
-      // Guarda el PDF con el nombre de archivo generado
-      pdf.save(fileName);
-  
-      // Establece isGeneratingPDF en false para cerrar la superposición
-      this.isGeneratingPDF = false;
-  
-      // Muestra el input de archivo y los botones nuevamente
-      if (fileInput) fileInput.style.display = 'block';
-      if (exportButton) exportButton.style.display = 'block';
-      if (logoButton) logoButton.style.display = 'block';
-  
-      // Navega a una ruta específica
-      this.router.navigate(['/listaCentroFormacion']);
-    } catch (error) {
-      console.error('Error al generar el PDF:', error);
-      this.isGeneratingPDF = false;
-    }
-  }
   
   
     
-    selectAllCheckboxes(checked: boolean): void {
-      const checkboxes = document.querySelectorAll('.table.table-bordered.section input[type="checkbox"]');
-      checkboxes.forEach((checkbox: HTMLInputElement) => {
-        checkbox.checked = checked;
-      });
-    }
+    
     validarFechas(): void {
       if (this.fechaInicio && this.fechaFin) {
         const fechaInicioObj = new Date(this.fechaInicio);
@@ -322,10 +263,8 @@ export class ValidarVigilanciaComponent implements OnInit {
     
     guardarInforme(): void {
       if (this.idcertificacion_centrof) {
-        // Definir variables auxiliares para almacenar los detalles de contrato
         let detallesContrato: any[] = [];
     
-        // Iterar sobre las obligaciones del contratista y los puestos de vigilancia humana
         this.obligacionesContratista.forEach((obligacion) => {
           this.puestoVxCentro.forEach((puestoVigilancia) => {
             detallesContrato.push({
@@ -333,6 +272,7 @@ export class ValidarVigilanciaComponent implements OnInit {
               idobligaciones_contrato: obligacion.idobligaciones_contrato,
               cumple: obligacion.cumple,
               nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
+              firma_usuario:  this.userData.user.firma_usuario ,
               descripcionVHumana: puestoVigilancia.descripcionVHumana || '',
               cantidad_puestov: puestoVigilancia.cantidad_puestov || 0,
               direccionSedeVHumana: puestoVigilancia.direccionSedeVHumana || '',
@@ -348,7 +288,6 @@ export class ValidarVigilanciaComponent implements OnInit {
           });
         });
     
-        // Iterar sobre las obligaciones contractuales y los puestos de vigilancia electrónica
         this.obligacionesContractuales.forEach((obligacion) => {
           this.puestoExCentro.forEach((puestoElectronico) => {
             detallesContrato.push({
@@ -356,6 +295,7 @@ export class ValidarVigilanciaComponent implements OnInit {
               idobligaciones_contrato: obligacion.idobligaciones_contrato,
               cumple: obligacion.cumple2,
               nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
+              firma_usuario:  this.userData.user.firma_usuario ,
               descripcionVHumana: '',
               cantidad_puestov: 0,
               direccionSedeVHumana: '',
@@ -371,12 +311,10 @@ export class ValidarVigilanciaComponent implements OnInit {
           });
         });
     
-        // Llama a tu servicio para crear los detalles de contrato en una sola operación
         detallesContrato.forEach(detalle => {
           this.detalleContratoService.crearDetalleContrato(detalle).subscribe(
             (response) => {
               console.log('Respuesta de crear detalle contrato:', response);
-              // Aquí puedes manejar la respuesta si es necesario
             },
             (error) => {
               console.error('Error al crear detalle contrato:', error);
@@ -396,7 +334,6 @@ export class ValidarVigilanciaComponent implements OnInit {
         })
       } else {
         console.error('Error: idcertificacion_centrof no está definido.');
-        // Manejar el caso en que idcertificacion_centrof no esté definido
       }
     }
     

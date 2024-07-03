@@ -124,3 +124,14 @@
   border-color: transparent !important;
   padding: 0;
 }
+.firma-preview {
+  max-width: 150px; /* Ajusta el ancho máximo */
+  max-height: 100px; /* Ajusta la altura máxima */
+  width: auto;
+  height: auto;
+  border: 1px solid #ddd; /* Opcional: agrega un borde */
+  border-radius: 4px; /* Opcional: agrega esquinas redondeadas */
+  padding: 5px; /* Opcional: agrega un poco de padding */
+  display: block; /* Asegura que la imagen sea un bloque */
+  margin: 10px 0; /* Agrega un margen superior e inferior */
+}

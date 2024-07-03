@@ -45,7 +45,8 @@ export class ListarObligacionesComponent implements OnInit {
     const filterValue = this.searchTextContratistas.toLowerCase().trim();
     this.contratistasFiltrados = this.contratistas.filter((obligacion: any) =>
       obligacion.nombre_empresa.toLowerCase().includes(filterValue) ||
-      obligacion.obligacion_contratista.toLowerCase().includes(filterValue)
+      obligacion.obligacion_contratista.toLowerCase().includes(filterValue)||
+      obligacion.descripcion_contrato.toLowerCase().includes(filterValue)
     );
   }
   
@@ -53,7 +54,9 @@ export class ListarObligacionesComponent implements OnInit {
     const filterValue = this.searchTextContractuales.toLowerCase().trim();
     this.contractualesFiltrados = this.contractuales.filter((obligacion: any) =>
       obligacion.nombre_empresa.toLowerCase().includes(filterValue) ||
-      obligacion.obligaciones_contractuales.toLowerCase().includes(filterValue)
+      obligacion.obligaciones_contractuales.toLowerCase().includes(filterValue)||
+      obligacion.descripcion_contrato.toLowerCase().includes(filterValue)
+
     );
   }
 

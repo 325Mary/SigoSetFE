@@ -24,6 +24,9 @@
               <button  *ngIf="isLoggedIn && isSuperAdministrador" type="button" class="btn btn-danger me-3" (click)="editarPuestoHumano(puesto)">
                 Editar
               </button>
+              <button *ngIf="isLoggedIn && isSuperAdministrador" type="button" class="btn btn-danger" (click)="eliminarPuestoHumano(puesto.idpuestosvxcentrof)">
+                Eliminar
+              </button>
             </td>
             <td *ngIf="puesto.editando">
               <input list="empresasListHumana" (change)="onEmpresaSelected($event, puesto)" placeholder="Seleccione Empresa" />
@@ -71,6 +74,9 @@
             <td *ngIf="!puesto.editando">
               <button  *ngIf="isLoggedIn && isSuperAdministrador"  type="button" class="btn btn-danger me-3" (click)="editarPuestoElectronico(puesto)">
                 Editar
+              </button>
+              <button *ngIf="isLoggedIn && isSuperAdministrador" type="button" class="btn btn-danger" (click)="eliminarPuestoElectronico(puesto.idpuntosvelectronica)">
+                Eliminar
               </button>
             </td>
             <td *ngIf="puesto.editando">

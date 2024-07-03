@@ -18,6 +18,7 @@
           <tr>
             <th>ID</th>
             <th>Contrato con la Empresa</th>
+            <th>Descripcion de contrato</th>
             <th>Obligación Contratista</th>
             <th>Acciones</th>
           </tr>
@@ -26,6 +27,7 @@
           <tr *ngFor="let obligacion of contratistasFiltrados | paginate: { itemsPerPage: 5, currentPage: contratistasPage, id: 'contratistas-pagination' } ; let i = index">
             <td>{{ (contratistasPage - 1) * 5 + i + 1 }}</td>
             <td>{{ obligacion.nombre_empresa }}</td>
+            <td>{{obligacion.descripcion_contrato}}</td>
             <td>{{ obligacion.obligacion_contratista }}</td>
             <td>
               <button (click)="abrirModalVerO(obligacion)">
@@ -53,6 +55,7 @@
           <tr>
             <th>ID</th>
             <th>Contrato con la Empresa</th>
+            <th>Descripcion de contrato</th>
             <th>Obligación Contractual</th>
             <th>Acciones</th>
           </tr>
@@ -61,6 +64,7 @@
           <tr *ngFor="let obligacion of contractualesFiltrados | paginate: { itemsPerPage: 5, currentPage: contractualesPage, id: 'contractuales-pagination' }; let i = index">
             <td>{{ (contractualesPage - 1) * 5 + i + 1 }}</td>
             <td>{{ obligacion.nombre_empresa }}</td>
+            <td>{{obligacion.descripcion_contrato}}</td>
             <td>{{ obligacion.obligaciones_contractuales }}</td>
             <td>
               <button (click)="abrirModalVerO(obligacion)">
