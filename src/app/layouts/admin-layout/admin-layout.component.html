@@ -19,7 +19,7 @@
     <router-outlet></router-outlet>
 
     <!-- Botón para mostrar el sidebar en pantallas pequeñas -->
-    <button class="sidebar-toggle" *ngIf="!isLoggedIn && isSmallScreen()" (click)="toggleSidebar()">
+    <button class="sidebar-toggle" *ngIf="!isLoggedIn && isSmallScreen()" (click)="toggleSidebar()" title="Sidebar" >
       <i class="bi bi-list" style="background-color: red;" ></i> <!-- Icono para abrir el sidebar -->
     </button>
   </div>
