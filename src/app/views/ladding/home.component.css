@@ -26,7 +26,7 @@
   align-items: center; /* Centra el contenido verticalmente */
   justify-content: center; /* Centra el contenido horizontalmente */
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0; /* Color de fondo gris claro */
+  background-color: transparent; /* Color de fondo gris claro */
   min-width: 320px; /* Ajusta el ancho mínimo para evitar que el contenido se colapse */
   max-width: 100%; /* Ajusta el ancho máximo para que el contenido no se estire más allá del 100% del viewport */
   min-height: 100vh; /* Asegura que el contenido se extienda hasta el fondo de la pantalla */

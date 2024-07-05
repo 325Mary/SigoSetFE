@@ -1,74 +1,48 @@
-/* Botón de menú hamburguesa */
+
+
+
 .pos-f-t {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1030; /* Asegura que el navbar esté siempre en la parte superior */
+  top: 20px; /* Mover el botón 40px hacia abajo */
+background-color: transparent;
+  z-index: 1030; /* Asegura que el botón esté encima del contenido */
+}
+.navbar{
+  background-color: transparent !important;
+  box-shadow: none;
+  border: none;
 }
 
-.navbar {
-  padding: 0.5rem 1rem; /* Espaciado dentro del navbar */
-}
 
+/* Estilo del botón de menú hamburguesa */
 .navbar-toggler {
+  background-color: rgba(0, 49, 77, 1) !important;
   border: none; /* Quitar el borde del botón */
-  outline: none; /* Quitar el borde al hacer clic */
-  padding: 0.25rem 0.5rem; /* Ajustar el tamaño del botón */
-  border-radius: 0.25rem; /* Bordes redondeados para el botón */
+  padding: 0.5rem; /* Ajustar el tamaño del botón */
+  cursor: pointer; /* Cursor en forma de mano */
 }
+.navbar-toggler.active{
+  border-color: none ;
+} 
 
+/* Icono dentro del botón de menú hamburguesa */
 .navbar-toggler-icon {
   width: 1.5rem;
   height: 1.5rem;
+  background: transparent; /* Color del ícono */
+  border-radius: 50%; /* Bordes redondeados del ícono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Estilo del sidebar en pantallas grandes */
-@media (min-width: 768px) {
-  .collapse {
-    position: absolute;
-    top: 50px; /* Ajustar según sea necesario */
-    left: 0;
-    width: 200px; /* Ancho reducido del sidebar */
-    height: calc(100vh - 50px); /* Ajustar la altura para que ocupe todo el viewport */
-    overflow-y: auto; /* Agregar desplazamiento vertical si el contenido es largo */
-    transition: transform 0.3s ease; /* Añade una transición suave para la animación */
-    transform: translateX(-100%); /* Mueve el sidebar fuera de la vista por defecto */
-  }
-  
-  .collapse.show {
-    transform: translateX(0); /* Mueve el sidebar a la vista */
-  }
-}
-
-/* Estilo del sidebar en pantallas pequeñas */
-@media (max-width: 767px) {
-  .collapse {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 80%; /* Hacer el sidebar más pequeño */
-    max-width: 300px; /* Máximo ancho del sidebar */
-    height: 100%;
-    overflow-y: auto; /* Agregar desplazamiento vertical si el contenido es largo */
-    transition: transform 0.3s ease; /* Añade una transición suave para la animación */
-    transform: translateY(-100%); /* Mueve el sidebar fuera de la vista por defecto */
-  }
-  
-  .collapse.show {
-    transform: translateY(0); /* Mueve el sidebar a la vista */
-  }
-}
-
-/* Estilos específicos para el contenido del sidebar */
+/* Estilo del contenido del sidebar */
 .sidebar-content {
   background-color: rgb(255, 255, 255); /* Fondo blanco */
-  color: black; /* Color de texto negro */
   padding: 1rem; /* Espaciado interno */
   border-radius: 5px; /* Bordes redondeados */
-  margin-top: -20px;
+  margin-top: -60px;
   width: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
   max-height: 100vh; /* Ajustar altura máxima para que no se desborde */
   overflow-y: auto; /* Agregar desplazamiento vertical si el contenido es largo */
 }
@@ -77,7 +51,8 @@
 .sidebar-content a {
   color: #343a40; /* Color de texto por defecto */
   text-decoration: none; /* Quitar el subrayado del enlace */
-  display: block; /* Asegura que los enlaces ocupen todo el ancho disponible */
+  display: flex; /* Usar flexbox para alinear icono y texto horizontalmente */
+  align-items: center; /* Alinear icono y texto verticalmente */
   padding: 0.5rem 1rem; /* Espaciado interno */
   border-radius: 5px; /* Bordes redondeados */
   transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
@@ -89,10 +64,18 @@
   color: #fff; /* Color de texto blanco */
 }
 
+.sidebar-content a.active i {
+  color: #fff; /* Color del icono blanco cuando está activo */
+}
+
 /* Estilo para los enlaces cuando el ratón pasa sobre ellos */
 .sidebar-content a:hover {
   background-color: #e9ecef; /* Fondo gris claro */
   color: #007bff; /* Color del texto azul */
+}
+
+.sidebar-content a:hover i {
+  color: #007bff; /* Color del icono azul cuando pasa el ratón */
 }
 
 /* Estilo de los elementos de lista */
@@ -108,38 +91,49 @@
 
 /* Estilo para el botón de cierre del sidebar */
 .sidebar-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(0, 0, 0, 0.2); /* Fondo ligeramente oscuro */
-  border: none;
-  color: #fff;
-  padding: 0.5rem;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1040; /* Asegura que el botón esté por encima del contenido */
-}
-
-.sidebar-close:hover {
-  background: rgba(0, 0, 0, 0.4); /* Fondo oscuro al pasar el ratón */
-}
-
-/* Estilo para el botón del sidebar en pantallas pequeñas */
-.sidebar-toggle {
   position: fixed;
-  top: 15px;
-  left: 15px;
-  background-color: #007bff; /* Color de fondo azul */
+  margin-top: 30px;
   border: none;
-  color: #fff;
-  padding: 0.5rem;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 1040; /* Asegura que el botón esté por encima del contenido */
+  z-index: 1; 
 }
 
-/* Estilo para el icono dentro del botón del sidebar en pantallas pequeñas */
+
+
+
+.sidebar-toggle {
+  background-color: #007bff; 
+  border: none;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1040; 
+}
+
+
 .sidebar-toggle i {
   font-size: 1.5rem;
+}
+
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2050; 
+}
+
+.navbar-toggler {
+  background-color: rgba(0, 49, 77, 1) !important;
+  border: none; /* Quitar el borde del botón */
+  padding: 0.5rem; /* Ajustar el tamaño del botón */
+  cursor: pointer; /* Cursor en forma de mano */
+}
+
+.navbar-toggler:focus, .navbar-toggler:active {
+  outline: none; /* Quitar el borde azul en el enfoque */
+  box-shadow: none; /* Quitar el contorno del enfoque */
 }
 

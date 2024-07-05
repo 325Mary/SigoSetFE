@@ -1,8 +1,8 @@
 <!-- Botón de menú hamburguesa para pantallas pequeñas -->
 <div class="pos-f-t" *ngIf="isLoggedIn && isSmallScreen()" style="background-color: transparent;">
-  <nav class="navbar navbar-light" style="background-color: transparent;">
-    <button class="navbar-toggler" style="background-color: rgb(255, 255, 255);" type="button" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleSidebar()">
-      <span class="navbar-toggler-icon"></span>
+  <nav class="navbar">
+    <button class="navbar-toggler" type="button" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleSidebar()">
+      <i class="fa fa-bars px-4" style="color: white;" ></i>
     </button>
   </nav>
   <div [ngClass]="{ 'collapse show': sidebarOpen, 'collapse': !sidebarOpen }" id="navbarToggleExternalContent">
@@ -20,16 +20,13 @@
 
     <!-- Botón para mostrar el sidebar en pantallas pequeñas -->
     <button class="sidebar-toggle" *ngIf="!isLoggedIn && isSmallScreen()" (click)="toggleSidebar()">
-      <i class="bi bi-list"></i> <!-- Icono para abrir el sidebar -->
+      <i class="bi bi-list" style="background-color: red;" ></i> <!-- Icono para abrir el sidebar -->
     </button>
   </div>
 
   <!-- Sidebar (solo se muestra cuando está loggedIn) -->
   <div *ngIf="isLoggedIn || sidebarOpen" class="sidebar sidebar-open" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg" #sidebar>
     <app-sidebar></app-sidebar>
-    <button class="sidebar-close" (click)="toggleSidebar()">
-      <i class="bi bi-x"></i> <!-- Icono para cerrar el sidebar -->
-    </button>
     <div class="sidebar-background"></div>
   </div>
 
