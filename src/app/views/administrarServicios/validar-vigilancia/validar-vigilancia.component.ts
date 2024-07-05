@@ -265,52 +265,95 @@ export class ValidarVigilanciaComponent implements OnInit {
       if (this.idcertificacion_centrof) {
         let detallesContrato: any[] = [];
     
+        // Crear detalles para obligaciones del contratista sin duplicación
         this.obligacionesContratista.forEach((obligacion) => {
-          this.puestoVxCentro.forEach((puestoVigilancia) => {
-            detallesContrato.push({
-              idcertificacion_centrof: this.idcertificacion_centrof,
-              idobligaciones_contrato: obligacion.idobligaciones_contrato,
-              cumple: obligacion.cumple,
-              nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
-              firma_usuario:  this.userData.user.firma_usuario ,
-              descripcionVHumana: puestoVigilancia.descripcionVHumana || '',
-              cantidad_puestov: puestoVigilancia.cantidad_puestov || 0,
-              direccionSedeVHumana: puestoVigilancia.direccionSedeVHumana || '',
-              total: puestoVigilancia.total || 0,
-              descripcion: '',
-              cantidad: 0,
-              direccionSedeVElectronica: '',
-              totalE: 0,
-              observaciones1: this.observaciones1 || '',
-              observaciones2: '',
-              fechaCreacion: this.fechaActual || ''
-            });
+          detallesContrato.push({
+            idcertificacion_centrof: this.idcertificacion_centrof,
+            idobligaciones_contrato: obligacion.idobligaciones_contrato,
+            cumple: obligacion.cumple,
+            nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
+            firma_usuario: this.userData.user.firma_usuario,
+            descripcionVHumana: '',
+            cantidad_puestov: 0,
+            direccionSedeVHumana: '',
+            total: 0,
+            descripcion: '',
+            cantidad: 0,
+            direccionSedeVElectronica: '',
+            totalE: 0,
+            observaciones1: this.observaciones1 || '',
+            observaciones2: '',
+            fechaCreacion: this.fechaActual || ''
           });
         });
     
+        // Crear detalles para obligaciones contractuales sin duplicación
         this.obligacionesContractuales.forEach((obligacion) => {
-          this.puestoExCentro.forEach((puestoElectronico) => {
-            detallesContrato.push({
-              idcertificacion_centrof: this.idcertificacion_centrof,
-              idobligaciones_contrato: obligacion.idobligaciones_contrato,
-              cumple: obligacion.cumple2,
-              nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
-              firma_usuario:  this.userData.user.firma_usuario ,
-              descripcionVHumana: '',
-              cantidad_puestov: 0,
-              direccionSedeVHumana: '',
-              total: 0,
-              descripcion: puestoElectronico.descripcion || '',
-              cantidad: puestoElectronico.cantidad || 0,
-              direccionSedeVElectronica: puestoElectronico.direccionSedeVElectronica || '',
-              totalE: puestoElectronico.totalE || 0,
-              observaciones1: '',
-              observaciones2: this.observaciones2 || '',
-              fechaCreacion: this.fechaActual || ''
-            });
+          detallesContrato.push({
+            idcertificacion_centrof: this.idcertificacion_centrof,
+            idobligaciones_contrato: obligacion.idobligaciones_contrato,
+            cumple: obligacion.cumple2,
+            nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
+            firma_usuario: this.userData.user.firma_usuario,
+            descripcionVHumana: '',
+            cantidad_puestov: 0,
+            direccionSedeVHumana: '',
+            total: 0,
+            descripcion: '',
+            cantidad: 0,
+            direccionSedeVElectronica: '',
+            totalE: 0,
+            observaciones1: '',
+            observaciones2: this.observaciones2 || '',
+            fechaCreacion: this.fechaActual || ''
           });
         });
     
+        // Guardar detalles de puestos de vigilancia humana
+        this.puestoVxCentro.forEach((puestoVigilancia) => {
+          detallesContrato.push({
+            idcertificacion_centrof: this.idcertificacion_centrof,
+            idobligaciones_contrato: null, // No hay obligación aquí
+            cumple: null, // No hay obligación aquí
+            nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
+            firma_usuario: this.userData.user.firma_usuario,
+            descripcionVHumana: puestoVigilancia.descripcionVHumana || '',
+            cantidad_puestov: puestoVigilancia.cantidad_puestov || 0,
+            direccionSedeVHumana: puestoVigilancia.direccionSedeVHumana || '',
+            total: puestoVigilancia.total || 0,
+            descripcion: '',
+            cantidad: 0,
+            direccionSedeVElectronica: '',
+            totalE: 0,
+            observaciones1: this.observaciones1 || '',
+            observaciones2: '',
+            fechaCreacion: this.fechaActual || ''
+          });
+        });
+    
+        // Guardar detalles de puestos de vigilancia electrónica
+        this.puestoExCentro.forEach((puestoElectronico) => {
+          detallesContrato.push({
+            idcertificacion_centrof: this.idcertificacion_centrof,
+            idobligaciones_contrato: null, // No hay obligación aquí
+            cumple: null, // No hay obligación aquí
+            nombreDetalleContrato: `informe_${this.datePipe.transform(new Date(), 'yyyy-MM-dd')}`,
+            firma_usuario: this.userData.user.firma_usuario,
+            descripcionVHumana: '',
+            cantidad_puestov: 0,
+            direccionSedeVHumana: '',
+            total: 0,
+            descripcion: puestoElectronico.descripcion || '',
+            cantidad: puestoElectronico.cantidad || 0,
+            direccionSedeVElectronica: puestoElectronico.direccionSedeVElectronica || '',
+            totalE: puestoElectronico.totalE || 0,
+            observaciones1: '',
+            observaciones2: this.observaciones2 || '',
+            fechaCreacion: this.fechaActual || ''
+          });
+        });
+    
+        // Enviar detalles al servicio para guardarlos
         detallesContrato.forEach(detalle => {
           this.detalleContratoService.crearDetalleContrato(detalle).subscribe(
             (response) => {
@@ -322,7 +365,8 @@ export class ValidarVigilanciaComponent implements OnInit {
                 icon: 'error',
                 title: 'Error al guardar',
                 text: 'Ocurrió un error al guardar el informe. Por favor, intenta nuevamente más tarde.',
-              });            }
+              });
+            }
           );
         });
         Swal.fire({
@@ -331,11 +375,12 @@ export class ValidarVigilanciaComponent implements OnInit {
           text: 'El informe se ha guardado correctamente.',
         }).then(() => {
           this.router.navigate(['/ListaInformes']);
-        })
+        });
       } else {
         console.error('Error: idcertificacion_centrof no está definido.');
       }
     }
+    
     
     
     eliminarPuestoVigilancia(puesto: any): void {
