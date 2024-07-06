@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import {ContratoService} from '../../../services/contrato/contrato.service'
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-listar-contratos',
   templateUrl: './listar-contratos.component.html',
@@ -14,15 +15,15 @@ export class ListarContratosComponent {
   showModal: boolean = false;
   showModal1: boolean = false;
   pageSize: number = 6; 
-  currentPage: number = 1; // Página actual
+  currentPage: number = 1;
   contratoSeleccionado: any = {};
   mostrarModalCrear: boolean = false; 
   mostrarModalEditar: boolean = false;
   idContratoAEditar: number | null = null;
   terminoBusqueda: string = '';
   noResultados: boolean = false;
-  usuarioIndex: number = 0; // Contador para mostrar un ID autoincrementable
-  contratosFiltrados: any[] = []; // Array para almacenar  filtrados
+  usuarioIndex: number = 0; 
+  contratosFiltrados: any[] = []; 
   fechaInicioEdit: string;
   fechaFinEdit: string;
   
@@ -158,6 +159,29 @@ private refreshList() {
     },
     error => {
       console.error('Error al obtener la lista de usuarios:', error);
+    }
+  );
+}
+
+
+verPDF(contrato_pdf: string): void {
+  this.contratoService.obtenerURLPDF(contrato_pdf).subscribe(
+    (response) => {
+      // Crear un blob a partir de la respuesta
+      const blob = new Blob([response], { type: 'application/pdf' });
+
+      // Crear una URL del blob
+      const url = window.URL.createObjectURL(blob);
+
+      // Abrir el PDF en una nueva ventana/tab
+      window.open(url, '_blank');
+
+      // Liberar la URL del blob después de que se abra el PDF
+      window.URL.revokeObjectURL(url);
+    },
+    (error) => {
+      console.error('Error al obtener el PDF:', error);
+      Swal.fire('Error', 'No se pudo abrir el PDF', 'error');
     }
   );
 }

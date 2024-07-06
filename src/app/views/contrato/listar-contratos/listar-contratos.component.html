@@ -26,6 +26,9 @@
               <td>{{ contrato.fecha_inicio | date: 'yyyy-MM-dd' }}</td>
               <td>{{ contrato.fecha_fin | date: 'yyyy-MM-dd' }}</td>
               <td>
+                <button (click)="verPDF(contrato.contrato_pdf)"  title="Ver Contrato">
+                  <i class="bi bi-file-pdf"></i> 
+                </button>
                 <button (click)="abrirModalEditar(contrato)" title="Editar contrato">
                   <i class="bi bi-pencil-square"></i>
                 </button>

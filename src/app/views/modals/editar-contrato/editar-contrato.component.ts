@@ -11,8 +11,10 @@ export class EditarContratoComponent {
   @Input() contratoSeleccionado: any;
   @Output() closeModal = new EventEmitter<void>();
   @Output() actualizarContratos = new EventEmitter<void>();
-  fechaInicioEdit: string; // Variable para la fecha de inicio editada
-  fechaFinEdit: string; // Variable para la fecha final editada
+  fechaInicioEdit: string; 
+  fechaFinEdit: string;
+  selectedFile: File | null = null; 
+
 
   constructor(private contratoService: ContratoService) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -21,18 +23,30 @@ export class EditarContratoComponent {
       this.fechaFinEdit = this.formatearFecha(this.contratoSeleccionado.fecha_fin);
     }
   }
-  actualizarContrato(): void {
 
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];  
+  }
+
+
+  actualizarContrato(): void {
+    if (new Date(this.fechaFinEdit) < new Date(this.fechaInicioEdit)) {
+      Swal.fire('¡Error!', 'La fecha final no puede ser menor a la fecha inicial', 'error');
+      return; 
+    }
     this.contratoSeleccionado.fecha_inicio = this.fechaInicioEdit;
     this.contratoSeleccionado.fecha_fin = this.fechaFinEdit;
-    const nuevoContratoData = {
-      fecha_inicio: this.fechaInicioEdit,
-      fecha_fin: this.fechaFinEdit
-    };
-    this.contratoService.editarContrato(this.contratoSeleccionado.idContrato_empresa, nuevoContratoData).subscribe(
+
+    const formData = new FormData();
+    formData.append('fecha_inicio', this.fechaInicioEdit);
+    formData.append('fecha_fin', this.fechaFinEdit);
+    if (this.selectedFile) {
+      formData.append('contrato_pdf', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.contratoService.editarContrato(this.contratoSeleccionado.idContrato_empresa, formData).subscribe(
       response => {
         console.log('contrato actualizado:', response);
-        // Mostrar SweetAlert de éxito
         Swal.fire('¡Éxito!', 'Contrato actualizado correctamente', 'success');
 
         this.closeModal.emit();
@@ -40,17 +54,16 @@ export class EditarContratoComponent {
       },
       error => {
         console.error('Error al actualizar el contrato:', error);
-        // Mostrar SweetAlert de error
         Swal.fire('¡Error!', 'Hubo un error al actualizar el contrato', 'error');
-        // Manejo de errores, si es necesario
       }
     );
   }
 
+
   formatearFecha(fecha: string): string {
     const date = new Date(fecha);
     if (isNaN(date.getTime())) {
-      return ''; // Devuelve una cadena vacía si la fecha es inválida
+      return '';
     }
     return date.toISOString().slice(0, 10);
   }

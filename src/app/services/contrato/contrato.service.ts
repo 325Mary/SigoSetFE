@@ -30,7 +30,13 @@ export class ContratoService {
   }
 
   eliminarContrato(idContrato_empresa: number): Observable<any> {
-    const url = `${this.baseUrl}EliminarContratoEmpresa/${idContrato_empresa}`; // Usar "EliminarEmpresa" en lugar de "EliminarPerfil"
+    const url = `${this.baseUrl}EliminarContratoEmpresa/${idContrato_empresa}`; 
     return this.httpClient.delete<any>(url);
+  }
+
+  obtenerURLPDF(contrato_pdf: string): Observable<Blob> {
+    const url = `${this.baseUrl}uploadsPdf/${contrato_pdf}`;
+
+    return this.httpClient.get(url, { responseType: 'blob' });
   }
   }
