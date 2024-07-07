@@ -26,7 +26,8 @@ export class ListarContratosComponent {
   contratosFiltrados: any[] = []; 
   fechaInicioEdit: string;
   fechaFinEdit: string;
-  
+  estadoBusqueda: number | null = null;
+
 constructor(private contratoService :ContratoService ){}
 
 ngOnInit(): void {
@@ -114,19 +115,28 @@ eliminarContrato(idContrato_empresa: number): void {
 
 filtrarContratos(): void {
   if (this.terminoBusqueda.trim() !== '') {
+    const termino = this.terminoBusqueda.toLowerCase().trim();
     this.contratosFiltrados = this.contratos.filter((contrato) => {
-      return (
-        contrato.nombre_empresa.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        contrato.fecha_inicio.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        contrato.fecha_fin.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
-      );
+      const esValido = contrato.nombre_empresa.toLowerCase().includes(termino) ||
+                       contrato.fecha_inicio.toLowerCase().includes(termino) ||
+                       contrato.fecha_fin.toLowerCase().includes(termino) ||
+                       this.esEstadoBusquedaValido(contrato, termino);
+      return esValido;
     });
-    this.noResultados = this.contratosFiltrados.length === 0;
   } else {
     this.contratosFiltrados = [...this.contratos];
-    this.noResultados = false; // Resetear el indicador de resultados vacíos
   }
 }
+
+esEstadoBusquedaValido(contrato: any, termino: string): boolean {
+  if (termino === 'vigente' && contrato.estado === 1) {
+    return true;
+  } else if (termino === 'vencido' && contrato.estado === 0) {
+    return true;
+  }
+  return false;
+}
+
 
 setPage(pageNumber: number) {
   this.currentPage = pageNumber;
