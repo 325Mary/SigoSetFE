@@ -16,40 +16,49 @@ export class CrearContratoComponent {
 
   nuevoContrato: any = {};
   empresas: any;
-  
+  selectedFile: File | null = null; 
+
   constructor(private contratoService: ContratoService, private router: Router, private empresaService: EmpresaService ) { }
 
   ngOnInit(): void {
     this.cargarEmpresas()
   }
-  crearContrato() {
-    this.contratoService.crearContrato(this.nuevoContrato).subscribe(
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];  
+  }
+
+  crearContrato(): void {
+    const formData = new FormData();
+    formData.append('idempresa', this.nuevoContrato.idempresa);
+    formData.append('descripcion_contrato', this.nuevoContrato.descripcion_contrato);
+    formData.append('fecha_inicio', this.nuevoContrato.fecha_inicio);
+    formData.append('fecha_fin', this.nuevoContrato.fecha_fin);
+    if (this.selectedFile) {
+      formData.append('contrato_pdf', this.selectedFile, this.selectedFile.name);  
+    }
+
+    this.contratoService.crearContrato(formData).subscribe(
       (response) => {
-        console.log('contrato creado exitosamente:', response.data);
+        console.log('Contrato creado exitosamente:', response.data);
         this.nuevoContrato = {};
-        this.contratoCreado.emit()
+        this.contratoCreado.emit();
         this.closeModal.emit();
 
-        // Mostrar Sweet Alert de éxito
         Swal.fire({
           icon: 'success',
           title: '¡Éxito!',
-          text: 'Empresa creado exitosamente'
+          text: 'Contrato creado exitosamente'
         }).then((result) => {
-          // Navegar a la ruta deseada después de cerrar el Sweet Alert
           this.router.navigate(['/listContratos']);
         });
       },
       (error) => {
-        console.error('Error al crear Empresa:', error);
-  
-        // Obtener el mensaje de error del objeto error
-        let errorMessage = 'Ocurrió un error al crear la Empresa. Por favor, inténtalo de nuevo más tarde.';
+        console.error('Error al crear contrato:', error);
+        let errorMessage = 'Ocurrió un error al crear el contrato. Por favor, inténtalo de nuevo más tarde.';
         if (error && error.error && error.error.message) {
           errorMessage = error.error.message;
         }
-  
-        // Mostrar Sweet Alert de error con el mensaje específico
         Swal.fire({
           icon: 'error',
           title: '¡Error!',
@@ -58,6 +67,7 @@ export class CrearContratoComponent {
       }
     );
   }
+
   
   
 
@@ -88,8 +98,8 @@ camposCompletos(): boolean {
   return !!(
       this.nuevoContrato.nombre_empresa &&
       this.nuevoContrato.fecha_inicio &&
-      this.nuevoContrato.descripcion_contrato &&
-      this.nuevoContrato.fecha_fin
+      this.nuevoContrato.fecha_fin &&
+      this.selectedFile 
   );
 }
 
