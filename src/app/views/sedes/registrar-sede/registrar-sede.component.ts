@@ -77,7 +77,7 @@ export class RegistrarSedeComponent implements OnInit {
             title: 'Sede creada!',
             text: 'La Sede ha sido creada correctamente.'
           }).then(() => {
-            this.router.navigate(['/ListarSedesdeFormacion']);
+            this.router.navigate(['/ListarSedes']);
           });
         },
         (error) => {

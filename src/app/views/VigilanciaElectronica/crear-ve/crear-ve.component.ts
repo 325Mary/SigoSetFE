@@ -49,7 +49,7 @@ export class CrearVEComponent {
           this.errorMessage = null;
           // Mostrar alerta de éxito
           Swal.fire('¡Éxito!', 'Vigilancia Electrónica creada exitosamente', 'success');
-          this.router.navigate(['/listarVigilanciaElectronica']);
+          this.router.navigate(['/administarPuestos']);
         },
         error => {
           console.error('Error creando vigilancia electrónica', error);

@@ -1,18 +1,16 @@
-
-
-
+/* Botón de menú hamburguesa */
 .pos-f-t {
   position: fixed;
-  top: 20px; /* Mover el botón 40px hacia abajo */
-background-color: transparent;
+  top: 20px; /* Mover el botón 20px hacia abajo */
+  background-color: transparent;
   z-index: 1030; /* Asegura que el botón esté encima del contenido */
 }
-.navbar{
+
+.navbar {
   background-color: transparent !important;
   box-shadow: none;
   border: none;
 }
-
 
 /* Estilo del botón de menú hamburguesa */
 .navbar-toggler {
@@ -21,9 +19,10 @@ background-color: transparent;
   padding: 0.5rem; /* Ajustar el tamaño del botón */
   cursor: pointer; /* Cursor en forma de mano */
 }
-.navbar-toggler.active{
-  border-color: none ;
-} 
+
+.navbar-toggler.active {
+  border-color: none;
+}
 
 /* Icono dentro del botón de menú hamburguesa */
 .navbar-toggler-icon {
@@ -56,6 +55,12 @@ background-color: transparent;
   padding: 0.5rem 1rem; /* Espaciado interno */
   border-radius: 5px; /* Bordes redondeados */
   transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+
+.sidebar-content img {
+  width: 40%;
+  justify-content: center;
+  text-align: center;
 }
 
 /* Estilo cuando el enlace está activo */
@@ -96,44 +101,63 @@ background-color: transparent;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 1; 
+  z-index: 1;
 }
 
 
-
-
-.sidebar-toggle {
-  background-color: #007bff; 
-  border: none;
-  color: #fff;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1040; 
-}
-
-
+/* Estilo para el icono del botón de toggle del sidebar */
 .sidebar-toggle i {
   font-size: 1.5rem;
 }
 
+/* Contenido principal */
+.content {
+  margin-left: 0; /* Sin margen a la izquierda */
+  padding: 0rem; /* Añadir padding para contenido */
+  transition: margin-left 0.3s ease; /* Transición suave para el margin-left */
+}
 
-footer {
+.content-with-sidebar {
+  margin-left: 250px; /* Ajustar según el ancho del sidebar */
+}
+
+/* Sidebar cuando está abierto */
+.sidebar-open {
+  width: 250px; /* Ancho del sidebar */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1040; /* Asegura que el sidebar esté encima del contenido principal */
+}
+
+/* Espacio ocupado por el sidebar cuando no está visible */
+.full-width-content {
+  margin-left: 0;
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 968px) {
+  .content-with-sidebar {
+    margin-left: 0; /* Eliminar margen cuando el sidebar está oculto en pantallas pequeñas */
+  }
+
+  .sidebar-open {
+    display: none; /* Ocultar sidebar en pantallas pequeñas */
+  }
+
+  .sidebar-content {
+    width: 50%; /* Asegurar que el contenido del sidebar ocupe todo el ancho */
+  }
+}
+
+/* Footer */
+app-footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 2050; 
+  z-index: 1050; /* Asegura que el footer esté encima de otros elementos */
 }
-
-.navbar-toggler {
-  background-color: rgba(0, 49, 77, 1) !important;
-  border: none; /* Quitar el borde del botón */
-  padding: 0.5rem; /* Ajustar el tamaño del botón */
-  cursor: pointer; /* Cursor en forma de mano */
-}
-
-.navbar-toggler:focus, .navbar-toggler:active {
-  outline: none; /* Quitar el borde azul en el enfoque */
-  box-shadow: none; /* Quitar el contorno del enfoque */
-}
-

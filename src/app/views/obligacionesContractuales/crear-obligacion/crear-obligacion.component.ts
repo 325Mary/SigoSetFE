@@ -26,7 +26,7 @@ export class CrearObligacionComponent {
           text: 'Obligación creada exitosamente'
         }).then((result) => {
           // Navegar a la ruta deseada después de cerrar el Sweet Alert
-          this.router.navigate(['/administrarObligacion']);
+          this.router.navigate(['/listarObligaciones']);
         });
       },
       error => {

@@ -132,8 +132,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'user-profile', component: UserProfileComponent },
 
-    { path:'registrarSededeFormacion',component:RegistrarSedeComponent },
-    {path:'ListarSedesdeFormacion',component:ListarSedesComponent},
+    { path:'registrarSede',component:RegistrarSedeComponent },
+    {path:'ListarSedes',component:ListarSedesComponent},
 
     { path: 'list-departamentos', component: ListarDepartamentosComponent },
 
@@ -163,8 +163,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listarPuestosVig', component: ListPuestosVigComponent },
     { path: 'cambiarPassword', component: CambiarPasswordComponent },
 
-    { path: 'listaCentroFormacion', component: ListaCentrosFormacionComponent },
-    { path: 'registrarCentroFormacion', component: RegistrarCentroFormacionComponent },
+    { path: 'listarCentros', component: ListaCentrosFormacionComponent },
+    { path: 'registrarCentro', component: RegistrarCentroFormacionComponent },
     { path: 'editarCentroFormacion/:id', component: RegistrarCentroFormacionComponent },
     { path: 'detalleCentroFormacion/:id', component: DetalleCentroFormacionComponent },
     { path: 'listContratos', component: ListarContratosComponent },
@@ -179,16 +179,16 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'detalleModulo', component: DetalleModuloComponent },
 
 
-
-    { path: 'crearObligacion', component: CrearObligacionComponent },
-    { path: 'administrarObligacion', component: AdministrarObligacionComponent },
+     //Obligaciones Contractuales
+    { path: 'agregarObligacion', component: CrearObligacionComponent },
+    { path: 'listarObligaciones', component: AdministrarObligacionComponent },
     { path: 'verObligacionContractual', component: VerObligacionModalComponent },
     { path: 'editarObligacionContractual', component: EditarObligacionModalComponent },
 
 
     { path: 'validarVigilancia/:idcentro_formacion', component: ValidarVigilanciaComponent },
-    { path: 'crearVigilanciaElectronica', component: CrearVEComponent },
-    { path: 'listarVigilanciaElectronica', component: ListarVEComponent },
+    { path: 'crearPuesto', component: CrearVEComponent },
+    { path: 'administarPuestos', component: ListarVEComponent },
     { path: 'listarModulos', component: ListaModuloComponent },
     { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent },
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent },

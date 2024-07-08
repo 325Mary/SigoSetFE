@@ -2,7 +2,7 @@
 <div class="pos-f-t" *ngIf="isLoggedIn && isSmallScreen()" style="background-color: transparent;">
   <nav class="navbar">
     <button class="navbar-toggler" type="button" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleSidebar()">
-      <i class="fa fa-bars px-4" style="color: white;" ></i>
+      <i class="fa fa-bars px-4" style="color: white;"></i>
     </button>
   </nav>
   <div [ngClass]="{ 'collapse show': sidebarOpen, 'collapse': !sidebarOpen }" id="navbarToggleExternalContent">
@@ -12,26 +12,18 @@
   </div>
 </div>
 
-<div class="wrapper" [ngClass]="{ 'sidebar-visible': isLoggedIn }">
-  <!-- Contenido principal -->
-  <div class="content" [ngClass]="{ 'content-with-sidebar': isLoggedIn }">
-    <app-navbar></app-navbar> <!-- Mover el navbar dentro del contenido principal -->
-    <router-outlet></router-outlet>
-
-    <!-- Botón para mostrar el sidebar en pantallas pequeñas -->
-    <button class="sidebar-toggle" *ngIf="!isLoggedIn && isSmallScreen()" (click)="toggleSidebar()" title="Sidebar" >
-      <i class="bi bi-list" style="background-color: red;" ></i> <!-- Icono para abrir el sidebar -->
-    </button>
-  </div>
-
+<div class="wrapper">
   <!-- Sidebar (solo se muestra cuando está loggedIn) -->
-  <div *ngIf="isLoggedIn || sidebarOpen" class="sidebar sidebar-open" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg" #sidebar>
+  <div *ngIf="isLoggedIn" class="sidebar sidebar-open" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg" #sidebar>
     <app-sidebar></app-sidebar>
     <div class="sidebar-background"></div>
   </div>
 
-  <!-- Espacio ocupado por el sidebar cuando no está visible -->
-  <div *ngIf="!isLoggedIn && !isHomepage()" class="full-width-content"></div>
+  <!-- Contenido principal -->
+  <div class="content" [ngClass]="{ 'content-with-sidebar': isLoggedIn }">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+  </div>
 </div>
 
 <app-footer></app-footer>

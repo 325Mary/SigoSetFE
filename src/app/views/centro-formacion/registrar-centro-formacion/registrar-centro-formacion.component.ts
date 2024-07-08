@@ -193,7 +193,7 @@ export class RegistrarCentroFormacionComponent implements OnInit {
               showConfirmButton: true
             }).then((result) => {
               if (result.isConfirmed) {
-                this.route.navigate(['/listaCentroFormacion']);
+                this.route.navigate(['/listarCentros']);
               }
             });
           } else {
