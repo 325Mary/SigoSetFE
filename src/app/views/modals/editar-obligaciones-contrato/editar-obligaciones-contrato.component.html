@@ -12,7 +12,7 @@
         <input type="text" id="obligaciones_contractuales" class="form-control" [(ngModel)]="obligacionSeleccionada.obligaciones_contractuales" name="obligaciones_contractuales" disabled>
       </div>
       <div class="form-group">
-        <label for="nombreEmpresa">Descripcion del</label>
+        <label for="nombreEmpresa">Descripcion del Contrato</label>
         <input list="empresas" id="nombreEmpresa" class="form-control" [(ngModel)]="obligacionSeleccionada.descripcion_contrato" name="descripcion_contrato" (input)="onEmpresaChange($event)" required>
         <datalist id="empresas">
           <option *ngFor="let contrato of contratos" [value]="contrato.descripcion_contrato"></option>

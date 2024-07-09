@@ -232,7 +232,7 @@ import { EdiatarValidadVigComponent } from './views/administrarServicios/ediatar
     VerObliContratistaComponent,
     RegistrarSedeComponent,
     EditarSedeComponent,
-    VerSedeComponent
+    VerSedeComponent,
 
     
     

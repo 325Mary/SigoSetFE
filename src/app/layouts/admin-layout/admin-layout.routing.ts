@@ -180,8 +180,8 @@ export const AdminLayoutRoutes: Routes = [
 
 
 
-    { path: 'crearObligacionContractual', component: CrearObligacionComponent },
-    { path: 'administrarObligacionContractual', component: AdministrarObligacionComponent },
+    { path: 'agregarObligacion', component: CrearObligacionComponent },
+    { path: 'listarObligaciones', component: AdministrarObligacionComponent },
     { path: 'verObligacionContractual', component: VerObligacionModalComponent },
     { path: 'editarObligacionContractual', component: EditarObligacionModalComponent },
 
