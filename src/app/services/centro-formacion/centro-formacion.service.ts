@@ -17,7 +17,7 @@ export class CentroFormacionService {
   private myApiUrlCentroFormacion: string;
   private getHeaders(): HttpHeaders {
     const token = this.tokenValidationService.getToken(); // Obtén el token de autenticación
-    console.log(token)
+    // console.log(token)
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `${token}` // Agrega el token al encabezado de autorización

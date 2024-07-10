@@ -11,6 +11,8 @@
             <th>Descripción del Puesto</th>
             <th>Cantidad</th>
             <th>Sede</th>
+            <th>Estado</th>
+
             <th  *ngIf="isLoggedIn && isSuperAdministrador">Acciones</th>
           </tr>
         </thead>
@@ -20,6 +22,7 @@
             <td *ngIf="!puesto.editando">{{ puesto.descripcionVHumana }}</td>
             <td *ngIf="!puesto.editando">{{ puesto.cantidad_puestov }}</td>
             <td *ngIf="!puesto.editando">{{ puesto.sede_formacion }}</td>
+            <td *ngIf="!puesto.editando">{{ puesto.status }}</td>
             <td *ngIf="!puesto.editando">
               <button  *ngIf="isLoggedIn && isSuperAdministrador" type="button" class="btn btn-danger me-3" (click)="editarPuestoHumano(puesto)">
                 Editar
@@ -29,16 +32,23 @@
               </button>
             </td>
             <td *ngIf="puesto.editando">
-              <input list="empresasListHumana" (change)="onEmpresaSelected($event, puesto)" placeholder="Seleccione Empresa" />
+              <input list="empresasListHumana"  [(ngModel)]="puesto.nombre_empresa" (change)="onEmpresaSelected($event, puesto)" placeholder="Seleccione Empresa" />
               <datalist id="empresasListHumana">
                 <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{ empresa.nombre_empresa }}</option>
               </datalist>
             </td>
             <td *ngIf="puesto.editando">
-              <input type="text" class="form-control mb-2" [(ngModel)]="puesto.descripcion_puesto" disabled>
+              <input type="text" class="form-control mb-2" [(ngModel)]="puesto.descripcionVHumana" disabled>
             </td>
             <td *ngIf="puesto.editando">
               <input type="number" class="form-control mb-2" [(ngModel)]="puesto.cantidad_puestov">
+            </td>
+           <td *ngIf="puesto.editando">
+              <select class="form-control mb-2" [(ngModel)]="puesto.status">
+                <option [value]="puesto.status">{{ puesto.status }}</option>
+                <option *ngIf="puesto.status === 'asignado'" value="inhabilitado">inhabilitado</option>
+                <option *ngIf="puesto.status === 'inhabilitado'" value="asignado">asignado</option>
+              </select>
             </td>
             <td *ngIf="puesto.editando">
               <button type="button" class="btn btn-success" (click)="guardarCambiosHumano(puesto)">Actualizar</button>
@@ -62,6 +72,7 @@
             <th>Descripción del Puesto</th>
             <th>Cantidad</th>
             <th>Sede</th>
+            <th>Estado</th>
             <th  *ngIf="isLoggedIn && isSuperAdministrador">Acciones</th>
           </tr>
         </thead>
@@ -71,6 +82,7 @@
             <td *ngIf="!puesto.editando">{{ puesto.descripcion }}</td>
             <td *ngIf="!puesto.editando">{{ puesto.cantidad }}</td>
             <td *ngIf="!puesto.editando">{{ puesto.sede_formacion }}</td>
+            <td *ngIf="!puesto.editando">{{ puesto.statusE }}</td>
             <td *ngIf="!puesto.editando">
               <button  *ngIf="isLoggedIn && isSuperAdministrador"  type="button" class="btn btn-danger me-3" (click)="editarPuestoElectronico(puesto)">
                 Editar
@@ -80,7 +92,7 @@
               </button>
             </td>
             <td *ngIf="puesto.editando">
-              <input list="empresasListElectronica" (change)="onEmpresaSelected($event, puesto)" placeholder="Seleccione Empresa" />
+              <input list="empresasListElectronica"  [(ngModel)]="puesto.nombre_empresa" (change)="onEmpresaSelected($event, puesto)" placeholder="Seleccione Empresa" />
               <datalist id="empresasListElectronica">
                 <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{ empresa.nombre_empresa }}</option>
               </datalist>
@@ -91,6 +103,13 @@
             <td *ngIf="puesto.editando">
               <input type="number" class="form-control mb-2" [(ngModel)]="puesto.cantidad">
             </td>
+           <td *ngIf="puesto.editando">
+              <select class="form-control mb-2" [(ngModel)]="puesto.statusE">
+                <option [value]="puesto.statusE">{{ puesto.statusE }}</option>
+                <option *ngIf="puesto.statusE === 'asignado'" value="inhabilitado">inhabilitado</option>
+                <option *ngIf="puesto.statusE === 'inhabilitado'" value="asignado">asignado</option>
+              </select>
+            </td>  
             <td *ngIf="puesto.editando">
               <button type="button" class="btn btn-success" (click)="guardarCambiosElectronico(puesto)">Actualizar</button>
             </td>

@@ -32,6 +32,7 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
   isSuperAdministrador = false;
   isOrdenadorG = false;
   currentRoute = '';
+  mostrarModalSolicitarPuestos: boolean = false; 
 
   constructor(
     private _centroFormacionService: CentroFormacionService,  
@@ -158,7 +159,10 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
     this.centroSeleccionado = item;
     this.mostrarModalSedes = true;
   }
-
+  abrirModalSolicitarPuestos(item: any): void {
+    this.centroSeleccionado = item;
+    this.mostrarModalSolicitarPuestos = true;
+  }
   abrirModalAsignarSede(item: any): void {
     this.centroSeleccionado = item;
     this.mostrarModalAsignarSedes= true
@@ -167,6 +171,7 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
     this.mostrarModalPuestos = false;
     this.mostrarModalSedes = false;
     this.mostrarModalAsignarSedes =false
+    this.mostrarModalSolicitarPuestos = false
   }
 
   actualizarLista(): void {
@@ -180,7 +185,7 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
         this.isLoggedIn = true;
         this.userData = await this.tokenValidationService.getUserData(token);
         this.setUserRoles(this.userData.idperfil);
-        console.log('isLogin:', this.userData);
+        // console.log('isLogin:', this.userData);
         this.cdr.detectChanges(); // Ensure change detection is triggered
       }
     } catch (error) {

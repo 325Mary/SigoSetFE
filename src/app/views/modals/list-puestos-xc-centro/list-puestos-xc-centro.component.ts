@@ -48,6 +48,8 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
      }
   ngOnInit(): void {
     if (this.centroSeleccionado) {
+      console.log(this.centroSeleccionado);
+      
       this.obtenerPuestosVPorCentro(this.centroSeleccionado.idcentro_formacion);
       this.obtenerPuestosVEPorCentro(this.centroSeleccionado.idcentro_formacion);
     }
@@ -128,12 +130,13 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
   guardarCambiosHumano(puesto: any): void {
     // Comparar los datos originales con los actuales
     const original = this.originalPuestoHumano[puesto.idpuestosvxcentrof];
-    if (original.cantidad_puestov === puesto.cantidad_puestov && original.idempresa === puesto.idempresa) {
+    if (original.cantidad_puestov === puesto.cantidad_puestov && original.idempresa === puesto.idempresa  && original.status === puesto.status) {
       Swal.fire('Aviso', 'No se ha realizado ningún cambio', 'info');
     } else {
       const nuevoPuestoData = {
         idempresa: puesto.idempresa,
-        cantidad_puestov: puesto.cantidad_puestov
+        cantidad_puestov: puesto.cantidad_puestov,
+        status: puesto.status
       };
 
       this._puestosVXCentroService.editarPuestoVxCentro(puesto.idpuestosvxcentrof, nuevoPuestoData).subscribe(
@@ -158,16 +161,18 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
   }
 
   guardarCambiosElectronico(puesto: any): void {
-    // Comparar los datos originales con los actuales
     const original = this.originalPuestoElectronico[puesto.idpuntosvelectronica];
-    if (original.cantidad === puesto.cantidad && original.idempresa === puesto.idempresa) {
+    if (original.cantidad === puesto.cantidad && original.idempresa === puesto.idempresa && original.statusE === puesto.statusE) {
       Swal.fire('Aviso', 'No se ha realizado ningún cambio', 'info');
     } else {
       const nuevoPuestoData = {
         idempresa: puesto.idempresa,
-        cantidad: puesto.cantidad
+        cantidad: puesto.cantidad,
+        statusE: puesto.statusE
       };
-
+  
+      console.log(nuevoPuestoData);
+  
       this._puestosEXCentroService.editarPuestoVExCentro(puesto.idpuntosvelectronica, nuevoPuestoData).subscribe(
         (response) => {
           Swal.fire('¡Éxito!', 'Cambios guardados correctamente', 'success');
@@ -179,9 +184,10 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
         }
       );
     }
-
+  
     puesto.editando = false;
   }
+  
 
   actualizarListaPuestos(): void {
     if (this.centroSeleccionado) {

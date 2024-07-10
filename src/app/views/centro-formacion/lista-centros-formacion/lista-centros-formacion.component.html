@@ -57,6 +57,10 @@
                                                        title="Asignar sede por centro" (click)="abrirModalAsignarSede(item)">
                                                        <span class="fas fa-university"></span>
                                                     </i>
+                                                    <i *ngIf="isLoggedIn  && isSuperAdministrador" 
+                                                    title="Solicitar Puestos  de vigilancia" (click)="abrirModalSolicitarPuestos(item)">
+                                                    <span  class="fas fa-clipboard-list"></span>
+                                                </i>
                                                 </div>
                                             </td>
                                         </tr>
@@ -124,5 +128,18 @@
                 (actualizarLista)="actualizarLista()">
             </app-asignar-sede-porcentro>
         </div>
+    </div>
+</div>
+
+<div class="modal" [class.show]="mostrarModalSolicitarPuestos" tabindex="-1">
+    <div class="modal-dialog modal-xl" style="width: 80%;">
+        <div class="modal-content">
+            <app-crear-solicitud-puestos 
+            [centroSeleccionado]="centroSeleccionado"
+            [mostrarModalSolicitarPuestos]="mostrarModalSolicitarPuestos"
+            (closeModal)="handleCloseModal()"
+            (actualizarLista)="actualizarLista()">
+        </app-crear-solicitud-puestos>
+</div>
     </div>
 </div>

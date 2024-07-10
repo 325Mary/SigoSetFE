@@ -57,7 +57,8 @@ export class CrearObligacionesContratoComponent {
   obtenerContratos(): void {
     this.contratoService.obtenerContratos().subscribe(
       (response) => {
-        this.contratos = response.data[0];
+        // Filter contracts with state equal to 1
+        this.contratos = response.data[0].filter((contrato: any) => contrato.estado === 1);
         console.log('contratos', this.contratos);
       },
       (error) => {
