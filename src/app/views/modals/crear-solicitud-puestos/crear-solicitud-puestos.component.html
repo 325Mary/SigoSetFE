@@ -1,4 +1,3 @@
-<!-- crear-solicitud-puestos.component.html -->
 <div *ngIf="mostrarModalSolicitarPuestos" class="container mt-4">
     <div class="container d-flex justify-content-center mt-5 mb-2">
       <div class="card" style="width: 60rem;">
@@ -9,51 +8,72 @@
           <form #solicitudForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
               <label for="tipoPuesto">Tipo de Puesto</label>
-              <select id="tipoPuesto" name="tipoPuesto" class="form-control" ngModel required (change)="onTipoPuestoChange($event.target.value)">
+              <select id="tipoPuesto" name="tipoPuesto" class="form-control" [(ngModel)]="tipoPuestoSeleccionado" required (change)="onTipoPuestoChange($event.target.value)">
                 <option value="electronica">Electrónica</option>
                 <option value="humana">Humana</option>
               </select>
             </div>
-            <div class="form-group" *ngIf="tipoPuestoSeleccionado === 'humana'">
-              <label for="puesto">Puesto</label>
-              <input list="puestosVList" id="puesto" name="puesto" class="form-control" #puestoInput>
-              <datalist id="puestosVList">
-                <option *ngFor="let puesto of puestoVxCentro" [value]="puesto.descripcionVHumana"></option>
-              </datalist>
-            </div>
-            <div class="form-group" *ngIf="tipoPuestoSeleccionado === 'electronica'">
-              <label for="puesto">Puesto</label>
-              <input list="puestosVEList" id="puesto" name="puesto" class="form-control" #puestoInput>
-              <datalist id="puestosVEList">
-                <option *ngFor="let puesto of puestoExCentro" [value]="puesto.descripcion"></option>
-              </datalist>
-            </div>
-            <div class="form-group">
-              <label for="cantidad">Cantidad</label>
-              <input type="number" id="cantidad" name="cantidad" class="form-control" #cantidadInput>
-            </div>
-            <button type="button" class="btn btn-primary mb-3" (click)="agregarPuesto(puestoInput.value, cantidadInput.value)">Agregar Puesto</button>
-            
-            <div *ngFor="let puesto of puestosSolicitados; let i = index">
-              <div class="d-flex align-items-center mb-2">
-                <span class="flex-grow-1">{{ puesto.puesto }} - Cantidad: {{ puesto.cantidad }}</span>
-                <button type="button" class="btn btn-danger" (click)="eliminarPuesto(i)">Eliminar</button>
+  
+            <div *ngIf="tipoPuestoSeleccionado === 'humana'">
+              <div class="form-group">
+                <label for="puesto">Puesto</label>
+                <input list="puestosVList" id="puesto" name="puesto" class="form-control" [(ngModel)]="nuevoPuesto.descripcionVHumana" (change)="onPuestoChange()">
+                <datalist id="puestosVList">
+                  <option *ngFor="let puesto of puestosDisponibles" [value]="puesto.descripcionVHumana"></option>
+                </datalist>
               </div>
             </div>
   
+            <div *ngIf="tipoPuestoSeleccionado === 'electronica'">
+              <div class="form-group">
+                <label for="puesto">Puesto</label>
+                <input list="puestosVEList" id="puesto" name="puesto" class="form-control" [(ngModel)]="nuevoPuesto.descripcion" (change)="onPuestoChange()">
+                <datalist id="puestosVEList">
+                  <option *ngFor="let puesto of puestosDisponibles" [value]="puesto.descripcion"></option>
+                </datalist>
+              </div>
+            </div>
+  
+            <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
+            <table class="table table-bordered" *ngIf="puestosSolicitados.length > 0">
+              <thead>
+                <tr>
+                  <th>Tipo de Puesto</th>
+                  <th>Descripción</th>
+                  <th>Cantidad</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let puesto of puestosSolicitados; let i = index">
+                  <td>{{ puesto.tipo }}</td>
+                  <td>{{ puesto.descripcion }}</td>
+                  <td>
+                    <input type="number" class="form-control" [(ngModel)]="puesto.cantidad" (ngModelChange)="onCantidadChange(i, $event)" min="1">
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-danger" (click)="eliminarPuesto(i)">
+                      <i class="fa fa-trash"></i> Eliminar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
             <div class="form-group">
               <label for="sede">Sede</label>
-              <input list="sedesList" id="sede" name="sede" class="form-control" ngModel required>
+              <input list="sedesList" id="sede" name="sede" class="form-control" [(ngModel)]="nuevoPuesto.sede" required>
               <datalist id="sedesList">
                 <option *ngFor="let sede of sedes" [value]="sede.sede_formacion"></option>
               </datalist>
             </div>
             <div class="form-group">
               <label for="descripcion">Descripción de la Solicitud</label>
-              <textarea id="descripcion" name="descripcion" class="form-control" ngModel required minlength="10" rows="5"></textarea>
+              <textarea id="descripcion" name="descripcion" class="form-control" [(ngModel)]="nuevoPuesto.descripcionSolicitud" required minlength="10" rows="5"></textarea>
             </div>
+  
             <button type="button" class="btn btn-muted mt-2" (click)="closeModal.emit()">Cerrar</button>
-            <button type="submit" class="btn btn-danger" [disabled]="solicitudForm.invalid">Crear Solicitud</button>
+            <button type="submit" class="btn btn-danger" [disabled]="solicitudForm.invalid || puestosSolicitados.length === 0">Crear Solicitud</button>
           </form>
         </div>
       </div>
