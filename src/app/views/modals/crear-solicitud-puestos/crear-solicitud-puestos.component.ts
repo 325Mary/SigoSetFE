@@ -76,6 +76,8 @@ export class CrearSolicitudPuestosComponent {
     this.sedesService.obtenerSedesPorCentroFormacion(idCentroFormacion).subscribe(
       (sedes) => {
         this.sedes = sedes;
+        console.log(sedes);
+        
       },
       (error) => {
         console.error(error);
@@ -173,4 +175,11 @@ export class CrearSolicitudPuestosComponent {
       );
     });
   }
+
+  close(): void {
+    this.closeModal.emit();
+    this.puestoVxCentro = [];
+    this.puestoExCentro = [];
+  }
+  
 }

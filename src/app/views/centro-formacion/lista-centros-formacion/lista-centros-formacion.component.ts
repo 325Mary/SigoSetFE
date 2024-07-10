@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { CentroFormacionService } from '../../../services/centro-formacion/centro-formacion.service';
 import { CentroFormacion } from '../../../models/centro-formacion/centro-formacion';
 import { PuestosEXcentroService } from '../../../services/PuestosXcentro/puestos-excentro.service';
@@ -18,6 +18,7 @@ import { Console } from 'console';
 })
 export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
+  @Output() centroSeleccionadoChange = new EventEmitter<any>();
   showModal: boolean = false;
   mostrarModalPuestos: boolean = false; 
   mostrarModalSedes: boolean = false;
@@ -151,6 +152,7 @@ export class ListaCentrosFormacionComponent implements OnInit, OnDestroy {
   abrirModalVerPuestos(item: any): void {
     console.log('Item seleccionado:', item);
     this.centroSeleccionado = item;
+    this.centroSeleccionadoChange.emit(item);
     this.mostrarModalPuestos = true;
     console.log('Centro seleccionado asignado en el padre:', this.centroSeleccionado);
   }
