@@ -112,6 +112,7 @@ import { ListarValidarVigilanciaComponent } from './views/administrarServicios/l
 import {DetalleContratoService} from "./services/detalleContrato/detalle-contrato.service";
 import { AsignarSedePorcentroComponent } from './views/modals/asignar-sede-porcentro/asignar-sede-porcentro.component';
 import { EdiatarValidadVigComponent } from './views/administrarServicios/ediatar-validad-vig/ediatar-validad-vig.component';
+
 @NgModule({
   imports: [
    AppRoutingModule,
@@ -231,7 +232,7 @@ import { EdiatarValidadVigComponent } from './views/administrarServicios/ediatar
     VerObliContratistaComponent,
     RegistrarSedeComponent,
     EditarSedeComponent,
-    VerSedeComponent
+    VerSedeComponent,
 
     
     

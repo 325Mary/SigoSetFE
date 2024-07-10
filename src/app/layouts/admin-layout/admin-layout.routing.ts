@@ -179,7 +179,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'detalleModulo', component: DetalleModuloComponent },
 
 
-     //Obligaciones Contractuales
+
     { path: 'agregarObligacion', component: CrearObligacionComponent },
     { path: 'listarObligaciones', component: AdministrarObligacionComponent },
     { path: 'verObligacionContractual', component: VerObligacionModalComponent },

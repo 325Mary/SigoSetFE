@@ -1,63 +1,17 @@
 .nav {
   background-color: rgba(0, 49, 77, 1) !important;
-  padding: 10px; /* Espaciado interno */
+  padding: 10px;
   display: flex;
-  justify-content: right; /* Alinear los elementos al final del contenedor */
-  align-items: center; /* Centrar verticalmente los elementos */
-  position: relative; /* Necesario para el posicionamiento absoluto del botón del menú hamburguesa */
-}
-
-/* Botón de menú hamburguesa para pantallas pequeñas */
-.menu-toggle {
-  display: none; /* Ocultar el botón por defecto */
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* Muestra el botón de menú hamburguesa en pantallas pequeñas */
-@media (max-width: 2000px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav .nav-links {
-    display: none; /* Ocultar los enlaces del navbar por defecto en pantallas pequeñas */
-  }
-
-  .sidebar-open .nav .nav-links {
-    display: flex;
-    flex-direction: column; /* Mostrar los enlaces del navbar en una columna */
-    position: absolute;
-    top: 60px; /* Ajustar para que el contenido del navbar no se superponga al botón */
-    right: 0;
-    background-color: rgba(0, 49, 77, 1); /* Fondo para el menú desplegable */
-    padding: 10px;
-    z-index: 1000; /* Asegura que el menú hamburguesa esté por encima del contenido */
-  }
-
-  .sidebar-open .nav .login {
-    margin-left: 0; /* Asegura que el login no tenga margen en pantallas pequeñas */
-  }
-}
-
-.nav .logo {
-  margin-right: auto; /* Empuja el logo a la izquierda */
-}
-
-.nav .nav-links {
-  display: flex;
-  align-items: center; /* Alinear los elementos verticalmente */
+  justify-content: space-between;
+  align-items: center;
 }
 
 .login {
-  color: white; /* Color del texto del enlace */
-  margin-left: 10px; /* Espacio entre el enlace y el borde izquierdo */
-  border: 1px solid #0e0e0e; /* Cambiar border-radius por border */
-  padding: 10px 29px; /* Añadir relleno al enlace */
-  font-size: 18px; /* Aumentar tamaño de la letra */
+  color: white;
+  margin: 10px;
+  border: 1px solid #0e0e0e;
+  padding: 10px 29px;
+  font-size: 18px;
   border-radius: 3px;
 }
 
@@ -65,16 +19,23 @@
   margin-left: 10px;
 }
 
-.dropdown .btn {
-  margin-left: 10px; /* Espacio entre el botón y el enlace de inicio de sesión */
+.dropdown {
+  margin-left: auto;
+}
+
+.dropdown .btn-icon {
   color: #ffffff;
-  border-radius: 5px;
+  border-radius: 50%;
   background-color: rgb(4, 4, 83);
+  display: flex;
+  align-items: center;
+  position: relative;;
 }
 
 .dropdown .btn:hover {
   background-color: rgb(0, 0, 69); /* Cambia el color del fondo en el hover */
 }
+
 
 .image_logo {
   width: 100px;
@@ -83,15 +44,39 @@
 }
 
 .btn {
-  margin-left: 10px; /* Espacio entre el botón y el siguiente elemento */
+  margin: 10px;
   border: 1px solid white;
-  padding: 10px 15px; /* Añadir relleno al enlace */
-  font-size: 18px; /* Aumentar tamaño de la letra */
-  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 50%;
   background-color: rgb(255, 255, 255);
 }
 
-.a_iniciar:hover {
-  background-color: white;
-  color: rgba(0, 49, 77, 1);
+
+.a_iniciar:hover  {
+    background-color: white;
+    color: rgba(0, 49, 77, 1);
+}
+
+
+/* Estilos para mostrar la información del usuario al pasar el cursor */
+.user-info {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  background-color: rgba(0, 49, 77, 0.9);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 1000;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.btn-icon:hover .user-info {
+  visibility: visible;
+  opacity: 1;
 }

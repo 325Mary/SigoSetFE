@@ -1,32 +1,38 @@
-<div class="modal-header d-flex justify-content-center align-items-center bg-danger text-white">
-    <h5 class="modal-title">Editar Contrato: {{ contratoSeleccionado?.nombre_empresa }}</h5>
+<div class="container mx-auto d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 60rem;">
+        <div class="card-header card-header-sena-azul">
+            <h5 class="modal-title">Editar Contrato: {{ contratoSeleccionado?.nombre_empresa }}</h5>
+        </div>
+        <div class="card-body">
 </div>
-<div class="modal-body">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 mb-3">
-                <div class="form-group">
-                    <label for="descripcion">Descripción</label>
-                    <input type="text" id="descripcion" class="form-control" [(ngModel)]="descripcionEdit" />
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="form-group">
-                    <label for="fechaInicio">Fecha de inicio:</label>
-                    <input type="date" id="fechaInicio" class="form-control" [(ngModel)]="fechaInicioEdit">
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="form-group">
-                    <label for="fechaFin">Fecha final:</label>
-                    <input type="date" id="fechaFin" class="form-control" [(ngModel)]="fechaFinEdit">
-                </div>
-            </div>
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <input type="text" id="descripcion" class="form-control" [(ngModel)]="descripcionEdit" />
         </div>
     </div>
-</div>
 
-<div class="modal-footer d-flex justify-content-center">
-    <button type="button" class="btn btn-danger mr-2" (click)="actualizarContrato()">Actualizar</button>
-    <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+    <div class="col-md-12" style="text-align: center;">    
+    <div class="form-group">
+        <label for="nombre">Fecha de inicio:</label>
+        <input  style="text-align: center;" type="date" class="form-control rounded-input" [(ngModel)]="fechaInicioEdit">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="nombre">Fecha final:</label>
+        <input  style="text-align: center;" type="date" class="form-control rounded-input" [(ngModel)]="fechaFinEdit">
+    </div>
+<br>
+    <div>
+        <label for="contrato_pdf">Agregar Nuevo PDF del Contrato:</label>
+        <input type="file" class="form-control-file" id="contrato_pdf" (change)="onFileSelected($event)">
+    </div>
+</div>
+</div>
+<div class="modal-footer d-flex justify-content-center align-items-center">
+    <button type="button" class="btn btn-danger" (click)="actualizarContrato()">Actualizar</button>
+    <button type="button" class="btn btn-muted" (click)="close()">Cerrar</button>
+</div>
+    </div>
 </div>

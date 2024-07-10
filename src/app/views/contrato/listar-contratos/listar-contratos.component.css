@@ -109,7 +109,9 @@ button {
   }
   
   .modal.show {
-    display: block; /* Mostrar cuando la clase .show está presente */
+    display: block; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 1050;
   }
   
   .btn {
