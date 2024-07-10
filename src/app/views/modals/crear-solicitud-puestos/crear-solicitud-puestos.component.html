@@ -19,20 +19,25 @@
                 <label for="puesto">Puesto</label>
                 <input list="puestosVList" id="puesto" name="puesto" class="form-control" [(ngModel)]="nuevoPuesto.descripcionVHumana" (change)="onPuestoChange()">
                 <datalist id="puestosVList">
-                  <option *ngFor="let puesto of puestosDisponibles" [value]="puesto.descripcionVHumana"></option>
+                  <ng-container *ngIf="puestosDisponibles.length > 0">
+                    <option *ngFor="let puesto of puestosDisponibles" [value]="puesto.descripcionVHumana"></option>
+                  </ng-container>
                 </datalist>
               </div>
             </div>
-  
+            
             <div *ngIf="tipoPuestoSeleccionado === 'electronica'">
               <div class="form-group">
                 <label for="puesto">Puesto</label>
                 <input list="puestosVEList" id="puesto" name="puesto" class="form-control" [(ngModel)]="nuevoPuesto.descripcion" (change)="onPuestoChange()">
                 <datalist id="puestosVEList">
-                  <option *ngFor="let puesto of puestosDisponibles" [value]="puesto.descripcion"></option>
+                  <ng-container *ngIf="puestosDisponibles.length > 0">
+                    <option *ngFor="let puesto of puestosDisponibles" [value]="puesto.descripcion"></option>
+                  </ng-container>
                 </datalist>
               </div>
             </div>
+            
   
             <div class="table-responsive" style="max-height: 100px; overflow-y: auto;">
             <table class="table table-bordered" *ngIf="puestosSolicitados.length > 0">

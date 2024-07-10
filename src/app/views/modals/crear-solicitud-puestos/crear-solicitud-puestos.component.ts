@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { SedesService } from '../../../services/sedes/sedes.service';
 import { PuestosEXcentroService } from '../../../services/PuestosXcentro/puestos-excentro.service';
 import { PuestosVXcentroService } from '../../../services/PuestosXcentro/puestos-vxcentro.service';
@@ -29,7 +29,9 @@ export class CrearSolicitudPuestosComponent {
     private sedesService: SedesService,
     private _puestosEXcentroService: PuestosEXcentroService,
     private _puestosVXcentroService: PuestosVXcentroService,
-    private solicitudPuestosService: SolicitudPuestosService
+    private solicitudPuestosService: SolicitudPuestosService,
+    private cdr: ChangeDetectorRef,
+
   ) { }
 
   ngOnInit(): void { }
@@ -45,6 +47,8 @@ export class CrearSolicitudPuestosComponent {
   obtenerPuestosVPorCentro(idcentro_formacion: number): void {
     this._puestosVXcentroService.obtenerPuestosVxCentro(idcentro_formacion).subscribe(
       (response) => {
+        this.cdr.detectChanges();
+
         this.puestoVxCentro = response.data;
         if (this.tipoPuestoSeleccionado === 'humana') {
           this.filtrarPuestosDisponibles();
@@ -60,6 +64,8 @@ export class CrearSolicitudPuestosComponent {
   obtenerPuestosVEPorCentro(idcentro_formacion: number): void {
     this._puestosEXcentroService.obtenerPuestosExCentro(idcentro_formacion).subscribe(
       (response) => {
+        this.cdr.detectChanges();
+
         this.puestoExCentro = response.data;
         if (this.tipoPuestoSeleccionado === 'electronica') {
           this.filtrarPuestosDisponibles();
@@ -99,8 +105,11 @@ export class CrearSolicitudPuestosComponent {
       this.puestosDisponibles = this.puestoExCentro.filter(puesto =>
         !this.puestosSolicitados.some(solicitado => solicitado.descripcion === puesto.descripcion)
       );
+    } else {
+      this.puestosDisponibles = []; 
     }
   }
+  
 
   onPuestoChange(): void {
     if (this.tipoPuestoSeleccionado === 'humana' && this.nuevoPuesto.descripcionVHumana) {
