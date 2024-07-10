@@ -15,10 +15,10 @@ export class TokenValidationService {
 
   // Método para verificar si el token es válido
   public isValidToken(token: string): boolean {
-    console.log('Token recibido:', token);
+    // console.log('Token recibido:', token);
     if (token) {
       const isExpired = this.jwtHelper.isTokenExpired(token);
-      console.log('¿Token caducado?', isExpired);
+      // console.log('¿Token caducado?', isExpired);
       return !isExpired;
     }
     return false;

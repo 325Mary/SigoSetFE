@@ -6,8 +6,6 @@ import { TokenValidationService } from '../../../services/VertificacionUser/toke
 import { LoginService } from "../../../services/usuario/login.service";
 import { Subscription } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
-import { ChatService } from "../../../services/reportes/chat.service";
-
 import Swal from 'sweetalert2';
 
 @Component({
@@ -41,22 +39,19 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
     private tokenValidationService: TokenValidationService,
     private authService: LoginService,
     private router: Router,
-    private cdr: ChangeDetectorRef,) {
-      this.router.events.subscribe((val) => {
-        this.currentRoute = this.router.url;
-      });
-     }
+    private cdr: ChangeDetectorRef,
+  ) {
+    this.router.events.subscribe((val) => {
+      this.currentRoute = this.router.url;
+    });
+  }
+
   ngOnInit(): void {
-    if (this.centroSeleccionado) {
-      this.obtenerPuestosVPorCentro(this.centroSeleccionado.idcentro_formacion);
-      this.obtenerPuestosVEPorCentro(this.centroSeleccionado.idcentro_formacion);
-    }
     this.checkAuthentication();
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.currentRoute = this.router.url;
         this.checkAuthentication();
-        
       }
     });
     this.loginStatusSubscription = this.authService.loginStatusChanged.subscribe(isLoggedIn => {
@@ -67,24 +62,32 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.centroSeleccionado && changes.centroSeleccionado.currentValue) {
       const idcentro_formacion = changes.centroSeleccionado.currentValue.idcentro_formacion;
-      this.obtenerPuestosVPorCentro(idcentro_formacion);
-      this.obtenerPuestosVEPorCentro(idcentro_formacion);
+      console.log('ID de centro seleccionado:', idcentro_formacion);
+      this.obtenerEmpresas(); // Llama a obtenerEmpresas primero
     }
-    this.obtenerEmpresas();
-
   }
-
+  
   obtenerEmpresas() {
     this.empresaService.obtenerEmpresas().subscribe(
       (response) => {
         this.empresas = response.data[0];
         console.log('empresas', this.empresas);
+        this.actualizarPuestos(); // Después de obtener empresas, actualiza los puestos
       },
       (error) => {
         console.error('Error al obtener perfiles:', error);
       }
     );
   }
+
+  actualizarPuestos() {
+    if (this.centroSeleccionado) {
+      const idcentro_formacion = this.centroSeleccionado.idcentro_formacion;
+      this.obtenerPuestosVPorCentro(idcentro_formacion);
+      this.obtenerPuestosVEPorCentro(idcentro_formacion);
+    }
+  }
+
   onEmpresaSelected(event: any, puesto: any): void {
     const selectedCompanyName = event.target.value;
     const selectedCompany = this.empresas.find(empresa => empresa.nombre_empresa === selectedCompanyName);
@@ -94,14 +97,15 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
     }
   }
 
-
-
   obtenerPuestosVPorCentro(idcentro_formacion: number): void {
     this._puestosVXCentroService.obtenerPuestosVxCentro(idcentro_formacion).subscribe(
       (response) => {
+        this.cdr.detectChanges();
         this.puestoVxCentro = response.data;
+        console.log(response.data);
       },
       (error) => {
+        console.error('Error obteniendo puestos VxCentro:', error);
       }
     );
   }
@@ -109,15 +113,22 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
   obtenerPuestosVEPorCentro(idcentro_formacion: number): void {
     this._puestosEXCentroService.obtenerPuestosExCentro(idcentro_formacion).subscribe(
       (response) => {
+        this.cdr.detectChanges();
         this.puestoExCentro = response.data;
+        console.log(response.data);
       },
       (error) => {
+        console.error('Error obteniendo puestos ExCentro:', error);
       }
     );
   }
+
   close(): void {
     this.closeModal.emit();
+    this.puestoVxCentro = [];
+    this.puestoExCentro = [];
   }
+  
 
   editarPuestoHumano(puesto: any): void {
     puesto.editando = true;
@@ -128,12 +139,13 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
   guardarCambiosHumano(puesto: any): void {
     // Comparar los datos originales con los actuales
     const original = this.originalPuestoHumano[puesto.idpuestosvxcentrof];
-    if (original.cantidad_puestov === puesto.cantidad_puestov && original.idempresa === puesto.idempresa) {
+    if (original.cantidad_puestov === puesto.cantidad_puestov && original.idempresa === puesto.idempresa  && original.status === puesto.status) {
       Swal.fire('Aviso', 'No se ha realizado ningún cambio', 'info');
     } else {
       const nuevoPuestoData = {
         idempresa: puesto.idempresa,
-        cantidad_puestov: puesto.cantidad_puestov
+        cantidad_puestov: puesto.cantidad_puestov,
+        status: puesto.status
       };
 
       this._puestosVXCentroService.editarPuestoVxCentro(puesto.idpuestosvxcentrof, nuevoPuestoData).subscribe(
@@ -158,16 +170,18 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
   }
 
   guardarCambiosElectronico(puesto: any): void {
-    // Comparar los datos originales con los actuales
     const original = this.originalPuestoElectronico[puesto.idpuntosvelectronica];
-    if (original.cantidad === puesto.cantidad && original.idempresa === puesto.idempresa) {
+    if (original.cantidad === puesto.cantidad && original.idempresa === puesto.idempresa && original.statusE === puesto.statusE) {
       Swal.fire('Aviso', 'No se ha realizado ningún cambio', 'info');
     } else {
       const nuevoPuestoData = {
         idempresa: puesto.idempresa,
-        cantidad: puesto.cantidad
+        cantidad: puesto.cantidad,
+        statusE: puesto.statusE
       };
-
+  
+      console.log(nuevoPuestoData);
+  
       this._puestosEXCentroService.editarPuestoVExCentro(puesto.idpuntosvelectronica, nuevoPuestoData).subscribe(
         (response) => {
           Swal.fire('¡Éxito!', 'Cambios guardados correctamente', 'success');
@@ -179,18 +193,19 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
         }
       );
     }
-
+  
     puesto.editando = false;
   }
+  
 
   actualizarListaPuestos(): void {
     if (this.centroSeleccionado) {
-      this.obtenerPuestosVPorCentro(this.centroSeleccionado.idcentro_formacion);
-      this.obtenerPuestosVEPorCentro(this.centroSeleccionado.idcentro_formacion);
+      const idcentro_formacion = this.centroSeleccionado.idcentro_formacion;
+      this.obtenerPuestosVPorCentro(idcentro_formacion);
+      this.obtenerPuestosVEPorCentro(idcentro_formacion);
     }
   }
 
- 
   async checkAuthentication() {
     try {
       const token = localStorage.getItem('token');
@@ -205,6 +220,7 @@ export class ListPuestosXcCentroComponent implements OnInit, OnChanges {
       console.error('Error al verificar la autenticación:', error);
     }
   }
+
   setUserRoles(idperfil: Number) {
     if (idperfil) {
       this.isSuperAdministrador = idperfil === 1;

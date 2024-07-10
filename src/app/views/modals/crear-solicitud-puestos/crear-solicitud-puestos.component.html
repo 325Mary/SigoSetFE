@@ -1,0 +1,87 @@
+<div *ngIf="mostrarModalSolicitarPuestos" class="container mt-4">
+    <div class="container d-flex justify-content-center mt-5 mb-2">
+      <div class="card" style="width: 60rem;">
+        <div class="card-header card-header-sena-azul">
+          <h2>Crear Solicitud de Puestos</h2>
+        </div>
+        <div class="card-body">
+          <form #solicitudForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="tipoPuesto">Tipo de Puesto</label>
+              <select id="tipoPuesto" name="tipoPuesto" class="form-control" [(ngModel)]="tipoPuestoSeleccionado" required (change)="onTipoPuestoChange($event.target.value)">
+                <option value="electronica">Electrónica</option>
+                <option value="humana">Humana</option>
+              </select>
+            </div>
+  
+            <div *ngIf="tipoPuestoSeleccionado === 'humana'">
+              <div class="form-group">
+                <label for="puesto">Puesto</label>
+                <input list="puestosVList" id="puesto" name="puesto" class="form-control" [(ngModel)]="nuevoPuesto.descripcionVHumana" (change)="onPuestoChange()">
+                <datalist id="puestosVList">
+                  <ng-container *ngIf="puestosDisponibles.length > 0">
+                    <option *ngFor="let puesto of puestosDisponibles" [value]="puesto.descripcionVHumana"></option>
+                  </ng-container>
+                </datalist>
+              </div>
+            </div>
+            
+            <div *ngIf="tipoPuestoSeleccionado === 'electronica'">
+              <div class="form-group">
+                <label for="puesto">Puesto</label>
+                <input list="puestosVEList" id="puesto" name="puesto" class="form-control" [(ngModel)]="nuevoPuesto.descripcion" (change)="onPuestoChange()">
+                <datalist id="puestosVEList">
+                  <ng-container *ngIf="puestosDisponibles.length > 0">
+                    <option *ngFor="let puesto of puestosDisponibles" [value]="puesto.descripcion"></option>
+                  </ng-container>
+                </datalist>
+              </div>
+            </div>
+            
+  
+            <div class="table-responsive" style="max-height: 100px; overflow-y: auto;">
+            <table class="table table-bordered" *ngIf="puestosSolicitados.length > 0">
+              <thead>
+                <tr>
+                  <th>Tipo de Puesto</th>
+                  <th>Descripción</th>
+                  <th>Cantidad</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let puesto of puestosSolicitados; let i = index">
+                  <td>{{ puesto.tipo }}</td>
+                  <td>{{ puesto.descripcion }}</td>
+                  <td>
+                    <input type="number" class="form-control" [(ngModel)]="puesto.cantidad" (ngModelChange)="onCantidadChange(i, $event)" min="1">
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-danger" (click)="eliminarPuesto(i)">
+                      <i class="fa fa-trash"></i> Eliminar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <div class="form-group">
+              <label for="sede">Sede</label>
+              <input list="sedesList" id="sede" name="sede" class="form-control" [(ngModel)]="nuevoPuesto.sede" required>
+              <datalist id="sedesList">
+                <option *ngFor="let sede of sedes" [value]="sede.sede_formacion"></option>
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="descripcion">Descripción de la Solicitud</label>
+              <textarea id="descripcion" name="descripcion" class="form-control" [(ngModel)]="nuevoPuesto.descripcionSolicitud" required minlength="10" rows="2"></textarea>
+            </div>
+  
+            <button type="button" class="btn btn-muted mt-2" (click)="closeModal.emit()">Cerrar</button>
+            <button type="submit" class="btn btn-danger" [disabled]="solicitudForm.invalid || puestosSolicitados.length === 0">Crear Solicitud</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

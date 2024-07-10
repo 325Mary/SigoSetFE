@@ -206,12 +206,12 @@ export class AsignarPuestosVComponent implements OnInit {
         }).subscribe(() => {
           saveCount++;
           if (saveCount === this.puestosSeleccionadosVigilancia.length) {
-            Swal.fire('¡Éxito!', 'Cantidad actualizada para puesto de vigilancia humana.', 'success');
-            console.log('Cantidad actualizada para puesto de vigilancia.');
+            Swal.fire('¡Éxito!', 'Puesto de vigilancia humana Asignado.', 'success');
+            console.log('Puesto de vigilancia.');
             this.puestosSeleccionadosVigilancia = [];
             window.location.reload();          }
         }, (error) => {
-          Swal.fire('Error', error.error.message || 'Hubo un error al actualizar la cantidad para puesto de vigilancia.', 'error');
+          Swal.fire('Error', error.error.message || 'Hubo un error al asignar  puesto de vigilancia.', 'error');
           console.error('Error al actualizar cantidad para puesto de vigilancia:', error);
         });
       }
@@ -235,12 +235,12 @@ export class AsignarPuestosVComponent implements OnInit {
         }).subscribe(() => {
           saveCount++;
           if (saveCount === this.puestosSeleccionadosElectronica.length) {
-            Swal.fire('¡Éxito!', 'Cantidad actualizada para puesto de vigilancia electrónica.', 'success');
-            console.log('Cantidad actualizada para puesto de electrónica.');
+            Swal.fire('¡Éxito!', 'Puesto de vigilancia electrónica.', 'success');
+            console.log('Puesto de electrónica.');
             this.puestosSeleccionadosElectronica = [];
             window.location.reload();          }
         }, (error) => {
-          Swal.fire('Error', error.error.message || 'Hubo un error al actualizar la cantidad para puesto de electrónica.', 'error');
+          Swal.fire('Error', error.error.message || 'Hubo un error al asignar puesto de electrónica.', 'error');
           console.error('Error al actualizar cantidad para puesto de electrónica:', error);
         });
       }

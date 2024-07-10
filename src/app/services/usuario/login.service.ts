@@ -25,6 +25,7 @@ export class LoginService {
         if (response.token) {
           localStorage.setItem('token', response.token); 
           localStorage.setItem('idperfil', response.token)
+          localStorage.setItem('idcentro_formacion', response.token)
         }
         localStorage.setItem('userId', response.userId);
         console.log('token:', localStorage)
@@ -83,7 +84,7 @@ editUser(userId: string, newData: any): Observable<any> {
 }
 
 getUserById(userId: string): Observable<any> {
-  console.log(userId)
+  // console.log(userId)
   return this.httpClient.get<any>(`${this.baseUrl}getId/${userId}`);
 }
 

@@ -31,7 +31,7 @@ export class ValidarVigilanciaComponent implements OnInit {
   puestoVxCentro: any[] = [];
   puestoExCentro: any[] = [];
   sedes: any[] = [];
-  centroFormacion: CentroFormacion = { ordenador_gasto: '', regional: '' }; // Inicializa como objeto vacío
+  centroFormacion: CentroFormacion = { ordenador_gasto: '', regional: '' }; 
   fechaInicio: Date;
   fechaFin: Date;
   fechaActual: string;

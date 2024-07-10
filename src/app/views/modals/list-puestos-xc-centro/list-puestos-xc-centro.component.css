@@ -13,7 +13,7 @@
 
 h2.text-primary {
     color: #ffffff !important; /* Ajuste de color azul oscuro específico */
-    background-color: #003366;
+    /* background-color: #003366; */
     border-radius: 5px;
 }
 
