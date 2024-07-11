@@ -63,7 +63,7 @@ onDeparatamentoSelect(value: any): void {
 }
 
 getMunicpios(): void {
-  this.municipioService.obtenerMnucipios().subscribe(response => {
+  this.municipioService.obtenerMunicipios().subscribe(response => {
     this.municipios = response.data[0];
   });
 }

@@ -1,51 +1,64 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
-    <div class="card" style="width: 60rem;">
+    <div class="card" style="width: 80rem;">
         <div class="card-header card-header-sena-azul">
-                <h1 class="col text-center">Listado de Puestos de Vigilancia</h1>
+            <h3 class="card-title">Listado de Puestos de Vigilancia</h3>
+            <p class="card-category">Editar, busca y actualiza los puestos de vigilancia</p>
+        </div>
+        <div class="card-body">
+            <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarVigilancia()" [(ngModel)]="terminoBusqueda">
             </div>
-            <div class="card-body">
-                                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Descripción</th>
-                                <th>Tarifa</th>
-                                <th>AYS</th>
-                                <th>IVA</th>
-                                <th>Total</th>
-                                <th>Acciones</th> 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let puesto of puestos">
-                                <td>{{ puesto.descripcion_puesto }}</td>
-                                <td>{{ puesto.tarifa_puesto }}</td>
-                                <td>{{ puesto.ays }}</td>
-                                <td>{{ puesto.iva }}</td>
-                                <td>{{ puesto.total }}</td>
-                                <button  (click)="abrirModalEditar(puesto)" class="btn " title="Editar">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <th>Descripción</th>
+                        <th>Tarifa</th>
+                        <th>AYS</th>
+                        <th>IVA</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="!noResultados; else noResultadosTemplate">
+                        <tr *ngFor="let puesto of puestoFiltrado  | paginate: { itemsPerPage: pageSize, currentPage: currentPage } let i = index">
+                            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                            <td>{{ puesto.descripcion_puesto }}</td>
+                            <td>{{ puesto.tarifa_puesto }}</td>
+                            <td>{{ puesto.ays }}</td>
+                            <td>{{ puesto.iva }}</td>
+                            <td>{{ puesto.total }}</td>
+                            <td>
+                                <button (click)="abrirModalEditar(puesto)" id="bpton" title="Editar" class="mr-2">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)" class="btn " title="Eliminar">
+                                <button (click)="eliminarPuesto(puesto.idpuesto_vigilancia)" id="bpton" title="Eliminar" class="mr-2">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-</div>
-</div>
-
-
-<div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
-    <div class="modal-dialog modal-xl" style="width: 70%;"> <!-- Aquí puedes usar modal-lg o modal-xl -->
-        <div class="modal-content">
-            <!-- Contenido del modal -->
-            <app-editar-vhumana 
-    [puestoSeleccionado]="puestoSeleccionado"
-    [mostrarModal]="mostrarModalEditar"
-    (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
-</app-editar-vhumana>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #noResultadosTemplate>
+                        <tr>
+                            <td colspan="7" class="text-center">No hay resultados</td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 
         </div>
+        
     </div>
 </div>
+
+<div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
+    <div class="modal-dialog modal-xl" style="width: 70%;">
+        <div class="modal-content">
+            <app-editar-vhumana 
+                [puestoSeleccionado]="puestoSeleccionado"
+                [mostrarModal]="mostrarModalEditar"
+                (closeModal)="handleCloseModal()">
+            </app-editar-vhumana>
+       

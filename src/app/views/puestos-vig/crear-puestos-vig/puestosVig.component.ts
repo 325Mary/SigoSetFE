@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 import { Decimal } from 'decimal.js';
 import Swal from 'sweetalert2';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-puestos-vigilancia',
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
 export class PuestosVigilanciaComponent implements OnInit {
   puestos: any[] = [];
   errorMessage: string = '';
-  puestoData = {
+  puestoData: any = {
     descripcion_puesto: '',
     tarifa_puesto: '',
     ays: null,
@@ -19,14 +20,14 @@ export class PuestosVigilanciaComponent implements OnInit {
     total: null
   };
 
-  constructor(private puestosService: PuestosVigilanciaService) { }
+  constructor(private puestosService: PuestosVigilanciaService, private router: Router) { }
 
   ngOnInit(): void {
     this.obtenerPuestos();
   }
 
 
-  
+
 
   formatTarifa(event: any) {
     let value = event.target.value;
@@ -71,22 +72,30 @@ export class PuestosVigilanciaComponent implements OnInit {
   }
 
   onSubmit() {
-    this.puestosService.crearPuesto(this.puestoData)
-      .subscribe(
-        response => {
-          console.log('Vigilancia Electrónica creada exitosamente', response);
-          this.puestoData = { descripcion_puesto: '', tarifa_puesto: '', ays: null, iva: null, total: null };
-          this.errorMessage = null;
-          // Mostrar alerta de éxito
-          Swal.fire('¡Éxito!', 'Vigilancia Electrónica creada exitosamente', 'success');
-        },
-        error => {
-          console.error('Error creando vigilancia electrónica', error);
-          this.errorMessage = 'Error creando vigilancia electrónica. Por favor, intenta nuevamente.';
-          // Mostrar alerta de error
-          Swal.fire('¡Error!', 'Error creando vigilancia electrónica. Por favor, intenta nuevamente.', 'error');
-        }
-      );
+    if (this.validarPuestos()) {
+      this.puestosService.crearPuesto(this.puestoData)
+        .subscribe(
+          response => {
+            this.puestoData = { descripcion_puesto: '', tarifa_puesto: '', ays: null, iva: null, total: null };
+            this.errorMessage = null;
+            // Mostrar alerta de éxito
+            Swal.fire({
+              icon: 'success',
+              title: 'Puesto creado!',
+              text: 'El Puesto ha sido creado correctamente.'
+            }).then((response) => {
+              this.router.navigate(['/listarPuestosVig'])
+            })
+          },
+          error => {
+            console.error('Error creando vigilancia electrónica', error);
+            this.errorMessage = 'Error creando vigilancia electrónica. Por favor, intenta nuevamente.';
+            // Mostrar alerta de error
+            Swal.fire('¡Error!', 'Error creando vigilancia electrónica. Por favor, intenta nuevamente.', 'error');
+          }
+        )
+    }
+
   }
 
   obtenerPuestos(): void {
@@ -131,5 +140,11 @@ export class PuestosVigilanciaComponent implements OnInit {
         this.errorMessage = 'Error al eliminar el puesto';
       }
     );
+  }
+  validarPuestos(): boolean {
+    return (
+      this.puestoData.descripcion_puesto &&
+      this.puestoData.tarifa_puesto
+    )
   }
 }

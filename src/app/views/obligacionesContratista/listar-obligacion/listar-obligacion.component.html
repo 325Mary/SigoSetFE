@@ -1,0 +1,60 @@
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card">
+        <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">Administrar obligaciones contratista</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
+                    (input)="filtrarObligaciones()" [(ngModel)]="terminoBusqueda">
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Obligación Contratista</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container  *ngIf="!noResultados; else noResults">
+                            <tr
+                                *ngFor="let obligacion of obligacionfiltrada | paginate: { itemsPerPage: pageSize, currentPage: currentPage };let i= index">
+                                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                                <td>{{ obligacion.obligacion_contratista }}</td>
+                                <td>
+                                    <button class="mr-2" (click)="editarObligacion(obligacion)"
+                                        title="Editar Obligación">
+                                        <i class="fas fa-edit icono"></i>
+                                    </button>
+                                    <button class="mr-2" (click)="verObligacion(obligacion)" title="Ver Obligación">
+                                        <i class="fas fa-eye icono"></i>
+                                    </button>
+                                    <button class="mr-2"
+                                        (click)="eliminarObligacion(obligacion.idobligaciones_contratista)"
+                                        title="Eliminar Obligación">
+                                        <i class="fas fa-trash icono"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </ng-container>
+                        <ng-template #noResults>
+                            <tr>
+                                <td colspan="5" class="text-center">No se encontraron resultados.</td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+    </div>
+
+
+</div>

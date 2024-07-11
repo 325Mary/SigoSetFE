@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ZonaService } from 'app/services/zona/zona.service'; 
 import Swal from 'sweetalert2';
+import { MatDialog } from '@angular/material/dialog';
+import { EditarZonaComponent } from 'app/views/modals/editar-zona/editar-zona.component';
 
 @Component({
   selector: 'app-administrar-zona',
@@ -10,88 +12,54 @@ import Swal from 'sweetalert2';
 export class AdministrarZonaComponent {
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
   zona: any[] = []; // Inicializar como array vacío
-  showModal: boolean = false;
-  showModal1: boolean = false;
-
+ 
   terminoBusqueda: string = '';
 
+  showModalEditar: boolean = false;
   zonaSeleccionada: any = {}
   
   mostrarModalCrear: boolean = false; 
   mostrarModalEditar: boolean = false;
   mostrarModalVer: boolean = false;
-
+  showModalVer: boolean = false;
   idzona : number | null= null;
-  noResultados: boolean = false; // Inicializar como false
+  noResultados: boolean = false; 
 
 
-  constructor(private zonaservice: ZonaService) { }
+  constructor(private zonaservice: ZonaService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.obtenerZonas();
   }
-  actualizarZona(): void {
-    this.obtenerZonas();
-  }
-
-  closeModal(): void {
-    this.showModal = false;
-    this.mostrarModalCrear = false;
-    this.mostrarModalEditar = false;
-  }
-  
-  handleCloseModal(): void {
-    this.closeModal();
-  }
-
-  abrirModalVerZona(zona: any): void {
-    this.zonaSeleccionada = zona;
-    this.showModal = true;
-    console.log('Modal abieto');
-    
-  }
-
-
-  abrirModalEditar() {
-    this.mostrarModalEditar = true;
-  }
-
-  abrirModalVer() {
-    this.mostrarModalVer = true;
-  }
+ 
 
   obtenerZonas() {
     this.zonaservice.getZona().subscribe(
       (response) => {
-        this.zona = response.data; // Asignar directamente los datos recibidos
+        this.zona = response.data; 
         console.log('Zona ', this.zona);
-        this.filtrarZona(); // Filtrar zonas después de obtenerlas
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "!Zonas listadas correctamente¡",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        this.filtrarZona();        
       },
       (error) => {
-        console.log('Error al obtener Zonas', error);
-        Swal.fire({
-          position: "top-end",
-          icon: "warning",
-          title: "!No se pueden listar las Zonas",
-          showConfirmButton: false,
-          timer: 1500
-        });
+        console.log('Error al obtener Zonas', error);       
       }
     )
   }
 
-  abrirModalEditarZona(zona: any): void {
-    this.zonaSeleccionada = zona;
-    console.log('Zonas: ', this.zonaSeleccionada);
-    this.mostrarModalEditar = true;
+  editarZona(zona: any): void {
+    const dialogRef = this.dialog.open(EditarZonaComponent, {
+      width: '400px',
+      data: { zona }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.obtenerZonas();
+      }
+    });
   }
+
+
+
 
   EliminarZona(idzona: number): void {
     Swal.fire({

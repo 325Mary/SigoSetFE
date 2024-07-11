@@ -75,14 +75,14 @@
     <div class="cantidad-rectangulo ">
       <!-- Espacio para el contador -->
       <span>Cantidad: {{ puesto.cantidad }}</span>
-      <button class="btn btn-danger btn-sm" (click)="aumentarCantidad(puesto)">
+      <button class="btn btn-danger btn-sm" (click)="aumentarCantidad(puesto)" title="Aumentar Cantidad">
         <i class="fa fa-plus"></i> <!-- Icono de aumento -->
       </button>
     </div>
     <div class="descripcion-puesto">
       <!-- Espacio para el contador -->
       <span>$:</span>
-      <input type="number">
+      <input type="number" placeholder="..">
     </div>
   </div>
   

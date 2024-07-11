@@ -1,9 +1,12 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
-    <div class="card" style="width: 50rem;">
+    <div class="card" style="width: 90rem;">
       <div class="card-header card-header-sena-azul">
-        <h2>Gestionar Permisos</h2>
+        <h4 class="card-title">Gestionar Permisos</h4>
       </div>
       <div class="card-body">
+        <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+          <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarMxP()" [(ngModel)]="terminoBusqueda">
+        </div>
         <div *ngIf="errorMessage" class="error">
           {{ errorMessage }}
         </div>
@@ -17,7 +20,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let modulo of modulos">
+              <ng-container *ngIf="!noResultados; else noResults">
+               <tr *ngFor="let modulo of modulosXperfilFitrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
                 <td>{{ modulo }}</td>
                 <td *ngFor="let perfil of perfiles">
                   <label class="switch">
@@ -28,9 +32,16 @@
                   </label>
                 </td>
               </tr>
+              
+              
+              
+              </ng-container>
+             
             </tbody>
           </table>
         </div>
+        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
       </div>
     </div>
   </div>

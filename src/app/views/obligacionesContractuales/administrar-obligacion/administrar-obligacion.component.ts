@@ -13,31 +13,33 @@ import Swal from 'sweetalert2';
 })
 export class AdministrarObligacionComponent {
   obligaciones: any[] = [];
+  obligacionfiltrada : any[]=[]
   terminoBusqueda: string = '';
   noResultados: boolean = false;
   pageSize: number = 10;
   currentPage: number = 1;
 
-  constructor(private obligacionService: ObligacionContractualService, public dialog: MatDialog) {}
+  constructor(private obligacionService: ObligacionContractualService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.obtenerObligaciones();
   }
-  setPage(pageNumber: number): void {
+
+  setPage(pageNumber: number) {
     this.currentPage = pageNumber;
   }
 
+  // Función para obtener los números de página disponibles
   getPages(): number[] {
     const pageCount = Math.ceil(this.obligaciones.length / this.pageSize);
     return Array(pageCount).fill(0).map((x, i) => i + 1);
   }
-
   obtenerObligaciones(): void {
     this.obligacionService.obtenerObligacionesContractuales().subscribe(
       data => {
         this.obligaciones = data;
-        console.log('cntractura:', this.obligaciones)
-        this.filtrarObligacion();
+        this.filtrarObligaciones()
+        console.log('cntractura:', this.obligaciones)    
       },
       error => {
         // alert('Error al obtener las obligaciones contractuales.'+ error);
@@ -47,7 +49,7 @@ export class AdministrarObligacionComponent {
 
   editarObligacion(obligacion: any): void {
     const dialogRef = this.dialog.open(EditarObligacionModalComponent, {
-      width: '400px',
+      width: '600px',
       data: { obligacion }
     });
 
@@ -60,11 +62,11 @@ export class AdministrarObligacionComponent {
 
   verObligacion(obligacion: any): void {
     this.dialog.open(VerObligacionModalComponent, {
-      width: '400px',
+      width: '600px',
       data: { obligacion }
     });
   }
-
+ 
   eliminarObligacion(idobligaciones_contractuales: number): void {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -79,7 +81,7 @@ export class AdministrarObligacionComponent {
           () => {
             Swal.fire(
               '¡Eliminado!',
-              'La Zona ha sido eliminada correctamente.',
+              'La Obligacion ha sido eliminada correctamente.',
               'success'
             );
             this.obtenerObligaciones();
@@ -87,22 +89,30 @@ export class AdministrarObligacionComponent {
           (error) => {
             Swal.fire(
               '¡Error!',
-              'Ocurrió un error al intentar eliminar la Zona.',
+              'Ocurrió un error al intentar eliminar la Obligación.',
               'error'
             );
-            console.error('Error al eliminar zona:', error);
+            console.error('Error al eliminar Obligacion:', error);
           }
         );
       }
     });
   }
-
-  filtrarObligacion(): any[] {
-    const obligacionfiltradas = this.obligaciones.filter((obligacion_contractual) => {
-      return obligacion_contractual.obligaciones_contractuales.toLowerCase().includes(this.terminoBusqueda.toLowerCase());
+  filtrarObligaciones(): void {
+    if (this.terminoBusqueda.trim() !== '') {
+   this.obligacionfiltrada= this.obligaciones.filter((obligaciones) => {
+      return obligaciones.obligaciones_contractuales.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
     });
-    this.noResultados = obligacionfiltradas.length === 0;
-    return obligacionfiltradas;
+    this.noResultados= this.obligacionfiltrada.length === 0;
+    this.currentPage= 1
+   
+  }else{
+    this.obligacionfiltrada =[...this.obligaciones]
+  }
   }
 
+
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
 }

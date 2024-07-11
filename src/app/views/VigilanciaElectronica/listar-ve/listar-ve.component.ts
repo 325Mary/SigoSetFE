@@ -1,21 +1,25 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { VigilanciaElectronicaService } from "../../../services/PuestosElectronicos/vigilancia-electronica.service";
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { VigilanciaElectronicaService } from '../../../services/PuestosElectronicos/vigilancia-electronica.service';
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-listar-ve',
   templateUrl: './listar-ve.component.html',
   styleUrls: ['./listar-ve.component.css']
 })
-export class ListarVEComponent {
+export class ListarVEComponent implements OnInit {
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
 
   vigilanciasElectronicas: any[] = [];
   vigiElSeleccionada: any = {};
+  vigilanciaVEF: any[] = [];
   showModal: boolean = false;
   mostrarModalEditar: boolean = false;
-  mostrarModalCrear: boolean = false; 
+  mostrarModalCrear: boolean = false;
+  terminoBusqueda: string = '';
+  noResultados: boolean = false;
+  pageSize: number = 10;
+  currentPage: number = 1;
 
   constructor(private vigilanciaService: VigilanciaElectronicaService) { }
 
@@ -23,42 +27,48 @@ export class ListarVEComponent {
     this.obtenerVigilanciasElectronicas();
   }
 
+  setPage(pageNumber: number): void {
+    this.currentPage = pageNumber;
+  }
+
+  getPages(): number[] {
+    const pageCount = Math.ceil(this.vigilanciasElectronicas.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
+  }
+
   obtenerVigilanciasElectronicas(): void {
-    this.vigilanciaService.obtenerVigilaciaElectronica()
-      .subscribe(
-        response => {
-          this.vigilanciasElectronicas = response.data[0]; // Asigna los datos obtenidos al arreglo
-          console.log('listVe:', this.vigilanciasElectronicas )
-        },
-        error => {
-          console.error('Error al obtener las vigilancias electrónicas', error);
-        }
-      );
+    this.vigilanciaService.obtenerVigilaciaElectronica().subscribe(
+      (response) => {
+        this.vigilanciasElectronicas = response.data[0];
+        console.log('Puestos VE ',this.vigilanciasElectronicas);
+        this.filtrarVE(); 
+      },
+      (error) => {
+        console.error('Error al obtener las vigilancias electrónicas', error);
+      }
+    );
   }
 
   actualizarList(): void {
-    this.obtenerVigilanciasElectronicas(); // Llama al método para obtener los perfiles nuevamente
+    this.obtenerVigilanciasElectronicas();
   }
+
   closeModal(): void {
     this.showModal = false;
     this.mostrarModalEditar = false;
-    this.mostrarModalCrear = false
+    this.mostrarModalCrear = false;
   }
-  
+
   handleCloseModal(): void {
     this.closeModal();
   }
-  
-  
-  
+
   abrirModalEditar(vigilancia: any): void {
     this.vigiElSeleccionada = vigilancia;
-    console.log('vigilancia', this.vigiElSeleccionada)
     this.mostrarModalEditar = true;
   }
 
-  eliminarVigilancia(id: number): void {
-    // Mostrar un mensaje de confirmación utilizando SweetAlert2
+  eliminarVigilancia(idvigilancia_electronica: number): void {
     Swal.fire({
       title: '¿Eliminar vigilancia electrónica?',
       text: '¿Estás seguro de que deseas eliminar esta vigilancia electrónica?',
@@ -70,10 +80,8 @@ export class ListarVEComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Si el usuario confirma, llamar al servicio para eliminar la vigilancia electrónica
-        this.vigilanciaService.eliminarVigilaciaElectronica(id).subscribe(
+        this.vigilanciaService.eliminarVigilaciaElectronica(idvigilancia_electronica).subscribe(
           () => {
-            // Actualizar la lista de vigilancias electrónicas después de eliminar
             this.obtenerVigilanciasElectronicas();
             Swal.fire('Eliminado', 'La vigilancia electrónica ha sido eliminada', 'success');
           },
@@ -84,9 +92,33 @@ export class ListarVEComponent {
         );
       }
     });
-}
+  }
 
-abrirModalCrear(): void {
-  this.mostrarModalCrear = true; 
-}
+  abrirModalCrear(): void {
+    this.mostrarModalCrear = true;
+  }
+
+  filtrarVE(): void {
+    if (this.terminoBusqueda.trim() !== '') {
+      this.vigilanciaVEF = this.vigilanciasElectronicas.filter((puestovigilanciaE) => {
+        return (
+          puestovigilanciaE.descripcion.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+          puestovigilanciaE.tarifa.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+          puestovigilanciaE.ays.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+          puestovigilanciaE.totalE.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
+        );
+      });
+    } else {
+      this.vigilanciaVEF = [...this.vigilanciasElectronicas]; 
+    }
+    this.noResultados = this.vigilanciaVEF.length === 0;
+    this.currentPage = 1;
+  }
+  
+  
+  
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
+
 }

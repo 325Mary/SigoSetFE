@@ -4,6 +4,7 @@
     width: 70%;
 }
 
+
 /* Estilos para el título */
 .titulo-container {
     width: calc(100% - 60px); /* Ancho del título */
@@ -16,6 +17,29 @@
     z-index: 1;
     border-radius: 3px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.header_form{
+    display: block;
+    width: 100%;
+}
+.fila{
+display: block;   
+width: 100%;
+}
+
+
+.columna1{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+ 
+}
+.columna2{
+    justify-content: center;
+    align-items: baseline;
+    width: 60%;
 }
 
 /* Estilos para el contenedor del formulario */
@@ -38,19 +62,4 @@
     justify-content: center;
 }
 
-/* Estilos para el botón */
-button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 auto; /* Esto centrará el botón horizontalmente */
-    display: block; /* Asegura que el botón se ajuste al ancho del contenedor */
-}
 
-
- button[type="submit"]:hover {
-    background-color: #0056b3;
-}

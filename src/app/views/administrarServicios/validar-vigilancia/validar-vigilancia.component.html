@@ -1,6 +1,32 @@
-<div class="container" style="width: 100%; height: auto;" *ngIf="fechasSeleccionadas">
+<!-- Contenedor para el formulario de fechas -->
+<div class="container d-flex justify-content-center align-items-center mt-5 mb-2" *ngIf="!fechasSeleccionadas">
+  <div class="card">
+    <div class="card-header card-header-sena-azul">
+      <h4 class="card-title">Generar Reporte</h4>
+    </div>
+    <div class="card-body d-flex flex-column flex-md-row align-items-center">
+      <div class="mb-3 mb-md-0">
+        <label>Seleccione las fechas de inicio y fin: <br>(Certificación de centro)</label>
+      </div>
+      <div class="form-group mb-3 mb-md-0">
+        <label for="fechaInicio">Fecha de Inicio</label>
+        <input type="date" id="fechaInicio" class="form-control custom-date-input" [(ngModel)]="fechaInicio" />
+      </div>
+      <div class="form-group mb-3 mb-md-0">
+        <label for="fechaFin">Fecha de Fin</label>
+        <input type="date" id="fechaFin" class="form-control custom-date-input" [(ngModel)]="fechaFin" />
+      </div>
+      <div>
+        <button class="btn btn-danger" (click)="validarFechas()">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contenedor para el reporte generado -->
+<div class="container" *ngIf="fechasSeleccionadas">
   <div class="section">
-    <table>
+    <table class="table">
       <tr>
         <td class="header-left">
           <img src="../../../../assets/img/logoValidacion.PNG" alt="Logo" width="80" height="80">
@@ -23,11 +49,11 @@
     </table>
   </div>
 
-  <h4 class="section" style="text-align: center; margin-top: 20px;">
+  <h4 class="section text-center mt-4">
     LA/EL SUSCRIT@ {{ centroFormacion.ordenador_gasto || 'N/A' }},
     DIRECTOR/A (E) {{ centroFormacion.regional || 'N/A' }}
   </h4>
-  <h2 class="section">CERTIFICA</h2>
+  <h2 class="section text-center">CERTIFICA</h2>
   <p class="section">
     Que el contratista {{ obtenerNombreEmpresa() }}, prestó el servicio de vigilancia durante el periodo comprendido entre
     {{ fechaInicio | date }} y {{ fechaFin | date }} en la sede de {{ obtenerNombreSede() }}, con los siguientes puestos de vigilancia así:
@@ -47,7 +73,7 @@
       <tr *ngFor="let puesto of puestoVxCentro">
         <td>{{ puesto.descripcionVHumana }}</td>
         <td>{{ puesto.cantidad_puestov }}</td>
-        <td>{{ puesto.direccionSedeVHumana}}</td>
+        <td>{{ puesto.direccionSedeVHumana }}</td>
         <td>
           <button class="btn-icon "  (click)="eliminarPuestoVigilancia(puesto)"><span class="fas fa-trash"></span></button>
         </td>
@@ -148,15 +174,14 @@
   <p class="section">Se expide en {{ obtenerNombreSede() }}, a la fecha de {{ fechaActual }}</p>
   <p class="section">DIRECTOR/A (E) {{ centroFormacion.regional || 'N/A' }}</p>
 
-  <div class="signature-container" style="text-align: center; margin-top: 20px;">
-    <div class="signature-block" style="display: flex; align-items: center; justify-content: center;">
-      <div class="logo-container" style="margin-right: 20px;">
-        
-      <div *ngIf="firmaUsuarioUrl">
-        <img [src]="firmaUsuarioUrl" alt="Firma del usuario" class="firma-preview">
+  <div class="signature-container text-center mt-4">
+    <div class="signature-block d-flex flex-column align-items-center">
+      <div class="logo-container mb-2">
+        <button class="logo-button" (click)="triggerFileInput()">Seleccionar firma</button>
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" class="hidden-file-input">
+        <img *ngIf="logoImage" [src]="logoImage" alt="Uploaded Logo" width="80" height="80">
       </div>
-      </div>
-      <div class="signature-details">
+      <div class="signature-details text-center">
         <p class="section">Firmado digitalmente por {{ centroFormacion.ordenador_gasto || 'N/A' }}</p>
         <p class="section">Versión de sigoset 2024</p>
         <p class="signature section">{{ centroFormacion.ordenador_gasto || 'N/A' }}</p>
@@ -179,4 +204,3 @@
   <button class="btn btn-muted"(click)="validarFechas()">Continuar</button>
  
 </div>
-

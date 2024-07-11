@@ -16,6 +16,11 @@
                             </datalist>
                         </div>
                         <div class="form-group">
+                            <label for="fecha_inicio">Descripcion del Contrato:</label>
+                            <input type="text" id="Descripcion_contrato" name="Descripcion_contrato"class="form-control" [(ngModel)]="nuevoContrato.descripcion_contrato"  placeholder="Escribe una breve Descripcion..." required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="fecha_inicio">Fecha de Inicio:</label>
                             <input   style="text-align: center;" type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" [(ngModel)]="nuevoContrato.fecha_inicio" required>
                         </div>

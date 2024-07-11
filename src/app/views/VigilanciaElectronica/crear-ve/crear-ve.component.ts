@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./crear-ve.component.css']
 })
 export class CrearVEComponent {
-  vigilanciaElectronica = {
+  vigilanciaElectronica  :any= {
     descripcion: '',
     tarifa: '',
     ays: '',
-    total: null
+    totalE: null
   };
   errorMessage: string | null = null;
 
@@ -25,23 +25,31 @@ export class CrearVEComponent {
     if (this.vigilanciaElectronica.tarifa && this.vigilanciaElectronica.ays) {
       const tarifa = parseFloat(this.vigilanciaElectronica.tarifa);
       const ays = parseFloat(this.vigilanciaElectronica.ays);
-      this.vigilanciaElectronica.total = (tarifa + ays) / 2;
+      this.vigilanciaElectronica.totalE = (tarifa + ays) / 2;
     } else {
-      this.vigilanciaElectronica.total = null;
+      this.vigilanciaElectronica.totalE = null;
     }
   }
 
+  validarElectronica():boolean{
+    return(
+      this.vigilanciaElectronica.descripcion &&
+      this.vigilanciaElectronica.tarifa
+    )
+
+  }
 
   onSubmit() {
-    this.vigilanciaElectronicaService.crearVigilaciaElectronica(this.vigilanciaElectronica)
+    if(this.validarElectronica()){
+      this.vigilanciaElectronicaService.crearVigilaciaElectronica(this.vigilanciaElectronica)
       .subscribe(
         response => {
           console.log('Vigilancia Electrónica creada exitosamente', response);
-          this.vigilanciaElectronica = { descripcion: '', tarifa: '', ays: '', total: null };
+          this.vigilanciaElectronica = { descripcion: '', tarifa: '', ays: '', totalE: null };
           this.errorMessage = null;
           // Mostrar alerta de éxito
           Swal.fire('¡Éxito!', 'Vigilancia Electrónica creada exitosamente', 'success');
-          this.router.navigate(['/listarVigilanciaElectronica']);
+          this.router.navigate(['/administarPuestos']);
         },
         error => {
           console.error('Error creando vigilancia electrónica', error);
@@ -50,5 +58,7 @@ export class CrearVEComponent {
           Swal.fire('¡Error!', 'Error creando vigilancia electrónica ya existe.', 'error');
         }
       );
+    }
+    
   }
 }

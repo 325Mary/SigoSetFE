@@ -14,14 +14,17 @@ export class EditarContratoComponent {
   fechaInicioEdit: string; 
   fechaFinEdit: string;
   selectedFile: File | null = null; 
-
+  descripcionEdit: string;
 
   constructor(private contratoService: ContratoService) { }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.contratoSeleccionado && changes.contratoSeleccionado.currentValue) {
       this.fechaInicioEdit = this.formatearFecha(this.contratoSeleccionado.fecha_inicio);
       this.fechaFinEdit = this.formatearFecha(this.contratoSeleccionado.fecha_fin);
+      this.descripcionEdit = this.contratoSeleccionado.descripcion_contrato;
+
     }
+
   }
 
   onFileSelected(event: any): void {
@@ -36,10 +39,11 @@ export class EditarContratoComponent {
     }
     this.contratoSeleccionado.fecha_inicio = this.fechaInicioEdit;
     this.contratoSeleccionado.fecha_fin = this.fechaFinEdit;
-
+    this.contratoSeleccionado.descripcion_contrato = this.descripcionEdit;
     const formData = new FormData();
     formData.append('fecha_inicio', this.fechaInicioEdit);
     formData.append('fecha_fin', this.fechaFinEdit);
+    formData.append('descripcion_contrato', this.descripcionEdit)
     if (this.selectedFile) {
       formData.append('contrato_pdf', this.selectedFile, this.selectedFile.name);
     }

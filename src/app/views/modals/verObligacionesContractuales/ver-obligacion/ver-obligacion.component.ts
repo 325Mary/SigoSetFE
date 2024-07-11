@@ -23,7 +23,7 @@ export class VerObligacionModalComponent implements OnInit {
   }
 
   obtenerObligacion(): void {
-    this.obligacionContractualService.obtenerObligacionContractualPorId(this.data.id).subscribe(
+    this.obligacionContractualService.obtenerObligacionContractualPorId(this.data.idobligaciones_contractuales).subscribe(
       (response) => {
         this.obligacion = response;
       },

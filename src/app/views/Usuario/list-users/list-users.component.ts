@@ -15,7 +15,7 @@ export class ListUsersComponent implements OnInit {
   showModal: boolean = false;
 
   usuarios: any[];
-  pageSize: number = 10; // Número de usuarios por página
+  pageSize: number; // Número de usuarios por página
   currentPage: number = 1; // Página actual
   usuarioSeleccionado: any []
   perfiles: any[] = [];
@@ -27,10 +27,11 @@ export class ListUsersComponent implements OnInit {
   constructor(private loginService: LoginService,  private perfilService: PerfilService) { }
 
   ngOnInit(): void {
+    this.pageSize = 10; 
     this.loginService.listarUsuarios().subscribe(
       response => {
         if (response.data && response.data.length > 0) {
-          this.usuarios = response.data[0];
+          this.usuarios = response.data[0] || []; 
           this.usuariosFiltrados = [...this.usuarios];
           console.log('Primer array de usuarios:', this.usuarios);
         } else {
@@ -63,14 +64,9 @@ export class ListUsersComponent implements OnInit {
       }
     );
   }
-    // Función para cambiar de página
-  setPage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
 
-  // Función para obtener los números de página disponibles
   getPages(): number[] {
-    if (!this.usuarios) {
+    if (!this.usuarios || !this.pageSize || this.pageSize <= 0) {
       return [];
     }
     const pageCount = Math.ceil(this.usuarios.length / this.pageSize);
@@ -287,12 +283,14 @@ filtrarUsuarios(): void {
       return (
         usuario.nombre_usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
         usuario.apellido_usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-        usuario.email_usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+        usuario.email_usuario.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        usuario.nombre_perfil.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+
       );
     });
     this.noResultados = this.usuariosFiltrados.length === 0;
   } else {
-    this.usuariosFiltrados = this.usuarios ? [...this.usuarios] : []; // Mostrar todos los usuarios si el término de búsqueda está vacío
+    this.usuariosFiltrados = this.usuarios ? [...this.usuarios] : [];
     this.noResultados = false;
   }
 }

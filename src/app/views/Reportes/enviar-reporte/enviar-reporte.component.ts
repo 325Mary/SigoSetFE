@@ -38,6 +38,7 @@ export class EnviarReporteComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUsername();
+    this.loadUsuarios()
   }
 
   private fetchUsername(): void {

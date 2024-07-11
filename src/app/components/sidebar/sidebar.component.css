@@ -1,43 +1,128 @@
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
-.logo_img{
-    margin-top: 5vh;
-    width: 80%;
+.logo_img {
+  margin-top: 5vh;
+  width: 80%;
 }
-.nav-link:active{
-    background-color: rgba(0, 49, 77, 1);
-    transition-duration: 4ms;
+
+.nav-link:active {
+  background-color: rgba(0, 49, 77, 1);
+  transition-duration: 4ms;
+  color: white;
 }
+
 .sidebar-wrapper {
-    overflow-y: auto; /* Establece el desplazamiento vertical */
-    max-height: 80vh; /* Establece la altura máxima para la barra de desplazamiento */
+  overflow-y: auto; /* Establece el desplazamiento vertical */
+  max-height: 80vh; /* Establece la altura máxima para la barra de desplazamiento */
+  width: 250px;
 }
+
+/* Oculta la barra de desplazamiento en navegadores basados en WebKit */
+.sidebar-wrapper::-webkit-scrollbar {
+  width: 0; /* Oculta la barra de desplazamiento */
+}
+
+/* Para Firefox */
+.sidebar-wrapper {
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+}
+
+/* Para IE y Edge */
+.sidebar-wrapper {
+  -ms-overflow-style: none; /* Oculta la barra de desplazamiento en IE y Edge */
+}
+
 /* Base styles for the sidebar */
 .sidebar {
-    width: 250px;
+  width: 280px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #f1f1f1;
+  height: 100vh; /* Asegura que el sidebar ocupe toda la altura de la pantalla */
+  z-index: 10;
+  display: block; /* Asegura que el sidebar esté visible por defecto */
+}
+
+/* Styles for screens wider than 768px */
+@media screen and (min-width: 968px) {
+  .sidebar {
     position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #f1f1f1;
-    height: 100vh;
-    z-index: 10;
+    display: block; /* Asegura que el sidebar esté visible en pantallas grandes */
+  }
+}
+
+/* Styles for screens narrower than 768px */
+@media screen and (max-width: 968px) {
+  .sidebar {
+    display: none; /* Oculta el sidebar en pantallas pequeñas */
   }
   
-  /* Styles for screens wider than 768px */
-  @media screen and (min-width: 768px) {
-    .sidebar {
-      display: block;
-    }
+  .sidebar-open {
+    display: block; /* Asegura que el sidebar se puede abrir con esta clase */
   }
-  
-  /* Styles for screens narrower than 768px */
-  @media screen and (max-width: 768px) {
-    .sidebar {
-      display: none;
-    }
-  
-    .sidebar-open {
-      display: block;
-    }
+}
+
+/* Estilos aplicados solo cuando isLoggedIn es true */
+.content.content-with-sidebar {
+  padding-top: 60px; /* Ajusta el espaciado superior para dejar espacio para el navbar */
+  margin-left: 250px; /* Deja espacio para el sidebar */
+  margin-top: 60px; /* Compensa el espacio del navbar */
+}
+
+
+@media screen and (max-width: 968px) {
+  .content.content-with-sidebar {
+    margin-left: 0; /* Elimina el margen izquierdo cuando el sidebar no está visible */
   }
-  
+}
+
+/* Estilos aplicados solo cuando isLoggedIn es false */
+.full-width-content {
+  margin-left: 0; /* Ajusta el margen izquierdo cuando el sidebar no está visible */
+  padding-bottom: 60px; /* Asegura que el contenido no se oculte detrás del navbar */
+}
+
+
+/*Estilos para el navbar pequeño*/
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  color:  rgba(0, 49, 77, 1); /* Color azul para el texto */
+  background-color: transparent; /* Fondo transparente */
+}
+
+.nav-link i {
+  margin-right: 0.5rem; /* Espacio entre el icono y el texto */
+  font-size: 1.5rem; /* Tamaño del icono */
+}
+
+.nav-link p {
+  margin: 0; /* Quitar el margen por defecto */
+  font-size: 1rem; /* Tamaño del texto */
+}
+
+.nav-item {
+  margin-bottom: 0.5rem; /* Espacio entre los elementos de la lista */
+}
+
+.nav-link.active {
+  color:  rgb(255, 255, 255) ; /* Color del icono del enlace activo */
+}
+
+/* Estilo para el enlace cuando el ratón pasa sobre él */
+
+
+/* Estilo para el enlace activo cuando se está ejecutando (clicked) */
+.nav-link:focus,
+.nav-link.active {
+  background-color:  rgba(0, 49, 77, 1); /* Fondo azul para el enlace activo */
+  border-radius: 10px;
+  color: #fff; /* Color del texto del enlace activo */
+}
+
+.nav-link:focus i,
+.nav-link.active i {
+  color: #fff; /* Color del icono del enlace activo */
+}

@@ -1,22 +1,22 @@
-<div class="modal-header d-flex justify-content-center align-items-center">
-    <h5 class="modal-title">Editar Zona: {{ zonaseleccionada?.Nombre_zona }}</h5>
-</div>
-<div class="modal-body">
-    <div class="row">
-        <div class="col-6">
-            <div class="form-group">
-                <label for="nombreEmpresa">Zona</label>
-                <input type="text" class="form-control" id="nombreEmpresa"
-                    [(ngModel)]="zonaseleccionada.Nombre_zona">
-            </div>
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h3>Editar Zona</h3>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #form="ngForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Zona: </mat-label>
+          <input matInput [(ngModel)]="data.zona.Nombre_zona" name="Nombre_zona">
+        </mat-form-field>
+  
+      </form>
 
-        </div>
-        
-    </div>
-    
-    <!-- Repite el mismo patrón para los otros campos de entrada -->
-</div>
-<div class="modal-footer d-flex justify-content-center align-items-center">
-    <button type="button" class="btn btn-primary" (click)="actuZona()">Actualizar</button>
-    <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
-</div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button (click)="onNoClick()">Cancelar</button>
+      <button mat-button (click)="guardar()">Guardar</button>
+    </mat-card-actions>
+  </mat-card>
+  

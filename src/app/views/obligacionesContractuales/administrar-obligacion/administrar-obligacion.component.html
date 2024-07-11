@@ -1,18 +1,16 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
-
     <div class="card">
         <div class="card-header card-header-sena-azul">
-            <h3 class="card-title">
-                Administrar Obligaciones Contractuales
-            </h3>
+            <h4 class="card-title">Administrar obligaciones contractuales</h4>
         </div>
         <div class="card-body">
+
             <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
                 <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
-                    (input)="filtrarObligacion()" [(ngModel)]="terminoBusqueda">
+                    (input)="filtrarObligaciones()" [(ngModel)]="terminoBusqueda">
             </div>
-            <div class="table">
-                <table class="table table-bordered text-center">
+            <div class="table-responsive">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -21,45 +19,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngIf="!noResultados;else noResults">
+                        <ng-container  *ngIf="!noResultados; else noResults">
                             <tr
-                                *ngFor="let obligacion of filtrarObligacion().slice((currentPage-1)*pageSize, currentPage*pageSize); let i = index">
+                                *ngFor="let obligacion of obligacionfiltrada | paginate: { itemsPerPage: pageSize, currentPage: currentPage };let i= index">
                                 <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                                 <td>{{ obligacion.obligaciones_contractuales }}</td>
                                 <td>
-                                    <button (click)="editarObligacion(obligacion)" title="Editar Obligación" id="buttones"
-                                        class="mr-1">
-                                        <i class="bi bi-pencil"></i>
+                                    <button class="mr-2" (click)="editarObligacion(obligacion)"
+                                        title="Editar Obligación">
+                                        <i class="fas fa-edit icono"></i>
                                     </button>
-                                    <button (click)="verObligacion(obligacion)" title="Ver obligación" class="mr-1" id="buttones">
-                                        <i class="bi bi-eye"></i>
+                                    <button class="mr-2" (click)="verObligacion(obligacion)" title="Ver Obligación">
+                                        <i class="fas fa-eye icono"></i>
                                     </button>
-                                    <button title="Eliminar Obligación"
+                                    <button class="mr-2"
                                         (click)="eliminarObligacion(obligacion.idobligaciones_contractuales)"
-                                        class="mr-1" id="buttones">
-                                        <i class="bi bi-trash"></i>
+                                        title="Eliminar Obligación">
+                                        <i class="fas fa-trash icono"></i>
                                     </button>
                                 </td>
                             </tr>
+
                         </ng-container>
                         <ng-template #noResults>
                             <tr>
-                                <td colspan="7" class="text-center">No se encontraron resultados.</td>
+                                <td colspan="5" class="text-center">No se encontraron resultados.</td>
                             </tr>
                         </ng-template>
                     </tbody>
+
                 </table>
-            </div>
-            <div class="text-center mt-4">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item" *ngFor="let page of getPages()" [class.active]="currentPage === page">
-                            <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-                        </li>
-                    </ul>
-                </nav>
+
             </div>
         </div>
+        <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
     </div>
+
 
 </div>

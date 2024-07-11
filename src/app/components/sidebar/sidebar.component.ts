@@ -34,6 +34,7 @@ export class SidebarComponent implements OnInit {
   moduloXperfil: any[] = [];
   moduleRoutes: { module: string, routes: any[] }[] = [];
   collapsedModules: Set<string> = new Set();
+  
 
   constructor(
     private loginService: LoginService,

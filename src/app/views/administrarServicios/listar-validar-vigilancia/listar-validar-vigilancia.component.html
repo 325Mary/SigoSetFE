@@ -7,35 +7,38 @@
                         <h4 class="card-title" style="align-items: center;">Listado de informes</h4>
                     </div>
                     <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead class="text-dark">
+                        <div *ngIf="detallesContratosAgrupados.length === 0">
+                            <p>No hay nada para listar.</p>
+                        </div>
+                        <div *ngIf="detallesContratosAgrupados.length > 0" class="table-responsive">
+                            <table class="table">
+                                <thead class="text-dark">
                                     <tr>
                                         <th>ID</th>
                                         <th style="text-align: center;">Nombre del informe</th>
                                         <th>Acciones</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
+                                </thead>
+                                <tbody>
                                     <tr *ngFor="let grupo of detallesContratosAgrupados; let i = index">
                                         <td>{{ i + 1 }}</td>
                                         <td style="text-align: center;">{{ grupo.nombreDetalleContrato }}</td>
                                         <td>
-                                        <!-- Aquí puedes agregar los botones de acción -->
-                                        <button [routerLink]="['/verInforme', grupo.nombreDetalleContrato]" title="Ver ">
-                                            <i class="bi bi-eye"></i>
-                                          </button>
-                                        <!-- <button [routerLink]="['/editarInforme', grupo.nombreDetalleContrato]"  title="editar">                                                      
-                                            <span class="fa-solid fa-edit"></span>
-                                        </button> -->
-                                        <button (click)="eliminar(grupo.nombreDetalleContrato)" title=eliminar>
-                                            <span class="bi bi-trash"></span>
-                                        </button>
+                                            <!-- Aquí puedes agregar los botones de acción -->
+                                            <button [routerLink]="['/verInforme', grupo.nombreDetalleContrato]" title="Ver">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                            <!-- <button [routerLink]="['/editarInforme', grupo.nombreDetalleContrato]"  title="editar">                                                      
+                                                <span class="fa-solid fa-edit"></span>
+                                            </button> -->
+                                            <button (click)="eliminar(grupo.nombreDetalleContrato)" title="eliminar">
+                                                <span class="bi bi-trash"></span>
+                                            </button>
                                         </td>
                                     </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

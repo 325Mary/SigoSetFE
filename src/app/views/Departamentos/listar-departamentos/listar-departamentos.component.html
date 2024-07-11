@@ -1,0 +1,54 @@
+<div class="container d-flex justify-content-center mt-5 mb-2">
+  <div class="card" style="width: 80rem;">
+    <div class="card-header card-header-sena-azul">
+      <h4 class="card-title">Listado de Departamentos</h4>
+    </div>
+    <div class="card-body">
+      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarDep()" [(ngModel)]="terminoBusqueda">
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="text-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre de Departamentos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="!noResultados; else noResults">
+              <tr *ngFor="let departamento of departamentosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                <td>
+                  <ng-container *ngIf="!departamento.editando">
+                    {{departamento.departamento}}
+                  </ng-container>
+                  <ng-container *ngIf="departamento.editando">
+                    <input type="text" [(ngModel)]="departamentos[i].departamento" class="form-control" placeholder=".">
+                  </ng-container>
+                </td>
+                <td>
+                  <ng-container *ngIf="!departamento.editando">
+                    <button title="Editar departamento" id="button" (click)="editarDepartamento(i)">
+                      <span class="fa-solid fa-edit"></span>
+                    </button>
+                  </ng-container>
+                  <ng-container *ngIf="departamento.editando">
+                    <button class="btn btn-danger" (click)="guardarCambios(i)">Guardar</button>
+                  </ng-container>
+                </td>          
+              </tr>
+            </ng-container>
+            <ng-template #noResults>
+              <tr>
+                <td colspan="3" class="text-center">No se encontraron resultados.</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+      <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+    </div>
+  </div>
+</div>
