@@ -113,6 +113,7 @@ import {DetalleContratoService} from "./services/detalleContrato/detalle-contrat
 import { AsignarSedePorcentroComponent } from './views/modals/asignar-sede-porcentro/asignar-sede-porcentro.component';
 import { EdiatarValidadVigComponent } from './views/administrarServicios/ediatar-validad-vig/ediatar-validad-vig.component';
 import { CrearSolicitudPuestosComponent } from './views/modals/crear-solicitud-puestos/crear-solicitud-puestos.component';
+import { AdministrarSolicitudXcentroComponent } from './views/modals/administrar-solicitud-xcentro/administrar-solicitud-xcentro.component';
 
 @NgModule({
   imports: [
@@ -234,7 +235,8 @@ import { CrearSolicitudPuestosComponent } from './views/modals/crear-solicitud-p
     RegistrarSedeComponent,
     EditarSedeComponent,
     VerSedeComponent,
-    CrearSolicitudPuestosComponent
+    CrearSolicitudPuestosComponent,
+    AdministrarSolicitudXcentroComponent
     
 
     

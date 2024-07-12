@@ -192,7 +192,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'listarModulos', component: ListaModuloComponent },
     { path: 'crearModuloPorPerfil', component: CrearModulosXperfilComponent },
     { path: 'listaModulosPorPerfil', component: ListarModulosXperfilComponent },
-    { path: 'listaDeObligaciones', component: ListarObligacionesComponent },
+    { path: 'Obligaciones_Contrato', component: ListarObligacionesComponent },
     { path: 'reporte', component: EnviarReporteComponent },
     { path: 'ListaInformes', component: ListarValidarVigilanciaComponent},
     { path: 'verInforme/:nombreDetalleContrato', component: VerValidarVigilanciaComponent},

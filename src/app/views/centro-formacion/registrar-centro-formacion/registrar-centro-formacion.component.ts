@@ -273,7 +273,7 @@ export class RegistrarCentroFormacionComponent implements OnInit {
   }
 
   cancelar() {
-    this.route.navigate(['/listaCentroFormacion']);
+    this.route.navigate(['/listarCentros']);
   }
 
   verificarEmail() {

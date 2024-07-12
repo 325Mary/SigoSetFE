@@ -37,6 +37,7 @@ export class ListaCentrosFormacionComponent implements OnInit {
   pageSize: number=10
   currentPage: number = 1;
   noResultados: boolean = false;
+  mostrarModalAdminSolicitarPuestos: boolean = false; 
 
   
   constructor(
@@ -133,6 +134,10 @@ export class ListaCentrosFormacionComponent implements OnInit {
     this.centroSeleccionado = item;
     this.mostrarModalSolicitarPuestos = true;
   }
+  abrirModalAdminPuestos(item: any): void {
+    this.centroSeleccionado= item;
+    this.mostrarModalAdminSolicitarPuestos = true
+  }
   abrirModalAsignarSede(item: any): void {
     this.centroSeleccionado = item;
     this.mostrarModalAsignarSedes= true
@@ -142,6 +147,7 @@ export class ListaCentrosFormacionComponent implements OnInit {
     this.mostrarModalSedes = false;
     this.mostrarModalAsignarSedes =false
     this.mostrarModalSolicitarPuestos = false
+    this.mostrarModalAdminSolicitarPuestos = false
   }
   
   actualizarLista(): void {

@@ -23,7 +23,8 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                    *ngFor="let item of centrosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">                                        <td>{{(currentPage - 1) * pageSize + i + 1}}</td>
+                                        *ngFor="let item of centrosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                                        <td>{{(currentPage - 1) * pageSize + i + 1}}</td>
                                         <td>{{item.centro_formacion}}</td>
                                         <td>{{item.telefono_centrof}}</td>
                                         <td>{{item.email_centrof}}</td>
@@ -73,26 +74,25 @@
                                                     title="Solicitar Puestos  de vigilancia" (click)="abrirModalSolicitarPuestos(item)">
                                                     <span  class="fas fa-clipboard-list"></span>
                                                 </i>
+                                                <i *ngIf="isLoggedIn && isSuperAdministrador"
+                                                title="Administrar Solicitudes de Puestos" (click)="abrirModalAdminPuestos(item)">
+                                                <span class=" fas fa-tasks"></span>
+                                            </i>
                                                 </div> 
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior"
+                            nextLabel="Siguiente"></pagination-controls>
+
                         </div>
                         <ng-template #noCentros>
                             <p class="text-center">No hay centros para listar</p>
                         </ng-template>
                         <div class="text-center mt-4" *ngIf="listaCentrosFormacion.length > 0">
-                            <!-- Botones o enlaces para cambiar de página -->
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item" *ngFor="let page of getPages()"
-                                        [class.active]="currentPage === page">
-                                        <button class="page-link" (click)="setPage(page)">{{ page }}</button>
-                                    </li>                            
-                                </ul>
-                            </nav>
+                         
                         </div>
                     </div>
                 </div>
@@ -154,5 +154,18 @@
             (actualizarLista)="actualizarLista()">
         </app-crear-solicitud-puestos>
 </div>
+    </div>
+</div>
+
+<div class="modal" [class.show]="mostrarModalAdminSolicitarPuestos" tabindex="1">
+    <div class="modal-dialog modal-xl" style="width: 80%;">
+        <div class="modal-content">
+            <app-administrar-solicitud-xcentro
+            [centroSeleccionado]="centroSeleccionado"
+            [mostrarModalAdminSolicitarPuestos]= "mostrarModalAdminSolicitarPuestos"
+            (closeModal)="handleCloseModal()"
+            (actualizarLista)="actualizarLista()">
+        </app-administrar-solicitud-xcentro>
+        </div>
     </div>
 </div>
