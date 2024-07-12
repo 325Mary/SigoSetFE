@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { CentroFormacionService } from '../../../services/centro-formacion/centro-formacion.service';
 import { CentroFormacion } from '../../../models/centro-formacion/centro-formacion';
 import { PuestosEXcentroService } from '../../../services/PuestosXcentro/puestos-excentro.service';
@@ -32,12 +32,13 @@ export class ListaCentrosFormacionComponent implements OnInit {
   isSuperAdministrador = false;
   isOrdenadorG = false;
   currentRoute = '';
-  currentPage: number = 1;
+  mostrarModalSolicitarPuestos: boolean = false; 
   terminoBusqueda: string = '';
+  pageSize: number=10
+  currentPage: number = 1;
   noResultados: boolean = false;
-   pageSize: number=10 ;
-    mostrarModalSolicitarPuestos: boolean = false; 
 
+  
   constructor(
     private _centroFormacionService: CentroFormacionService, 
     private _puestosEXCentroService: PuestosEXcentroService,
@@ -154,7 +155,8 @@ export class ListaCentrosFormacionComponent implements OnInit {
         this.isLoggedIn = true;
         this.userData = await this.tokenValidationService.getUserData(token);
         this.setUserRoles(this.userData.idperfil);
-        this.cdr.detectChanges();
+        // console.log('isLogin:', this.userData);
+        this.cdr.detectChanges(); // Ensure change detection is triggered
       }
     } catch (error) {
       console.error('Error al verificar la autenticación:', error);

@@ -64,9 +64,17 @@
   </div>
 </div>
 
-<!-- Modal de creación -->
-<div class="modal" [class.show]="mostrarModalCrear">
-  <div class="modal-dialog">
+<!-- Paginación -->
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal" [class.show]="mostrarModalEditar">
+  <div class="modal-dialog ">
     <div class="modal-content">
       <app-crear-contrato (contratoCreado)="actualizarContratos()" (closeModal)="handleCloseModal()"></app-crear-contrato>
     </div>
