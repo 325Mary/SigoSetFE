@@ -13,7 +13,7 @@ export class PuestosVXcentroService {
   constructor(private httpClient: HttpClient) {}
 
   obtenerPuestosVxCentro(idcentro_formacion: number): Observable<any> {
-    const url = `${this.baseUrl}listPuestosXcentro/${idcentro_formacion}`; // Agregar la barra inclinada
+    const url = `${this.baseUrl}listPuestosXcentro/${idcentro_formacion}`; 
 
     return this.httpClient.get<any>(url);
   }

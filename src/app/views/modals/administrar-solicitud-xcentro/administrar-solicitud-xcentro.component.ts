@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { SolicitudPuestosService } from '../../../services/solicitudes/solicitud-puestos.service'
+import { SolicitudPuestosService } from '../../../services/solicitudes/solicitud-puestos.service';
+import { formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-administrar-solicitud-xcentro',
@@ -13,6 +15,11 @@ export class AdministrarSolicitudXcentroComponent implements OnInit, OnChanges {
   @Output() closeModal = new EventEmitter<void>();
 
   solicitudes: any[] = [];
+  mostrarModalRechazoFlag: boolean = false;
+  motivoRechazo: string = '';
+  solicitudActual: any;
+  pageSize: number=4;
+  currentPage: number = 1;
 
   constructor(private solicitudPuestosService: SolicitudPuestosService) { }
 
@@ -30,13 +37,9 @@ export class AdministrarSolicitudXcentroComponent implements OnInit, OnChanges {
 
   cargarSolicitudes(): void {
     const idCentro = this.centroSeleccionado.idcentro_formacion;
-    console.log(idCentro);
-    
     this.solicitudPuestosService.obtenersolicitudes_puestoslPorCentro(idCentro).subscribe(
       (response) => {
         this.solicitudes = response.data;
-        console.log(this.solicitudes);
-        
       },
       (error) => {
         console.error('Error al cargar solicitudes', error);
@@ -44,26 +47,60 @@ export class AdministrarSolicitudXcentroComponent implements OnInit, OnChanges {
     );
   }
 
- 
-
-  actualizarSolicitud(solicitud: any): void {
-    // Lógica para actualizar la solicitud
-    console.log('Actualizar solicitud', solicitud);
-  }
-
-  eliminarSolicitud(id: number): void {
-    this.solicitudPuestosService.eliminarsolicitudes_puestoslPorId(id).subscribe(
+  aprobarSolicitud(solicitud: any): void {
+    const fechaActual = formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss', 'en');
+    this.solicitudPuestosService.actualizarEstadoSolicitud(
+      solicitud.idsolicitud_puesto,
+      'aprobada',
+      'solicitud aprobada',
+      fechaActual
+    ).subscribe(
       () => {
-        console.log('Solicitud eliminada');
         this.cargarSolicitudes();
       },
       (error) => {
-        console.error('Error al eliminar la solicitud', error);
+        console.error('Error al aprobar solicitud', error);
       }
     );
+  }
+
+  mostrarModalRechazo(solicitud: any): void {
+    this.solicitudActual = solicitud;
+    this.motivoRechazo = '';
+    this.mostrarModalRechazoFlag = true;
+  }
+
+  rechazarSolicitud(): void {
+    if (this.motivoRechazo.trim()) {
+      const fechaActual = formatDate(new Date(), 'yyyy-MM-dd HH:mm:ss', 'en');
+      this.solicitudPuestosService.actualizarEstadoSolicitud(
+        this.solicitudActual.idsolicitud_puesto,
+        'rechazada',
+        this.motivoRechazo,
+        fechaActual
+      ).subscribe(
+        () => {
+          this.cargarSolicitudes();
+          this.cerrarModalRechazo();
+        },
+        (error) => {
+          console.error('Error al rechazar solicitud', error);
+        }
+      );
+    } else {
+      alert('Debe ingresar un motivo para el rechazo.');
+    }
+  }
+
+  cerrarModalRechazo(): void {
+    this.mostrarModalRechazoFlag = false;
   }
 
   close(): void {
     this.closeModal.emit();
   }
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
+  
 }

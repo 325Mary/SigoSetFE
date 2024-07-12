@@ -38,4 +38,14 @@ export class SolicitudPuestosService {
     const url = `${this.baseUrl}EliminarSolicitudes_puestos/${idsolicitud_puesto}`;
     return this.http.delete<any>(url);
   }
+  actualizarEstadoSolicitud(idsolicitud_puesto: number, estado_solicitud: string, respuesta: string, fecha_respuesta: string): Observable<any> {
+    const url = `${this.baseUrl}editSolicitudes_puestos/${idsolicitud_puesto}`;
+    const data = {
+      estado_solicitud: estado_solicitud,
+      respuesta,
+      fecha_Respuesta: fecha_respuesta
+    };
+    console.log(`URL: ${url}, Data:`, data); 
+    return this.http.put<any>(url, data);
+  }
 }

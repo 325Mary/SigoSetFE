@@ -1,5 +1,5 @@
 <div class="container">
-    <h3>Seleccionar Sedes</h3>
+    <h3>Seleccionar Sedes para el centro: {{ centroSeleccionado.centro_formacion }}</h3>
     <input list="sedesList" class="form-control" placeholder="Buscar y seleccionar una sede" (input)="selectSede($event)">
     <datalist id="sedesList">
       <option *ngFor="let sede of sedes" [value]="sede.sede_formacion">
@@ -22,6 +22,6 @@
   
   <div class="container mt-3">
     <button type="button" class="btn btn-danger mr-2" (click)="asignarSedes()">Asignar</button>
-    <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+    <button type="button" class="btn btn-muted" (click)="close()">Cerrar</button>
   </div>
   
