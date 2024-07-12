@@ -8,16 +8,27 @@ import { environment } from '../../../environments/environment';
 })
 export class ObligacionesContratistaService {
 
-  
+
   private baseUrl = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
+
   obtenerObligacionesContratista(): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}listObligacionesContratista`);
+    const url = `${this.baseUrl}listObligacionesContratista`;
+    return this.httpClient.get<any>(url);
+
   }
 
-  crearObligacionContratista(obligacionContratista: any): Observable<any> {
-    return this.httpClient.post(`${this.baseUrl}crearObligacionContratista`, obligacionContratista);
+  obtenerObligacionContratistaC(idobligaciones_contratista: number): Observable<any> {
+    const url = `${this.baseUrl}obtenerObligacionContratistaC/${idobligaciones_contratista}`;
+    return this.httpClient.get(url); // Debes retornar el resultado de la llamada HTTP
+  }
+
+
+  crearObligacionContratista(nuevaObligacioncontratista: any): Observable<any> {
+    const url = `${this.baseUrl}crearObligacionContratista`;
+    return this.httpClient.post<any>(url, nuevaObligacioncontratista);
+
   }
 
   EditarObligacionContratista(idobligaciones_contratista: number, obligacionContratista: any): Observable<any> {

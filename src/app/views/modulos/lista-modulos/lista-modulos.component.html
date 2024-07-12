@@ -1,51 +1,66 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
-    <div class="card" style="width: 60rem;">
-      <div class="card-header card-header-sena-azul">
-        <h4 class="card-title">Listar Módulo</h4>
-      </div>
-      <div class="card-body">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Módulo</th>
-          <th>URL</th>
-          <th>Icono</th>
-          <th>Orden</th>
-          <th>Hijos</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let modulo of modulos">
-          <td>{{ modulo.idmodulo }}</td>
-          <td>{{ modulo.modulo }}</td>
-          <td>{{ modulo.url_modulo }}</td>
-          <td><i class="fa" [ngClass]="modulo.icono"></i></td>
-          <td>{{ modulo.orden }}</td>
-          <td>{{ modulo.hijos }}</td>
-          <td>
-            <!-- Puedes agregar botones para editar/eliminar aquí -->
-            <button class="btn  btn-sm" (click)="abrirModalEditar(modulo)">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="eliminarModulo(modulo.idmodulo)">Eliminar</button>
-        </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="card" style="width: 60rem;">
+    <div class="card-header card-header-sena-azul">
+      <h4 class="card-title">Listar Módulo</h4>
     </div>
+    <div class="card-body">
+      <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+        <input type="text" class="form-control" style="border: none;" placeholder="Buscar..." (input)="filtrarModulos()"
+          [(ngModel)]="terminoBusqueda">
+      </div>
+      <div class="table-responsive">
+      <table class="table">
+        <thead class="text-dark">
+          <tr>
+            <th>ID</th>
+            <th>Módulo</th>
+            <th>URL</th>
+            <th>Icono</th>
+            <th>Orden</th>
+            <th>Hijos</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="!noResultados; else noResultados">
+            <tr *ngFor="let modulo of modulofiltrado | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+              <td>{{ modulo.modulo }}</td>
+              <td>{{ modulo.url_modulo }}</td>
+              <td><i class="fa" [ngClass]="modulo.icono"></i></td>
+              <td>{{ modulo.orden }}</td>
+              <td>{{ modulo.hijos }}</td>
+              <td>
+                <!-- Puedes agregar botones para editar/eliminar aquí -->
+                <button class="btn  btn-sm" (click)="abrirModalEditar(modulo)">Editar</button>
+                <button class="btn btn-danger btn-sm" (click)="eliminarModulo(modulo.idmodulo)">Eliminar</button>
+              </td>
+            </tr>
+
+
+          </ng-container>
+          <ng-template #noResults>
+            <tr>
+                <td colspan="3" class="text-center">No se encontraron resultados</td>
+            </tr>
+        </ng-template>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="modal" [class.show]="mostrarModalEditar" tabindex="-1">
-    <div class="modal-dialog modal-xl" style="width: 70%;"> <!-- Aquí puedes usar modal-lg o modal-xl -->
-        <div class="modal-content">
-            <!-- Contenido del modal -->
-            <app-editar-modulo
-    [ModuloSeleccionado]="ModuloSeleccionado"
-    [mostrarModal]="mostrarModalEditar"
-    (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
-</app-editar-modulo>
+  <div class="modal-dialog modal-xl" style="width: 70%;"> <!-- Aquí puedes usar modal-lg o modal-xl -->
+    <div class="modal-content">
+      <!-- Contenido del modal -->
+      <app-editar-modulo [ModuloSeleccionado]="ModuloSeleccionado" [mostrarModal]="mostrarModalEditar"
+        (closeModal)="handleCloseModal()"> <!-- Aquí se vincula correctamente al evento closeModal -->
+      </app-editar-modulo>
 
-        </div>
     </div>
+  </div>
 </div>

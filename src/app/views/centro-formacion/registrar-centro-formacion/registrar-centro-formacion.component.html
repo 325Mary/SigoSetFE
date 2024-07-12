@@ -1,70 +1,69 @@
-<!-- registrar-centro-formacion.component.html -->
-
-<div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="card-header card-header-sena-azul">
-                      <h4 class="card-title">{{titulo }} </h4>
-                  </div>
-                  <div class="card-body">
-                      <form [formGroup]="centroFormacionForm" (ngSubmit)="guardarOActualizaCentroFormacion()">
-                          <div class="row justify-content-center">
-                              <div class="col-md-5 m-1">
-                                <div class="row form-group">
-                                    <label for="zonaNombre">Zona:</label>
-                                    <input list="zonas" id="zonaNombre" name="zonaNombre" class="form-control" (input)="updateZonaId($event)">
-                                    <datalist id="zonas">
-                                      <option *ngFor="let zona of listaZonas" [value]="zona.Nombre_zona"></option>
-                                    </datalist>
-                                  </div>
-                                  <div class="row form-group">
-                                      <label for="centro_formacion">Nombre del Centro de Formación:</label>
-                                      <input type="text" class="form-control" id="centro_formacion" formControlName="centro_formacion" placeholder="">
-                                  </div>
-                                  <div class="row form-group">
-                                      <label for="telefono_centrof">Telefono del Centro de Formación:</label>
-                                      <input type="text" class="form-control" id="telefono_centrof" formControlName="telefono_centrof"placeholder="">
-                                  </div>
-                                  
-                              </div>
-                              <div class="col-md-5 m-1">
-                                <div class="row form-group">
-                                    <label for="regionalNombre">Regional:</label>
-                                    <input list="regionales" id="regionalNombre" name="regionalNombre" class="form-control" (input)="updateRegionalId($event)">
-                                    <datalist id="regionales">
-                                      <option *ngFor="let regional of listaRegionales" [value]="regional.regional"></option>
-                                    </datalist>
-                                  </div>
-                                <div class="row form-group">
-                                      <label for="email_centrof">Correo Electronico del Centro de Formación:</label>
-                                      <input type="text" class="form-control" id="email_centrof" formControlName="email_centrof" placeholder="">
-                                  </div>
-                                  <div class="row form-group">
-                                      <label for="dir_centro_formacion">Direccion del Centro de Formación:</label>
-                                      <input type="text" class="form-control" id="dir_centro_formacion" formControlName="dir_centro_formacion" placeholder="">
-                                  </div>
-                                  <!-- <div class="row form-group">
-                                      <label for="ordenador_gasto">Ordenador Gasto:</label>
-                                      <input type="text" class="form-control" id="ordenador_gasto" formControlName="ordenador_gasto" placeholder="">
-                                  </div>
-                                  <div class="row form-group">
-                                      <label for="telefono_ordenadorg">Telefono del Ordenador Gasto:</label>
-                                      <input type="text" class="form-control" id="telefono_ordenadorg"  formControlName="telefono_ordenadorg" placeholder="">
-                                  </div>
-                                  <div class="row form-group">
-                                      <label for="email_ordenadorg">Correo Electronico del Ordenador Gasto:</label>
-                                      <input type="text" class="form-control" id="email_ordenadorg"  formControlName="email_ordenadorg" placeholder="">
-                                  </div> -->
-                              </div>
-                          </div>
-                          <button mat-raised-button type="button" class="btn btn-default pull-right" (click)="cancelar()">Cancelar</button>                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Guardar</button>
-                          <div class="clearfix"></div>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="card" style="width: 80rem;">
+        <div class="card-header card-header-sena-azul">
+            <h4 class="card-title">{{titulo}} </h4>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="centroFormacionForm" (ngSubmit)="guardarOActualizaCentroFormacion()">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="zonaNombre">Zona:</label>
+                            <input list="zonas" id="zonaNombre" name="zonaNombre" class="form-control"
+                                (input)="updateZonaId($event)">
+                            <datalist id="zonas">
+                                <option *ngFor="let zona of listaZonas" [value]="zona.Nombre_zona"></option>
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <label for="centro_formacion">Nombre del Centro de Formación:</label>
+                            <input type="text" class="form-control" id="centro_formacion"
+                                formControlName="centro_formacion" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono_centrof">Teléfono del Centro de Formación:</label>
+                            <input type="number" class="form-control" id="telefono_centrof"
+                                formControlName="telefono_centrof" (input)="validatePhoneNumber()" placeholder="">
+                            <div *ngIf="centroFormacionForm.get('telefono_centrof').invalid && (centroFormacionForm.get('telefono_centrof').dirty || centroFormacionForm.get('telefono_centrof').touched)">
+                                <small *ngIf="centroFormacionForm.get('telefono_centrof').errors?.required"
+                                    style="color: red;">El teléfono es obligatorio.</small>
+                                <small *ngIf="centroFormacionForm.get('telefono_centrof').errors?.pattern"
+                                    style="color: red;">El teléfono debe tener 10 dígitos.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="regionalNombre">Regional:</label>
+                            <input list="regionales" id="regionalNombre" name="regionalNombre" class="form-control"
+                                (input)="updateRegionalId($event)">
+                            <datalist id="regionales">
+                                <option *ngFor="let regional of listaRegionales" [value]="regional.regional"></option>
+                            </datalist>
+                        </div>
+                        <div class="form-group">
+                            <label for="email_centrof">Correo Electrónico del Centro de Formación:</label>
+                            <input type="text" class="form-control" id="email_centrof" formControlName="email_centrof"
+                                placeholder="">
+                            <div *ngIf="centroFormacionForm.get('email_centrof').invalid && (centroFormacionForm.get('email_centrof').dirty || centroFormacionForm.get('email_centrof').touched)">
+                                <small *ngIf="centroFormacionForm.get('email_centrof').errors?.required"
+                                    style="color: red;">El correo electrónico es obligatorio.</small>
+                                <small *ngIf="centroFormacionForm.get('email_centrof').errors?.email"
+                                    style="color: red;">El email debe contener el símbolo '@'.</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dir_centro_formacion">Dirección del Centro de Formación:</label>
+                            <input type="text" class="form-control" id="dir_centro_formacion"
+                                formControlName="dir_centro_formacion" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <button mat-raised-button type="button" class="btn btn-default pull-right"
+                    (click)="cancelar()">Cancelar</button>
+                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Guardar</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
 </div>

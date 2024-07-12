@@ -1,17 +1,20 @@
 <div class="container d-flex justify-content-center mt-5 mb-2">
-  <div class="card" style="width: 60rem;">
-    <div class="card-header card-header-sena-azul"> <!-- Contenedor del título -->
-      <h3 class="card-title">Listado de Usuarios</h3>
-    </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-sena-azul"> <!-- Contenedor del título -->
+            <h4 class="card-title">Listado de Usuarios</h4>
+          </div>
 
-    <div class="card-body">
-      <div class="table">
-        <table class="table table-bordered text-center">
-          <thead>
+          <div class="card-body">
             <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
               <input type="text" class="form-control" style="border: none;" placeholder="Buscar..."
                 (input)="filtrarUsuarios()" [(ngModel)]="terminoBusqueda">
             </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-dark">
 
             <tr>
               <th>ID</th>
@@ -79,15 +82,18 @@
         </nav>
       </div>
 
-    </div>
-  </div>
-</div>
+          </div>
+        </div>
+      </div>
 
-<div class="modal" [class.show]="showModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Contenido del modal -->
-      <app-ver-user [usuarioSeleccionado]="usuarioSeleccionado" (closeModal)="handleCloseModal()"></app-ver-user>
+      <div class="modal" [class.show]="showModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Contenido del modal -->
+            <app-ver-user [usuarioSeleccionado]="usuarioSeleccionado" (closeModal)="handleCloseModal()"></app-ver-user>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

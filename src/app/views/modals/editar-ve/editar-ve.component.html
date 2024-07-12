@@ -26,14 +26,14 @@
     <div class="row">
         <div class="col-6">
             <div class="form-group">
-                <label for="total">Total:</label>
-                <input type="number" class="form-control" id="total" [(ngModel)]="vigiElSeleccionada.totalE" disabled>
+                <label for="totalE">Total:</label>
+                <input type="number" class="form-control" id="totalE" [(ngModel)]="vigiElSeleccionada.totalE" disabled>
             </div>
         </div>
         <!-- Puedes agregar más campos según sea necesario -->
     </div>
 </div>
 <div class="modal-footer d-flex justify-content-center align-items-center">
-    <button type="button" class="btn btn-primary" (click)="actuaList()">Actualizar</button>
+    <button type="button" class="btn btn-danger" (click)="actuaList()">Actualizar</button>
     <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
 </div>

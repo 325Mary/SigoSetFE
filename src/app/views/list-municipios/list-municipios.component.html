@@ -1,0 +1,65 @@
+<div class="container d-flex justify-content-center mt-5 mb-2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-sena-azul">
+              <h4 class="card-title">Listado de Municipios</h4>
+            </div>
+            <div class="card-body">
+              <div class="form-group" style="margin: 20px 10px; border: 2px solid #ccc; border-radius: 5px; padding: 0;">
+                <input [(ngModel)]="terminoBusqueda" (input)="filtrarMunicipios()" type="text" class="form-control" placeholder="Buscar municipio...">
+              </div>
+  
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="text-dark">
+                    <tr>
+                      <th>ID</th>
+                      <th>Municipio</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngIf="!noResultados; else noResults">
+                      <ng-container *ngFor="let municipio of municipiosFiltrados | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; let i = index">
+                        <tr>
+                          <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                          <td>
+                            <ng-container *ngIf="!municipio.editando">
+                              {{ municipio.municipio }}
+                            </ng-container>
+                            <ng-container *ngIf="municipio.editando">
+                              <input type="text" [(ngModel)]="municipios[i].municipio" class="form-control" placeholder=".">
+                            </ng-container>
+                          </td>
+                          <td>
+                            <ng-container *ngIf="!municipio.editando">
+                              <button title="Editar municipio" id="boton" (click)="editarMunicipio(i)">
+                                <span class="fa-solid fa-edit"></span>
+                              </button>
+                            </ng-container>
+                            <ng-container *ngIf="municipio.editando">
+                              <button class="btn btn-danger" (click)="guardarCambios(i)">Guardar</button>
+                            </ng-container>
+                          </td>
+
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #noResults>
+                      <tr>
+                        <td colspan="3" class="text-center">No se encontraron resultados</td>
+                      </tr>
+                    </ng-template>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChange($event)" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

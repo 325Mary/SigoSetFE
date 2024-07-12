@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <h2>Editar Obligación Contratista</h2>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form #form="ngForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Obligación Contractual</mat-label>
+                <input matInput [(ngModel)]="data.obligacion.obligacion_contratista" name="obligaciones_contractista">
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button (click)="onNoClick()">Cancelar</button>
+        <button mat-button (click)="guardar()">Guardar</button>
+    </mat-card-actions>
+</mat-card>

@@ -3,7 +3,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 interface Zona {
   idzona: number;
   Nombre_zona: string;
-  // Agrega aquí más propiedades si es necesario
 }
 
 @Component({
@@ -16,6 +15,7 @@ export class VerZonaComponent {
   @Output() closeModal = new EventEmitter<void>();
 
   constructor() { }
+  
 
   close(): void {
     this.closeModal.emit();

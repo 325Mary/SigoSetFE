@@ -15,6 +15,13 @@ app-navbar {
   width: 100%;
   z-index: 1000;
 }
+app-footer {
+  position: fixed; /* Cambia la posición a fija para que se mantenga visible al hacer scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
 
 /* Estilos aplicados solo cuando isLoggedIn es true */
 .content.content-with-sidebar {

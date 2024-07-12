@@ -7,12 +7,17 @@ import { ModulosXperfilService } from '../../../services/modulos/modulos-xperfil
   styleUrls: ['./listar-modulos-xperfil.component.css']
 })
 export class ListarModulosXperfilComponent implements OnInit {
-  
+
   modulosXPerfil: any[] = [];
   perfiles: string[] = [];
   modulos: string[] = [];
+  modulosXperfilFitrados: any[] = []
   permissionsMatrix: any = {};
   errorMessage: string | null = null;
+  pageSize: number = 10;
+  currentPage: number = 1;
+  noResultados: boolean = false;
+  terminoBusqueda: string = '';
 
   constructor(private modulosXPerfilService: ModulosXperfilService) { }
 
@@ -25,6 +30,7 @@ export class ListarModulosXperfilComponent implements OnInit {
       next: (response) => {
         this.modulosXPerfil = response.data;
         this.transformData();
+        this.filtrarMxP();
       },
       error: (error) => {
         this.errorMessage = `Error fetching data: ${error.message}`;
@@ -35,7 +41,7 @@ export class ListarModulosXperfilComponent implements OnInit {
   transformData(): void {
     const perfilesSet = new Set<string>();
     const modulosSet = new Set<string>();
-    
+
     this.modulosXPerfil.forEach(item => {
       perfilesSet.add(item.perfil);
       modulosSet.add(this.formatUrl(item.url_modulo));
@@ -55,15 +61,14 @@ export class ListarModulosXperfilComponent implements OnInit {
   }
 
   togglePermission(modulo: string, perfil: string, event: any): void {
-    const nuevoPermiso = event.target.checked ? 'si' : 'no'; 
+    const nuevoPermiso = event.target.checked ? 'si' : 'no';
     this.permissionsMatrix[modulo][perfil] = nuevoPermiso;
 
-    // Assuming idmodulo and idperfil are part of the item and are numbers
     const idmodulo = this.getModuloId(modulo);
     const idperfil = this.getPerfilId(perfil);
 
     const moduloxperfilData = { permiso: nuevoPermiso };
-    
+
     this.modulosXPerfilService.editarModuloXperfil(idmodulo, idperfil, moduloxperfilData).subscribe({
       next: (response) => {
         console.log('Permission updated successfully', response);
@@ -75,14 +80,39 @@ export class ListarModulosXperfilComponent implements OnInit {
   }
 
   getModuloId(modulo: string): number {
-    // Implement this to return the correct idmodulo based on the URL or name
     const found = this.modulosXPerfil.find(item => this.formatUrl(item.url_modulo) === modulo);
     return found ? found.idmodulo : 0;
   }
 
   getPerfilId(perfil: string): number {
-    // Implement this to return the correct idperfil based on the name
     const found = this.modulosXPerfil.find(item => item.perfil === perfil);
     return found ? found.idperfil : 0;
+  }
+
+  filtrarMxP(): void {
+    if (this.terminoBusqueda.trim() !== '') {
+      this.modulosXperfilFitrados = this.modulos.filter(modulo =>
+        modulo.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+      );
+      this.noResultados = this.modulosXperfilFitrados.length === 0;
+    } else {
+      this.modulosXperfilFitrados = [...this.modulos]
+    }
+
+
+  }
+
+
+
+  // setPage(pageNumber: number): void {
+  //   this.currentPage = pageNumber;
+  // }
+
+  // getPages(): number[] {
+  //   const pageCount = Math.ceil(this.modulos.length / this.pageSize);
+  //   return Array(pageCount).fill(0).map((x, i) => i + 1);
+  // }
+  pageChange(event: number): void {
+    this.currentPage = event;
   }
 }

@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <h3>Detalles de la Sede</h3>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p><strong>Sede :</strong> {{ data.sede.sede_formacion }}</p>
+        <p><strong>Dirección de Sede :</strong> {{ data.sede.dir_sede_formacion }}</p>
+        <p><strong>Telefono de la Sede:</strong> {{ data.sede.telefono_sedef }}</p>
+        <p><strong>Email de la sede:</strong> {{ data.sede.email_sedef }}</p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button mat-button (click)="onNoClick()">Cerrar</button>
+    </mat-card-actions>
+</mat-card>

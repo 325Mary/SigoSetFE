@@ -1,0 +1,12 @@
+#button {
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0;
+  }
+ 
+  title{
+    background-color: white;
+    border: 1px solid blue;
+    color: rgb(0, 0, 81);
+  }

@@ -13,7 +13,6 @@ export class ZonaService {
 
   getZona(): Observable<any> {
     const url = `${this.baseUrl}zonas`;
-
     return this.httpClient.get<any>(url);
   }
 

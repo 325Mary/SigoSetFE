@@ -54,7 +54,7 @@
                   <td>{{ puesto.tipo }}</td>
                   <td>{{ puesto.descripcion }}</td>
                   <td>
-                    <input type="number" class="form-control" [(ngModel)]="puesto.cantidad" (ngModelChange)="onCantidadChange(i, $event)" min="1">
+                    <input type="number" class="form-control" [(ngModel)]="puesto.cantidad" (ngModelChange)="onCantidadChange(i, $event)" min="1" title="Numero de puestos anexos que necesitas">
                   </td>
                   <td>
                     <button type="button" class="btn btn-sm btn-danger" (click)="eliminarPuesto(i)">

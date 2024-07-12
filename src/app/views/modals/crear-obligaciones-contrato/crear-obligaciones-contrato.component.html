@@ -59,7 +59,7 @@
               (input)="onEmpresaChangeContratista($event)"
               required>
             <datalist id="contratosContratista">
-              <option *ngFor="let contrato of contratos" [value]="contrato.nombre_empresa">{{ contrato.nombre_empresa }}</option>
+              <option *ngFor="let contrato of contratos" [value]="contrato.descripcion_contrato">{{ contrato.descripcion_contrato }}</option>
             </datalist>
           </div>
           <div class="form-group">

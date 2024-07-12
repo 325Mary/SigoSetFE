@@ -1,0 +1,91 @@
+/* Estilos generales */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  color: #333;
+  overflow: hidden;
+}
+
+/* Contenedor principal */
+.container_principal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Fondo dinámico */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200%;
+  background: linear-gradient(45deg, #eb4e54, #fad0c4, #fcb69f, #f6c57f);
+  background-size: 200% 200%;
+  z-index: -1;
+  animation: moveBackground 10s ease infinite;
+}
+
+@keyframes moveBackground {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Contenido principal */
+.main-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Título de error */
+.error-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #e74c3c;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mensaje de error */
+.error-message {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Enlace de vuelta */
+.back-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #3498db;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: #2980b9;
+}

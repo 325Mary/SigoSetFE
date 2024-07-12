@@ -1,0 +1,22 @@
+<div class="modal-header d-flex justify-content-center align-items-center">
+    <h5 class="modal-title">Editar departamento: {{ departamentoSeleccionado?.departamento }}</h5>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="nombreDep">Zona</label>
+                <input type="text" class="form-control" id="nombreDep"
+                    [(ngModel)]="departamentoSeleccionado.departamento">
+            </div>
+
+        </div>
+        
+    </div>
+    
+    <!-- Repite el mismo patrón para los otros campos de entrada -->
+</div>
+<div class="modal-footer d-flex justify-content-center align-items-center">
+    <button type="button" class="btn-secondary" (click)="close()">Cerrar</button>
+      
+</div>

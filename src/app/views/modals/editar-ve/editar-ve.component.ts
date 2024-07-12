@@ -22,8 +22,10 @@ export class EditarVEComponent  {
     const datosActualizados = {
       descripcion: this.vigiElSeleccionada.descripcion,
       tarifa: this.vigiElSeleccionada.tarifa,
-      ays: this.vigiElSeleccionada.ays
+      ays: this.vigiElSeleccionada.ays,
+      totalE:this.vigiElSeleccionada.totalE
     };
+console.log(datosActualizados);
 
     // Llama al servicio para editar la vigilancia electrónica
     this.vigilanciaService.editarVigilaciaElectronica(this.vigiElSeleccionada.idvigilancia_electronica, datosActualizados)

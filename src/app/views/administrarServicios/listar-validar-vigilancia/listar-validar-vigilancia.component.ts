@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DetalleContratoService } from "../../../services/detalleContrato/detalle-contrato.service";
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-listar-validar-vigilancia',
@@ -57,18 +59,46 @@ export class ListarValidarVigilanciaComponent implements OnInit {
   }
 
   eliminar(nombreDetalleContrato: string): void {
-    // Encuentra el detalle del contrato a eliminar
-    const detalleAEliminar = this.detallesContratos.find(detalle => detalle.nombreDetalleContrato === nombreDetalleContrato);
-    if (detalleAEliminar) {
-      this.detalleContratoService.eliminarDetalleContrato(detalleAEliminar.iddetalle_contrato).subscribe(
-        (response) => {
-          console.log('Detalle de contrato eliminado:', response);
-          this.obtenerDetallesContratos(); // Vuelve a cargar la lista de contratos
-        },
-        (error) => {
-          console.error('Error al eliminar el detalle de contrato:', error);
+    // Encuentra los detalles del contrato a eliminar
+    const detallesAEliminar = this.detallesContratos.filter(detalle => detalle.nombreDetalleContrato === nombreDetalleContrato);
+    if (detallesAEliminar.length > 0) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: `Estás a punto de eliminar todos los detalles del contrato con nombre: ${nombreDetalleContrato}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminarlos',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let eliminados = 0;
+          detallesAEliminar.forEach((detalle, index) => {
+            this.detalleContratoService.eliminarDetalleContrato(detalle.iddetalle_contrato).subscribe(
+              (response) => {
+                eliminados++;
+                if (eliminados === detallesAEliminar.length) {
+                  Swal.fire(
+                    'Eliminado!',
+                    `Se han eliminado ${eliminados} detalles del contrato con nombre: ${nombreDetalleContrato}.`,
+                    'success'
+                  );
+                  this.obtenerDetallesContratos(); // Vuelve a cargar la lista de contratos
+                }
+              },
+              (error) => {
+                console.error('Error al eliminar el detalle de contrato:', error);
+                Swal.fire(
+                  'Error!',
+                  'Hubo un problema al eliminar algunos detalles del contrato.',
+                  'error'
+                );
+              }
+            );
+          });
         }
-      );
+      });
     }
   }
 }

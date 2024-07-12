@@ -1,0 +1,50 @@
+
+<div class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Administrar Solicitudes por Centro</h2>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="solicitudes.length > 0; else noData">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Fecha de Solicitud</th>
+                  <th>Fecha Respuesta</th>
+                  <th>Tipo</th>
+                  <th>Cantidad</th>
+                  <th>Estado</th>
+                  <th>Descripción</th>
+                  <th>Respuesta</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let solicitud of solicitudes">
+                  <td>{{ solicitud.idsolicitud_puesto }}</td> 
+                  <td>{{solicitud.fecha_solicitud | date}}</td>
+                  <td>{{solicitud.fecha_Respuesta | date}}</td>
+                  <td>{{ solicitud.tipo_puesto }}</td>
+                  <td>{{ solicitud.cantidad_solicitada }}</td>
+                  <td>{{ solicitud.estado_solicitud }}</td>
+                  <td>{{ solicitud.descripcion_Solicitud }}</td>
+                  <td>{{solicitud.respuesta}}</td>
+                  <td>
+                    <button class="btn btn-warning" (click)="actualizarSolicitud(solicitud)">Actualizar</button>
+                    <button class="btn btn-danger" (click)="eliminarSolicitud(solicitud.idsolicitud_puesto)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <ng-template #noData>
+          <p>No hay solicitudes para este centro.</p>
+        </ng-template>
+        <button type="button" class="btn btn-muted" (click)="close()">Cerrar</button>
+
+      </div>
+
+    </div>
+  

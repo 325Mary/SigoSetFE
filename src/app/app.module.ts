@@ -76,6 +76,9 @@ import { CrearZonaComponent } from './views/zonas/crear-zona/crear-zona.componen
 import { AdministrarZonaComponent } from './views/zonas/administrar-zona/administrar-zona.component';
 import { EditarZonaComponent } from './views/modals/editar-zona/editar-zona.component';
 import { VerZonaComponent } from './views/modals/ver-zona/ver-zona.component';
+import { ListarDepartamentosComponent } from './views/Departamentos/listar-departamentos/listar-departamentos.component';
+import { EditarDepartamentoComponent } from './views/modals/editar-departamento/editar-departamento.component';
+import { VerDepartamentoComponent } from './views/modals/ver-departamento/ver-departamento.component';
 
 import { EditarVHumanaComponent } from './views/modals/editar-vhumana/editar-vhumana.component';
 import { EditarModuloComponent } from "./views/modulos/editar-modulo/editar-modulo.component";
@@ -91,17 +94,30 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from 'environments/environment';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { VerValidarVigilanciaComponent } from './views/administrarServicios/ver-validar-vigilancia/ver-validar-vigilancia.component';
+import { ListMunicipiosComponent } from './views/list-municipios/list-municipios.component';
+import { VerMunicipioComponent } from './views/modals/ver-municipios/ver-municipios.component'; 
+import { EditMunicipioComponent } from './views/modals/edit-municipios/edit-municipios.component';
+import {NgxPaginationModule}from 'ngx-pagination';
+
+
+import { ListarObligacionContratistaComponent } from './views/obligacionesContratista/listar-obligacion/listar-obligacion.component';
+import { EditarObliContratistaComponent } from './views/modals/editar-obli-contratista/editar-obli-contratista.component';
+import { VerObliContratistaComponent } from './views/modals/ver-obli-contratista/ver-obli-contratista.component'
+import { CrearObligacionContratistaComponent } from './views/obligacionesContratista/crear-obligacion/crear-obligacion.component';
+import { RegistrarSedeComponent } from './views/sedes/registrar-sede/registrar-sede.component';
+import { ListarSedesComponent } from './views/sedes/listar-sedes/listar-sedes.component';
+import { EditarSedeComponent } from './views/modals/editar-sede/editar-sede.component';
+import { VerSedeComponent } from './views/modals/ver-sede/ver-sede.component';import { VerValidarVigilanciaComponent } from './views/administrarServicios/ver-validar-vigilancia/ver-validar-vigilancia.component';
 import { ListarValidarVigilanciaComponent } from './views/administrarServicios/listar-validar-vigilancia/listar-validar-vigilancia.component';
 import {DetalleContratoService} from "./services/detalleContrato/detalle-contrato.service";
 import { AsignarSedePorcentroComponent } from './views/modals/asignar-sede-porcentro/asignar-sede-porcentro.component';
 import { EdiatarValidadVigComponent } from './views/administrarServicios/ediatar-validad-vig/ediatar-validad-vig.component';
 import { CrearSolicitudPuestosComponent } from './views/modals/crear-solicitud-puestos/crear-solicitud-puestos.component';
+import { AdministrarSolicitudXcentroComponent } from './views/modals/administrar-solicitud-xcentro/administrar-solicitud-xcentro.component';
 
 @NgModule({
   imports: [
-     AppRoutingModule,
+   AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -116,6 +132,7 @@ import { CrearSolicitudPuestosComponent } from './views/modals/crear-solicitud-p
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    NgxPaginationModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireMessagingModule,   
     AngularFireDatabaseModule,
@@ -160,6 +177,7 @@ import { CrearSolicitudPuestosComponent } from './views/modals/crear-solicitud-p
     ListUsersComponent,
     LoginComponent,
     PersonalizacionComponent,
+    CrearObligacionContratistaComponent,
     RestablecerPasswordComponent,
     CrearContratoComponent,
     CrearModulosComponent,
@@ -172,7 +190,7 @@ import { CrearSolicitudPuestosComponent } from './views/modals/crear-solicitud-p
     CrearContratoComponent,
     AdministrarCentroComponent,
     SesionCaucadaComponent,
-
+    ListarSedesComponent,
     CrearPuestoComponent,    
     InformesComponent,
     ValidarOblVComponent,
@@ -191,6 +209,10 @@ import { CrearSolicitudPuestosComponent } from './views/modals/crear-solicitud-p
     AdministrarObligacionComponent,
     EditarObligacionModalComponent,
     VerObligacionModalComponent,
+    ListarDepartamentosComponent,
+    EditarDepartamentoComponent,
+    VerDepartamentoComponent,
+  
     EditarVHumanaComponent,
     EditarModuloComponent,
     CrearModulosXperfilComponent,
@@ -204,13 +226,25 @@ import { CrearSolicitudPuestosComponent } from './views/modals/crear-solicitud-p
     ListarValidarVigilanciaComponent,
     AsignarSedePorcentroComponent,
     EdiatarValidadVigComponent,
+    ListMunicipiosComponent,
+    EditMunicipioComponent,
+    VerMunicipioComponent,
+    ListarObligacionContratistaComponent,
+    EditarObliContratistaComponent,
+    VerObliContratistaComponent,
+    RegistrarSedeComponent,
+    EditarSedeComponent,
+    VerSedeComponent,
     CrearSolicitudPuestosComponent,
-   
+    AdministrarSolicitudXcentroComponent
+    
+
+    
   ],
   providers: [
     LoginService,
-    CentroFormacionService
-    , JwtHelperService,
+    CentroFormacionService,
+    JwtHelperService,
     PuestosEXcentroService,
     PuestosVXcentroService,
     ObligacionesContratoService,

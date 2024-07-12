@@ -1,9 +1,8 @@
-import { Component, OnInit, AfterViewInit,ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { PuestosVigilanciaService } from '../../../services/puestosvigilancia/puestosVig.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatTableModule } from '@angular/material/table';
 import Swal from 'sweetalert2';
-import { NavigationStart, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-puestos-vig',
@@ -17,9 +16,14 @@ export class ListPuestosVigComponent implements OnInit {
   puestoData: any;
   errorMessage: string = '';
   dataSource: MatTableDataSource<any>;
+  terminoBusqueda: string = '';
+  noResultados: boolean = false;
+  pageSize: number = 10;
+  currentPage: number = 1;
   showModal: boolean = false;
   mostrarModalEditar: boolean = false;
   puestoSeleccionado: any = {};
+  puestoFiltrado: any[] = []
 
   constructor(
     private puestosService: PuestosVigilanciaService,
@@ -32,11 +36,16 @@ export class ListPuestosVigComponent implements OnInit {
     this.obtenerPuestos();
   }
 
+  setPage(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+
   obtenerPuestos(): void {
     this.puestosService.obtenerPuestos().subscribe(
       (data) => {
         this.puestos = data.data[0];
         this.dataSource.data = this.puestos;
+        this.filtrarVigilancia();
         console.log('pv.', this.puestos);
       },
       (error) => {
@@ -67,7 +76,7 @@ export class ListPuestosVigComponent implements OnInit {
     );
   }
 
-  eliminarPuesto(id: number): void {
+  eliminarPuesto(idpuesto_vigilancia: number): void {
     Swal.fire({
       title: '¿Estás seguro?',
       text: '¡No podrás revertir esto!',
@@ -78,7 +87,7 @@ export class ListPuestosVigComponent implements OnInit {
       confirmButtonText: 'Sí, eliminarlo'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.puestosService.eliminarPuesto(id).subscribe(
+        this.puestosService.eliminarPuesto(idpuesto_vigilancia).subscribe(
           (data) => {
             this.obtenerPuestos();
             Swal.fire(
@@ -113,5 +122,34 @@ export class ListPuestosVigComponent implements OnInit {
     this.mostrarModalEditar = true;
     console.log(this.puestoSeleccionado);
   }
-}
 
+  filtrarVigilancia(): void {
+    if (this.terminoBusqueda.trim() != ''){
+       this.puestoFiltrado = this.puestos.filter(puesto =>
+        puesto.descripcion_puesto.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+        puesto.tarifa_puesto.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+        puesto.ays.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase()) ||
+        puesto.total.toLowerCase().includes(this.terminoBusqueda.toLocaleLowerCase())
+
+      )
+      this.noResultados = this.puestoFiltrado.length === 0;
+      this.currentPage = 1; // Reiniciar la paginación al filtrar
+    }else{
+      this.puestoFiltrado = [...this.puestos]
+    }
+     
+  };
+  
+
+
+
+  getPages(): number[] {
+    const pageCount = Math.ceil(this.dataSource.data.length / this.pageSize);
+    return Array(pageCount).fill(0).map((x, i) => i + 1);
+  }
+
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
+
+}

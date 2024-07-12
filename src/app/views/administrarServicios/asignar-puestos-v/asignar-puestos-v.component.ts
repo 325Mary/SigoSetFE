@@ -21,7 +21,7 @@ export class AsignarPuestosVComponent implements OnInit {
   puestoVxCentro: any;
   puestoExCentro: any;
   puestos: any[] = [];
-  centro: any[] = [];
+  centro: any;
   vigiElectronica: any[] = [];
   sedes: any[] = [];
   servicioSeleccionado: string;
@@ -61,7 +61,6 @@ export class AsignarPuestosVComponent implements OnInit {
       this.obtenerSedesPorCentro(this.centroId);
     });
     this.obtenerEmpresas();
-    this.obtenerinforXcentro(this.centroId);
   }
 
   obtenerEmpresas() {

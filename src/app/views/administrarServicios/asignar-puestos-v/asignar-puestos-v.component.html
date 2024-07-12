@@ -1,109 +1,140 @@
-<div class="container">
-  <!-- Formulario de Vigilancia Humana -->
-  <div *ngIf="mostrarFormularioHumano" class="form-container-left">
-    <form class="form-section">
-      <div class="select-vertical">
-        <label for="empresaVigilanciaHumana">Empresa:</label>
-        <input list="empresasListHumana" id="empresaVigilanciaHumana" (change)="onEmpresaSelected($event)" placeholder="Seleccione Empresa" />
-        <datalist id="empresasListHumana">
-          <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{ empresa.nombre_empresa }}</option>
-        </datalist>
-        
-        <div class="select-vertical">
-          <label for="sede">Seleccione una sede:</label>
-          <input list="sedes" id="sede" name="sede" (change)="onSedeSelected($event)" placeholder="Seleccione una sede">
-          <datalist id="sedes">
-            <option *ngFor="let sede of sedes" [value]="sede.sede_formacion"></option>
-          </datalist>
-        </div>
-      </div>
-      <div class="select-vertical">
-        <label for="puestosVigilancia">Vigilancia Humana:</label>
-        <input list="puestosList" id="puestosVigilancia" (change)="onPuestoVigilanciaSelected($event)" placeholder="Seleccione Tipos de puestos" />
-        <datalist id="puestosList">
-          <option *ngFor="let puesto of puestos" [value]="puesto.descripcion_puesto">{{ puesto.descripcion_puesto }}</option>
-        </datalist>
-      </div>
-      <div *ngFor="let puesto of puestosSeleccionadosVigilancia" class="puesto-container">
-        <div class="descripcion-puesto">
-          <span>{{ puesto.descripcion_puesto }}</span>
-        </div>
-        <div class="cantidad-rectangulo">
-          <button class="btn-sm" (click)="reducirCantidad(puesto)" title="Reducir cantidad">
-            <i class="fa fa-minus"></i>
-          </button>
-          <span>Cantidad: {{ puesto.cantidad }}</span>
-          <button class="btn-sm" (click)="aumentarCantidad(puesto)" title="Aumentar">
-            <i class="fa fa-plus"></i>
-          </button>
-          <button class="btn-sm" (click)="eliminarPuesto(puestosSeleccionadosVigilancia, puesto)" title="Eliminar">
-            <i class="fa fa-trash"></i>
-          </button>
-        </div>
-      </div>
-      
-      <hr>
-      <button class="btn btn-primary" (click)="guardarCambiosVigilanciaHumana()">Guardar Cambios</button>
-    </form>
-  </div>
+<div class="container d-flex justify-content-center mt-5 mb-2">
+  <div class="card" style="width: 80rem;">
+    <div class="card-header card-header-sena-azul ">
+      <h4 class="card-title mb-0">Asignar puestos de Vigilancia Humana y Electrónica</h4>
+      <p class="card-category mb-0">Asignar puesto al Centro de Formación: {{ nombreCentro }}</p>
+    </div>
 
-  <!-- Formulario de Vigilancia Electrónica -->
-  <div *ngIf="mostrarFormularioElectronica" class="form-container-right">
-    <form class="form-section">
-      <div class="select-vertical">
-        <label for="empresaVigilanciaHumana">Empresa:</label>
-        <input list="empresasListHumana" id="empresaVigilanciaHumana" (change)="onEmpresaSelected($event)" placeholder="Seleccione Empresa" />
-        <datalist id="empresasListHumana">
-          <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{ empresa.nombre_empresa }}</option>
-        </datalist>
-        
-      </div>
-      <div class="select-vertical">
-        <label for="sede">Seleccione una sede:</label>
-        <input list="sedes" id="sede" name="sede" (change)="onSedeSelected($event)" placeholder="Seleccione una sede">
-        <datalist id="sedes">
-          <option *ngFor="let sede of sedes" [value]="sede.sede_formacion"></option>
-        </datalist>
-      </div>
-      <div class="select-vertical">
-        <label for="vigilanciaElectronica">Vigilancia Electronica:</label>
-        <input list="vigilanciaElectronicaList" id="vigilanciaElectronica" (change)="onVigilanciaElectronicaSelected($event)" placeholder="Seleccione Tipos de puestos" />
-        <datalist id="vigilanciaElectronicaList">
-          <option *ngFor="let vigiElect of vigiElectronica" [value]="vigiElect.descripcion">{{ vigiElect.descripcion }}</option>
-        </datalist>
-      </div>
-      <div *ngFor="let vigElect of puestosSeleccionadosElectronica" class="puesto-container">
-        <div class="descripcion-puesto">
-          <span>{{ vigElect.descripcion }}</span>
-        </div>
-        <div class="cantidad-rectangulo">
-          <button class="btn-sm" (click)="reducirCantidad(vigElect)" title="Reducir cantidad">
-            <i class="fa fa-minus"></i>
-          </button>
-          <span>Cantidad: {{ vigElect.cantidad }}</span>
-          <button class="btn-sm" (click)="aumentarCantidad(vigElect)" title="Aumentar">
-            <i class="fa fa-plus"></i>
-          </button>
-          <button class="btn-sm" (click)="eliminarPuesto(puestosSeleccionadosElectronica, vigElect)" title="Eliminar">
-            <i class="fa fa-trash"></i>
-          </button>
-        </div>
-      </div>
-      <hr>
-      <button class="btn btn-primary" (click)="guardarCambiosVigilanciaElectronica()">Guardar Cambios</button>
-    </form>
-  </div>
+    <div class="card-body">
 
-  <div class="form-toggle-buttons" [ngClass]="{ 'form-toggle-buttons-left': !mostrarFormularioHumano, 'form-toggle-buttons-right': mostrarFormularioHumano }">
-    <button *ngIf="!mostrarFormularioElectronica" (click)="mostrarFormulario('electronica')">
-      Vigilancia Electrónica
-      <i class="fas fa-arrow-right"></i> <!-- Flecha a la derecha -->
-    </button>
-    <button *ngIf="!mostrarFormularioHumano" (click)="mostrarFormulario('humano')">
-      Vigilancia Humana
-      <i class="fas fa-arrow-left"></i> <!-- Flecha a la izquierda -->
-    </button>
-  </div>
+      <div class="card-body d-flex flex-wrap justify-content-between align-items-start">
+        <!-- Formulario de Vigilancia Humana -->
+        <div *ngIf="mostrarFormularioHumano" class="form-container col-md-8 mb-3">
+          <form class="form-section">
+            <div class="form-group">
+              <label for="empresaVigilanciaHumana">Empresa:</label>
+              <input list="empresasListHumana" id="empresaVigilanciaHumana" class="form-control"
+                (change)="onEmpresaSelected($event)" placeholder="Seleccione Empresa" />
+              <datalist id="empresasListHumana">
+                <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{ empresa.nombre_empresa }}
+                </option>
+              </datalist>
+            </div>
 
+            <div class="form-group">
+              <label for="sede">Seleccione una sede:</label>
+              <input list="sedes" id="sede" class="form-control" name="sede" (change)="onSedeSelected($event)"
+                placeholder="Seleccione una sede">
+              <datalist id="sedes">
+                <option *ngFor="let sede of sedes" [value]="sede.sede_formacion"></option>
+              </datalist>
+            </div>
+
+            <div class="form-group">
+              <label for="puestosVigilancia">Vigilancia Humana:</label>
+              <input list="puestosList" id="puestosVigilancia" class="form-control"
+                (change)="onPuestoVigilanciaSelected($event)" placeholder="Seleccione Tipos de puestos" />
+              <datalist id="puestosList">
+                <option *ngFor="let puesto of puestos" [value]="puesto.descripcion_puesto">{{ puesto.descripcion_puesto
+                  }}
+                </option>
+              </datalist>
+            </div>
+
+            <div *ngFor="let puesto of puestosSeleccionadosVigilancia" class="selected-item mb-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <span>{{ puesto.descripcion_puesto }}</span>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-secondary btn-sm" (click)="reducirCantidad(puesto)"
+                    title="Reducir cantidad">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <span class="mx-2">Cantidad: {{ puesto.cantidad }}</span>
+                  <button type="button" class="btn btn-secondary btn-sm" (click)="aumentarCantidad(puesto)"
+                    title="Aumentar cantidad">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm"
+                    (click)="eliminarPuesto(puestosSeleccionadosVigilancia, puesto)" title="Eliminar">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" (click)="guardarCambiosVigilanciaHumana()">Guardar
+              Cambios</button>
+          </form>
+        </div>
+
+        <!-- Formulario de Vigilancia Electrónica -->
+        <div *ngIf="mostrarFormularioElectronica" class="form-container col-md-8 mb-3">
+          <form class="form-section">
+            <div class="form-group">
+              <label for="empresaVigilanciaHumana">Empresa:</label>
+              <input list="empresasListHumana" id="empresaVigilanciaHumana" class="form-control"
+                (change)="onEmpresaSelected($event)" placeholder="Seleccione Empresa" />
+              <datalist id="empresasListHumana">
+                <option *ngFor="let empresa of empresas" [value]="empresa.nombre_empresa">{{ empresa.nombre_empresa }}
+                </option>
+              </datalist>
+            </div>
+
+            <div class="form-group">
+              <label for="sede">Seleccione una sede:</label>
+              <input list="sedes" id="sede" class="form-control" name="sede" (change)="onSedeSelected($event)"
+                placeholder="Seleccione una sede">
+              <datalist id="sedes">
+                <option *ngFor="let sede of sedes" [value]="sede.sede_formacion"></option>
+              </datalist>
+            </div>
+
+            <div class="form-group">
+              <label for="vigilanciaElectronica">Vigilancia Electrónica:</label>
+              <input list="vigilanciaElectronicaList" id="vigilanciaElectronica" class="form-control"
+                (change)="onVigilanciaElectronicaSelected($event)" placeholder="Seleccione Tipos de puestos" />
+              <datalist id="vigilanciaElectronicaList">
+                <option *ngFor="let vigiElect of vigiElectronica" [value]="vigiElect.descripcion">{{
+                  vigiElect.descripcion
+                  }}</option>
+              </datalist>
+            </div>
+
+            <div *ngFor="let vigElect of puestosSeleccionadosElectronica" class="selected-item mb-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <span>{{ vigElect.descripcion }}</span>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-secondary btn-sm" (click)="reducirCantidad(vigElect)"
+                    title="Reducir cantidad">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <span class="mx-2">Cantidad: {{ vigElect.cantidad }}</span>
+                  <button type="button" class="btn btn-secondary btn-sm" (click)="aumentarCantidad(vigElect)"
+                    title="Aumentar cantidad">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-danger btn-sm"
+                    (click)="eliminarPuesto(puestosSeleccionadosElectronica, vigElect)" title="Eliminar">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-primary" (click)="guardarCambiosVigilanciaElectronica()">Guardar
+              Cambios</button>
+          </form>
+        </div>
+        <div class="form-toggle-buttons col-md-4 mb-3">
+          <button *ngIf="!mostrarFormularioHumano" class="btn btn-info mr-2" (click)="mostrarFormulario('humano')">
+            Vigilancia Humana <i class="fas fa-arrow-left"></i>
+          </button>
+          <button *ngIf="!mostrarFormularioElectronica" class="btn btn-info" (click)="mostrarFormulario('electronica')">
+            Vigilancia Electrónica <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <button class="volver-button" routerLink="/listaCentroFormacion">Volver</button>
 </div>

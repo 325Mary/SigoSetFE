@@ -1,0 +1,13 @@
+<div *ngIf="municipio">
+    <h2>Detalles del Municipio</h2>
+    <p><strong>ID:</strong> {{ municipio.id }}</p>
+    <p><strong>Nombre:</strong> {{ municipio.nombre }}</p>
+    <p><strong>Departamento:</strong> {{ municipio.departamento }}</p>
+
+    <button mat-button (click)="close()">Cerrar</button>
+</div>
+
+<div *ngIf="!municipio">
+    <p>No se encontraron detalles del municipio.</p>
+    <button mat-button (click)="close()">Cerrar</button>
+</div>

@@ -1,12 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
 import { ZonaService } from 'app/services/zona/zona.service';
 import Swal from 'sweetalert2';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-interface Zona {
-  idzona: number;
-  Nombre_zona: string;
-  // Agrega aquí más propiedades si es necesario
-}
+
 
 @Component({
   selector: 'app-editar-zona',
@@ -14,43 +11,43 @@ interface Zona {
   styleUrls: ['./editar-zona.component.css']
 })
 export class EditarZonaComponent {
-  @Input() zonaseleccionada: Zona;
-  @Output() closeModal = new EventEmitter<void>();
-  @Output() actualizarZona = new EventEmitter<void>();
+  constructor(
+    public dialogRef: MatDialogRef<EditarZonaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private zonaService: ZonaService
+  ) { }
 
-  constructor(private zonaservice: ZonaService) {}
+  ngOnInit(): void { }
 
-  actuZona(): void {
-    const zonaActualizada = { Nombre_zona: this.zonaseleccionada.Nombre_zona };
-    this.zonaservice.editarZona(this.zonaseleccionada.idzona, zonaActualizada).subscribe(
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  guardar(): void {
+    console.log('Datos antes de guardar:', this.data.zona); // Depuración
+    const nuevaSede = {
+      Nombre_zona: this.data.zona.Nombre_zona,
+
+    };
+    this.zonaService.editarZona(this.data.zona.idzona, nuevaSede).subscribe(
       response => {
-        console.log('Zona actualizada', response);
-        this.closeModal.emit();
-        this.actualizarZona.emit();
+        this.dialogRef.close(true);
+        console.log('Respuesta del servidor:', response);
         Swal.fire({
-          icon: 'success',
-          title: 'Zona actualizada!',
-          text: 'La Zona ha sido actualizada correctamente.'
+          title: "Accion completada!",
+          text: "Zona Editada Correctamente!",
+          icon: "success"
         });
+
       },
       error => {
-        console.error('Error al actualizar la Zona:', error);
-        let errorMessage = 'Ocurrió un error al intentar actualizar la Zona. Por favor, inténtalo de nuevo.';
-        if (error && error.error && error.error.message) {
-          errorMessage = error.error.message;
-        }
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: errorMessage
-        });
+        alert('Error al actualizar la Zona.');
+        console.error('Error en la actualización:', error);
       }
     );
   }
 
-  close(): void {
-    this.closeModal.emit();
-  }
 
-  ngOnInit(): void {}
+
+
+
 }

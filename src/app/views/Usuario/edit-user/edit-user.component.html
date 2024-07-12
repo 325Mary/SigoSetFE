@@ -28,7 +28,7 @@
           <img [src]="firmaUsuarioUrl" alt="Firma del usuario" class="firma-preview">
         </div>
         
-        <div *ngIf="userData.user.perfil === 'Ordenador del gasto' && !firmaUsuarioUrl">
+        <div *ngIf="userData.user.perfil === 'Ordenador del Gasto' && !firmaUsuarioUrl">
           <label for="firma_usuario"> Agregar Firma: </label>
           <input type="file" [(ngModel)]="userData.firma_usuario" (change)="onFileChange($event)" required title="Imagen de firma">
         </div>

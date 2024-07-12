@@ -20,6 +20,10 @@ export class ListarObligacionesComponent implements OnInit {
   mostrarModalObligaciones: boolean = false;
   mostrarModalEditar: boolean = false;
   mostrarModalCrear: boolean = false;
+  pageSize: number = 10; 
+  currentPage: number = 1;
+  terminoBusqueda: string = '';
+  noResultados: boolean = false;
 
   constructor(private obligacionesContratoService: ObligacionesContratoService) {}
 
@@ -123,11 +127,9 @@ export class ListarObligacionesComponent implements OnInit {
   actualizarObC(): void {
     this.obtenerObligaciones();
   }
-
   cambiarPaginaContratistas(event: any): void {
-    this.contratistasPage = event;
+    this.contractualesPage = event;
   }
-
   cambiarPaginaContractuales(event: any): void {
     this.contractualesPage = event;
   }

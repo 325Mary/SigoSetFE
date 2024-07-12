@@ -17,3 +17,10 @@
   max-width: 800px; /* Ancho máximo */
   width: 100%; /* Para asegurarse de que ocupe todo el ancho disponible */
 }
+#bpton {
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+}
+

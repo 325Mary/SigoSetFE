@@ -19,8 +19,8 @@ export class SolicitudPuestosService {
     return this.http.get<any>(url);
   }
 
-  obtenersolicitudes_puestoslPorCentro(idsolicitud_puesto: number): Observable<any> {
-    const url = `${this.baseUrl}listSolicitudes_puestos/${idsolicitud_puesto}`;
+  obtenersolicitudes_puestoslPorCentro(idcentro_formacion: number): Observable<any> {
+    const url = `${this.baseUrl}listSolicitudes_puestos/${idcentro_formacion}`;
     return this.http.get<any>(url);
   }
 

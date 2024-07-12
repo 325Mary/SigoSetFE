@@ -1,6 +1,5 @@
-<!-- crear-empresa.component.html -->
 <div class="container d-flex justify-content-center mt-5 mb-2">
-    <div class="card" style="width: 60rem;">
+    <div class="card" style="width: 80rem;">
         <div class="card-header card-header-sena-azul">
             <h4 class="card-title">Crear Empresa</h4>
         </div>
@@ -11,82 +10,84 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="nombreEmpresa">Nombre Empresa:</label>
-                            <input type="text" id="nombreEmpresa" name="nombreEmpresa"
-                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.nombre_empresa" required>
+                            <input type="text" id="nombreEmpresa" name="nombreEmpresa" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.nombre_empresa" required>
                         </div>
                         <div class="form-group">
                             <label for="nit">NIT:</label>
-                            <input type="text" id="nit" name="nit" class="form-control rounded-input"
-                                [(ngModel)]="nuevaEmpresa.nit_empresa" required>
+                            <input type="number" id="nit" name="nit" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.nit_empresa" required maxlength="10" (input)="onInput($event, 'nit')">
+                            <div *ngIf="errores.nit" style="color: red;">
+                                El NIT debe ser de 10 caracteres.
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="direccion">Dirección:</label>
-                            <input type="text" id="direccion" name="direccion" class="form-control rounded-input"
-                                [(ngModel)]="nuevaEmpresa.direccion_empresa" required>
+                            <input type="text" id="direccion" name="direccion" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.direccion_empresa" required>
                         </div>
                     </div>
+
                     <!-- Columna de Teléfono y Correo Electrónico de la Empresa -->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="telefonoEmpresa">Teléfono Empresa:</label>
-                            <input type="text" id="telefonoEmpresa" name="telefonoEmpresa"
-                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_empresa"
-                                required>
+                            <input type="number" id="telefonoEmpresa" name="telefonoEmpresa" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_empresa" (input)="onInput($event, 'telefono_empresa')" required>
+                            <div *ngIf="errores.telefono_empresa" style="color: red;">{{ errores.telefono_empresa }}</div>
                         </div>
+                        
                         <div class="form-group">
                             <label for="emailEmpresa">Email Empresa:</label>
-                            <input type="email" id="emailEmpresa" name="emailEmpresa" class="form-control rounded-input"
-                                [(ngModel)]="nuevaEmpresa.email_empresa" required>
+                            <input type="email" id="emailEmpresa" name="emailEmpresa" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_empresa" (input)="verificarEmail('email_empresa')" required>
+                            <div *ngIf="errores.email_empresa" style="color: red;">El email debe contener el símbolo '@'</div>
                         </div>
                     </div>
+
                     <!-- Columna de Datos de Contacto -->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="personaContacto">Persona de Contacto:</label>
-                            <input type="text" id="personaContacto" name="personaContacto"
-                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.persona_contacto" required>
+                            <input type="text" id="personaContacto" name="personaContacto" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.persona_contacto" required>
                         </div>
                         <div class="form-group">
                             <label for="telefonoContacto">Teléfono Persona de Contacto:</label>
-                            <input type="text" id="telefonoContacto" name="telefonoContacto"
-                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_personac"
-                                required>
+                            <input type="number" id="telefonoContacto" name="telefonoContacto" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_personac" required maxlength="10" (input)="onInput($event, 'telefono_personac')">
+                            <div *ngIf="errores.telefono_personac" style="color: red;">
+                                {{errores.telefono_personac}}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="emailContacto">Email Persona de Contacto:</label>
-                            <input type="email" id="emailContacto" name="emailContacto"
-                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_personac" required>
+                            <input type="email" id="emailContacto" name="emailContacto" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_personac" (input)="verificarEmail('email_personac')" required>
+                            <div *ngIf="errores.email_personac" style="color: red;">El email debe contener el símbolo '@'</div>
                         </div>
                     </div>
+
                     <!-- Columna de Datos del Representante Legal -->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="representanteLegal">Representante Legal:</label>
-                            <input type="text" id="representanteLegal" name="representanteLegal"
-                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.representante_legal"
-                                required>
+                            <input type="text" id="representanteLegal" name="representanteLegal" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.representante_legal" required>
                         </div>
                         <div class="form-group">
                             <label for="telefonoRepresentante">Teléfono Representante Legal:</label>
-                            <input type="text" id="telefonoRepresentante" name="telefonoRepresentante"
-                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_representantel"
-                                required>
+                            <input type="number" id="telefonoRepresentante" name="telefonoRepresentante" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.telefono_representantel" required maxlength="10" (input)="onInput($event, 'telefono_representantel')">
+                            <div *ngIf="errores.telefono_representantel" style="color: red;">
+                                {{errores.telefono_representantel}}
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="emailRepresentante">Email Representante Legal:</label>
-                            <input type="email" id="emailRepresentante" name="emailRepresentante"
-                                class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_representantel"
-                                required>
+                            <input type="email" id="emailRepresentante" name="emailRepresentante" class="form-control rounded-input" [(ngModel)]="nuevaEmpresa.email_representantel" (input)="verificarEmail('email_representantel')" required>
+                            <div *ngIf="errores.email_representantel" style="color: red;">El email debe contener el símbolo '@'</div>
                         </div>
                     </div>
                 </div>
-                <!-- Agrega más campos según sea necesario para tu formulario [disabled]="!camposCompletos() -->
 
-                <div class="d-flex justify-content-between w-100 mt-4">
-                    <button type="submit" class="btn btn-danger pull-right">Crear Empresa</button>
+                <!-- Botón para Crear Empresa -->
+                <div class="row mt-4">
+                    <div class="col-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-danger" [disabled]="!camposCompletos()">Crear Empresa</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-
 </div>

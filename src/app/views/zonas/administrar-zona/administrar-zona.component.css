@@ -6,15 +6,15 @@ button {
 }
 
 #boton_editar {
-  color: blue;
+  color: rgb(2, 2, 31);
 }
 
 #boton_delete {
-  color: red;
+  color: rgb(4, 1, 17);
 }
 
 #boton_ver {
-  color: green;
+  color: rgb(5, 1, 26);
 }
 
 .icono {

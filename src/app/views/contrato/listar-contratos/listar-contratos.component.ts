@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import {ContratoService} from '../../../services/contrato/contrato.service'
+import { ContratoService } from '../../../services/contrato/contrato.service';
 import Swal from 'sweetalert2';
 
 
@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listar-contratos.component.css']
 })
 export class ListarContratosComponent {
-
   @ViewChild('modalContent') modalContent: ElementRef<any> | null = null;
   contratos: any[];
   showModal: boolean = false;
@@ -17,9 +16,8 @@ export class ListarContratosComponent {
   pageSize: number = 6; 
   currentPage: number = 1;
   contratoSeleccionado: any = {};
-  mostrarModalCrear: boolean = false; 
+  mostrarModalCrear: boolean = false;
   mostrarModalEditar: boolean = false;
-  idContratoAEditar: number | null = null;
   terminoBusqueda: string = '';
   noResultados: boolean = false;
   usuarioIndex: number = 0; 
@@ -30,88 +28,77 @@ export class ListarContratosComponent {
 
 constructor(private contratoService :ContratoService ){}
 
-ngOnInit(): void {
-  this.obtenerContratos();
-}
+  ngOnInit(): void {
+    this.obtenerContratos();
+  }
 
-obtenerContratos() {
-  this.contratoService.obtenerContratos().subscribe(
-    (response) => {
-      this.contratos = response.data[0];
-      this.contratosFiltrados = [...this.contratos];
-      console.log('contratos',this.contratos)
-    },
-    (error) => {
-      console.error('Error al obtener contratos:', error);
-    }
-  );
-}
-abrirModalCrear(): void {
-  this.mostrarModalCrear = true; 
-}
+  obtenerContratos() {
+    this.contratoService.obtenerContratos().subscribe(
+      (response) => {
+        this.contratos = response.data[0];
+        this.contratosFiltrados = [...this.contratos];
+      },
+      (error) => {
+        console.error('Error al obtener contratos:', error);
+      }
+    );
+  }
 
-actualizarContratos(): void {
-  this.obtenerContratos(); 
-}
-closeModal(): void {
-  this.showModal = false;
-  this.mostrarModalCrear = false;
-  this.mostrarModalEditar = false;
-  this.refreshList()
-}
+  abrirModalCrear(): void {
+    this.mostrarModalCrear = true;
+  }
 
-handleCloseModal(): void {
-  this.closeModal();
-}
+  actualizarContratos(): void {
+    this.obtenerContratos();
+  }
 
+  closeModal(): void {
+    this.mostrarModalCrear = false;
+    this.mostrarModalEditar = false;
+    this.refreshList();
+  }
 
+  handleCloseModal(): void {
+    this.closeModal();
+  }
 
-abrirModalEditar(contrato: any): void {
-  this.contratoSeleccionado = contrato;
+  abrirModalEditar(contrato: any): void {
+    this.contratoSeleccionado = contrato;
+    this.mostrarModalEditar = true;
+  }
 
-  // Asignar las fechas del contrato seleccionado a las variables de fecha para mostrarlas en los campos de entrada
-  this.fechaInicioEdit = this.contratoSeleccionado.fecha_inicio;
-  this.fechaFinEdit = this.contratoSeleccionado.fecha_fin;
-
-  this.mostrarModalEditar = true;
-}
-
-
-
-eliminarContrato(idContrato_empresa: number): void {
-  Swal.fire({
-    title: '¿Estás seguro?',
-    text: '¡No podrás revertir esto!',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Sí, eliminarlo',
-    cancelButtonText: 'Cancelar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-
-      this.contratoService.eliminarContrato(idContrato_empresa).subscribe(
-        () => {
-          Swal.fire(
-            '¡Eliminado!',
-            'La Contrato ha sido eliminada correctamente.',
-            'success'
-          );
-          this.obtenerContratos();
-          this.refreshList()
-        },
-        (error) => {
-          // Mostrar un mensaje de error si ocurre algún problema durante la eliminación
-          Swal.fire(
-            '¡Error!',
-            'Ocurrió un error al intentar eliminar la Contrato.',
-            'error'
-          );
-          console.error('Error al eliminar Contrato:', error);
-        }
-      );
-    }
-  });
-}
+  eliminarContrato(idContrato_empresa: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡No podrás revertir esto!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminarlo',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.contratoService.eliminarContrato(idContrato_empresa).subscribe(
+          () => {
+            Swal.fire(
+              '¡Eliminado!',
+              'El contrato ha sido eliminado correctamente.',
+              'success'
+            );
+            this.obtenerContratos();
+            this.refreshList();
+          },
+          (error) => {
+            Swal.fire(
+              '¡Error!',
+              'Ocurrió un error al intentar eliminar el contrato.',
+              'error'
+            );
+            console.error('Error al eliminar contrato:', error);
+          }
+        );
+      }
+    });
+  }
 
 filtrarContratos(): void {
   if (this.terminoBusqueda.trim() !== '') {
@@ -120,6 +107,7 @@ filtrarContratos(): void {
       const esValido = contrato.nombre_empresa.toLowerCase().includes(termino) ||
                        contrato.fecha_inicio.toLowerCase().includes(termino) ||
                        contrato.fecha_fin.toLowerCase().includes(termino) ||
+                       contrato.descripcion_contrato.toLowerCase().includes(termino) ||
                        this.esEstadoBusquedaValido(contrato, termino);
       return esValido;
     });
@@ -196,5 +184,7 @@ verPDF(contrato_pdf: string): void {
   );
 }
 
+  pageChange(event: number): void {
+    this.currentPage = event;
+  }
 }
-
